@@ -1,0 +1,4 @@
+ansys-sphinx-theme==1.0.5
+numpydoc==1.8.0
+sphinx==8.0.2
+sphinx-copybutton==0.5.2

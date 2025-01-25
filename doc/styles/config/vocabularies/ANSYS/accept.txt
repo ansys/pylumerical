@@ -1,0 +1,6 @@
+ANSYS
+[Aa]nsys
+isort
+Makefile
+py
+pytest

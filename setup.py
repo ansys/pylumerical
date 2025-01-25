@@ -5,7 +5,7 @@ from setuptools import find_namespace_packages, setup
 setup(
     name="ansys-lumerical",
     version="0.1.dev0",
-    url="https://github.com/ansys/pylumerical-library",
+    url="https://github.com/ansys-internal/pylumerical",
     author="ANSYS, Inc.",
     author_email="pyansys.support@ansys.com",
     maintainer="PyAnsys developers",

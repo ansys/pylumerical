@@ -1,4 +1,4 @@
-from ansys.lumerical.library import __version__
+from ansys.lumerical.core import __version__
 
 
 def test_pkg_version():
@@ -6,6 +6,6 @@ def test_pkg_version():
 
     # Read from the pyproject.toml
     # major, minor, patch
-    read_version = importlib_metadata.version("ansys-lumerical-library")
+    read_version = importlib_metadata.version("ansys-lumerical-core")
 
     assert __version__ == read_version

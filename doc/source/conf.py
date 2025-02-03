@@ -4,11 +4,11 @@ from datetime import datetime
 import os
 
 from ansys_sphinx_theme import get_version_match
-from ansys.lumerical.library import __version__
+from ansys.lumerical.core import __version__
 
 
 # Project information
-project = "ansys-lumerical-library"
+project = "ansys-lumerical-core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
@@ -17,11 +17,11 @@ switcher_version = get_version_match(__version__)
 
 # Select desired logo, theme, and declare the html title
 html_theme = "ansys_sphinx_theme"
-html_short_title = html_title = "pylumerical-library"
+html_short_title = html_title = "PyLumerical"
 
 # specify the location of your github repo
 html_theme_options = {
-    "github_url": "https://github.com/ansys/pylumerical-library",
+    "github_url": "https://github.com/ansys/pylumerical",
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "additional_breadcrumbs": [
@@ -93,13 +93,13 @@ master_doc = "index"
 
 # Keep these while the repository is private
 linkcheck_ignore = [
-    "https://github.com/ansys/pylumerical-library/*",
-    "https://pypi.org/project/ansys-lumerical-library",
+    "https://github.com/ansys/pylumerical/*",
+    "https://pypi.org/project/ansys-lumerical-core",
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
 # available until the release is published.
 if switcher_version != "dev":
     linkcheck_ignore.append(
-        f"https://github.com/ansys/ansys.lumerical.library/releases/tag/v{__version__}"
+        f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}"
     )

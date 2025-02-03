@@ -1,4 +1,4 @@
-Pylumerical Library
+PyLumerical Library
 ===================
 
 A Python wrapper for Ansys Lumerical
@@ -16,12 +16,12 @@ User installation can be performed by running:
 
 .. code:: bash
 
-    python -m pip install ansys-lumerical-library
+    python -m pip install ansys-lumerical-core
 
 For developers
 ^^^^^^^^^^^^^^
 
-Installing Pylumerical Library in developer mode allows
+Installing PyLumerical Library in developer mode allows
 you to modify the source and enhance it.
 
 Before contributing to the project, please refer to the `PyAnsys Developer's guide`_. You will
@@ -31,7 +31,7 @@ need to follow these steps:
 
    .. code:: bash
 
-      git clone https://github.com/ansys/pylumerical-library
+      git clone https://github.com/ansys/pylumerical
 
 #. Create a fresh-clean Python environment and activate it. Refer to the
    official `venv`_ documentation if you require further information:
@@ -60,7 +60,7 @@ need to follow these steps:
 
    .. code:: bash
 
-      python -m pip install --editable ansys-lumerical-library
+      python -m pip install --editable ansys-lumerical-core
 
 #. Install additional requirements (if needed):
 

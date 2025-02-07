@@ -15,7 +15,6 @@ if not sys.maxsize > 2**32:
 
 from ctypes import Structure, Union, POINTER, CDLL, c_char, c_int, c_uint, c_ulonglong, c_double, c_char_p, c_void_p, \
     byref, memmove, addressof
-from contextlib import contextmanager
 import inspect
 import json
 import os
@@ -27,82 +26,7 @@ import warnings
 import collections
 import types
 
-
-INTEROPLIBDIR = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-INTEROPLIB_FILENAME = ""
-INTEROPLIB = ""
-ENVIRONPATH = ""
-REMOTE_MODULE_ON = False
-
-def setLumericalInstallPath(lumerical_path):
-    global INTEROPLIBDIR
-    INTEROPLIBDIR = os.path.join(lumerical_path, "api/python/")
-
-def initLibraryEnv(remoteArgs):
-    global INTEROPLIB_FILENAME
-    global INTEROPLIB
-    global ENVIRONPATH
-    global REMOTE_MODULE_ON
-    REMOTE_MODULE_ON = type(remoteArgs) is dict and len(remoteArgs) > 0
-    if REMOTE_MODULE_ON:
-        if (platform.system() == 'Windows'):
-            INTEROPLIB_FILENAME = "interopapi-remote.dll"
-        if (platform.system() == 'Linux'):
-            INTEROPLIB_FILENAME = "libinteropapi-remote.so.1"
-    else:
-        # we are not using remote module, just load regular libraries
-        if (platform.system() == 'Windows'):
-            INTEROPLIB_FILENAME = "interopapi.dll"
-        if (platform.system() == 'Linux'):
-            INTEROPLIB_FILENAME = "libinterop-api.so.1"
-
-    if len(INTEROPLIB_FILENAME) == 0 or len(INTEROPLIBDIR) == 0:
-        raise ImportError("Library name or directory were not defined.")
-
-    if (platform.system() == 'Windows') or (platform.system() == 'Linux'):
-        LUMERICALDIR = os.path.abspath(INTEROPLIBDIR + "/../../")
-        MODERN_LUMLDIR = LUMERICALDIR + "/bin"
-        INTEROPLIB = os.path.join(INTEROPLIBDIR, INTEROPLIB_FILENAME)
-        if platform.system() == 'Windows':
-            ENVIRONPATH = MODERN_LUMLDIR + ";" + \
-                        os.environ['PATH']
-        elif platform.system() == 'Linux':
-            ENVIRONPATH = MODERN_LUMLDIR + ":" + \
-                        os.environ['PATH']
-    elif platform.system() == 'Darwin':
-        LUMERICALDIR = os.path.abspath(INTEROPLIBDIR + "/../../../")
-        INTEROPLIB = INTEROPLIBDIR + "/libinterop-api.1.dylib"
-        FDTD_SUFFIX = "/FDTD Solutions.app/Contents/MacOS"
-        MODE_SUFFIX = "/MODE Solutions.app/Contents/MacOS"
-        DEVC_SUFFIX = "/DEVICE.app/Contents/MacOS"
-        INTC_SUFFIX = "/INTERCONNECT.app/Contents/MacOS"
-        MODERN_FDTDDIR = LUMERICALDIR + "/Contents/Applications" + FDTD_SUFFIX
-        MODERN_MODEDIR = LUMERICALDIR + "/Contents/Applications" + MODE_SUFFIX
-        MODERN_DEVCDIR = LUMERICALDIR + "/Contents/Applications" + DEVC_SUFFIX
-        MODERN_INTCDIR = LUMERICALDIR + "/Contents/Applications" + INTC_SUFFIX
-        ENVIRONPATH = MODERN_FDTDDIR + ":" + MODERN_MODEDIR + ":" + MODERN_DEVCDIR + ":" + MODERN_INTCDIR + ":" + \
-                    os.environ['PATH']
-
-@contextmanager
-def environ(env):
-    """Temporarily set environment variables inside the context manager and
-    fully restore previous environment afterwards
-    """
-    original_env = {key: os.getenv(key) for key in env}
-    os.environ.update(env)
-    try:
-        yield
-    finally:
-        for key, value in original_env.items():
-            if value is None:
-                del os.environ[key]
-            else:
-                os.environ[key] = value
-
-
-class Session(Structure):
-    _fields_ = [("p", c_void_p)]
-
+from .configure import environ, initLib, Session, Any, LumString, LumMat, LumNameValuePair, LumStruct, LumList, ValUnion, InteropPaths, remoteModuleOn
 
 class LumApiSession:
     def __init__(self, iapiArg, handleArg):
@@ -111,112 +35,10 @@ class LumApiSession:
         self.__doc__ = "handle to the session"
 
 
-class LumString(Structure):
-    _fields_ = [("len", c_ulonglong), ("str", POINTER(c_char))]
-
-
-class LumMat(Structure):
-    _fields_ = [("mode", c_uint),
-                ("dim", c_ulonglong),
-                ("dimlst", POINTER(c_ulonglong)),
-                ("data", POINTER(c_double))]
-
-
-## For incomplete types where the type is not defined before it's used.
-## An example is the LumStruct that contains a member of type Any but the type Any is still undefined
-## Review https://docs.python.org/2/library/ctypes.html#incomplete-types for more information.
-class LumNameValuePair(Structure):
-    pass
-
-
-class LumStruct(Structure):
-    pass
-
-
-class LumList(Structure):
-    pass
-
-
-class ValUnion(Union):
-    pass
-
-
-class Any(Structure):
-    pass
-
-
-LumNameValuePair._fields_ = [("name", LumString), ("value", POINTER(Any))]
-LumStruct._fields_ = [("size", c_ulonglong), ("elements", POINTER(POINTER(Any)))]
-LumList._fields_ = [("size", c_ulonglong), ("elements", POINTER(POINTER(Any)))]
-ValUnion._fields_ = [("doubleVal", c_double),
-                     ("strVal", LumString),
-                     ("matrixVal", LumMat),
-                     ("structVal", LumStruct),
-                     ("nameValuePairVal", LumNameValuePair),
-                     ("listVal", LumList)]
-Any._fields_ = [("type", c_int), ("val", ValUnion)]
-
-
 def lumWarning(message):
     print("{!!}")
     warnings.warn(message)
     print("")
-
-
-def initLib(remoteArgs):
-    initLibraryEnv(remoteArgs)
-
-    if not os.path.isfile(INTEROPLIB):
-        raise ImportError("Unable to find file " + INTEROPLIB)
-
-    with environ({"PATH":ENVIRONPATH}):
-        iapi = CDLL(INTEROPLIB)
-        # print('\033[93m' + "Library loaded: " + INTEROPLIB + '\033[0m')
-
-        iapi.appOpen.restype = Session
-        iapi.appOpen.argtypes = [c_char_p, POINTER(c_ulonglong)]
-
-        iapi.appClose.restype = None
-        iapi.appClose.argtypes = [Session]
-
-        iapi.appEvalScript.restype = int
-        iapi.appEvalScript.argtypes = [Session, c_char_p]
-
-        iapi.appGetVar.restype = int
-        iapi.appGetVar.argtypes = [Session, c_char_p, POINTER(POINTER(Any))]
-
-        iapi.appPutVar.restype = int
-        iapi.appPutVar.argtypes = [Session, c_char_p, POINTER(Any)]
-
-        iapi.allocateLumDouble.restype = POINTER(Any)
-        iapi.allocateLumDouble.argtypes = [c_double]
-
-        iapi.allocateLumString.restype = POINTER(Any)
-        iapi.allocateLumString.argtypes = [c_ulonglong, c_char_p]
-
-        iapi.allocateLumMatrix.restype = POINTER(Any)
-        iapi.allocateLumMatrix.argtypes = [c_ulonglong, POINTER(c_ulonglong)]
-
-        iapi.allocateComplexLumMatrix.restype = POINTER(Any)
-        iapi.allocateComplexLumMatrix.argtypes = [c_ulonglong, POINTER(c_ulonglong)]
-
-        iapi.allocateLumNameValuePair.restype = POINTER(Any)
-        iapi.allocateLumNameValuePair.argtypes = [c_ulonglong, c_char_p, POINTER(Any)]
-
-        iapi.allocateLumStruct.restype = POINTER(Any)
-        iapi.allocateLumStruct.argtypes = [c_ulonglong, POINTER(POINTER(Any))]
-
-        iapi.allocateLumList.restype = POINTER(Any)
-        iapi.allocateLumList.argtypes = [c_ulonglong, POINTER(POINTER(Any))]
-
-        iapi.freeAny.restype = None
-        iapi.freeAny.argtypes = [POINTER(Any)]
-
-        iapi.appGetLastError.restype = POINTER(LumString)
-        iapi.appGetLastError.argtypes = None
-
-        return iapi
-
 
 
 class LumApiError(Exception):
@@ -546,7 +368,7 @@ class MatrixDatasetTranslator:
         else:
             # [...] -> [1, ncomp]
             attribPreTranslator = lambda v: np.reshape(v, [1, ncomp(v)])
-        return dict([(attribName, attribPreTranslator) for attribName in metaData.get("attributes", [])])
+        return dict([(attribName, attribPreTranslator) for attribName in metaData.get("attributes", [])]) 
 
 
 class PointDatasetTranslator:
@@ -950,7 +772,7 @@ class SimObjectResults(object):
     def __getitem__(self, name):
         return self.__getattr__(name)
 
-    def __setitem(self, name, value):
+    def __setitem__(self, name, value):
         self.__setattr__(name, value)
 
     def __getattr__(self, name):
@@ -1213,7 +1035,7 @@ class Lumerical(object):
             raise
 
         try:
-            with biopen(INTEROPLIBDIR + '/docs.json') as docFile:
+            with biopen(InteropPaths.INTEROPLIBDIR + '/docs.json') as docFile:
                 docs = json.load(docFile)
         except:
             docs = {}
@@ -1227,7 +1049,7 @@ class Lumerical(object):
                                     'importdoping', 'lum2mat', 'monitors', 'new2d', 'new3d', 'newmode', 'removepropertydependency',
                                     'setbc', 'setcompositionfraction', 'setcontact', 'setglobal', 'setsolver', 'setparallel',
                                     'showdata', 'skewness', 'sources', 'structures']
-        functionsToExclude = keywordsLumerical + deprecatedScriptCommands
+        functionsToExclude = keywordsLumerical + deprecatedScriptCommands + ['h5info', 'pearson4pdf', 'fitnormpdf']
 
         addScriptCommands =    ['add2drect', 'add2dpoly', 'addabsorbing', 'addanalysisgroup', 'addanalysisprop',
                                 'addanalysisresult', 'addbandstructuremonitor', 'addbulkgen', 'addchargemesh',
@@ -1268,7 +1090,7 @@ class Lumerical(object):
         # load or run any file provided as argument
         # an error here is a constructor failure due to invalid user argument
         try:
-            if REMOTE_MODULE_ON is False: # we are not on remote mode
+            if not remoteModuleOn(remoteArgs): # we are not on remote mode
                 self.cd(os.getcwd())
             if filename is not None:
                 if filename.endswith('.lsf'):
@@ -1379,7 +1201,7 @@ class Lumerical(object):
 
         remoteServerFlag = "?server=true"
         hostnameAndPort = "localhost"
-        if REMOTE_MODULE_ON:
+        if remoteModuleOn(remoteArgs):
             hostnameAndPort = extractsHostnameAndPort(remoteArgs)
             remoteServerFlag = "?remote-server=true"
 
@@ -1409,7 +1231,7 @@ class Lumerical(object):
         if hide:
             url += b"&hide"
 
-        with environ({"PATH":ENVIRONPATH}):
+        with environ({"PATH":InteropPaths.ENVIRONPATH}):
             h = iapi.appOpen(url, k)
             if not iapi.appOpened(h):
                 error = iapi.appGetLastError()
@@ -1526,6 +1348,52 @@ class Lumerical(object):
         for i in toGet:
             listOfChildren.append(self.getObjectById(i))
         return listOfChildren
+    
+    
+    def h5info(self, filename):
+        """
+        Retrieves information about the contents of an HDF5 file.
+
+        Parameters:
+        filename (str): The path to the HDF5 file.
+
+        Returns:
+        dict: A dictionary containing information about the HDF5 file.
+        """
+        return appCall(self, 'h5info', [filename])
+
+    def pearson4pdf(self, x, mean, variance, skewness, kurtosis):
+        """
+        Computes the Pearson type IV probability density function.
+
+        Parameters:
+        x (float): The value at which to evaluate the PDF.
+        mean (float): The mean of the distribution.
+        variance (float): The variance of the distribution.
+        skewness (float): The skewness of the distribution.
+        kurtosis (float): The kurtosis of the distribution.
+
+        Returns:
+        float: The value of the PDF at x.
+        """
+        return appCall(self, 'pearson4pdf', [x, mean, variance, skewness, kurtosis])
+
+    def fitnormpdf(self, x, y, normalize=0, fit_threshold=2e-8, max_iter=400):
+        """
+        Fits data with the normal (Gaussian) probability density function.
+
+        Parameters:
+        x (list): The x values of the data.
+        y (list): The y values of the data.
+        normalize (int, optional): If set to 1, the fit amplitude is relative to a distribution with a unit maximum (A = 1). Default is 0.
+        fit_threshold (float, optional): Relative tolerance for the fitting convergence. Default is 2e-8.
+        max_iter (int, optional): Maximum number of iterations for the fitting process. Default is 400.
+
+        Returns:
+        list: The values for A, µ, and σ.
+        """
+        return appCall(self, 'fitnormpdf', [x, y, normalize, fit_threshold, max_iter])
+
 
 
 class INTERCONNECT(Lumerical):

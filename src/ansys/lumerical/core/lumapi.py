@@ -329,15 +329,6 @@ def unpackMatrix(handle, value):
 
     return r
 
-
-def isIntType(value):
-    try:  # Python 2
-        intTypes = [int, long]
-    except NameError:  # Python 3
-        intTypes = [int]
-    return type(value) in intTypes
-
-
 class MatrixDatasetTranslator:
     @staticmethod
     def _applyConventionToStructAttribute(d, attribName):
@@ -480,14 +471,11 @@ class PutTranslator:
 
     @staticmethod
     def translate(handle, value):
-        try:  # Python 2
-            strTypes = [str, unicode]
-        except NameError:  # Python 3
-            strTypes = [bytes, str]
+        strTypes = [bytes, str]
         if type(value) in strTypes:
             v = str(value).encode()
             return handle.iapi.allocateLumString(len(v), v)
-        elif type(value) is float or isIntType(value) or type(value) is bool:
+        elif type(value) is float or type(value) is int or type(value) is bool:
             return handle.iapi.allocateLumDouble(float(value))
         elif 'numpy.ndarray' in str(type(value)):
             return packMatrix(handle, value)
@@ -716,7 +704,7 @@ def appCall(self, name, *args):
     _evalScriptInternal(self.handle, 'clear(%s,%s);' % (vin, vout))
 
     if rvals[1] < 0.9:
-        message = re.sub('^(Error:)\s(prompt line)\s[0-9]+:', '', str(rvals[2])).strip()
+        message = re.sub(r'^(Error:)\s(prompt line)\s[0-9]+:', '', str(rvals[2])).strip()
         if "argument" in message and ("must be one of" in message or "type is not supported" in message or "is incorrect" in message):
             argLumTypes = lumTypes(list(args[0]))
             message += (" - " + name + " arguments were converted to (" + ", ".join(argLumTypes) + ")")

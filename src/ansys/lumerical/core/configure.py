@@ -180,6 +180,19 @@ def environ(env):
                 os.environ[key] = value
 
 def initLib(remoteArgs):
+    """
+    Initializes the library environment and loads the interop library.
+    This function sets up the environment for the interop library using the provided
+    remote arguments. It then loads the interop library and sets up the function
+    signatures for various interop functions.
+    Args:
+        remoteArgs (dict): A dictionary containing the remote arguments required to
+                           initialize the library environment.
+    Raises:
+        ImportError: If the interop library file cannot be found.
+    Returns:
+        CDLL: The loaded interop library with the function signatures set.
+    """
     InteropPaths.initLibraryEnv(remoteArgs)
 
     if not os.path.isfile(InteropPaths.INTEROPLIB):

@@ -1,6 +1,6 @@
 import ansys.lumerical.core as lumapi  # Import the lumapi module
 
-def test_start_FDTD_session():
+def test_FDTD_start_session():
     """
     Test the starting of an FDTD session and variable manipulation.
     This test performs the following steps:
@@ -26,30 +26,3 @@ def test_start_FDTD_session():
 
         # Check if the set value and read value are the same
         assert variable_value + offset_value == read_value
-
-def test_start_MODE_session():
-    """
-    Test the starting of a MODE session and adding a rectangle with specified properties.
-    This test function performs the following steps:
-    1. Starts a MODE session with the `hide` parameter set to True.
-    2. Adds a rectangle with specified properties (`name` and `x span`).
-    3. Queries the value of the `x span` property of the added rectangle.
-    4. Asserts that the queried value matches the set value.
-    Raises:
-        AssertionError: If the queried `x span` value does not match the set value.
-    """
-    # Start a MODE session
-    with lumapi.MODE(hide=True) as mode:
-        # Add a rectangle
-        rect_properties = {
-            "name": "test_rect",
-            "x span": 3e-6
-        }
-        mode.addrect(rect_properties)
-        
-        # Query the value of the property
-        x_span_value = mode.getnamed("test_rect", "x span")
-        
-        # Check if the set value and read value are the same
-        assert x_span_value == 3e-6
-

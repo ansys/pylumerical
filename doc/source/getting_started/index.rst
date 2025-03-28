@@ -1,4 +1,4 @@
-Getting started
+Installation
 ---------------
 
 At least two installation modes are provided: user and developer.

@@ -16,7 +16,7 @@ repos:
     # As per this issue https://github.com/pre-commit/pre-commit/issues/2936,
     # it looks like the `--all-files` only listens for the `exclude` option in a
     # pre-commit hook, ignoring `pyproject.toml` excludes.
-    exclude: ^(tests/|doc/_build|doc/styles/|doc/source/_static)
+    exclude: ^(pyproject.toml|tests/|doc/_build|doc/styles/|doc/source/_static)
     args: [--ignore-words=./doc/styles/config/vocabularies/ANSYS/accept.txt]
     # TODO: pre-commit seems to ignore the configuration declared for codespell
     # in the `pyproject.toml` file. For more details, see `[tool.codespell]` in

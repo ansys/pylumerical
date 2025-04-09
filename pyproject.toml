@@ -22,6 +22,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "ansys-api-lumerical",
 ]
 
 [project.optional-dependencies]

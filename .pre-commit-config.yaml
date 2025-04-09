@@ -1,0 +1,32 @@
+repos:
+
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: v0.11.4
+  hooks:
+    - id: ruff
+      args: [ --fix ]
+    - id: ruff-format
+
+- repo: https://github.com/codespell-project/codespell
+  rev: v2.4.1
+  hooks:
+  - id: codespell
+    # HACK: pre-commit is used during the code-style job in CI/CD. This job
+    # executes `pre-commit run --all-files --show-diff-on-failure`.
+    # As per this issue https://github.com/pre-commit/pre-commit/issues/2936,
+    # it looks like the `--all-files` only listens for the `exclude` option in a
+    # pre-commit hook, ignoring `pyproject.toml` excludes.
+    exclude: ^(tests/|doc/_build|doc/styles/|doc/source/_static)
+    args: [--ignore-words=./doc/styles/config/vocabularies/ANSYS/accept.txt]
+    # TODO: pre-commit seems to ignore the configuration declared for codespell
+    # in the `pyproject.toml` file. For more details, see `[tool.codespell]` in
+    # the `pyproject.toml` file.
+    # additional_dependencies:
+    #   - tomli
+
+- repo: https://github.com/ansys/pre-commit-hooks
+  rev: v0.5.2
+  hooks:
+    - id: add-license-headers
+      args:
+      - --start_year=2025

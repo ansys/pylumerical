@@ -1,0 +1,161 @@
+name: pull-request
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+env:
+  MAIN_PYTHON_VERSION: '3.13'
+  LIBRARY_NAME: 'ansys-lumerical-core'
+  LIBRARY_NAMESPACE: 'ansys.lumerical.core'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  labeler:
+    name: "Labels"
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: |
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+      github.event.type != 'labeled'
+    steps:
+     - uses: actions/checkout@v4
+
+     - name: "Update labels"
+       uses: micnncim/action-label-syncer@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+     - name: "Label pull-request"
+       uses: actions/labeler@v5.0.0
+       with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  check-pr-title:
+    name: "Check pull-request title follows conventional commits"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/check-pr-title@v9
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  code-style:
+    name: "Code style checks"
+    runs-on: ubuntu-latest
+    if: |
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+      !contains(github.event.pull_request.labels.*.name, 'style:skip')
+    needs: check-pr-title
+    steps:
+      - uses: ansys/actions/code-style@v9
+        with: 
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+  doc-style:
+    name: "Doc style checks"
+    runs-on: ubuntu-latest
+    if: |
+      !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+      !contains(github.event.pull_request.labels.*.name, 'style:skip')
+    needs: check-pr-title
+    steps:
+      - name: "Checkout project"
+        uses: actions/checkout@v4
+
+      - name: "Install jq"
+        run: |
+          # Used to format Vale input as a JSON-formatted list of files
+          sudo apt install -y jq
+
+      - name: "Collect desired files"
+        run: |
+          # Find all .rst files excluding those in doc/source/api/
+          RST_FILES=$(find doc/source -type f -name "*.rst" ! -path "doc/source/api/*")
+
+          # Find all .py files inside the examples/ directory, excluding those with an underscore
+          PY_FILES=$(find examples -type f -name "*.py" ! -name "*_*")
+
+          # Combine both file lists and convert them to a JSON array
+          # TODO: include Python files too. See Vale issue
+          # https://github.com/errata-ai/vale/issues/858
+          # VALE_FILES=$(echo -e "$RST_FILES\n$PY_FILES" | jq -R . | jq -s .)
+          VALE_FILES=$(echo -e "$RST_FILES" | jq -R . | jq -s .)
+          echo "VALE_FILES=$(echo $VALE_FILES)" >> $GITHUB_ENV
+
+      - uses: ansys/actions/doc-style@v9
+        with:
+          checkout: false
+          files: "${{ env.VALE_FILES }}"
+          vale-config: doc/.vale.ini
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-wheelhouse:
+    name: "Build wheelhouse for latest Python versions"
+    runs-on: ${{ matrix.os }}
+    needs: doc-style
+    if: |
+      always() &&
+        (needs.doc-style.result == 'success' || needs.doc-style.result == 'skipped') &&
+        !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+        !contains(github.event.pull_request.labels.*.name, 'docs:skip')
+    strategy:
+       matrix:
+           os: [ubuntu-latest, windows-latest]
+           python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - name: "Build a wheelhouse of the Python library"
+        uses: ansys/actions/build-wheelhouse@v9
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+  doc-build:
+    name: "Doc build"
+    runs-on: ${{ matrix.runner }}
+    needs: build-wheelhouse
+    if: |
+      always() &&
+        (needs.build-wheelhouse.result == 'success' || needs.build-wheelhouse.result == 'skipped') &&
+        !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+        !contains(github.event.pull_request.labels.*.name, 'docs:skip')
+    steps:
+      - uses: ansys/actions/doc-build@v9
+
+
+  tests:
+    name: "Tests / ${{ matrix.os }} / Python ${{ matrix.python }}"
+    runs-on: ${{ matrix.os }}
+    if: |
+      always() &&
+        (needs.code-style.result == 'success' || needs.code-style.result == 'skipped') &&
+        !contains(github.event.pull_request.labels.*.name, 'ci:skip') &&
+        !contains(github.event.pull_request.labels.*.name, 'tests:skip')
+    needs: code-style
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        python: ['3.11', '3.12', '3.13']
+      fail-fast: false
+    steps:
+      - uses: ansys/actions@v9
+
+  build-library:
+    name: "Build library"
+    runs-on: ubuntu-latest
+    if: |
+      always() &&
+        (needs.doc-build.result == 'success' || needs.doc-build.result == 'skipped') &&
+        (needs.tests.result == 'success' || needs.tests.result == 'skipped') &&
+        !contains(github.event.pull_request.labels.*.name, 'ci:skip')
+    needs: [doc-build, tests]
+    steps:
+      - uses: ansys/actions/build-library@v9
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}

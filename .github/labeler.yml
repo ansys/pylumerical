@@ -26,7 +26,7 @@
           - any-glob-to-any-file: ['examples/**/*.py', 'doc/source/examples.rst']
 
 ## -- Other labels ------------------------------------------------------------
-'code-style':
+'style:code':
   - any:
       - changed-files:
           - any-glob-to-any-file: ['.pre-commit-config.yaml', 'doc/.vale.ini']

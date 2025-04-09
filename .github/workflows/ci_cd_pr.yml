@@ -144,7 +144,7 @@ jobs:
         python: ['3.11', '3.12', '3.13']
       fail-fast: false
     steps:
-      - uses: ansys/actions@tests-pytest@v9
+      - uses: ansys/actions/tests-pytest@v9
 
   build-library:
     name: "Build library"

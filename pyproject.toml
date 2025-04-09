@@ -1,6 +1,41 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "ansys-lumerical-core"
+dynamic = ["version"]
+description = "A Python API for Ansys Lumerical"
+readme = "README.rst"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+authors = [
+    {name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"},
+]
+maintainers = [
+    {name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest==7.4.3",
+    "pytest-cov==4.1.0",
+]
+doc = [
+    "ansys-sphinx-theme==1.4.2",
+    "numpydoc==1.8.0",
+    "sphinx==8.2.3",
+    "sphinx-copybutton==0.5.2",
+]
+
 
 [tool.black]
 line-length = 100
@@ -16,19 +51,19 @@ src_paths = ["doc", "src", "tests"]
 convention = "numpy"
 
 [tool.coverage.run]
-source = ["ansys.lumerical"]
+source = ["ansys.lumerical.core"]
 
 [tool.coverage.report]
 show_missing = true
 
 [tool.towncrier]
-package = "ansys.lumerical.library"
-directory = "doc/changelog.d"
+package = "ansys.lumerical.core"
+directory = "doc/source/changelog"
 filename = "doc/source/changelog.rst"
 start_string = ".. towncrier release notes start\n"
-template = "doc/changelog.d/changelog_template.jinja"
-title_format = "`{version} <https://github.com/ansys/ansys.lumerical.library/releases/tag/v{version}>`_ - {project_date}"
-issue_format = "`#{issue} <https://github.com/ansys/ansys.lumerical.library/pull/{issue}>`_"
+template = "doc/source/changelog/template"
+title_format = "`{version} <https://github.com/ansys/ansys.lumerical.core/releases/tag/v{version}>`_ - {project_date}"
+issue_format = "`#{issue} <https://github.com/ansys/ansys.lumerical.core/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
 directory = "added"

@@ -37,6 +37,8 @@ doc = [
     "sphinx-copybutton==0.5.2",
 ]
 
+[tool.flit.module]
+name = "ansys.lumerical.core"
 
 [tool.black]
 line-length = 100

@@ -1,5 +1,6 @@
-PyLumerical
-###########
+.. image:: https://refactored-adventure-6kq84e3.pages.github.io/version/dev/_static/logos/pyansys/pylumerical.svg
+    :alt: PyLumerical Logo
+    :align: center
 
 |
 

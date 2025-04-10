@@ -1,4 +1,4 @@
-.. image:: https://raw.githubusercontent.com/ansys-internal/pylumerical/blob/feat/layout/doc/source/_static/pylumerical.svg
+.. image:: https://github.com/ansys-internal/pylumerical/blob/feat/layout/doc/source/_static/pylumerical.svg
     :alt: PyLumerical Logo
     :align: center
 

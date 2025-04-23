@@ -1,0 +1,6 @@
+{
+    "restructuredtext.linter.rst-lint.executablePath": "C:\\Users\\adwang\\.ansys_python_venvs\\my_doc_venv\\Scripts\\rst-lint.exe",
+    "restructuredtext.linter.doc8.executablePath": "C:\\Users\\adwang\\.ansys_python_venvs\\my_doc_venv\\Scripts\\doc8.exe",
+    "restructuredtext.linter.run": "onType",
+    "restructuredtext.pythonRecommendation.disabled": false
+}

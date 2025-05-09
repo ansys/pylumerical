@@ -5,7 +5,7 @@ At least two installation modes are provided: user and developer.
 
 For users
 ^^^^^^^^^
-In order to install Pylumerical Library, make sure you
+In order to install Pylumerical, make sure you
 have the latest version of `pip`_. To do so, run:
 
 .. code:: bash
@@ -16,11 +16,11 @@ Then, you can simply execute:
 
 .. code:: bash
 
-    python -m pip install ansys-lumerical-library
+    python -m pip install ansys-lumerical-core
 
 For developers
 ^^^^^^^^^^^^^^
-Installing Pylumerical Library in developer mode allows
+Installing Pylumerical in developer mode allows
 you to modify the source and enhance it.
 
 Before contributing to the project, please refer to the `PyAnsys Developer's guide`_ and then follow these steps:
@@ -29,7 +29,7 @@ Before contributing to the project, please refer to the `PyAnsys Developer's gui
 
    .. code:: bash
 
-      git clone https://github.com/ansys/pylumerical-library
+      git clone https://github.com/ansys/pylumerical
 
 #. Create a fresh-clean Python environment and activate it:
 
@@ -61,7 +61,7 @@ Before contributing to the project, please refer to the `PyAnsys Developer's gui
 
     .. code:: bash
 
-      python -m pip install --editable ansys-lumerical-library
+      python -m pip install --editable .
 
     #. Finally, verify your development installation by running:
 

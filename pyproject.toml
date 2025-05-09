@@ -2,6 +2,39 @@
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools.packages.find]
+where = ["src/"]
+include = ["ansys*"]
+
+[project]
+name = "ansys-lumerical-core"
+version = "0.1.dev0"
+description = "Python interface to Ansys Lumerical"
+authors=[{name="ANSYS, Inc.", email="pyansys.support@ansys.com"}]
+maintainers=[{name="PyAnsys developers", email="pyansys.core@ansys.com"}]
+readme = "README.rst"
+license = {file = "LICENSE"}
+keywords = ["Ansys", "Lumerical", "photonics", "simulation"]
+dependencies = [
+    "ansys-api-lumerical",
+    "numpy",
+    "importlib-metadata >=4.0"
+]
+requires-python = ">=3.9"
+classifiers=[
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
 [tool.black]
 line-length = 100
 
@@ -22,13 +55,13 @@ source = ["ansys.lumerical"]
 show_missing = true
 
 [tool.towncrier]
-package = "ansys.lumerical.library"
+package = "ansys.lumerical.core"
 directory = "doc/changelog.d"
 filename = "doc/source/changelog.rst"
 start_string = ".. towncrier release notes start\n"
 template = "doc/changelog.d/changelog_template.jinja"
-title_format = "`{version} <https://github.com/ansys/ansys.lumerical.library/releases/tag/v{version}>`_ - {project_date}"
-issue_format = "`#{issue} <https://github.com/ansys/ansys.lumerical.library/pull/{issue}>`_"
+title_format = "`{version} <https://github.com/ansys/ansys.lumerical.core/releases/tag/v{version}>`_ - {project_date}"
+issue_format = "`#{issue} <https://github.com/ansys/ansys.lumerical.core/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
 directory = "added"

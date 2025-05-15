@@ -22,7 +22,7 @@ def locate_lumerical_install():
     Examples:
         Example 1: Use autodiscovery to locate a Lumerical installation in a default location.
         >>> import ansys.lumerical.core as lumapi
-        >>> # use lumapi.FDTD() to start a session
+        >>> # use lumapi ...
 
         Example 2: Provide a custom installation path before importing the module.
         >>> import ansys.api.lumerical.lumapi
@@ -38,6 +38,8 @@ def locate_lumerical_install():
     """
 
     lumerical_install_dir = None
+
+    # TODO: add registry checks on Windows
 
     if platform.system() == 'Windows':
         guess_base_and_suffix = [["C:\\Program Files\\Lumerical\\", ""], ["C:\\Program Files\\Ansys Inc\\", "Lumerical"]]

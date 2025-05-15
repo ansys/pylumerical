@@ -9,14 +9,21 @@ try:
 except ModuleNotFoundError:
     import importlib_metadata
 
-from ansys.api.lumerical.lumapi import InteropPaths, FDTD, MODE, DEVICE, INTERCONNECT
-from .autodiscovery import locate_lumerical_install
+import ansys.api.lumerical
 
-if len(InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = locate_lumerical_install()
+# Make common names from lumapi available in the top-level namespace
+from ansys.api.lumerical.lumapi import (FDTD, MODE, DEVICE, INTERCONNECT, SimObject, SimObjectResults, SimObjectId)
+from . import autodiscovery
+
+if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
+    install_dir = autodiscovery.locate_lumerical_install()
     if install_dir is not None:
-        InteropPaths.setLumericalInstallPath(install_dir)
+        ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
     else:
-        print("Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
+        # TODO: how to handle this warning?
+        print(
+            "Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath "
+            "to set the interop library location.")
+    del install_dir  # remove the local variable to exclude from the namespace
 
 __version__ = importlib_metadata.version(__name__.replace(".", "-"))

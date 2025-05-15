@@ -4,10 +4,8 @@ lumerical.
 Core
 """
 
-try:
-    import importlib.metadata as importlib_metadata
-except ModuleNotFoundError:
-    import importlib_metadata
+__version__ = "0.1.dev0"
+"""Lumerical API version."""
 
 import ansys.api.lumerical
 
@@ -25,5 +23,3 @@ if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
             "Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath "
             "to set the interop library location.")
     del install_dir  # remove the local variable to exclude from the namespace
-
-__version__ = importlib_metadata.version(__name__.replace(".", "-"))

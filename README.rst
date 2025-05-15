@@ -67,14 +67,14 @@ need to follow these steps:
    .. code:: bash
 
       python -m pip install -r requirements/requirements_build.txt
-      python -m pip install -r requirements/requirements_doc.txt
-      python -m pip install -r requirements/requirements_tests.txt
+      python -m pip install ansys-lumerical-core[tests]
+      python -m pip install ansys-lumerical-core[doc]
 
 #. Finally, verify your development installation by running:
 
    .. code:: bash
 
-      python -m pip install -r requirements/requirements_tests.txt
+      python -m pip install ansys-lumerical-core[tests]
       pytest tests -v
 
 

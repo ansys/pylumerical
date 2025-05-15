@@ -1,26 +1,21 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-where = ["src/"]
-include = ["ansys*"]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 [project]
 name = "ansys-lumerical-core"
-version = "0.1.dev0"
+dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
-authors=[{name="ANSYS, Inc.", email="pyansys.support@ansys.com"}]
-maintainers=[{name="PyAnsys developers", email="pyansys.core@ansys.com"}]
 readme = "README.rst"
-license = {file = "LICENSE"}
-keywords = ["Ansys", "Lumerical", "photonics", "simulation"]
-dependencies = [
-    "ansys-api-lumerical",
-    "numpy",
-    "importlib-metadata >=4.0"
-]
 requires-python = ">=3.9"
+license = {file = "LICENSE"}
+authors=[
+    {name="ANSYS, Inc.", email="pyansys.support@ansys.com"}
+]
+maintainers=[
+    {name="PyAnsys developers", email="pyansys.core@ansys.com"}
+]
+keywords = ["Ansys", "Lumerical", "photonics", "simulation"]
 classifiers=[
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
@@ -34,6 +29,27 @@ classifiers=[
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Information Analysis",
 ]
+
+dependencies = [
+    "ansys-api-lumerical",
+    "numpy",
+    "importlib-metadata >=4.0"
+]
+
+[project.optional-dependencies]
+tests = [
+    "pytest==7.4.3",
+    "pytest-cov==4.1.0",
+]
+doc = [
+    "ansys-sphinx-theme==1.4.2",
+    "numpydoc==1.8.0",
+    "sphinx==8.2.3",
+    "sphinx-copybutton==0.5.2",
+]
+
+[tool.flit.module]
+name = "ansys.lumerical.core"
 
 [tool.black]
 line-length = 100

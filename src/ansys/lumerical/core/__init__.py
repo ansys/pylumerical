@@ -1,8 +1,4 @@
-"""
-lumerical.
-
-Core
-"""
+"""Set up the imports for PyLumerical."""
 import ansys.api.lumerical
 
 # Make common names from lumapi available in the top-level namespace

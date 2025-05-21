@@ -1,7 +1,0 @@
-[flake8]
-max-line-length=150
-extend-ignore=C901,E731
-filename=*.py
-exclude=.git,build,dist,doc,venv,.venv,.tox,.eggs,*.egg,*.egg-info
-max-complexity=10
-max-doc-length=105

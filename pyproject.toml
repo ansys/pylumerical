@@ -7,7 +7,7 @@ name = "ansys-lumerical-core"
 dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors=[
     {name="ANSYS, Inc.", email="pyansys.support@ansys.com"}
@@ -20,7 +20,6 @@ classifiers=[
     "Development Status :: 4 - Beta",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -32,7 +31,7 @@ classifiers=[
 
 dependencies = [
     "ansys-api-lumerical",
-    "numpy",
+    "numpy >= 2.2.2",
     "importlib-metadata >=4.0"
 ]
 
@@ -51,15 +50,46 @@ doc = [
 [tool.flit.module]
 name = "ansys.lumerical.core"
 
-[tool.black]
-line-length = 100
+[tool.ruff]
+line-length = 150
+fix = true
+extend-exclude = ["tests/assets"]
 
-[tool.isort]
-profile = "black"
-force_sort_within_sections = true
-line_length = 100
-default_section = "THIRDPARTY"
-src_paths = ["doc", "src", "tests"]
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle, see https://docs.astral.sh/ruff/rules/#pycodestyle-e-w
+    "D",    # pydocstyle, see https://docs.astral.sh/ruff/rules/#pydocstyle-d
+    "F",    # pyflakes, see https://docs.astral.sh/ruff/rules/#pyflakes-f
+    "I",    # isort, see https://docs.astral.sh/ruff/rules/#isort-i
+    "N",    # pep8-naming, see https://docs.astral.sh/ruff/rules/#pep8-naming-n
+    "PTH",  # flake8-use-pathlib, https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
+    "TD",   # flake8-todos, https://docs.astral.sh/ruff/rules/#flake8-todos-td
+]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"examples/*" = ["D100", "E402"]
+"__init__.py" = ["F401"]
+"doc/source/conf.py" = ["N806"]
+
+[tool.ruff.lint.pep8-naming]
+ignore-names = [
+    "test_MODE_start_session",
+    "test_FDTD_start_session",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-sort-within-sections = true
+known-first-party = ["ansys.lumerical.core", "ansys.api.lumerical"]
 
 [tool.pydocstyle]
 convention = "numpy"

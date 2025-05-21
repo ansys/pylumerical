@@ -4,8 +4,8 @@ from datetime import datetime
 import os
 
 from ansys_sphinx_theme import get_version_match
-from ansys.lumerical.core import __version__
 
+from ansys.lumerical.core import __version__
 
 # Project information
 project = "ansys-lumerical-core"

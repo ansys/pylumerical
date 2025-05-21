@@ -53,7 +53,7 @@ name = "ansys.lumerical.core"
 [tool.ruff]
 line-length = 150
 fix = true
-extend-exclude = ["tests/assets"]
+extend-exclude = ["tests/assets", "*.rst"]
 
 [tool.ruff.format]
 quote-style = "double"

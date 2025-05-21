@@ -48,7 +48,7 @@ def locate_lumerical_install():
     """
     lumerical_install_dir = None
 
-    # TODO(dylanm-ansys): add registry checks on Windows
+    # TODO(dylanm-ansys): add registry checks on Windows (https://tfs.ansys.com:8443/tfs/ANSYS_Optics/Lumerical/_workitems/edit/45439)
 
     if platform.system() == 'Windows':
         guess_base_and_suffix = [["C:\\Program Files\\Lumerical\\", ""], ["C:\\Program Files\\Ansys Inc\\", "Lumerical"]]

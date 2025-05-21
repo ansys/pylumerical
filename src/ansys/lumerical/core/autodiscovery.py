@@ -1,4 +1,4 @@
-"""Autodiscover Lumerical installation directory."""
+"""Autodiscover the Lumerical installation directory."""
 
 from pathlib import Path
 import platform
@@ -31,16 +31,19 @@ def locate_lumerical_install():
     Examples
     --------
         Example 1: Use autodiscovery to locate a Lumerical installation in a default location.
+
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
         Example 2: Provide a custom installation path before importing the module.
+
         >>> import ansys.api.lumerical.lumapi
         >>> ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
         Example 3: Provide a custom installation path after importing the module.
+
         >>> import ansys.lumerical.core as lumapi
         Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.
         >>> lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")

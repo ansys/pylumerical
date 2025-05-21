@@ -1,5 +1,5 @@
 PyLumerical
-===================
+===========
 
 A Python wrapper for Ansys Lumerical
 

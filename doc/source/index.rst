@@ -22,7 +22,7 @@ PyLumerical is the automation library for Ansys Lumerical products.
       Getting started resources with PyLumerical and an example.
 
    .. grid-item-card:: API Reference
-      :link: getting_started/index
+      :link: api/index
       :link-type: doc
 
       Reference for the PyLumerical API.  

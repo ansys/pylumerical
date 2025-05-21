@@ -7,7 +7,7 @@ name = "ansys-lumerical-core"
 dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors=[
     {name="ANSYS, Inc.", email="pyansys.support@ansys.com"}

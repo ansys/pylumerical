@@ -64,8 +64,8 @@ def locate_lumerical_install():
     for guess_base, suffix in guess_base_and_suffix:
         if Path(guess_base).exists():
             for dir in Path(guess_base).iterdir():
-                if Path(guess_base, dir, suffix).is_dir():
-                    match = re.match(r'v(\d{2})(\d)', dir)
+                if Path(dir, suffix).is_dir():
+                    match = re.match(r'v(\d{2})(\d)', dir.name)
                     if match:
                         ver_year = int(match.group(1))
                         ver_maj = int(match.group(2))
@@ -73,7 +73,7 @@ def locate_lumerical_install():
                             latest_ver_year = ver_year
                             latest_ver_release = ver_maj
                             # check to make sure the api/python path is there (avoids some false positives from uninstalls)
-                            if Path(guess_base, dir, suffix, "api/python/").exists():
-                                lumerical_install_dir = str(Path(guess_base) / dir / suffix)
+                            if Path(dir, suffix, "api/python/").exists():
+                                lumerical_install_dir = str(Path(dir, suffix))
 
     return lumerical_install_dir

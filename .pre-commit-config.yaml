@@ -38,4 +38,4 @@ repos:
     - id: add-license-headers
       files: '(ansys|tests)/.*\.(py)'
       args:
-      - --start_year=2021
+      - --start_year=2025

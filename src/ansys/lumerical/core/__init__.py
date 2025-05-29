@@ -20,24 +20,22 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Unit test for package metadata."""
+"""Set up the imports for PyLumerical."""
 
-from ansys.lumerical.core import __version__
+import ansys.api.lumerical
 
+# Make common names from lumapi available in the top-level namespace
+from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, SimObject, SimObjectId, SimObjectResults
 
-def test_pkg_version():
-    """
-    Verify that the package version defined in the code matches the version specified in the package metadata.
+from . import autodiscovery
 
-    Raises
-    ------
-        AssertionError: If the `__version__` does not match the version retrieved
-                        from the package metadata.
-    """
-    import importlib.metadata as importlib_metadata
+__version__ = "0.1.dev0"
+"""Lumerical API version."""
 
-    # Read from the pyproject.toml
-    # major, minor, patch
-    read_version = importlib_metadata.version("ansys-lumerical-core")
-
-    assert __version__ == read_version
+if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
+    install_dir = autodiscovery.locate_lumerical_install()
+    if install_dir is not None:
+        ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
+    else:
+        print("Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
+    del install_dir  # remove the local variable to exclude from the namespace

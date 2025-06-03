@@ -4,8 +4,8 @@ from datetime import datetime
 import os
 
 from ansys_sphinx_theme import get_version_match
-from ansys.lumerical.core import __version__
 
+from ansys.lumerical.core import __version__
 
 # Project information
 project = "ansys-lumerical-core"
@@ -101,6 +101,4 @@ linkcheck_ignore = [
 # If we are on a release, we have to ignore the "release" URLs, since it is not
 # available until the release is published.
 if switcher_version != "dev":
-    linkcheck_ignore.append(
-        f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}"
-    )
+    linkcheck_ignore.append(f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}")

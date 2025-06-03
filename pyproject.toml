@@ -7,7 +7,7 @@ name = "ansys-lumerical-core"
 dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4"
 license = {file = "LICENSE"}
 authors=[
     {name="ANSYS, Inc.", email="pyansys.support@ansys.com"}
@@ -45,7 +45,6 @@ doc = [
     "numpydoc==1.8.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
-    "sphinx-design==0.6.1",
 ]
 
 [tool.flit.module]
@@ -54,7 +53,7 @@ name = "ansys.lumerical.core"
 [tool.ruff]
 line-length = 150
 fix = true
-extend-exclude = ["tests/assets"]
+extend-exclude = ["tests/assets", "*.rst"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -107,8 +106,8 @@ directory = "doc/changelog.d"
 filename = "doc/source/changelog.rst"
 start_string = ".. towncrier release notes start\n"
 template = "doc/changelog.d/changelog_template.jinja"
-title_format = "`{version} <https://github.com/ansys/ansys.lumerical.core/releases/tag/v{version}>`_ - {project_date}"
-issue_format = "`#{issue} <https://github.com/ansys/ansys.lumerical.core/pull/{issue}>`_"
+title_format = "`{version} <https://github.com/ansys-internal/pylumerical/releases/tag/v{version}>`_ - {project_date}"
+issue_format = "`#{issue} <https://github.com/ansys-internal/pylumerical/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
 directory = "added"

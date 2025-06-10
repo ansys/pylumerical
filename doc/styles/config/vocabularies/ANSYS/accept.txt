@@ -5,3 +5,10 @@ Makefile
 py
 pytest
 Lumerical
+[Ii]nterop
+[Nn]anowire
+Ansys Lumerical FDTD™
+Ansys Lumerical MODE™
+Ansys Lumerical Multiphysics™
+Ansys Lumerical INTERCONNECT™
+Ansys Lumerical CML Compiler™

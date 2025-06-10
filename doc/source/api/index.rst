@@ -3,7 +3,9 @@ API reference
 
 The API reference section provides an overview of PyLumerical API classes and methods.
 
+:doc:`lumerical_class`
+
 .. toctree::
-    :maxdepth: 3
+    :hidden:
     
     lumerical_class

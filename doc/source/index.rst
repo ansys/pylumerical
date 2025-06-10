@@ -9,13 +9,13 @@ PyLumerical is the automation library for Ansys Lumerical products.
 
 .. grid:: 3
 
-   .. grid-item-card:: Installation
+   .. grid-item-card:: Getting started
       :link: getting_started/index
       :link-type: doc
 
       Information regarding installation of PyLumerical.
 
-   .. grid-item-card:: Getting Started
+   .. grid-item-card:: User guide
       :link: user_guide/index
       :link-type: doc
 
@@ -42,6 +42,7 @@ PyLumerical is the automation library for Ansys Lumerical products.
 
    getting_started/index
    user_guide/index
+   api/index
    examples
    changelog
 

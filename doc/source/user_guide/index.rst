@@ -1,50 +1,67 @@
-Getting started
+User guide
 ========================
 Use Python to analyze data, automate complex workflows, optimizations, and produce publication-quality plots. PyLumerical provides a method to seamlessly use Python to interact with Ansys Lumerical products.
 
-Guides
----------
+Installation
+-------------
+
+.. grid:: 1
+
+   .. grid-item-card:: Installation and Requirements
+      :link: installation
+      :link-type: doc
+
+      Installation procedures and requirements for using PyLumerical.
+
+Using PyLumerical
+------------------
 
 Important informational resources on key concepts of PyLumerical.
 
 .. grid:: 3
 
    .. grid-item-card:: Session Management
-      :link: https://optics.ansys.com/hc/en-us/articles/360041873053
+      :link: session_management
+      :link-type: doc
 
       Learn how to open, close and interact with Lumerical products through sessions.
 
    .. grid-item-card:: Script Commands as Methods
-      :link: https://optics.ansys.com/hc/en-us/articles/360041579954
+      :link: script_commands_as_methods
+      :link-type: doc
 
       Learn how to interact with Lumerical products using script commands.
 
    .. grid-item-card:: Working with Simulation Objects
-      :link: https://optics.ansys.com/hc/en-us/articles/39744946400659
+      :link: working_with_simulation_objects
+      :link-type: doc
 
       Learning how to create and manipulate simulation objects.
 
 .. grid:: 3
 
    .. grid-item-card:: Passing Data
-      :link: https://optics.ansys.com/hc/en-us/articles/360041401434
+      :link: passing_data
+      :link-type: doc
 
       Learning how data types are transferred between Lumerical and Python.
 
    .. grid-item-card:: Accessing Simulation Results
-      :link: https://optics.ansys.com/hc/en-us/articles/39744236202771
+      :link: accessing_simulation_results
+      :link-type: doc
 
       Learn how to access simulation results and work with Lumerical datasets.
 
    .. grid-item-card:: Interop Server
-      :link: https://optics.ansys.com/hc/en-us/articles/15499581457811
+      :link: interop_server
+      :link-type: doc
       
       Learn how to access PyLumerical remotely through the interop server.
 
 My first PyLumerical project
 -----------------------------
 
-The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a planewave.
+The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a plane wave.
 
 .. code-block:: python
 

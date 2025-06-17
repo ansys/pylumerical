@@ -1,3 +1,5 @@
+.. _ref_user_guide:
+
 User guide
 ========================
 Use Python to analyze data, automate complex workflows, optimizations, and produce publication-quality plots. PyLumerical provides a method to seamlessly use Python to interact with Ansys Lumerical products.

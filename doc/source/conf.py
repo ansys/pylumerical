@@ -84,6 +84,11 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r'>>> ?|\.\.\. ?'
 copybutton_prompt_is_regexp = True
 
+#Skipping members
+def autodoc_skip_member_custom(app, what, name, obj, skip, options):
+    #Skip members that are not documented
+    return True if obj.__doc__ is None else None # need to return none if exclude is false otherwise it will interfere with other skip functions
+
 # static path
 html_static_path = ["_static"]
 
@@ -106,3 +111,8 @@ linkcheck_ignore = [
 # available until the release is published.
 if switcher_version != "dev":
     linkcheck_ignore.append(f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}")
+
+
+def setup(app):
+    #Setup function for Sphinx
+    app.connect("autodoc-skip-member", autodoc_skip_member_custom)

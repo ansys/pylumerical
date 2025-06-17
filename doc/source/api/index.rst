@@ -1,15 +1,17 @@
 API reference
 =============
 
-The API reference section provides an overview of PyLumerical API classes and methods.
+The API reference provides an overview of classes and methods used in PyLumerical.
 
-:doc:`lumerical_class`
+The primary class used in PyLumerical is the :doc:`Lumerical class <lumerical_class>`. This class is the main interface to all Ansys Lumerical products through PyLumerical.
 
-:doc:`simobject_class`
+Various auxilliary classes are listed, which are not directly used, but are returned by methods in the Lumerical class:
 
-:doc:`simobjectresults_class`
+* :doc:`simobject_class`
 
-:doc:`simobjectid_class`
+* :doc:`simobjectresults_class`
+
+* :doc:`simobjectid_class`
 
 .. toctree::
     :hidden:

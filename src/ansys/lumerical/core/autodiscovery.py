@@ -27,9 +27,11 @@ import platform
 import re
 
 
-def locate_lumerical_install():
+def locate_lumerical_install(base_paths=None):
     r"""
     Locate the installation directory and interop library directory for Lumerical software.
+
+    Optionally, provide base_paths to override the default search locations for testing or custom discovery.
 
     This function attempts to identify the most recent installation path of Lumerical
     software and its associated Python interop library directory based on the operating
@@ -73,7 +75,9 @@ def locate_lumerical_install():
     """
     lumerical_install_dir = None
 
-    if platform.system() == "Windows":
+    if base_paths is not None:
+        guess_base_and_suffix = base_paths
+    elif platform.system() == "Windows":
         try:
             import winreg  # Import winreg here to avoid errors on non-Windows platforms
 
@@ -84,7 +88,6 @@ def locate_lumerical_install():
                     return install_folder
         except (FileNotFoundError, OSError):
             pass
-        # if not found in the registry, try to guess the installation path
         guess_base_and_suffix = [["C:\\Program Files\\Lumerical\\", ""], ["C:\\Program Files\\Ansys Inc\\", "Lumerical"]]
     elif platform.system() == "Linux":
         guess_base_and_suffix = [["/opt/lumerical/", ""], [str(Path("~/Ansys/ansys_inc/").expanduser()), "Lumerical"]]

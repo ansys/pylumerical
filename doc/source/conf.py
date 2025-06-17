@@ -48,6 +48,7 @@ extensions = [
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None)
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -79,6 +80,9 @@ numpydoc_validation_checks = {
     # type, unless multiple values are being returned"
 }
 
+#Strip Python prompt from code block copy, this will make copied code easier to use
+copybutton_prompt_text = r'>>> ?|\.\.\. ?'
+copybutton_prompt_is_regexp = True
 
 # static path
 html_static_path = ["_static"]

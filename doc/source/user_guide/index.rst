@@ -57,7 +57,7 @@ Important informational resources on key concepts of PyLumerical.
    .. grid-item-card:: Interop Server
       :link: interop_server
       :link-type: doc
-      
+
       Learn how to access PyLumerical remotely through the interop server.
 
 My first PyLumerical project
@@ -76,7 +76,7 @@ The code snippet below provides simple project of using PyLumerical to visualize
       c=2.99792458e8
       f_range = c/lambda_range
       au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) #Use the getfdtdindex command to obtain the correct complex index for gold
-      
+
 
       stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) #Use the stackrt command to calculate the transmission and reflection
    #Visualize using matplotlib
@@ -102,7 +102,7 @@ Application Gallery examples demonstrating how to get started using the Lumerica
 Ansys Lumerical FDTD™
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- `Nanowire example using FDTD`_ 
+- `Nanowire example using FDTD`_
 
 .. _Nanowire example using FDTD: https://optics.ansys.com/hc/en-us/articles/360034416574-FDTD-application-example
 

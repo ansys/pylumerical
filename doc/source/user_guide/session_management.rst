@@ -11,9 +11,9 @@ The Python API interacts with Lumerical products through sessions. The simplest 
 **Example**
 
 .. code-block:: python
-    
-    #Starting a local Lumerical FDTD session   
-    
+
+    #Starting a local Lumerical FDTD session
+
     fdtd = lumapi.FDTD()
 
 **Parameters**
@@ -62,7 +62,7 @@ This parameter is a dictionary with 2 fields, "hostname" and “port”.
 **Example**
 
 .. code-block:: python
-    
+
     #Start a remote Lumerical FDTD session
     remoteArgs = { "hostname": "192.168.215.129",
                  "port": 8989 }
@@ -78,7 +78,7 @@ In Python you can use functions if you need to run numerous similar instances; f
 **Example**
 
 .. code-block:: python
-    
+
     def myFunction(someOptionalParameter):
         fdtd = lumapi.FDTD()
         ...
@@ -92,10 +92,10 @@ PyLumerical support Python "with" statement by giving well-defined entrance and 
 **Example**
 
 .. code-block:: python
-    
+
     with lumapi.FDTD(hide=True) as fdtd:
         fdtd.addfdtd()
-        fdtd.setnamed("bad name") ## you will see 
+        fdtd.setnamed("bad name") ## you will see
     LumApiError: "in setnamed, no items matching the name 'bad name' can be found."
         ...
     ## fdtd still successfully closes
@@ -107,7 +107,7 @@ Starting a session using the Python is identical to running the solutions comman
 **Example**
 
 .. code-block:: python
-    
+
     fdtd = lumapi.FDTD(serverArgs = {
                         'use-solve':True,
                         'platform':'offscreen',
@@ -126,8 +126,8 @@ Closing the session
 
 When the variables local to the function or context manager go out of scope, they will be deleted automatically, and Lumerical sessions will automatically close when all variable references pointing to it are deleted. The Lumerical session will also automatically terminate after the python script reaches the end.
 
-Python will automatically delete variables as they removed from scope, so most of the time you will not need to close a session manually. However, you can also do so explicitly using the following command. 
+Python will automatically delete variables as they removed from scope, so most of the time you will not need to close a session manually. However, you can also do so explicitly using the following command.
 
 .. code-block:: python
-    
+
     inc.close() #inc is the name of the active session

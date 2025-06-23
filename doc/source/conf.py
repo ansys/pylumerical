@@ -42,13 +42,13 @@ extensions = [
     "numpydoc",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
-    "sphinx_design" #Needed for cards
+    "sphinx_design",  # Needed for cards
 ]
 
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    "numpy": ("https://numpy.org/doc/stable/", None)
+    "numpy": ("https://numpy.org/doc/stable/", None),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -80,14 +80,16 @@ numpydoc_validation_checks = {
     # type, unless multiple values are being returned"
 }
 
-#Strip Python prompt from code block copy, this will make copied code easier to use
-copybutton_prompt_text = r'>>> ?|\.\.\. ?'
+# Strip Python prompt from code block copy, this will make copied code easier to use
+copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
-#Skipping members
+
+# Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
-    #Skip members that are not documented
-    return True if obj.__doc__ is None else None # need to return none if exclude is false otherwise it will interfere with other skip functions
+    """Skip members that are not documented."""
+    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+
 
 # static path
 html_static_path = ["_static"]
@@ -114,5 +116,5 @@ if switcher_version != "dev":
 
 
 def setup(app):
-    #Setup function for Sphinx
+    """Sphinx setup function."""
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)

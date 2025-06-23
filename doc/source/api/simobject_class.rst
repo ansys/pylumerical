@@ -1,7 +1,7 @@
 Simulation object classes
 =========================
 
-These classes represent simulation objects, their results, and IDs. 
+These classes represent simulation objects, their results, and IDs.
 
 Don't instantiate these classes directly. Methods of interface classes often return instances of these classes.
 

@@ -25,7 +25,7 @@ PyLumerical is the automation library for Ansys Lumerical products.
       :link: api/index
       :link-type: doc
 
-      Reference for the PyLumerical API.  
+      Reference for the PyLumerical API.
 
 
 ..

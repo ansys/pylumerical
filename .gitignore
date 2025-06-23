@@ -2,3 +2,4 @@
 *.egg-info
 *.pyc
 _build/
+doc/source/api/_autosummary

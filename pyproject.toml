@@ -45,6 +45,7 @@ doc = [
     "numpydoc==1.8.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
+    "sphinx_design==0.6.1",
 ]
 
 [tool.flit.module]

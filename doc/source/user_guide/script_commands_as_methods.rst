@@ -157,7 +157,7 @@ For more information regarding adding and manipulating simulation objects, inclu
 Importing custom script commands
 ---------------------------------
 
-In addition to default script commands, you can also take advantage of the auto-syncing function feature in lumapi and import functions that are pre-defined in a Lumerical script file (.lsf file). 
+In addition to default script commands, you can also take advantage of the auto-syncing function feature in PyLumerical and import functions that are pre-defined in a Lumerical script file (.lsf file). 
 To import these functions, you can either execute the scripts while constructing the session (using the :doc:`script keyword argument <../api/interface_class>`), or manually evaluating the file using the :py:meth:`ansys.lumerical.core.FDTD.eval` method.
 
 .. note::

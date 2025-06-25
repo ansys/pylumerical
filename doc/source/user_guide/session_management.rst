@@ -30,7 +30,7 @@ The Python API interacts with Lumerical products through sessions. The simplest 
 | Ansys Lumerical INTERCONNECT™          | INTERCONNECT     |
 +----------------------------------------+------------------+
 
-Multiple sessions can also be created. Sessions may be for the same product.
+You can also create multiple sessions, even if they're for the same product.
 
 **Example**
 
@@ -55,9 +55,10 @@ Each of the product's constructor supports various parameters and keyword argume
 Starting a remote session using the interop server
 --------------------------------------------------
 
-Since the 2023 R1.2 release, the Python API can be used remotely on a Linux machine running the interop server (see :doc:`Interop server <interop_server>`  to configure and run the interop server). To use the remote API, an additional parameter is required when starting a session, to specify the IP address and port to use to connect to the interop server. This port must be the starting port defined for the interop server.
+Since the 2023 R1.2 release, you can use PyLumerical remotely on a Linux machine running the interop server (see :doc:`Interop server <interop_server>`  to configure and run the interop server). To use the remote API, you must use an additional parameter ``remoteArgs`` when starting a session to specify the IP address and port to use to connect to the interop server. 
+This port must be the starting port defined for the interop server.
 
-This parameter is a dictionary with 2 fields, "hostname" and “port”.
+This parameter is a :class:`dict` with 2 fields, ``hostname`` and ``port``.
 
 **Example**
 
@@ -73,7 +74,7 @@ Advanced session management
 
 Wrapping the session in a function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In Python you can use functions if you need to run numerous similar instances; for example, when sweeping over some optional parameters. For more information on how the important results are returned see :doc:`Passing data <passing_data>` and :doc:`Working with simulation objects <working_with_simulation_objects>`.
+In Python, you can use functions if you need to run numerous similar instances. For example, when sweeping over some optional parameters. For more information on how Lumerical sessions return results, see :doc:`Passing data <passing_data>` and :doc:`Working with simulation objects <working_with_simulation_objects>`.
 
 **Example**
 
@@ -102,7 +103,8 @@ PyLumerical support Python "with" statement by giving well-defined entrance and 
 
 Passing in command line arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Starting a session using the Python is identical to running the solutions command line executable (`Windows <https://optics.ansys.com/hc/en-us/articles/360024812334-Running-simulations-using-the-Windows-command-prompt>`__/ `Linux <https://optics.ansys.com/hc/en-us/articles/360024974033-Running-simulations-using-terminal-on-Linux>`__). When starting a session using Python, the serverArgs parameter can be used to specify parameters.
+Starting a session using PyLumerical is identical to running the solutions command line executable, as seen in these articles - `Windows <https://optics.ansys.com/hc/en-us/articles/360024812334-Running-simulations-using-the-Windows-command-prompt>`__ / `Linux <https://optics.ansys.com/hc/en-us/articles/360024974033-Running-simulations-using-terminal-on-Linux>`__. 
+When starting a session using Python, use the ``serverArgs`` parameter to specify command line arguments.
 
 **Example**
 
@@ -124,9 +126,12 @@ The Python code above is equivalent to running the following command:
 Closing the session
 --------------------
 
-When the variables local to the function or context manager go out of scope, they will be deleted automatically, and Lumerical sessions will automatically close when all variable references pointing to it are deleted. The Lumerical session will also automatically terminate after the python script reaches the end.
+.. vale off
+When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted. 
+.. vale on
+The Lumerical session also automatically terminate after the python script reaches the end.
 
-Python will automatically delete variables as they removed from scope, so most of the time you will not need to close a session manually. However, you can also do so explicitly using the following command.
+Python automatically deletes variables as they removed from scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.
 
 .. code-block:: python
 

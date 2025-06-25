@@ -1,5 +1,5 @@
 Interface classes
-=================
+==================
 
 Instances of these object each represents interactive session with a Lumerical product, and provides methods to create simulation objects, run simulations, and access results.
 

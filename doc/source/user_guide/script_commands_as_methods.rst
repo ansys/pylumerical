@@ -3,9 +3,9 @@
 Script commands as methods
 ==========================
 
-At the most basic level, the Lumerical Python API can be used to directly invoke Lumerical script commands and interact with the product as the Lumerical Scripting Language would.
+At the most basic level, you can use PyLumerical to directly invoke Lumerical script commands and interact with the product as the Lumerical Scripting Language would.
 
-This article will describe the basic use case for using scripting commands as methods, and common best practices.
+This article describes the basic use case for using scripting commands as methods, and common best practices.
 
 Built-in scripting commands
 ----------------------------
@@ -13,7 +13,8 @@ Built-in scripting commands
 Overview
 ^^^^^^^^^^
 
-Almost all script commands in the Lumerical Scripting Language can be used as methods on your session object in Python. The lumapi methods and the Lumerical script commands share the same name and can be called directly on the session once it's been created.
+You can use almost all script commands in the Lumerical Scripting Language as methods on your session object in Python. 
+The PyLumerical methods and the Lumerical script commands share the same name, and you can call them directly on the session object once you create it.
 
 For more information on the Lumerical Scripting Language, please see:
 
@@ -23,16 +24,18 @@ For more information on the Lumerical Scripting Language, please see:
 
 * `Lumerical Scripting Language - By category <https://optics.ansys.com/hc/en-us/articles/360037228834>`__
 
-Two simple examples are show below. In the first example, the Lumerical commands `getfdtdindex <https://optics.ansys.com/hc/en-us/articles/360034409694-getfdtdindex-Script-command>`__ and `stackrt <https://optics.ansys.com/hc/en-us/articles/360034406254-stackrt-Script-command>`__ is used in conjunction with typical math and plotting libraries in Python to simulate and visualize the transmission of a gold thin film illuminated by a plane wave. 
-In the second example, a simple simulation with a gaussian source and a frequency domain monitor is set up and executed.
+Two simple examples are show below. The first example uses Lumerical commands `getfdtdindex <https://optics.ansys.com/hc/en-us/articles/360034409694-getfdtdindex-Script-command>`__ and `stackrt <https://optics.ansys.com/hc/en-us/articles/360034406254-stackrt-Script-command>`__  in conjunction with typical math and plotting libraries in Python to simulate and visualize the transmission of a gold thin film illuminated by a plane wave. 
+The second example sets up and runs a simple simulation with a gaussian source and a frequency domain monitor.
 
 **Example**
 
-For more information on how to import lumapi for PyLumerical, see :doc:`Installation and getting started for PyLumerical <installation>`.
+For more information on how to install PyLumerical and import the modules, see :doc:`Installation and getting started for PyLumerical <installation>`.
+
+
 
 .. code-block:: python
-    
-    import lumapi #Ensure lumapi has already been added to path
+
+    import ansys.lumerical.core as lumapi
     import numpy as np
     import matplotlib.pyplot as plt
 
@@ -40,10 +43,14 @@ For more information on how to import lumapi for PyLumerical, see :doc:`Installa
         lambda_range = np.linspace(300e-9, 1100e-9, 500)
         c=2.99792458e8
         f_range = c/lambda_range
-        au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) #Use the getfdtdindex command to obtain the correct complex index for gold
-        
 
-        stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) #Use the stackrt command to calculate the transmission and reflection
+        #Use the getfdtdindex command to obtain the correct complex index for gold
+        au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range))
+
+        #Use the stackrt command to calculate the transmission and reflection
+        stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range)
+    
+
     #Visualize using matplotlib
     fig, ax = plt.subplots()
     ax.plot(lambda_range*1e9, stackRT_result["Ts"], label="Transmission")
@@ -51,6 +58,8 @@ For more information on how to import lumapi for PyLumerical, see :doc:`Installa
     ax.set_ylabel("Transmission")
     ax.legend()
     plt.show()
+
+
 
 **Example**
 
@@ -105,17 +114,17 @@ For more information on how to import lumapi for PyLumerical, see :doc:`Installa
 Constructor script commands
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Many Lumerical script commands are used to add simulation objects such simulation regions or geometric regions. These commands typically start with “add”, for example, `addrect <https://optics.ansys.com/hc/en-us/articles/360034404214-addrect-Script-command>`__ or `addfdtd <https://optics.ansys.com/hc/en-us/articles/360034924173-addfdtd-Script-command>`__.
+You can use many script commands to add simulation objects such simulation regions or geometric regions. These commands typically start with “add”, for example, `addrect <https://optics.ansys.com/hc/en-us/articles/360034404214-addrect-Script-command>`__ or `addfdtd <https://optics.ansys.com/hc/en-us/articles/360034924173-addfdtd-Script-command>`__.
 
-In the Lumerical Python API, simulation objects can be created in many different ways. 
-At a fundamental level, objects can be created and have their properties set like how it is done in a Lumerical script using `set <https://optics.ansys.com/hc/en-us/articles/360034928773-set-Script-command>`__ and `setnamed <https://optics.ansys.com/hc/en-us/articles/360034928793-setnamed-Script-command>`__.
+In PyLumerical, you can create simulation objects in many different ways. 
+At a fundamental level, you can create objects and have their properties set like a Lumerical script using `set <https://optics.ansys.com/hc/en-us/articles/360034928773-set-Script-command>`__ and `setnamed <https://optics.ansys.com/hc/en-us/articles/360034928793-setnamed-Script-command>`__.
 
-In addition, the lumapi also supports assigning properties to object in a pythonic way, either by creating a dictionary and assigning it to the properties attribute during initialization or using keyword arguments directly. 
-When constructing objects using these methods, some properties may need to be initialized in order or may overwrite other properties. Therefore, it is recommended to use an ordered dictionary to ensure that these properties are set as intended.
+In addition, PyLumerical also supports assigning properties to object in a way more native to Python, either by creating a dictionary and assigning it to the properties attribute during initialization or using keyword arguments directly. 
+When constructing objects using these methods, you may need to initialize some properties in order, and some properties may overwrite other properties. Therefore, it's recommended to use an ordered dictionary to ensure that you set these properties as intended.
 
 The examples below show various methods on object construction. 
 For more information regarding adding and manipulating simulation objects, including best practices, see the article on :doc:`Working with simulation objects <working_with_simulation_objects>`. 
-Property names where a space is present (e.g. “x span”) is replaced by an underscore when using keyword arguments (e.g. “x_span”).
+When a property has a space in its name, for example, ``x span``, the name for keyword arguments uses an underscore instead of space, for example, ``x_span``.
 
 **Example**
 
@@ -158,9 +167,10 @@ Importing custom script commands
 ---------------------------------
 
 In addition to default script commands, you can also take advantage of the auto-syncing function feature in PyLumerical and import functions that are pre-defined in a Lumerical script file (.lsf file). 
-To import these functions, you can either execute the scripts while constructing the session (using the :doc:`script keyword argument <../api/interface_class>`), or manually evaluating the file using the :py:meth:`ansys.lumerical.core.FDTD.eval` method.
+To import these functions, you can either execute the scripts while constructing the session using the :doc:`script keyword argument <../api/interface_class>`, or manually evaluating the file using the :py:meth:`ansys.lumerical.core.FDTD.eval` method.
 
 .. note::
+
     The :py:meth:`ansys.lumerical.core.FDTD.eval` is common to all products, and is available as :py:meth:`ansys.lumerical.core.MODE.eval`, :py:meth:`ansys.lumerical.core.DEVICE.eval`, and :py:meth:`ansys.lumerical.core.INTERCONNECT.eval`.
 
 **Example**
@@ -206,12 +216,12 @@ Returns
     3.0
     20.0
 
-Non-Constructor Script Commands
+Non-constructor script commands
 ---------------------------------
 
-Script commands that do not create simulation objects where input arguments are required can only be used with positional arguments and is not compatible with keyword arguments.
+For script commands that needs input arguments, but don't create simulation objects, you can only use them with position arguments and not keyword arguments.
 
-For example the following code will result in an error, even though the `set <https://optics.ansys.com/hc/en-us/articles/360034928773-set-Script-command>`__ script command takes property and value as input arguments.
+For example, the following code results in an error, even though the `set <https://optics.ansys.com/hc/en-us/articles/360034928773-set-Script-command>`__ script command takes property and value as input arguments.
 
 **Example**
 
@@ -222,14 +232,16 @@ For example the following code will result in an error, even though the `set <ht
 
     #Results in an error
 
-The correct usage would be the following.
+The correct usage is the following.
 
 .. code-block:: python
 
     fdtd.addfdtd()
     fdtd.set("x span", 1e-6)
 
+.. vale off
 This applies also to methods defined in other scripting files that are loaded by first evaluating the script file.
+.. vale on
 
 **Example**
 

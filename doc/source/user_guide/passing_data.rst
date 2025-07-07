@@ -3,11 +3,17 @@
 Passing data
 =============
 
-When driving Lumerical's tools from the Python API, a connection is established between the environments, but they do not share a workspace. 
-Instead, as variables are passed back and forth as exact copies. When variables are passed back and forth, they are also translated between Lumerical types and Python types. 
-This article describes how basic datatypes are translated between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.
+.. vale off
 
-For more information on how to work with datasets, which are composed of these basic datatypes, for processing of simulation results and handling of Lumerical datasets, see the article on :doc:`Accessing simulation results <accessing_simulation_results>`.
+..
+    Intentional use of passive voice here
+When driving Lumerical's tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don't share a workspace. 
+
+.. vale on
+Instead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types. 
+This article describes how PyLumerical translates basic data types between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.
+
+For more information on how to work with datasets, which includes these basic data types and typically contain simulation results, see the article on :doc:`Accessing simulation results <accessing_simulation_results>`.
 
 +----------------+-----------------------+
 | Lumerical      | Python                |
@@ -35,7 +41,7 @@ For more information on how to work with datasets, which are composed of these b
 Python to Lumerical conversions
 --------------------------------
 
-When a variable is sent from the Python workspace to Lumerical products, such as when setting parameters, or when using Lumerical scripting functions for further post processing, the following rules are followed.
+When you send a variable from the Python workspace to Lumerical products, such as when setting parameters, or when using Lumerical scripting functions for further post processing, PyLumerical uses the following rules.
 
 String
 ^^^^^^
@@ -45,52 +51,52 @@ String values passed from Python are directly converted into string values in th
 Real number
 ^^^^^^^^^^^^
 
-Any real numbers passed from Python into Lumerical are converted into float. Since the Lumerical workspace does not support integer types, any integer types are also converted into float.
+PyLumerical converts real numbers from Python into float values in Lumerical. Since the Lumerical workspace doesn't support integer types, any integer types are also converted into float.
 
 Complex number
 ^^^^^^^^^^^^^^
 
-Passing complex numbers from Python into Lumerical requires it to be encapsulated in a single element numpy array. In Python, the complex variable “j” should be used.
+You must encapsulate complex numbers in a single element numpy array before passing them from Python into Lumerical. In Python, the complex variable is “j”, whereas in Lumerical, it's “i”.
 
 Numpy array
 ^^^^^^^^^^^^^
 
-Numpy arrays from Python are converted into matrices in Lumerical, complex-valued numpy arrays are supported.
+PyLumerical converts numpy arrays from Python into matrices in Lumerical, and it supports complex-valued numpy arrays.
 
 List
 ^^^^
 
-Lists from Python, which can contain any of the basic types mentioned in this section, are converted into cell arrays in the Lumerical scripting workspace.
+PyLumerical converts lists from Python, which can contain any of the basic types mentioned in this section, into cell arrays in the Lumerical scripting workspace.
 
 Dict
 ^^^^
 
-Dictionaries from Python, which can contain any of the basic types mentioned in this section, are converted into structures in Lumerical. The order of the dictionary is not preserved.
+PyLumerical converts dictionaries from Python, which can contain any of the basic types mentioned in this section, into structures in Lumerical. The order of the dictionary isn't preserved.
 
 Other types
 ^^^^^^^^^^^^
 
-All other types, except those mentioned above, are not supported and will result in an error if it is attempted to be passed into Lumerical through the Python API.
+All other types, except those mentioned above, aren't supported and results in an error if your script attempts to pass them into the Lumerical workspace.
 
 Lumerical to Python conversions
 --------------------------------
 
-When retrieving a variable from the Lumerical product to the Python workspace, such as when obtaining simulation results from simulation objects and monitors, or when retrieving return values from a Lumerical scripting function, the following rules are followed.
+When retrieving a variable from the Lumerical product to the Python workspace, such as when obtaining simulation results from simulation objects and monitors, or when retrieving return values from a Lumerical scripting function, PyLumerical uses the following rules.
 
 String
 ^^^^^^
 
-When a string is retrieved from Lumerical, it will be returned to the Python environment as a string.
+When PyLumerical retrieves a string from Lumerical, it returns the variable into the Python environment as a string.
 
 Real number
 ^^^^^^^^^^^^
 
-The value of any real number returned to the Python workspace from Lumerical will be float. Since Lumerical does not support integers, even if a value is passed into Lumerical as integer, it will be retrieved as float.
+When PyLumerical retrieves any real number from Lumerical, it returns the value into the Python environment as a float. Since Lumerical doesn't support integers, even if you previously passed a variable into Lumerical as integer, PyLumerical still retrieves it as float.
 
 Complex number
 ^^^^^^^^^^^^^^
 
-Complex numbers from Lumerical will be automatically converted to a 1x1 numpy array, with the complex number being the only element in the array.
+PyLumerical automatically converts complex numbers into a 1x1 numpy array in the Python environment, with the complex number being the only element in that array.
 
 For example, the following script creates a Lumerical scripting function that returns a complex value and checks its type, length, and value in Python.
 
@@ -109,17 +115,17 @@ Returns
 
 .. note::
     
-    In Lumerical, the complex variable “i” is used, whereas in Python, the complex variable “j” is used.
+    In Lumerical, the complex variable is “i”, whereas in Python, the complex variable is “j”.
 
 Matrix
 ^^^^^^^
 
-Matrices from the Lumerical product will be returned as numpy arrays of the same size. These arrays also support complex data as its elements.
+PyLumerical retrieves matrices as numpy arrays of the same size. These arrays also support complex data as their elements.
 
 Struct
 ^^^^^^
 
-Structures from the Lumerical workspace will be returned to Python as a dictionary, with each field turned into an attribute. These dictionaries are indexed by fields and are not ordered.
+PyLumerical converts structures from Lumerical into Python dictionaries, with each field turned into an attribute. The keys of the dictionary are field names, and it's order from Lumerical isn't preserved.
 
 For example, the following script creates a Lumerical scripting function that returns a structure checks its type and contents in Python.
 
@@ -146,7 +152,7 @@ Returns
 Cell array
 ^^^^^^^^^^^^^
 
-When cell arrays are retrieved from Lumerical, they are converted into Python lists. Elements of these lists can contain any of the basic data types.
+PyLumerical retrieves Lumerical cell arrays as Python lists. Elements of these lists can contain any of the basic data types.
 
 For example, the following script creates a Lumerical function that creates a cell array with a string, a matrix, and a structure that has another cell array as its element, returns it to the Python workspace, and checks each element.
 
@@ -171,8 +177,8 @@ Returns
 Explicit transfer functions
 -----------------------------
 
-Two explicit transfer functions, :py:meth:`ansys.lumerical.core.FDTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
-While these can be useful in a small number of circumstances, it is recommended to avoid using these functions, as changes to variables in one workspace does not automatically synchronize with the other, and interactions with simulation objects, including entering inputs and retrieving outputs, can usually be done with Python methods themselves.
+Two explicit transfer functions, :py:meth:`ansys.lumerical.corTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
+While these can be useful in a small number of circumstances, avoid using these functions unless it's necessary, as changes to variables in one workspace doesn't automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.
 
 .. note::
 
@@ -181,7 +187,7 @@ While these can be useful in a small number of circumstances, it is recommended 
 Transfer speed
 -----------------
 
-Typically, this transfer does not present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed. 
+Typically, this transfer doesn't present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed. 
 However, when working with very large datasets it may be important to take this into consideration if efficiency is imperative.
 
 Best practices

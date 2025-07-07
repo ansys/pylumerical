@@ -6,7 +6,7 @@ Accessing simulation results
 Simulation results are typically stored in datasets simulation or monitor objects Lumerical products. 
 This article will describe how datasets and raw simulation data can be accessed and processed when using the Python API.
 
-For more information on how basic datatypes are translated and best practices when transferring data, see the article on :doc:`Passing data <passing_data>`, for more information on Lumerical datasets, see the Lumerical Knowledge Base article `Introduction to lumerical datasets <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets>`__.
+For more information on how basic data types are translated and best practices when transferring data, see the article on :doc:`Passing data <passing_data>`, for more information on Lumerical datasets, see the Lumerical Knowledge Base article `Introduction to lumerical datasets <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets>`__.
 
 Accessing datasets
 -------------------
@@ -16,7 +16,7 @@ These datasets can be passed into the Python workspace using the `getresult <htt
 
 When datasets are returned into the Python environment, they will be converted into dictionaries, with keys associated with various `attributes and parameters <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets#toc_3>`__.
 
-Dictionaries converted from datasets will have a special metadata key 'Lumerical_dataset' which contains identifier values, allows their structure to be preserved when performing a roundtrip back to the Lumerical environment. 
+Dictionaries converted from datasets will have a special metadata key ``Lumerical_dataset`` which contains identifier values, allows their structure to be preserved when performing a roundtrip back to the Lumerical environment. 
 When passing a dictionary from Python to Lumerical it will be converted into a structure, unless it has the metadata element.
 
 Attributes and parameters are both stored as :class:`numpy.ndarray`. Parameters are 1-D arrays that acts as a list of parameters. 

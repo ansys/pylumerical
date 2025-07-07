@@ -17,3 +17,6 @@ MODE
 Multiphysics
 INTERCONNECT
 CML Compiler
+gaussian
+[Nn]umpy
+Python

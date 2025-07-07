@@ -1,7 +1,7 @@
 """
 
-Basic Session Management
-------------------------------------------------------
+Basic session management
+------------------------
 This example demonstrates how to initialize a local Lumerical session.
 PyLumerical interacts with Lumerical products through sessions. 
 

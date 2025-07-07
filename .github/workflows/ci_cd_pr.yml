@@ -6,8 +6,10 @@ on:
 env:
   MAIN_PYTHON_VERSION: '3.12'
   LIBRARY_NAME: 'ansys-lumerical-core'
-  DOCKER_IMAGE_LUMERICAL: 'ansys-lumerical'
-
+  DOCKER_IMAGE_LUMERICAL_FDTD_SOLVE: 'lumerical-fdtd-solve:latest'
+  DOCKER_IMAGE_LUMERICAL_UNIFIED: 'lumerical-unified:latest'
+  DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME: 'lumerical-fdtd'
+  DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
 
 permissions:
   contents: read
@@ -21,7 +23,6 @@ jobs:
 
   labeler:
     name: "Labels"
-    needs: check-dependabot-pr
     permissions:
       contents: read
       pull-requests: write
@@ -129,14 +130,24 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Pull and launch lumerical service"
+      - name: "Pull lumerical services"
         run: |
-          docker pull ${{ env.DOCKER_IMAGE_LUMERICAL }}
-          docker run --detach --name ${{ env.DOCKER_CONTAINER_NAME }} -e LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }}
+          docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+          docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_FDTD_SOLVE }}
 
-      - name: "Stop the lumerical service"
+      - name: "Run lumerical services"
+        run: |
+          docker run --detach --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} -e LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }}
+          docker run --detach --name ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }} -e LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }}
+
+      - name: "Stop lumerical services"
         if: always()
         run: |
-          docker stop ${{ env.DOCKER_CONTAINER_NAME }}
-          docker logs ${{ env.DOCKER_CONTAINER_NAME }}
-          docker rm ${{ env.DOCKER_CONTAINER_NAME }}
+          docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}
+
+          docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}
+
+          docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}

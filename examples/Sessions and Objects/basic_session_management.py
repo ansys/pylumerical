@@ -51,10 +51,11 @@ with lumapi.FDTD() as fdtd:
 ###############################################################################
 #
 # Session wrapped in a function
-# Simple example - returns the number of grid cells in FDTD region for set span
-# ~~~~~~~~~~~~~~~~~~~~~~~~
+# Get the number of grid cells in FDTD region for set span
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 def get_x_cells(fdtd_span):
+    """Return the number of grid cells in FDTD region for a set span."""
     fdtd = lumapi.FDTD()
     # adds fdtd region with span set by fdtd_span
     fdtd.addfdtd(dimension = "3D", x_span = fdtd_span, y_span = fdtd_span, z_span = fdtd_span)

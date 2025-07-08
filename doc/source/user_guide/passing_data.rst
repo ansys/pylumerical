@@ -177,7 +177,7 @@ Returns
 Explicit transfer functions
 -----------------------------
 
-Two explicit transfer functions, :py:meth:`ansys.lumerical.corTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
+Two explicit transfer functions, :py:meth:`ansys.lumerical.core.FDTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
 While these can be useful in a small number of circumstances, avoid using these functions unless it's necessary, as changes to variables in one workspace doesn't automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.
 
 .. note::

@@ -255,7 +255,7 @@ A Lumerical script file named MyConstructor.lsf contains the following function 
     set("x",x_input);
     set("y",y_input);
     set("z",z_input);
-    
+
     addrect;
     set("x",x_input);
     set("y",y_input);
@@ -291,6 +291,7 @@ If you requires access to these variables, it is best to either define them in P
 However, if the :py:meth:`ansys.lumerical.core.FDTD.eval` method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared. 
 
 .. note::
+    
     The :py:meth:`ansys.lumerical.core.FDTD.eval` is common to all products, and is available as :py:meth:`ansys.lumerical.core.MODE.eval`, :py:meth:`ansys.lumerical.core.DEVICE.eval`, and :py:meth:`ansys.lumerical.core.INTERCONNECT.eval`.
 
 **Operators**

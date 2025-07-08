@@ -4,20 +4,20 @@ Accessing simulation results
 =============================
 
 Simulation results are typically stored in datasets simulation or monitor objects Lumerical products. 
-This article will describe how datasets and raw simulation data can be accessed and processed when using the Python API.
+This article describes how you can access and process datasets and raw simulation data when using the PyLumerical.
 
-For more information on how basic data types are translated and best practices when transferring data, see the article on :doc:`Passing data <passing_data>`, for more information on Lumerical datasets, see the Lumerical Knowledge Base article `Introduction to lumerical datasets <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets>`__.
+For more information on how PyLumerical translates basic data types and best practices when transferring data, see the article on :doc:`Passing data <passing_data>`, for more information on Lumerical datasets, see the Lumerical Knowledge Base article `Introduction to lumerical datasets <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets>`__.
 
 Accessing datasets
 -------------------
 
-Datasets are relevant results that have been packaged in a form that makes it possible to readily visualize and explore in Lumerical. 
-These datasets can be passed into the Python workspace using the `getresult <https://optics.ansys.com/hc/en-us/articles/360034409854>`__ method.
+Lumerical products package relevant results in datasets so that you can readily visualize and explore them.
+You can use the `getresult <https://optics.ansys.com/hc/en-us/articles/360034409854>`__ method to retrieve these datasets into the Python workspace.
 
-When datasets are returned into the Python environment, they will be converted into dictionaries, with keys associated with various `attributes and parameters <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets#toc_3>`__.
+PyLumerical retrieves datasets as dictionaries, with keys associated with various `attributes and parameters <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets#toc_3>`__.
 
-Dictionaries converted from datasets will have a special metadata key ``Lumerical_dataset`` which contains identifier values, allows their structure to be preserved when performing a roundtrip back to the Lumerical environment. 
-When passing a dictionary from Python to Lumerical it will be converted into a structure, unless it has the metadata element.
+Dictionaries converted from datasets have a special metadata key ``Lumerical_dataset`` which contains identifier values, this key preserves their structure when performing a roundtrip back to the Lumerical environment. 
+When passing a dictionary from Python to Lumerical, PyLumerical converts it into a generic structure, unless it has the metadata element.
 
 Attributes and parameters are both stored as :class:`numpy.ndarray`. Parameters are 1-D arrays that acts as a list of parameters. 
 For attributes, the dimension of the array depends on the type of dataset, the type of data, and the number of parameters.
@@ -73,7 +73,7 @@ For attributes, the dimension of the array depends on the type of dataset, the t
 .. |i|   replace:: :math:`i`
 
 .. note::
-    Singleton dimensions can be removed with the `pinch <https://optics.ansys.com/hc/en-us/articles/360034405674>`__ command in Lumerical or :func:`numpy.squeeze` in numpy.
+    You can remove singleton dimensions with the `pinch <https://optics.ansys.com/hc/en-us/articles/360034405674>`__ command in Lumerical or :func:`numpy.squeeze` in numpy.
 
 **Example**
 
@@ -169,9 +169,9 @@ Returns
 Accessing raw data
 ------------------
 
-Raw data from monitors are results in their raw, matrix form. These results can also be passed to the Python workspace using the `getdata <https://optics.ansys.com/hc/en-us/articles/360034409834>`__ command. 
+Raw data from monitors are results in their raw, matrix form. You can also pass these results to the Python workspace using the `getdata <https://optics.ansys.com/hc/en-us/articles/360034409834>`__ command.
 
-Raw data are matrices in Lumerical products and will be returned as :class:`numpy.ndarray` when passed to the Python environment.
+PyLumerical retrieves raw data from Lumerical products as :class:`numpy.ndarray` objects.
 
 The length to each dimension of the returned array depends on whether the raw data was originally an attribute or parameter. 
 These dimensions follow the dimensions for attributes and parameters described in the “Accessing dataset” section.

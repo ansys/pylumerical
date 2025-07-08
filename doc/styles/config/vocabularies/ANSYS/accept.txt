@@ -20,3 +20,5 @@ CML Compiler
 gaussian
 [Nn]umpy
 Python
+Dockerfile
+sudo

@@ -114,6 +114,7 @@ The following code adds a rectangle and changes its dimensions.
 **Example**
 
 .. code-block:: python
+
     rectangle = fdtd.addrect(x = 2e-6, y = 0.0, z = 0.0)
     rectangle.x = -1e-6
     rectangle.x_span = 10e-6

@@ -1,7 +1,7 @@
 """
 
 A simple example to demonstrate using PyLumerical
-------------------------------------------------------
+-------------------------------------------------
 Sets up and runs a basic FDTD simulation. E field results are plotted using Matplotlib
 Demonstrates initializing objects using keyword arguments and OrderedDict
 

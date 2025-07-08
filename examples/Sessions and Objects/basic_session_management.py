@@ -59,7 +59,8 @@ def get_x_cells(fdtd_span):
     fdtd = lumapi.FDTD()
     # Adds FDTD region with span set by fdtd_span
     fdtd.addfdtd(dimension = "3D", x_span = fdtd_span, y_span = fdtd_span, z_span = fdtd_span)
-    x = fdtd.getresult("FDTD","x") # Get x coordinates of created FDTD region
+    # Get the x-coordinates of created FDTD region
+    x = fdtd.getresult("FDTD","x")
     x_cells = len(x)
     return x_cells
 

@@ -6,7 +6,7 @@ This example demonstrates how to initialize a local Lumerical session.
 PyLumerical interacts with Lumerical products through sessions. 
 
 
-Prerequesites: Valid FDTD license is required. 
+Prerequesites: Valid FDTD and MODE licenses are required. 
 """
 
 ###############################################################################
@@ -15,7 +15,6 @@ Prerequesites: Valid FDTD license is required.
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 
 import ansys.lumerical.core as lumapi
-import time
 
 ###############################################################################
 #
@@ -23,15 +22,16 @@ import time
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 fdtd = lumapi.FDTD()
-# Wait for 5 seconds, then add fdtd region
-time.sleep(5)
+# Wait for a second, then add FDTD region
+fdtd.pause(1)
 fdtd.addfdtd()
-time.sleep(2)
+fdtd.print("Example complete. Press space bar to close.")
+fdtd.pause(30) # Will close in 30 seconds if left idle
 fdtd.close()
 
 mode = lumapi.MODE()
-# Wait for 5 seconds, then close
-time.sleep(5)
+mode.print("Example complete. Press space bar to close.")
+mode.pause(30) 
 mode.close()
 
 # Load a session but hide the application window
@@ -45,7 +45,8 @@ fdtd.close()
 
 with lumapi.FDTD() as fdtd:
     fdtd.addfdtd()
-    time.sleep(2)
+    fdtd.print("Example complete. Press space bar to close.")
+    fdtd.pause(30) 
 # FDTD closes automatically
 
 ###############################################################################
@@ -56,11 +57,11 @@ with lumapi.FDTD() as fdtd:
 
 def get_x_cells(fdtd_span):
     """Return the number of grid cells in FDTD region for a set span."""
-    fdtd = lumapi.FDTD()
-    # Adds FDTD region with span set by fdtd_span
-    fdtd.addfdtd(dimension = "3D", x_span = fdtd_span, y_span = fdtd_span, z_span = fdtd_span)
-    # Get the x-coordinates of created FDTD region
-    x = fdtd.getresult("FDTD","x")
+    with lumapi.FDTD() as fdtd:
+        # Adds FDTD region with span set by fdtd_span
+        fdtd.addfdtd(dimension = "3D", x_span = fdtd_span, y_span = fdtd_span, z_span = fdtd_span)
+        # Get the x-coordinates of created FDTD region
+        x = fdtd.getresult("FDTD","x")
     x_cells = len(x)
     return x_cells
 

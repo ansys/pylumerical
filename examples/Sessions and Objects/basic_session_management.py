@@ -20,7 +20,7 @@ import time
 ###############################################################################
 #
 # Open an interactive session
-# ~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 fdtd = lumapi.FDTD()
 # Wait for 5 seconds, then add fdtd region

@@ -102,10 +102,10 @@ show_missing = true
 
 [tool.towncrier]
 package = "ansys.lumerical.core"
-directory = "doc/changelog.d"
+directory = "doc/source/changelog"
 filename = "doc/source/changelog.rst"
 start_string = ".. towncrier release notes start\n"
-template = "doc/changelog.d/changelog_template.jinja"
+template = "doc/source/changelog/template"
 title_format = "`{version} <https://github.com/ansys-internal/pylumerical/releases/tag/v{version}>`_ - {project_date}"
 issue_format = "`#{issue} <https://github.com/ansys-internal/pylumerical/pull/{issue}>`_"
 

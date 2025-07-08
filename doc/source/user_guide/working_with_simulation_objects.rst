@@ -3,25 +3,26 @@
 Working with simulation objects
 ===============================
 
-At a basic level, simulation objects can be interacted with in the same way the Lumerical Script Language can be used to interact with the object. 
-However, specific Pythonic approaches can also be used to interact with them.
+At a basic level, you can interact with simulation objects in the same way as when you use the Lumerical Script Language. 
+However, Lumerical scripting language interacts primarily with the currently selected object, which may not be clear from the Python code alone.
+Therefore, PyLumerical also provides you with ways to interact with all objects that fits better with the Python coding style.
 
-This article describes unique ways to interact with simulation objects, such as structures, sources, and monitors, using the Python API. 
-For more information on how to use script commands in the Python API, see the article on :doc:`Script commands as methods <script_commands_as_methods>`.
+This article describes various ways to interact with simulation objects, such as structures, sources, and monitors. 
+For more information on how to use script commands in PyLumerical, see the article on :doc:`Script commands as methods <script_commands_as_methods>`.
 
 Creating simulation objects
 ----------------------------
 
-When adding a simulation object into Lumerical products using the lumapi, the values of properties at creation can be set like using a constructor in programming. 
+When adding a simulation object into Lumerical products using PyLumerical, you can set the values of properties at creation. 
 There are multiple ways of assigning the properties of objects when you create them.
 
 Assigning properties with an ordered dict
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A Python :class:`dict` can also be used as a constructor to the object by assigning it to the attribute properties. 
-In Python, :class:`dict` ordering is not guaranteed, so if there are properties that depend on other properties, an :class:`collections.OrderedDict` is necessary. 
-For example, in the example below, 'override global monitor settings' must be true before 'frequency points' can be set. 
-Using an :class:`collections.OrderedDict` is the safest way to ensure that all settings are processed.
+You can also use a Python :class:`dict` as a constructor to the object by assigning it to the attribute properties. 
+In Python, :class:`dict` ordering isn't guaranteed, so if there are properties that depend on other properties, an :class:`collections.OrderedDict` is necessary. 
+For example, in the example below, 'override global monitor settings' must be true before you can set 'frequency points'. 
+Using an :class:`collections.OrderedDict` is the safest way to ensure that PyLumerical processes all settings as intended.
 
 **Example**
 
@@ -34,7 +35,7 @@ Using an :class:`collections.OrderedDict` is the safest way to ensure that all s
                         ("monitor type", "linear x"),("frequency points", 10.0)])
     fdtd.addpower(properties=props)
 
-If you do not have properties where ordering is important, you can use a regular :class:`dict`.
+If you don't have properties where ordering is important, you can use a regular :class:`dict`.
 
 .. code-block::python
 
@@ -48,12 +49,12 @@ Assigning properties with keyword arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-Properties can also be assigned upon construction using keyword arguments. 
+You can also assign properties upon construction using keyword arguments. 
 The property names are the same as those in the Lumerical products. 
 Properties with space in their name have spaces replaced by underscores.
 
-When using keyword arguments, the order of assignment is not guaranteed. 
-Therefore, if the order of assignment is important, it is recommended to use an :class:`collections.OrderedDict`.
+When using keyword arguments, the order of assignment isn't guaranteed. 
+Therefore, if the order of assignment is important, use an :class:`collections.OrderedDict` instead.
 
 **Example**
 
@@ -80,9 +81,9 @@ In addition to the two methods above, you can also use the traditional Lumerical
 Linked properties
 ^^^^^^^^^^^^^^^^^^
 
-In Lumerical, some object properties are linked and affect each other. 
-For example, in a geometry object (such as the rectangle), the dimension can either be set using ``x span`` and ``x``, or ``x min`` and ``x max``. 
-When setting properties that are linked, unexpected changes may occur to the object.
+In Lumerical, some object properties affect each other. 
+For example, in a geometry object, such as the rectangle, you can either set the dimension using ``x span`` and ``x``, or ``x min`` and ``x max``. 
+When you set linked properties, unexpected changes may occur to the object.
 
 **Example**
 
@@ -98,16 +99,16 @@ Returns
 
     rect1.x_span=2e-06 #Note that this is different than what was set earlier from the x_span argument
 
-Manipulating Simulation Objects
+Manipulating simulation objects
 --------------------------------
 
-When adding a new object to a Lumerical product session, a Python object representing that simulation object is returned. 
-Manipulating the returned object will make changes to the corresponding object in the Lumerical product.
+When adding a new object to a Lumerical product session, PyLumerical returns a Python object representing that simulation object. 
+Manipulating the returned object makes changes to the corresponding object in the Lumerical product.
 
-Direct Attribute Access
+Direct attribute access
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Like normal Python objects, Lumerical simulation object attributes can be accessed directly as seen below. 
+Like normal Python objects, you can access Lumerical simulation object attributes as seen below. 
 The following code adds a rectangle and changes its dimensions.
 
 **Example**
@@ -118,11 +119,11 @@ The following code adds a rectangle and changes its dimensions.
     rectangle.x_span = 10e-6
 
 
-Dict-Like Access
+Dict-like access
 ^^^^^^^^^^^^^^^^^
 
-Parameters of the representative object can also be accessed like a Python dict. 
-An example of the dict-like access of parameters in an FDTD rectangle object is shown below.
+You can access parameters of the object like a Python dict. 
+The following example shows dict-like access of parameters in an FDTD rectangle object.
 
 **Example**
 
@@ -138,9 +139,9 @@ Duplicate names
 .. warning::
     Duplicate names of simulation object cause an undefined behavior in the script. 
 
-As shown in the script and animation below, if two rectangle objects are named “Rect1,” manipulating them causes unknown behaviour, even if the Python variable assigned to them are different.
+As shown in the script and animation below, if you have two rectangle objects named “Rect1,” manipulating them causes unknown behaviour, even if the Python variable assigned to them are different.
 
-In these cases, a warning is outputted to inform you of the duplication.
+In these cases, PyLumerical gives a warning to inform you of the duplication.
 
 **Example**
 
@@ -162,10 +163,10 @@ In these cases, a warning is outputted to inform you of the duplication.
    :alt: Duplicate object animation
    :align: center
 
-Parent and Children Objects
+Parent and children objects
 ----------------------------
 
-The tree of objects in a Lumerical product can be traversed using the parent or children of an object.
+You can traverse the tree of objects in a Lumerical product using the parent or children of an object.
 
 **Example**
 

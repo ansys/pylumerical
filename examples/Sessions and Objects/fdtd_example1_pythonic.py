@@ -54,3 +54,7 @@ with lumapi.FDTD() as fdtd:
     plt.imshow(E2)
     plt.show()
 
+    print("Example complete. Press Enter to close.")
+    input()
+
+

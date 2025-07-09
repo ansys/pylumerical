@@ -1,6 +1,6 @@
 """
 
-A simple example to demonstrate using PyLumerical
+A simple example to demonstrate using PyLumerical using Lumerical Script File (lsf) style commands
 -------------------------------------------------
 Sets up and runs a basic FDTD simulation. E field results are plotted in Lumerical.
 

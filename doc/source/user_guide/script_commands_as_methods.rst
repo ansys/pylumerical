@@ -166,12 +166,12 @@ For more information regarding adding and manipulating simulation objects, inclu
 Importing custom script commands
 ---------------------------------
 
-In addition to default script commands, you can also take advantage of the auto-syncing function feature in PyLumerical and import functions that are pre-defined in a Lumerical script file (.lsf file). 
-To import these functions, you can either execute the scripts while constructing the session using the :doc:`script keyword argument <../api/interface_class>`, or manually evaluating the file using the :py:meth:`ansys.lumerical.core.FDTD.eval` method.
+In addition to default script commands, you can also take advantage of the auto-syncing function feature in PyLumerical and import functions that are pre-defined in a Lumerical script file (.lsf file).
+To import these functions, you can either execute the scripts while constructing the session using the :doc:`script keyword argument <../api/interface_class>`, or manually evaluating the file using the :meth:`ansys.lumerical.core.FDTD.eval` method.
 
 .. note::
 
-    The :py:meth:`ansys.lumerical.core.FDTD.eval` is common to all products, and is available as :py:meth:`ansys.lumerical.core.MODE.eval`, :py:meth:`ansys.lumerical.core.DEVICE.eval`, and :py:meth:`ansys.lumerical.core.INTERCONNECT.eval`.
+    The :meth:`ansys.lumerical.core.FDTD.eval` is common to all products, and is available as :meth:`ansys.lumerical.core.MODE.eval`, :meth:`ansys.lumerical.core.DEVICE.eval`, and :meth:`ansys.lumerical.core.INTERCONNECT.eval`.
 
 **Example**
 
@@ -210,7 +210,7 @@ The following script imports functions from both custom script files upon sessio
 
 Returns
 
-..code-block::
+.. code-block::
 
     helloworld
     3.0
@@ -240,7 +240,9 @@ The correct usage is the following.
     fdtd.set("x span", 1e-6)
 
 .. vale off
+
 This applies also to methods defined in other scripting files that are loaded by first evaluating the script file.
+
 .. vale on
 
 **Example**
@@ -262,7 +264,11 @@ A Lumerical script file named MyConstructor.lsf contains the following function 
     set("z",z_input);
     }
 
+.. vale off
+
 The following Python driver script causes an error, even though the function defined in the script file have arguments named x_input, y_input, and z_input.
+
+.. vale on
 
 .. code-block:: python
 
@@ -286,23 +292,26 @@ In contrast, the following driver script executes without error, and add both th
 Unsupported methods
 --------------------
 
-While most script commands are available, there are a few categories of commands that are not available for use in the Python API. For example, certain reserved keywords (such as “c” for the speed of light) are unavailable in Python. 
-If you requires access to these variables, it is best to either define them in Python, or to use the :py:meth:`ansys.lumerical.core.FDTD.eval` method. 
-However, if the :py:meth:`ansys.lumerical.core.FDTD.eval` method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared. 
+While most script commands are available, there are a few categories of commands that aren't available for use in PyLumerical. For example, certain reserved keywords, such as “c” for the speed of light, are unavailable in Python. 
+If you requires access to these variables, it's best to either define them in Python, or to use the :meth:`ansys.lumerical.core.FDTD.eval` method. 
+However, if the :meth:`ansys.lumerical.core.FDTD.eval` method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared. 
 
 .. note::
-    
-    The :py:meth:`ansys.lumerical.core.FDTD.eval` is common to all products, and is available as :py:meth:`ansys.lumerical.core.MODE.eval`, :py:meth:`ansys.lumerical.core.DEVICE.eval`, and :py:meth:`ansys.lumerical.core.INTERCONNECT.eval`.
+    The :meth:`ansys.lumerical.core.FDTD.eval` method is common to all products, and is available as :meth:`ansys.lumerical.core.MODE.eval`, :meth:`ansys.lumerical.core.DEVICE.eval`, and :meth:`ansys.lumerical.core.INTERCONNECT.eval`.
 
 **Operators**
 
-Script operators that are used in the Lumerical Scripting Language cannot be overloaded and used “as-is” using the same syntax in Python, therefore, they are not available, and you should use alternatives in Python. The unavailable operators include:
+PyLumerical doesn't overload script operators in the Lumerical Scripting Language, and you can't use them “as-is” in Python. Use alternatives in Python. The unavailable operators include:
+
+.. vale off
 
 * Algebraic–For example,  `*`_ , `/`_ , `+`_ , `-`_ , `^`_
 
-* Logical–For example,  `>=`_ , `<`_ , `>`_ , `&`_ , `and`_ , `|`_ , `or`_ , `!`_ , `~`_
+* Logical–For example,  `>=`_ , `<`_ , `>`_ , `&`_ , `and`_ , `\|`_ , `or`_ , `!`_ , `~`_
 
-* The  ? (print, display) operator used to screen and query available results
+* The  `? (print, display)`_ operator used to screen and query available results
+
+.. vale on
 
 .. _*: https://optics.ansys.com/hc/en-us/articles/360034930833
 
@@ -324,7 +333,7 @@ Script operators that are used in the Lumerical Scripting Language cannot be ove
 
 .. _and : https://optics.ansys.com/hc/en-us/articles/360034410354
 
-.. _| : https://optics.ansys.com/hc/en-us/articles/360034410374
+.. _\| : https://optics.ansys.com/hc/en-us/articles/360034410374
 
 .. _or : https://optics.ansys.com/hc/en-us/articles/360034930993
 
@@ -332,17 +341,28 @@ Script operators that are used in the Lumerical Scripting Language cannot be ove
 
 .. _~ : https://optics.ansys.com/hc/en-us/articles/360034931033
 
-
+.. _? (print, display) : https://optics.ansys.com/hc/en-us/articles/360034410434
 Local documentation
 --------------------
 
-For information on the lumapi methods from within the environment we support Python docstrings for Lumerical session objects. This is the simplest way to determine the available script commands, and syntax. 
-This contains information that is similar to the `Alphabetical List of Script Commands <https://optics.ansys.com/hc/en-us/articles/360034923553>`__. 
-You can view the docstring by using the Python built-in function "help" or most ways rich interactive Python shells display docstrings (e.g. IPython, Jupyter Notebook):
+For information on the PyLumerical methods from within the environment, Python docstrings are available for Lumerical session objects. This is the simplest way to determine the available script commands, and syntax. 
+This contains information similar to `Alphabetical List of Script Commands <https://optics.ansys.com/hc/en-us/articles/360034923553>`__. 
+You can view the docstring by using the Python built-in function "help" or most ways rich interactive Python shells display docstrings, for example IPython or Jupyter Notebook.
 
-.. code-block::
+**Example**
 
+.. code-block:: python
+
+    #First, create an FDTD object
+    fdtd = lumapi.FDTD()
+
+    #Then, use the help function to view the docstring
     help(fdtd.addfdtd)
+
+Returns
+
+.. code-block:: text
+
     Help on method addfdtd in module lumapi:
     addfdtd(self, *args) method of lumapi.FDTD instance
     Adds an FDTD solver region to the simulation environment.  The extent of

@@ -177,12 +177,12 @@ Returns
 Explicit transfer functions
 -----------------------------
 
-Two explicit transfer functions, :py:meth:`ansys.lumerical.core.FDTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
+Two explicit transfer functions, :meth:`ansys.lumerical.core.FDTD.getv` and :meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
 While these can be useful in a small number of circumstances, avoid using these functions unless it's necessary, as changes to variables in one workspace doesn't automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.
 
 .. note::
 
-    :py:meth:`ansys.lumerical.core.FDTD.getv` and :py:meth:`ansys.lumerical.core.FDTD.putv` is common to all products, and is available in :class:`ansys.lumerical.core.MODE`, :class:`ansys.lumerical.core.DEVICE`, and :class:`ansys.lumerical.core.INTERCONNECT` as well.
+    :meth:`ansys.lumerical.core.FDTD.getv` and :meth:`ansys.lumerical.core.FDTD.putv` is common to all products, and is available in :class:`ansys.lumerical.core.MODE`, :class:`ansys.lumerical.core.DEVICE`, and :class:`ansys.lumerical.core.INTERCONNECT` as well.
 
 Transfer speed
 -----------------
@@ -193,4 +193,4 @@ However, when working with very large datasets it may be important to take this 
 Best practices
 -----------------
 
-* If you are creating a large number of variables or repeatedly sending and retrieving data in a loop with many API calls, it could be more efficient to do so inside the Lumerical script environment by using the :py:meth:`ansys.lumerical.core.FDTD.eval` command such that this all happens in one operation.
+* If you are creating a large number of variables or repeatedly sending and retrieving data in a loop with many API calls, it could be more efficient to do so inside the Lumerical script environment by using the :meth:`ansys.lumerical.core.FDTD.eval` command such that this all happens in one operation.

@@ -127,7 +127,9 @@ Closing the session
 --------------------
 
 .. vale off
+
 When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted. 
+
 .. vale on
 The Lumerical session also automatically terminate after the python script reaches the end.
 

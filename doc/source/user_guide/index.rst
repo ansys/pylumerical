@@ -60,8 +60,12 @@ Important informational resources on key concepts of PyLumerical.
 
       Learn how to access PyLumerical remotely through the interop server.
 
+.. vale off
+
 My first PyLumerical project
 -----------------------------
+
+.. vale on
 
 The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a plane wave.
 

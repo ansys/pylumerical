@@ -25,3 +25,7 @@ sudo
 docstring
 docstrings
 IPython
+photonic
+photonics
+lumopt
+lumslurm

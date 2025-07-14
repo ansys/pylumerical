@@ -29,7 +29,7 @@ The second example sets up and runs a simple simulation with a gaussian source a
 
 **Example**
 
-For more information on how to install PyLumerical and import the modules, see :doc:`Installation and getting started for PyLumerical <installation>`.
+For more information on how to install PyLumerical and import the modules, see :doc:`Installation and getting started for PyLumerical <../getting_started/index>`.
 
 
 

@@ -29,3 +29,4 @@ photonic
 photonics
 lumopt
 lumslurm
+[Aa]utodiscovery

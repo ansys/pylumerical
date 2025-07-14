@@ -3,7 +3,7 @@ API reference
 
 The API reference provides an overview of classes and methods used in PyLumerical.
 
-.. grid:: 2
+.. grid:: 3
 
     .. grid-item-card:: Interface classes
         :link: interface_class
@@ -16,9 +16,16 @@ The API reference provides an overview of classes and methods used in PyLumerica
         :link-type: doc
 
         Auxiliary classes used to represent simulation objects, their results, and IDs.'
+    
+    .. grid-item-card:: Autodiscovery
+        :link: autodiscovery
+        :link-type: doc
+
+        Function to automatically discover Lumerical installation.
 
 .. toctree::
     :hidden:
 
     interface_class
     simobject_class
+    autodiscovery

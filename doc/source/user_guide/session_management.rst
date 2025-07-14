@@ -120,8 +120,8 @@ When starting a session using Python, use the ``serverArgs`` parameter to specif
 The Python code above is equivalent to running the following command:
 
 .. code-block::
-    fdtd-solutions -threads 2 -platform offscreen -use-solve
 
+    fdtd-solutions -threads 2 -platform offscreen -use-solve
 
 Closing the session
 --------------------
@@ -131,6 +131,7 @@ Closing the session
 When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted. 
 
 .. vale on
+
 The Lumerical session also automatically terminate after the python script reaches the end.
 
 Python automatically deletes variables as they removed from scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.

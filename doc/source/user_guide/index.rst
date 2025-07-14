@@ -46,3 +46,13 @@ This user guide provides important informational resources on key concepts of Py
 
       Learn how to access PyLumerical remotely through the interop server.
 
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   session_management
+   script_commands_as_methods
+   working_with_simulation_objects
+   passing_data
+   accessing_simulation_results
+   interop_server

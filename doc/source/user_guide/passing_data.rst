@@ -5,11 +5,12 @@ Passing data
 
 .. vale off
 
-..
-    Intentional use of passive voice here
+.. Intentional use of passive voice here
+
 When driving Lumerical's tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don't share a workspace. 
 
 .. vale on
+
 Instead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types. 
 This article describes how PyLumerical translates basic data types between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.
 

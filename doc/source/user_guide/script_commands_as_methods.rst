@@ -342,6 +342,7 @@ PyLumerical doesn't overload script operators in the Lumerical Scripting Languag
 .. _~ : https://optics.ansys.com/hc/en-us/articles/360034931033
 
 .. _? (print, display) : https://optics.ansys.com/hc/en-us/articles/360034410434
+
 Local documentation
 --------------------
 

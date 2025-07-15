@@ -112,7 +112,7 @@ jobs:
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ matrix.python }}
 
   tests:
     name: "Tests"

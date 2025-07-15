@@ -4,3 +4,5 @@ isort
 Makefile
 py
 pytest
+lumapi
+Lumerical

@@ -6,3 +6,4 @@ py
 pytest
 lumapi
 Lumerical
+fdtd

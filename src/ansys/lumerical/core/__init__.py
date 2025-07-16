@@ -25,7 +25,7 @@
 import ansys.api.lumerical
 
 # Make common names from lumapi available in the top-level namespace
-from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, SimObject, SimObjectId, SimObjectResults
+from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, InteropPaths, SimObject, SimObjectId, SimObjectResults
 
 from . import autodiscovery
 

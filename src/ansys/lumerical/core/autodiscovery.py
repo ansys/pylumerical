@@ -73,12 +73,21 @@ def locate_lumerical_install():
     """
     lumerical_install_dir = None
 
-    # TODO(dylanm-ansys): add registry checks on Windows (https://tfs.ansys.com:8443/tfs/ANSYS_Optics/Lumerical/_workitems/edit/45439)
-
     if platform.system() == "Windows":
+        try:
+            import winreg  # Import winreg here to avoid errors on non-Windows platforms
+
+            reg_path = r"SOFTWARE\ANSYS, Inc.\Lumerical"
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, reg_path) as key:
+                install_folder, regtype = winreg.QueryValueEx(key, "installFolder")
+                if Path(install_folder).exists():
+                    return install_folder
+        except (FileNotFoundError, OSError):
+            pass
+        # if not found in the registry, try to guess the installation path
         guess_base_and_suffix = [["C:\\Program Files\\Lumerical\\", ""], ["C:\\Program Files\\Ansys Inc\\", "Lumerical"]]
     elif platform.system() == "Linux":
-        guess_base_and_suffix = [["/opt/lumerical/", ""], ["~/Ansys/ansys_inc/", "Lumerical"]]
+        guess_base_and_suffix = [["/opt/lumerical/", ""], [str(Path("~/Ansys/ansys_inc/").expanduser()), "Lumerical"]]
     else:
         raise RuntimeError("Unsupported operating system. Only Windows and Linux are supported.")
 
@@ -88,9 +97,9 @@ def locate_lumerical_install():
 
     for guess_base, suffix in guess_base_and_suffix:
         if Path(guess_base).exists():
-            for dir in Path(guess_base).iterdir():
-                if Path(dir, suffix).is_dir():
-                    match = re.match(r"v(\d{2})(\d)", dir.name)
+            for candidate_dir in Path(guess_base).iterdir():
+                if Path(candidate_dir, suffix).is_dir():
+                    match = re.match(r"v(\d{2})(\d)", candidate_dir.name)
                     if match:
                         ver_year = int(match.group(1))
                         ver_maj = int(match.group(2))
@@ -98,7 +107,7 @@ def locate_lumerical_install():
                             latest_ver_year = ver_year
                             latest_ver_release = ver_maj
                             # check to make sure the api/python path is there (avoids some false positives from uninstalls)
-                            if Path(dir, suffix, "api/python/").exists():
-                                lumerical_install_dir = str(Path(dir, suffix))
+                            if Path(candidate_dir, suffix, "api/python/").exists():
+                                lumerical_install_dir = str(Path(candidate_dir, suffix))
 
     return lumerical_install_dir

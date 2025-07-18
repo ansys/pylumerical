@@ -1,29 +1,15 @@
 Contributing
 ============
 
-At least two installation modes are provided: user and developer.
+PyLumerical follows the `PyAnsys <https://dev.docs.pyansys.com/how-to/contributing.html>`_ contribution guidelines. Ensure that you are familiar with the contents of this guide before contributing to PyLumerical.
 
-For users
-^^^^^^^^^
-In order to install PyLumerical, make sure you
-have the latest version of `pip`_. To do so, run:
+The following section provides information for contributing to PyLumerical.
 
-.. code:: bash
+Installing PyLumerical in developer mode
+-----------------------------------------
 
-    python -m pip install -U pip
-
-Then, you can simply execute:
-
-.. code:: bash
-
-    python -m pip install ansys-lumerical-core
-
-For developers
-^^^^^^^^^^^^^^
 Installing PyLumerical in developer mode allows
 you to modify the source and enhance it.
-
-Before contributing to the project, please refer to the `PyAnsys Developer's guide`_ and then follow these steps:
 
 #. Start by cloning this repository:
 
@@ -63,26 +49,28 @@ Before contributing to the project, please refer to the `PyAnsys Developer's gui
 
       python -m pip install --editable .
 
-    #. Finally, verify your development installation by running:
+    
+#. Finally, verify your development installation by running:
 
    .. code:: bash
 
       tox
 
-
 How to test
------------
+------------
 
 This project takes advantage of `tox`_. This tool allows to automate common
-development tasks (similar to Makefile) but it is oriented towards Python
+development tasks (similar to Makefile) but it's oriented towards Python
 development.
 
 Using tox
-^^^^^^^^^
+^^^^^^^^^^
 
 As Makefile has rules, `tox`_ has environments. In fact, the tool creates its
-own virtual environment so anything being tested is isolated from the project in
-order to guarantee project's integrity. The following environments commands are provided:
+own virtual environment to isolate the test files from the project in
+order to guarantee the project's integrity. 
+
+Environment commands for tox:
 
 - **tox -e style**: checks for coding style quality.
 - **tox -e py**: checks for unit tests.
@@ -93,17 +81,19 @@ order to guarantee project's integrity. The following environments commands are 
 Raw testing
 ^^^^^^^^^^^
 
-If required, you can always call the style commands (`black`_, `isort`_,
+.. vale off
+
+If required, you can call the style commands (`black`_, `isort`_,
 `flake8`_) or unit testing ones (`pytest`_) from the command line. However,
-this does not guarantee that your project is being tested in an isolated
+this doesn't guarantee that your project is being tested in an isolated
 environment, which is the reason why tools like `tox`_ exist.
 
+.. vale on
 
-A note on pre-commit
-^^^^^^^^^^^^^^^^^^^^
+Pre-commit
+-----------
 
-The style checks take advantage of `pre-commit`_. Developers are not forced but
-encouraged to install this tool via:
+Style checks in PyLumerical is enforced using `pre-commit`_. You can install  `pre-commit`_ to check your code style prior to committing changes.
 
 .. code:: bash
 

@@ -123,6 +123,9 @@ jobs:
       contents: write
     steps:
 
+      - name: "Checkout project"
+        uses: actions/checkout@v4
+
       - name: "Login to GitHub container registry"
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
@@ -133,21 +136,27 @@ jobs:
       - name: "Pull lumerical services"
         run: |
           docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
-          docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_FDTD_SOLVE }}
 
       - name: "Run lumerical services"
         run: |
-          docker run --detach --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} -e LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }}
-          docker run --detach --name ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }} -e LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }}
+          docker run \
+            --detach -it \
+            --network="host" \
+            --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} \
+             --env LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }} \
+             --volume ${PWD}:/home/ansys/pylumerical \
+             ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+
+      - name: "Install project"
+        run: |
+            docker exec \
+              --workdir /home/ansys/pylumerical \
+              ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
+              "python -m pip install -e .[tests] && pytest tests"
 
       - name: "Stop lumerical services"
         if: always()
         run: |
           docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-          docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}
-
           docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-          docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}
-
           docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-          docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME }}

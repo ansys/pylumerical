@@ -20,24 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test the lumapi 'appCall' and 'appCallWithConstructor' objects 
+"""Test the lumapi 'appCall' and 'appCallWithConstructor' objects.
 
- - test 01: Test 'appCall' object with ordered dict properties
- - test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError
- - test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods
- - test 04: Test 'appCallWithConstructor' object raises 'type added doesn't have property' AttributeError
- - test 05: Test 'appCallWithConstructor' object raises 'use an ordered dict for properties' lumWarning
+- test 01: Test 'appCall' object with ordered dict properties
+- test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError
+- test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods
+- test 04: Test 'appCallWithConstructor' object raises 'type added doesn't have property' AttributeError
+- test 05: Test 'appCallWithConstructor' object raises 'use an ordered dict for properties' lumWarning
 """
 
-from unit_test_setup import *
 from collections import OrderedDict
+
+from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")
 def module_setup():
-
-    print('\n--> Setup')
+    """PyTest module setup / tearadown."""
+    print("\n--> Setup")
 
     global fdtd
 
@@ -45,90 +45,95 @@ def module_setup():
 
     yield
 
-    print('\n--> Teardown')
+    print("\n--> Teardown")
 
     fdtd.close()
 
 
-def test_01__appCall_with_ordered_dict_properties(module_setup):
-
-    prop_dict = OrderedDict([("name", "monitor"),
-                             ("override global monitor settings", True),
-                             ("x", 0.),
-                             ("y", 0.4e-6),
-                             ("monitor type", "linear x"),
-                             ("frequency points", 10.0)])
+def test_01__appcall_with_ordered_dict_properties(module_setup):
+    """Test 01: Test 'appCall' object with ordered dict properties."""
+    prop_dict = OrderedDict(
+        [
+            ("name", "monitor"),
+            ("override global monitor settings", True),
+            ("x", 0.0),
+            ("y", 0.4e-6),
+            ("monitor type", "linear x"),
+            ("frequency points", 10.0),
+        ]
+    )
 
     fdtd.adddftmonitor(properties=prop_dict)
 
 
-def test_02__appCall_raises_object_cannot_be_created_LumApiError(module_setup):
-
-    prop_dict = {"name": "monitor 2",
-                 "override global monitor settings": True,
-                 "x": 0.,
-                 "y": 0.4e-6,
-                 "monitor type": "linear x",
-                 "frequency points": 10.0}
+def test_02__appcall_raises_object_cannot_be_created_lumapierror(module_setup):
+    """Test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError."""
+    prop_dict = {
+        "name": "monitor 2",
+        "override global monitor settings": True,
+        "x": 0.0,
+        "y": 0.4e-6,
+        "monitor type": "linear x",
+        "frequency points": 10.0,
+    }
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
         fdtd.adddftmonitor(prop_dict)
 
-    assert 'error during property initialization, the requested object cannot be created' in str(
-        ex_info.value)
+    assert "error during property initialization, the requested object cannot be created" in str(ex_info.value)
 
 
-def test_03__appCallWithConstructor_object_set_and_get(module_setup):
+def test_03__appcallwithconstructor_object_set_and_get(module_setup):
+    """Test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods."""
+    name = "addtriangle"
+    method = (lambda x: lambda fdtd, *args, **kwargs: lumapi.appCallWithConstructor(fdtd, x, args, **kwargs))(name)
+    method.__name__ = str("my_addtriangle")
 
-    name = 'addtriangle'
-    method = (lambda x: lambda fdtd, *args,
-              **kwargs: lumapi.appCallWithConstructor(fdtd, x, args, **kwargs))(name)
-    method.__name__ = str('my_addtriangle')
+    setattr(fdtd, "my_addtriangle", method)
 
-    setattr(fdtd, 'my_addtriangle', method)
-
-    my_method_attr = getattr(fdtd, 'my_addtriangle')
+    _ = getattr(fdtd, "my_addtriangle")
 
     fdtd.my_addtriangle(fdtd)
 
-    obj = fdtd.getObjectById('::model::triangle')
+    obj = fdtd.getObjectById("::model::triangle")
 
     assert obj.name == "triangle"
 
 
-def test_04__appCallWithConstructor_raises_does_not_have_property_AttributeError(module_setup):
-
-    prop_dict = OrderedDict([("name", "monitor"),
-                             ("override_global_monitor_settings", True),
-                             ("x", 0.),
-                             ("y", 0.4e-6),
-                             ("monitor_type", "linear x"),
-                             ("frequency_points", 10.0)])
+def test_04__appcallwithconstructor_raises_does_not_have_property_attributeerror(module_setup):
+    """Test 04: Test 'appCallWithConstructor' object raises 'type added doesn't have property' AttributeError."""
+    prop_dict = OrderedDict(
+        [
+            ("name", "monitor"),
+            ("override_global_monitor_settings", True),
+            ("x", 0.0),
+            ("y", 0.4e-6),
+            ("monitor_type", "linear x"),
+            ("frequency_points", 10.0),
+        ]
+    )
 
     with pytest.raises(AttributeError) as ex_info:
-
         fdtd.adddftmonitor(properties=prop_dict)
 
-    assert "Type added by 'adddftmonitor' doesn't have 'override_global_monitor_settings' property" in str(
-        ex_info.value)
+    assert "Type added by 'adddftmonitor' doesn't have 'override_global_monitor_settings' property" in str(ex_info.value)
 
 
-def test_05__appCallWithConstructor_raises_use_an_ordered_dict_lumWarning(module_setup):
-
-    prop_dict = {"name": "monitor 2",
-                 "override global monitor settings": True,
-                 "x": 0.,
-                 "y": 0.4e-6,
-                 "monitor type": "linear x",
-                 "frequency points": 10.0}
+def test_05__appcallwithconstructor_raises_use_an_ordered_dict_lumwarning(module_setup):
+    """Test 05: Test 'appCallWithConstructor' object raises 'use an ordered dict for properties' lumWarning."""
+    prop_dict = {
+        "name": "monitor 2",
+        "override global monitor settings": True,
+        "x": 0.0,
+        "y": 0.4e-6,
+        "monitor type": "linear x",
+        "frequency points": 10.0,
+    }
 
     def lumapi_lum_warning():
-
-        with pytest.warns(UserWarning,
-                          match=("It is recommended to use an ordered dict for properties," +
-                                 "as regular dict elements can be re-ordered by Python")):
-
+        with pytest.warns(
+            UserWarning, match=("It is recommended to use an ordered dict for properties," + "as regular dict elements can be re-ordered by Python")
+        ):
             fdtd.adddftmonitor(properties=prop_dict)
 
         return 1

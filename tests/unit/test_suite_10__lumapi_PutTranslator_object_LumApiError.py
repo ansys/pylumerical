@@ -20,21 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'PutTranslator' object raises LumApiError 
+"""Test lumapi 'PutTranslator' object raises LumApiError.
 
- - test 01: Test 'PutTranslator' object raises 'Unsupported data type' LumApiError
- - test 02: Test 'PutTranslator' object raises 'wrong type for the property' LumApiError
+- test 01: Test 'PutTranslator' object raises 'Unsupported data type' LumApiError
+- test 02: Test 'PutTranslator' object raises 'wrong type for the property' LumApiError
 """
 
-
-from unit_test_setup import *
+from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")
 def module_setup():
-
-    print('\n--> Setup')
+    """PyTest module setup / tearadown."""
+    print("\n--> Setup")
 
     global fdtd
 
@@ -46,27 +44,24 @@ def module_setup():
 
     yield
 
-    print('\n--> Teardown')
+    print("\n--> Teardown")
 
     fdtd.close()
 
 
-def test_01__PutTranslator_raises_unsupported_data_type_LumApiError(module_setup):
-
+def test_01__puttranslator_raises_unsupported_data_type_lumapierror(module_setup):
+    """Test 01: Test 'PutTranslator' object raises 'Unsupported data type' LumApiError."""
     with pytest.raises(lumapi.LumApiError) as excinfo:
-
         fdtd.setnamed("assembly_grp", "parameters", {"x", "y", "radius"})
 
     assert "Unsupported data type" in str(excinfo.value)
 
 
-def test_02__PutTranslator_raises_wrong_type_for_the_property_LumApiError(module_setup):
-
+def test_02__puttranslator_raises_wrong_type_for_the_property_lumapierror(module_setup):
+    """Test 02: Test 'PutTranslator' object raises 'wrong type for the property' LumApiError."""
     mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
 
     with pytest.raises(lumapi.LumApiError) as excinfo:
-
         fdtd.setnamed("assembly_grp", "mapping", mapping)
 
-    assert ("in setnamed, the value supplied is the wrong type " +
-            "for the property 'mapping'") in str(excinfo.value)
+    assert ("in setnamed, the value supplied is the wrong type " + "for the property 'mapping'") in str(excinfo.value)

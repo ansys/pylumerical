@@ -20,19 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'removePromptLineNo' function 
+"""Test lumapi 'removePromptLineNo' function.
 
- - test 01: Test lumapi 'removePromptLineNo' with a simple string
- - test 02: Test lumapi 'removePromptLineNo' with a string with columns
- - test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'
+- test 01: Test lumapi 'removePromptLineNo' with a simple string
+- test 02: Test lumapi 'removePromptLineNo' with a string with columns
+- test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'
 """
 
-from unit_test_setup import *
+from unit_test_setup import lumapi
 
 
-def test_01__lumapi_removePromptLineNo_simple_string():
-
+def test_01__lumapi_removepromptlineno_simple_string():
+    """Test 01: Test lumapi 'removePromptLineNo' with a simple string."""
     strval = "remove prompt line number helper function"
 
     message = lumapi.removePromptLineNo(strval)
@@ -40,8 +39,8 @@ def test_01__lumapi_removePromptLineNo_simple_string():
     assert message == strval
 
 
-def test_02__lumapi_removePromptLineNo_string_with_columns():
-
+def test_02__lumapi_removepromptlineno_string_with_columns():
+    """Test 02: Test lumapi 'removePromptLineNo' with a string with columns."""
     strval = "123:456:789"
 
     message = lumapi.removePromptLineNo(strval)
@@ -49,8 +48,8 @@ def test_02__lumapi_removePromptLineNo_string_with_columns():
     assert message == "123:456:789"
 
 
-def test_03__lumapi_removePromptLineNo_string_with_columns_and_prompt_line():
-
+def test_03__lumapi_removepromptlineno_string_with_columns_and_prompt_line():
+    """Test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'."""
     strval = "123: prompt line :789"
 
     message = lumapi.removePromptLineNo(strval)

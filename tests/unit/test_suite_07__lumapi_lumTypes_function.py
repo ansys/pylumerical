@@ -20,33 +20,31 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'lumTypes' function 
+"""Test lumapi 'lumTypes' function.
 
- - test 01: Test lumapi 'lumTypes' function with a list argument
- - test 02: Test lumapi 'lumTypes' function with a non-list argument
+- test 01: Test lumapi 'lumTypes' function with a list argument
+- test 02: Test lumapi 'lumTypes' function with a non-list argument
 """
 
-from unit_test_setup import *
-
 import numpy as np
+from unit_test_setup import lumapi
 
 
-def test_01__lumapi_lumTypes_function_with_list_argument() :
-    
-    mapping = [ [ 0, 2, 0, 1 ], [ 0, 0, 2, 1 ], [ 1, 0.5, 0.5, 1 ] ]
-    
-    np_mapping = np.array( mapping )
-    
-    converted = lumapi.lumTypes( [ mapping, np_mapping ] )
-    
-    assert converted == [ 'cell array', 'matrix' ]
+def test_01__lumapi_lumtypes_function_with_list_argument():
+    """Test 01: Test lumapi 'lumTypes' function with a list argument."""
+    mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
+
+    np_mapping = np.array(mapping)
+
+    converted = lumapi.lumTypes([mapping, np_mapping])
+
+    assert converted == ["cell array", "matrix"]
 
 
-def test_02__lumapi_lumTypes_function_with_non_list_argument() :
-    
-    dct = { "a" : 1, "b" : 2, "c" : 3 }
-    
-    converted = lumapi.lumTypes( dct )
-    
-    assert converted == None
+def test_02__lumapi_lumtypes_function_with_non_list_argument():
+    """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
+    dct = {"a": 1, "b": 2, "c": 3}
+
+    converted = lumapi.lumTypes(dct)
+
+    assert converted is None

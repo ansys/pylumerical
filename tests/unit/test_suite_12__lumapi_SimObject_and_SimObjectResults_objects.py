@@ -20,25 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'SimObject' and 'SimObjectResults' objects 
+"""Test lumapi 'SimObject' and 'SimObjectResults' objects.
 
- - test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list
- - test 02: Test 'Lumerical' object 'getObjectById_SimObject
- - test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject
- - test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError
- - test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError
- - test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods
+- test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list
+- test 02: Test 'Lumerical' object 'getObjectById_SimObject
+- test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject
+- test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError
+- test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError
+- test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods
 """
 
-from unit_test_setup import *
 import numpy as np
+from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")
 def module_setup():
-
-    print('\n--> Setup')
+    """PyTest module setup / tearadown."""
+    print("\n--> Setup")
 
     global fdtd
 
@@ -48,13 +47,13 @@ def module_setup():
 
     yield
 
-    print('\n--> Teardown')
+    print("\n--> Teardown")
 
     fdtd.close()
 
 
-def test_01__Lumerical_getAllSelectedObjects_SimObject_list(module_setup):
-
+def test_01__lumerical_getallselectedobjects_simobject_list(module_setup):
+    """Test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list."""
     obj_lst = fdtd.getAllSelectedObjects()
 
     assert len(obj_lst) == 1
@@ -71,9 +70,9 @@ def test_01__Lumerical_getAllSelectedObjects_SimObject_list(module_setup):
     assert "same settings on all boundaries" in attributes
 
 
-def test_02__Lumerical_getObjectById_SimObject(module_setup):
-
-    obj = fdtd.getObjectById('::model::FDTD')
+def test_02__lumerical_getobjectbyid_simobject(module_setup):
+    """Test 02: Test 'Lumerical' object 'getObjectById_SimObject."""
+    obj = fdtd.getObjectById("::model::FDTD")
 
     attributes = dir(obj)
 
@@ -85,8 +84,8 @@ def test_02__Lumerical_getObjectById_SimObject(module_setup):
     assert "same settings on all boundaries" in attributes
 
 
-def test_03__Lumerical_getObjectBySelection_SimObject(module_setup):
-
+def test_03__lumerical_getobjectbyselection_simobject(module_setup):
+    """Test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject."""
     obj = fdtd.getObjectBySelection()
 
     results = dir(obj.results)
@@ -98,35 +97,32 @@ def test_03__Lumerical_getObjectBySelection_SimObject(module_setup):
 
     x = obj.results.x
 
-    assert type(x) == np.ndarray
+    assert isinstance(x, np.ndarray)
     assert len(x.shape) == 2
 
 
-def test_04__SimObjectResults_raises_SimObjectResults_has_no_attribute_AttributeError(module_setup):
-
+def test_04__simobjectresults_raises_simobjectresults_has_no_attribute_attributeerror(module_setup):
+    """Test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError."""
     obj = fdtd.getObjectBySelection()
 
     with pytest.raises(AttributeError) as ex_info:
+        _ = obj.results.xx
 
-        xx = obj.results.xx
-
-    assert "'SimObjectResults' object has no attribute 'xx'" in str(
-        ex_info.value)
+    assert "'SimObjectResults' object has no attribute 'xx'" in str(ex_info.value)
 
 
-def test_05__SimObject_raises_attribute_can_not_be_set_LumApiError(module_setup):
-
+def test_05__simobject_raises_attribute_can_not_be_set_lumapierror(module_setup):
+    """Test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError."""
     obj = fdtd.getObjectBySelection()
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
         obj.results.y = 1
 
-    assert "Attribute \'y\' can not be set" in str(ex_info.value)
+    assert "Attribute 'y' can not be set" in str(ex_info.value)
 
 
-def test_06__SimObject_getParent_and_getChildren(module_setup):
-
+def test_06__simobject_getparent_and_getchildren(module_setup):
+    """Test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods."""
     fdtd.addstructuregroup({"name": "group1"})
     fdtd.addrect({"name": "rect1"})
     fdtd.select("rect1")

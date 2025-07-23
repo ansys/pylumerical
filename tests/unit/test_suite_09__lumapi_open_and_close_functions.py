@@ -20,22 +20,21 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'open' and 'close' functions 
+"""Test lumapi 'open' and 'close' functions.
 
- - test 01: Test lumapi 'open' and 'close' FDTD
- - test 02: Test lumapi 'open' and 'close' DEVICE
- - test 03: Test lumapi 'open' and 'close' MODE
- - test 04: Test lumapi 'open' and 'close' INTERCOINNECT
- - test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError
+- test 01: Test lumapi 'open' and 'close' FDTD
+- test 02: Test lumapi 'open' and 'close' DEVICE
+- test 03: Test lumapi 'open' and 'close' MODE
+- test 04: Test lumapi 'open' and 'close' INTERCOINNECT
+- test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError
 """
 
-from unit_test_setup import *
+from unit_test_setup import lumapi, pytest
 
 
 def test_01__lumapi_open_close_fdtd():
-
-    fdtd = lumapi.open('fdtd', hide=True)
+    """Test 01: Test lumapi 'open' and 'close' FDTD."""
+    fdtd = lumapi.open("fdtd", hide=True)
 
     assert isinstance(fdtd, lumapi.Lumerical) == 1
 
@@ -45,8 +44,8 @@ def test_01__lumapi_open_close_fdtd():
 
 
 def test_02__lumapi_open_close_device():
-
-    device = lumapi.open('device', hide=True)
+    """Test 02: Test lumapi 'open' and 'close' DEVICE."""
+    device = lumapi.open("device", hide=True)
 
     handle = device.handle
 
@@ -58,8 +57,8 @@ def test_02__lumapi_open_close_device():
 
 
 def test_03__lumapi_open_close_mode():
-
-    mode = lumapi.open('mode', hide=True)
+    """Test 03: Test lumapi 'open' and 'close' MODE."""
+    mode = lumapi.open("mode", hide=True)
 
     assert isinstance(mode, lumapi.MODE) == 1
 
@@ -67,20 +66,19 @@ def test_03__lumapi_open_close_mode():
 
 
 def test_04__lumapi_open_close_interconnect():
-
-    interconnect = lumapi.open('interconnect', hide=True)
+    """Test 04: Test lumapi 'open' and 'close' INTERCOINNECT."""
+    interconnect = lumapi.open("interconnect", hide=True)
 
     assert isinstance(interconnect, lumapi.INTERCONNECT) == 1
 
     lumapi.close(interconnect)
 
 
-def test_05__lumapi_open_unexpected_app_raises_product_not_available_LumApiError():
-
-    product = 'UNEXPECTED'
+def test_05__lumapi_open_unexpected_app_raises_product_not_available_lumapierror():
+    """Test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError."""
+    product = "UNEXPECTED"
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
-        app = lumapi.open(product, hide=True)
+        _ = lumapi.open(product, hide=True)
 
     assert "Product [" + product + "] is not available" in str(ex_info.value)

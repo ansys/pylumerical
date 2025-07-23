@@ -20,21 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi verifyConnection function 
+"""Test lumapi verifyConnection function.
 
- - test 01: Test 'verifyConnection' function
- - test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError
- - test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError
+- test 01: Test 'verifyConnection' function
+- test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError
+- test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError
 """
 
-from unit_test_setup import *
+from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")
 def module_setup():
-
-    print('\n--> Setup')
+    """PyTest module setup / tearadown."""
+    print("\n--> Setup")
 
     global fdtd
 
@@ -42,43 +41,41 @@ def module_setup():
 
     yield
 
-    print('\n--> Teardown')
+    print("\n--> Teardown")
 
     fdtd.close()
 
 
-def test_01__verifyConnection(module_setup):
-
+def test_01__verifyconnection(module_setup):
+    """Test 01: Test 'verifyConnection' function."""
     handle = fdtd.handle
 
-    assert lumapi.verifyConnection(handle) == True
+    assert lumapi.verifyConnection(handle)
 
 
-def test_02__verifyConnection_raises_error_validating_the_connection_LumApiError(module_setup):
-
+def test_02__verifyconnection_raises_error_validating_the_connection_lumapierror(module_setup):
+    """Test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
     handle = fdtd.handle
 
     fdtd.close()
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
         lumapi.verifyConnection(handle)
 
     assert "Error validating the connection" in str(ex_info.value)
 
 
-def test_03__verifyConnection_raises_error_validating_the_connection_LumApiError(module_setup):
-
-    fdtd = lumapi.open('fdtd', hide=True)
+def test_03__verifyconnection_raises_error_validating_the_connection_lumapierror(module_setup):
+    """Test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
+    fdtd = lumapi.open("fdtd", hide=True)
 
     fdtd.addrect()
 
-    obj = fdtd.getObjectBySelection()
+    _ = fdtd.getObjectBySelection()
 
     fdtd.close()
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
-        obj = fdtd.getObjectBySelection()
+        _ = fdtd.getObjectBySelection()
 
     assert "Error validating the connection" in str(ex_info.value)

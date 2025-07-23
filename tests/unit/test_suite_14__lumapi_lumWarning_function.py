@@ -20,27 +20,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'lumWarning' function 
+"""Test lumapi 'lumWarning' function.
 
- - test 01: Test lumapi 'lumWarning'
+- test 01: Test lumapi 'lumWarning'
 """
 
-from unit_test_setup import *
+from unit_test_setup import lumapi, pytest
 
 
-def test_01__lumapi_lumWarning():
-
-    fdtd = lumapi.open('fdtd', hide=True)
+def test_01__lumapi_lumwarning():
+    """Test 01: Test lumapi 'lumWarning'."""
+    fdtd = lumapi.open("fdtd", hide=True)
 
     fdtd.addrect()
     fdtd.addrect()
 
     def lum_warning():
-
         with pytest.warns(UserWarning, match="Multiple objects named '::model::rectangle'."):
-
-            obj = fdtd.getObjectById('::model::rectangle')
+            _ = fdtd.getObjectById("::model::rectangle")
 
         return 1
 

@@ -20,26 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-""" 
-Test lumapi 'Lumerical' children objects 'open' and 'close' methods
+"""Test lumapi 'Lumerical' children objects 'open' and 'close' methods.
 
- - test 01: Test lumapi 'open' and 'close' FDTD with no arguments
- - test 02: Test lumapi 'open' and 'close' FDTD with a project filename argument
- - test 03: Test lumapi 'open' and 'close' FDTD with a script filename argument
- - test 04: Test lumapi 'open' and 'close' FDTD with an encrypted script filename argument
- - test 05: Test lumapi 'open' and 'close' DEVICE with server arguments
- - test 06: Test lumapi 'open' DEVICE with invalid server arguments raises LumApiError
- - test 07: Test lumapi 'open' DEVICE with invalid remote arguments raises LumApiError
- - test 08: Test lumapi 'open' and 'close' MODE
- - test 09: Test lumapi 'open' and 'close' INTERCONNECT
- - test 10: Test lumapi object raises 'Invalid product name' LumApiError
+- test 01: Test lumapi 'open' and 'close' FDTD with no arguments
+- test 02: Test lumapi 'open' and 'close' FDTD with a project filename argument
+- test 03: Test lumapi 'open' and 'close' FDTD with a script filename argument
+- test 04: Test lumapi 'open' and 'close' FDTD with an encrypted script filename argument
+- test 05: Test lumapi 'open' and 'close' DEVICE with server arguments
+- test 06: Test lumapi 'open' DEVICE with invalid server arguments raises LumApiError
+- test 07: Test lumapi 'open' DEVICE with invalid remote arguments raises LumApiError
+- test 08: Test lumapi 'open' and 'close' MODE
+- test 09: Test lumapi 'open' and 'close' INTERCONNECT
+- test 10: Test lumapi object raises 'Invalid product name' LumApiError
 """
 
-from unit_test_setup import *
+from unit_test_setup import lumapi, pytest
 
 
-def test_01__lumapi_open_close_FDTD_with_no_arg():
-
+def test_01__lumapi_open_close_fdtd_with_no_arg():
+    """Test 01: Test lumapi 'open' and 'close' FDTD with no arguments."""
     fdtd = lumapi.FDTD()
 
     assert isinstance(fdtd, lumapi.FDTD) == 1
@@ -47,9 +46,9 @@ def test_01__lumapi_open_close_FDTD_with_no_arg():
     fdtd.close()
 
 
-def test_02__lumapi_open_close_FDTD_with_project_filename_arg():
-
-    project_file = 'fdtd_test.fsp'
+def test_02__lumapi_open_close_fdtd_with_project_filename_arg():
+    """Test 02: Test lumapi 'open' and 'close' FDTD with a project filename argument."""
+    project_file = "fdtd_test.fsp"
 
     fdtd = lumapi.FDTD(project=project_file, hide=True)
 
@@ -62,39 +61,39 @@ def test_02__lumapi_open_close_FDTD_with_project_filename_arg():
     fdtd.close()
 
 
-def test_03__lumapi_open_close_FDTD_with_script_filename_arg():
-
-    script_file = 'fdtd_test.lsf'
+def test_03__lumapi_open_close_fdtd_with_script_filename_arg():
+    """Test 03: Test lumapi 'open' and 'close' FDTD with a script filename argument."""
+    script_file = "fdtd_test.lsf"
 
     fdtd = lumapi.FDTD(filename=script_file, hide=True)
 
     assert isinstance(fdtd, lumapi.FDTD) == 1
 
-    obj = fdtd.getObjectById('::model::rectangle')
+    obj = fdtd.getObjectById("::model::rectangle")
 
     assert obj.name == "rectangle"
 
     fdtd.close()
 
 
-def test_04__lumapi_open_close_FDTD_with_encrypted_script_filename_arg():
-
-    script_file = 'fdtd_test.lsfx'
+def test_04__lumapi_open_close_fdtd_with_encrypted_script_filename_arg():
+    """Test 04: Test lumapi 'open' and 'close' FDTD with an encrypted script filename argument."""
+    script_file = "fdtd_test.lsfx"
 
     fdtd = lumapi.FDTD(script=script_file, hide=True)
 
     assert isinstance(fdtd, lumapi.FDTD) == 1
 
-    obj = fdtd.getObjectById('::model::rectangle')
+    obj = fdtd.getObjectById("::model::rectangle")
 
     assert obj.name == "rectangle"
 
     fdtd.close()
 
 
-def test_05__lumapi_open_close_DEVICE_with_server_args():
-
-    server_args = {'use-solve': True, 'threads': '2'}
+def test_05__lumapi_open_close_device_with_server_args():
+    """Test 05: Test lumapi 'open' and 'close' DEVICE with server arguments."""
+    server_args = {"use-solve": True, "threads": "2"}
 
     device = lumapi.DEVICE(hide=True, serverArgs=server_args)
 
@@ -103,30 +102,28 @@ def test_05__lumapi_open_close_DEVICE_with_server_args():
     device.close()
 
 
-def test_06__lumapi_open_DEVICE_with_invalid_server_args_raises_LumApiError():
-
-    server_args = [{'use-solve': True, 'threads': '2'}]
+def test_06__lumapi_open_device_with_invalid_server_args_raises_lumapierror():
+    """Test 06: Test lumapi 'open' DEVICE with invalid server arguments raises LumApiError."""
+    server_args = [{"use-solve": True, "threads": "2"}]
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
-        device = lumapi.DEVICE(hide=True, serverArgs=server_args)
+        _ = lumapi.DEVICE(hide=True, serverArgs=server_args)
 
     assert "Server arguments must be in dict format" in str(ex_info.value)
 
 
-def test_07__lumapi_open_DEVICE_with_invalid_remote_args_raises_LumApiError():
-
+def test_07__lumapi_open_device_with_invalid_remote_args_raises_lumapierror():
+    """Test 07: Test lumapi 'open' DEVICE with invalid remote arguments raises LumApiError."""
     remote_args = {"hostname": "123.123.123.123", "port": 8989}
 
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
-        device = lumapi.DEVICE(hide=True, remoteArgs=remote_args)
+        _ = lumapi.DEVICE(hide=True, remoteArgs=remote_args)
 
     assert "appOpen error: Unable to connect to server" in str(ex_info.value)
 
 
-def test_08__lumapi_open_close_MODE():
-
+def test_08__lumapi_open_close_mode():
+    """Test 08: Test lumapi 'open' and 'close' MODE."""
     mode = lumapi.MODE(hide=True)
 
     assert isinstance(mode, lumapi.MODE) == 1
@@ -134,8 +131,8 @@ def test_08__lumapi_open_close_MODE():
     mode.close()
 
 
-def test_09__lumapi_open_close_INTERCONNECT():
-
+def test_09__lumapi_open_close_interconnect():
+    """Test 09: Test lumapi 'open' and 'close' INTERCONNECT."""
     interconnect = lumapi.INTERCONNECT(hide=True)
 
     assert isinstance(interconnect, lumapi.INTERCONNECT) == 1
@@ -143,11 +140,9 @@ def test_09__lumapi_open_close_INTERCONNECT():
     interconnect.close()
 
 
-def test_10__open_invalid_product_name_LumApiError():
-
+def test_10__open_invalid_product_name_lumapierror():
+    """Test 10: Test lumapi object raises 'Invalid product name' LumApiError."""
     with pytest.raises(lumapi.LumApiError) as ex_info:
-
-        lumerical = lumapi.Lumerical('LUMERICAL', filename=None, key=None,
-                                     hide=False, serverArgs={}, remoteArgs={})
+        _ = lumapi.Lumerical("LUMERICAL", filename=None, key=None, hide=False, serverArgs={}, remoteArgs={})
 
     assert "Invalid product name" in str(ex_info.value)

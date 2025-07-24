@@ -7,11 +7,11 @@ Passing data
 
 .. Intentional use of passive voice here
 
-When driving Lumerical's tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don't share a workspace. 
+When driving Lumerical's tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don't share a workspace.
 
 .. vale on
 
-Instead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types. 
+Instead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types.
 This article describes how PyLumerical translates basic data types between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.
 
 For more information on how to work with datasets, which includes these basic data types and typically contain simulation results, see the article on :doc:`Accessing simulation results <accessing_simulation_results>`.
@@ -102,7 +102,7 @@ PyLumerical automatically converts complex numbers into a 1x1 numpy array in the
 For example, the following script creates a Lumerical scripting function that returns a complex value and checks its type, length, and value in Python.
 
 .. code-block:: python
-    
+
     fdtd = lumapi.FDTD()
     fdtd.eval("function return_complex(){return 1+1i;}")
     complex_value = fdtd.return_complex()
@@ -111,11 +111,11 @@ For example, the following script creates a Lumerical scripting function that re
 Returns
 
 .. code-block::
-    
+
     Returned value is of type , length 1 with value [1.+1.j]
 
 .. note::
-    
+
     In Lumerical, the complex variable is “i”, whereas in Python, the complex variable is “j”.
 
 Matrix
@@ -131,7 +131,7 @@ PyLumerical converts structures from Lumerical into Python dictionaries, with ea
 For example, the following script creates a Lumerical scripting function that returns a structure checks its type and contents in Python.
 
 .. code-block:: python
-    
+
     fdtd = lumapi.FDTD()
     fdtd.eval('function return_struct(){return {"name":"MyStruct","real value": 1e-6, "complex value": 1+1i, "matrix": matrix(2,2)};}')
     struct_returned = fdtd.return_struct()
@@ -143,8 +143,8 @@ For example, the following script creates a Lumerical scripting function that re
 Returns
 
 .. code-block::
-    
-    The type of the returned value is <class 'dict'>, the values within are: 
+
+    The type of the returned value is <class 'dict'>, the values within are:
     Field - complex value, Value - [[1.+1.j]], Type - <class 'numpy.ndarray'>
     Field - matrix, Value - [[0. 0.] [0. 0.]], Type - <class 'numpy.ndarray'>
     Field - name, Value - MyStruct, Type - <class 'str'>
@@ -158,7 +158,7 @@ PyLumerical retrieves Lumerical cell arrays as Python lists. Elements of these l
 For example, the following script creates a Lumerical function that creates a cell array with a string, a matrix, and a structure that has another cell array as its element, returns it to the Python workspace, and checks each element.
 
 .. code-block:: python
-    
+
     fdtd = lumapi.FDTD()
     fdtd.eval('function return_cell(){mycell = cell(3); mycell{1}="Hello World"; mycell{2} = matrix(2,2); mycell{3} = {"name":"Lumerical", "value":cell(3)}; return mycell;}')
     cell_returned = fdtd.return_cell()
@@ -166,7 +166,7 @@ For example, the following script creates a Lumerical function that creates a ce
 Returns
 
 .. code-block::
-    
+
     The type of the returned value is <class 'list'>, the values within are:
 
     Value - Hello World, Type - <class 'str'>
@@ -178,7 +178,7 @@ Returns
 Explicit transfer functions
 -----------------------------
 
-Two explicit transfer functions, :meth:`ansys.lumerical.core.FDTD.getv` and :meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively. 
+Two explicit transfer functions, :meth:`ansys.lumerical.core.FDTD.getv` and :meth:`ansys.lumerical.core.FDTD.putv` are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively.
 While these can be useful in a small number of circumstances, avoid using these functions unless it's necessary, as changes to variables in one workspace doesn't automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.
 
 .. note::
@@ -188,7 +188,7 @@ While these can be useful in a small number of circumstances, avoid using these 
 Transfer speed
 -----------------
 
-Typically, this transfer doesn't present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed. 
+Typically, this transfer doesn't present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed.
 However, when working with very large datasets it may be important to take this into consideration if efficiency is imperative.
 
 Best practices

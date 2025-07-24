@@ -3,25 +3,25 @@
 Working with simulation objects
 ===============================
 
-At a basic level, you can interact with simulation objects in the same way as when you use the Lumerical Script Language. 
+At a basic level, you can interact with simulation objects in the same way as when you use the Lumerical Script Language.
 However, Lumerical scripting language interacts primarily with the currently selected object, which may not be clear from the Python code alone.
 Therefore, PyLumerical also provides you with ways to interact with all objects that fits better with the Python coding style.
 
-This article describes various ways to interact with simulation objects, such as structures, sources, and monitors. 
+This article describes various ways to interact with simulation objects, such as structures, sources, and monitors.
 For more information on how to use script commands in PyLumerical, see the article on :doc:`Script commands as methods <script_commands_as_methods>`.
 
 Creating simulation objects
 ----------------------------
 
-When adding a simulation object into Lumerical products using PyLumerical, you can set the values of properties at creation. 
+When adding a simulation object into Lumerical products using PyLumerical, you can set the values of properties at creation.
 There are multiple ways of assigning the properties of objects when you create them.
 
 Assigning properties with an ordered dict
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-You can also use a Python :class:`dict` as a constructor to the object by assigning it to the attribute properties. 
-In Python, :class:`dict` ordering isn't guaranteed, so if there are properties that depend on other properties, an :class:`collections.OrderedDict` is necessary. 
-For example, in the example below, 'override global monitor settings' must be true before you can set 'frequency points'. 
+You can also use a Python :class:`dict` as a constructor to the object by assigning it to the attribute properties.
+In Python, :class:`dict` ordering isn't guaranteed, so if there are properties that depend on other properties, an :class:`collections.OrderedDict` is necessary.
+For example, in the example below, 'override global monitor settings' must be true before you can set 'frequency points'.
 Using an :class:`collections.OrderedDict` is the safest way to ensure that PyLumerical processes all settings as intended.
 
 **Example**
@@ -49,11 +49,11 @@ Assigning properties with keyword arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-You can also assign properties upon construction using keyword arguments. 
-The property names are the same as those in the Lumerical products. 
+You can also assign properties upon construction using keyword arguments.
+The property names are the same as those in the Lumerical products.
 Properties with space in their name have spaces replaced by underscores.
 
-When using keyword arguments, the order of assignment isn't guaranteed. 
+When using keyword arguments, the order of assignment isn't guaranteed.
 Therefore, if the order of assignment is important, use an :class:`collections.OrderedDict` instead.
 
 **Example**
@@ -81,8 +81,8 @@ In addition to the two methods above, you can also use the traditional Lumerical
 Linked properties
 ^^^^^^^^^^^^^^^^^^
 
-In Lumerical, some object properties affect each other. 
-For example, in a geometry object, such as the rectangle, you can either set the dimension using ``x span`` and ``x``, or ``x min`` and ``x max``. 
+In Lumerical, some object properties affect each other.
+For example, in a geometry object, such as the rectangle, you can either set the dimension using ``x span`` and ``x``, or ``x min`` and ``x max``.
 When you set linked properties, unexpected changes may occur to the object.
 
 **Example**
@@ -102,13 +102,13 @@ Returns
 Manipulating simulation objects
 --------------------------------
 
-When adding a new object to a Lumerical product session, PyLumerical returns a Python object representing that simulation object. 
+When adding a new object to a Lumerical product session, PyLumerical returns a Python object representing that simulation object.
 Manipulating the returned object makes changes to the corresponding object in the Lumerical product.
 
 Direct attribute access
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-Like normal Python objects, you can access Lumerical simulation object attributes as seen below. 
+Like normal Python objects, you can access Lumerical simulation object attributes as seen below.
 The following code adds a rectangle and changes its dimensions.
 
 **Example**
@@ -123,7 +123,7 @@ The following code adds a rectangle and changes its dimensions.
 Dict-like access
 ^^^^^^^^^^^^^^^^^
 
-You can access parameters of the object like a Python dict. 
+You can access parameters of the object like a Python dict.
 The following example shows dict-like access of parameters in an FDTD rectangle object.
 
 **Example**
@@ -138,7 +138,7 @@ Duplicate names
 ^^^^^^^^^^^^^^^^^
 
 .. warning::
-    Duplicate names of simulation object cause an undefined behavior in the script. 
+    Duplicate names of simulation object cause an undefined behavior in the script.
 
 As shown in the script and animation below, if you have two rectangle objects named “Rect1,” manipulating them causes unknown behaviour, even if the Python variable assigned to them are different.
 
@@ -150,7 +150,7 @@ In these cases, PyLumerical gives a warning to inform you of the duplication.
 
     fdtd = lumapi.FDTD()
     rect_bot =fdtd.addrect(name = "Rect1",x_span = 1e-6, z_span = 0.25e-6, z=0) #Create a bottom rectangle, Rect1
-    rect_top = fdtd.addrect(name = "Rect2", x_span = 1e-6, z_span = 0.25e-6, z=0.5e-6) #Create a top rectange, Rect 2
+    rect_top = fdtd.addrect(name = "Rect2", x_span = 1e-6, z_span = 0.25e-6, z=0.5e-6) #Create a top rectangle, Rect 2
 
     rect_top["x span"] = 2e-6 #expand the top rectangle
 
@@ -184,4 +184,4 @@ You can traverse the tree of objects in a Lumerical product using the parent or 
 
     print(f'There are {len(model.getChildren())} children in the model. Their names are:')
     for child in model.getChildren():
-        print(f'{child["name"]}') 
+        print(f'{child["name"]}')

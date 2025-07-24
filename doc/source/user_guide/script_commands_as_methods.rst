@@ -13,7 +13,7 @@ Built-in scripting commands
 Overview
 ^^^^^^^^^^
 
-You can use almost all script commands in the Lumerical Scripting Language as methods on your session object in Python. 
+You can use almost all script commands in the Lumerical Scripting Language as methods on your session object in Python.
 The PyLumerical methods and the Lumerical script commands share the same name, and you can call them directly on the session object once you create it.
 
 For more information on the Lumerical Scripting Language, please see:
@@ -24,7 +24,7 @@ For more information on the Lumerical Scripting Language, please see:
 
 * `Lumerical Scripting Language - By category <https://optics.ansys.com/hc/en-us/articles/360037228834>`__
 
-Two simple examples are show below. The first example uses Lumerical commands `getfdtdindex <https://optics.ansys.com/hc/en-us/articles/360034409694-getfdtdindex-Script-command>`__ and `stackrt <https://optics.ansys.com/hc/en-us/articles/360034406254-stackrt-Script-command>`__  in conjunction with typical math and plotting libraries in Python to simulate and visualize the transmission of a gold thin film illuminated by a plane wave. 
+Two simple examples are show below. The first example uses Lumerical commands `getfdtdindex <https://optics.ansys.com/hc/en-us/articles/360034409694-getfdtdindex-Script-command>`__ and `stackrt <https://optics.ansys.com/hc/en-us/articles/360034406254-stackrt-Script-command>`__  in conjunction with typical math and plotting libraries in Python to simulate and visualize the transmission of a gold thin film illuminated by a plane wave.
 The second example sets up and runs a simple simulation with a gaussian source and a frequency domain monitor.
 
 **Example**
@@ -49,7 +49,7 @@ For more information on how to install PyLumerical and import the modules, see :
 
         #Use the stackrt command to calculate the transmission and reflection
         stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range)
-    
+
 
     #Visualize using matplotlib
     fig, ax = plt.subplots()
@@ -72,8 +72,8 @@ For more information on how to install PyLumerical and import the modules, see :
     import matplotlib.pyplot as plt
 
 
-    with lumapi.FDTD() as fdtd: 
-    
+    with lumapi.FDTD() as fdtd:
+
         # Set up simulation region
         fdtd.addfdtd()
         fdtd.set("x",0)
@@ -82,7 +82,7 @@ For more information on how to install PyLumerical and import the modules, see :
         fdtd.set("y span",8e-6)
         fdtd.set("z",0.25e-6)
         fdtd.set("z span",0.5e-6)
-    
+
         # Set up source
         fdtd.addgaussian()
         fdtd.set("injection axis","z")
@@ -97,7 +97,7 @@ For more information on how to install PyLumerical and import the modules, see :
         fdtd.set("distance from waist",0)
         fdtd.setglobalsource("wavelength start",1e-6)
         fdtd.setglobalsource("wavelength stop",1e-6)
-    
+
         # Set up monitor
         fdtd.addpower()
         fdtd.set("monitor type","2D Z-normal")
@@ -106,7 +106,7 @@ For more information on how to install PyLumerical and import the modules, see :
         fdtd.set("y",0)
         fdtd.set("y span",16e-6)
         fdtd.set("z",0.3e-6)
-    
+
         # Run simulation
         fdtd.save("fdtd_tutorial.fsp")
         fdtd.run()
@@ -116,14 +116,14 @@ Constructor script commands
 
 You can use many script commands to add simulation objects such simulation regions or geometric regions. These commands typically start with “add”, for example, `addrect <https://optics.ansys.com/hc/en-us/articles/360034404214-addrect-Script-command>`__ or `addfdtd <https://optics.ansys.com/hc/en-us/articles/360034924173-addfdtd-Script-command>`__.
 
-In PyLumerical, you can create simulation objects in many different ways. 
+In PyLumerical, you can create simulation objects in many different ways.
 At a fundamental level, you can create objects and have their properties set like a Lumerical script using `set <https://optics.ansys.com/hc/en-us/articles/360034928773-set-Script-command>`__ and `setnamed <https://optics.ansys.com/hc/en-us/articles/360034928793-setnamed-Script-command>`__.
 
-In addition, PyLumerical also supports assigning properties to object in a way more native to Python, either by creating a dictionary and assigning it to the properties attribute during initialization or using keyword arguments directly. 
+In addition, PyLumerical also supports assigning properties to object in a way more native to Python, either by creating a dictionary and assigning it to the properties attribute during initialization or using keyword arguments directly.
 When constructing objects using these methods, you may need to initialize some properties in order, and some properties may overwrite other properties. Therefore, it's recommended to use an ordered dictionary to ensure that you set these properties as intended.
 
-The examples below show various methods on object construction. 
-For more information regarding adding and manipulating simulation objects, including best practices, see the article on :doc:`Working with simulation objects <working_with_simulation_objects>`. 
+The examples below show various methods on object construction.
+For more information regarding adding and manipulating simulation objects, including best practices, see the article on :doc:`Working with simulation objects <working_with_simulation_objects>`.
 When a property has a space in its name, for example, ``x span``, the name for keyword arguments uses an underscore instead of space, for example, ``x_span``.
 
 **Example**
@@ -150,9 +150,9 @@ The following code creates the FDTD region uses an ordered dictionary to set its
     from collections import OrderedDict #Ensure OrderedDict is imported
     #import other modules
 
-    fdtd = lumapi.FDTD() 
+    fdtd = lumapi.FDTD()
     props = OrderedDict([("x", 0),("y",0), ("z", 0), ("x span", 1e-6), ("y span", 1e-6), ("z span", 1e-6)])
-    fdtd.addfdtd(properties = props) 
+    fdtd.addfdtd(properties = props)
 
 The following code creates the FDTD region using keyword arguments
 
@@ -292,9 +292,9 @@ In contrast, the following driver script executes without error, and add both th
 Unsupported methods
 --------------------
 
-While most script commands are available, there are a few categories of commands that aren't available for use in PyLumerical. For example, certain reserved keywords, such as “c” for the speed of light, are unavailable in Python. 
-If you requires access to these variables, it's best to either define them in Python, or to use the :meth:`ansys.lumerical.core.FDTD.eval` method. 
-However, if the :meth:`ansys.lumerical.core.FDTD.eval` method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared. 
+While most script commands are available, there are a few categories of commands that aren't available for use in PyLumerical. For example, certain reserved keywords, such as “c” for the speed of light, are unavailable in Python.
+If you requires access to these variables, it's best to either define them in Python, or to use the :meth:`ansys.lumerical.core.FDTD.eval` method.
+However, if the :meth:`ansys.lumerical.core.FDTD.eval` method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared.
 
 .. note::
     The :meth:`ansys.lumerical.core.FDTD.eval` method is common to all products, and is available as :meth:`ansys.lumerical.core.MODE.eval`, :meth:`ansys.lumerical.core.DEVICE.eval`, and :meth:`ansys.lumerical.core.INTERCONNECT.eval`.
@@ -346,8 +346,8 @@ PyLumerical doesn't overload script operators in the Lumerical Scripting Languag
 Local documentation
 --------------------
 
-For information on the PyLumerical methods from within the environment, Python docstrings are available for Lumerical session objects. This is the simplest way to determine the available script commands, and syntax. 
-This contains information similar to `Alphabetical List of Script Commands <https://optics.ansys.com/hc/en-us/articles/360034923553>`__. 
+For information on the PyLumerical methods from within the environment, Python docstrings are available for Lumerical session objects. This is the simplest way to determine the available script commands, and syntax.
+This contains information similar to `Alphabetical List of Script Commands <https://optics.ansys.com/hc/en-us/articles/360034923553>`__.
 You can view the docstring by using the Python built-in function "help" or most ways rich interactive Python shells display docstrings, for example IPython or Jupyter Notebook.
 
 **Example**

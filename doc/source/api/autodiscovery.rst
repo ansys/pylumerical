@@ -17,7 +17,7 @@ If PyLumerical can't find the installation path automatically, it returns a warn
 
 The autodiscovery function below is automatically ran when you import PyLumerical:
 
-.. autosummary:: 
+.. autosummary::
     :toctree: _autosummary
 
     ansys.lumerical.core.autodiscovery.locate_lumerical_install

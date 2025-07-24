@@ -16,7 +16,7 @@ The API reference provides an overview of classes and methods used in PyLumerica
         :link-type: doc
 
         Auxiliary classes used to represent simulation objects, their results, and IDs.
-    
+
     .. grid-item-card:: Autodiscovery
         :link: autodiscovery
         :link-type: doc

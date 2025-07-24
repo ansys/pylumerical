@@ -3,7 +3,7 @@
 Accessing simulation results
 =============================
 
-Simulation results are typically stored in datasets simulation or monitor objects Lumerical products. 
+Simulation results are typically stored in datasets simulation or monitor objects Lumerical products.
 This article describes how you can access and process datasets and raw simulation data when using the PyLumerical.
 
 For more information on how PyLumerical translates basic data types and best practices when transferring data, see the article on :doc:`Passing data <passing_data>`, for more information on Lumerical datasets, see the Lumerical Knowledge Base article `Introduction to lumerical datasets <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets>`__.
@@ -16,10 +16,10 @@ You can use the `getresult <https://optics.ansys.com/hc/en-us/articles/360034409
 
 PyLumerical retrieves datasets as dictionaries, with keys associated with various `attributes and parameters <https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets#toc_3>`__.
 
-Dictionaries converted from datasets have a special metadata key ``Lumerical_dataset`` which contains identifier values, this key preserves their structure when performing a roundtrip back to the Lumerical environment. 
+Dictionaries converted from datasets have a special metadata key ``Lumerical_dataset`` which contains identifier values, this key preserves their structure when performing a roundtrip back to the Lumerical environment.
 When passing a dictionary from Python to Lumerical, PyLumerical converts it into a generic structure, unless it has the metadata element.
 
-Attributes and parameters are both stored as :class:`numpy.ndarray`. Parameters are 1-D arrays that acts as a list of parameters. 
+Attributes and parameters are both stored as :class:`numpy.ndarray`. Parameters are 1-D arrays that acts as a list of parameters.
 For attributes, the dimension of the array depends on the type of dataset, the type of data, and the number of parameters.
 
 +------------------------+---------------------------------------------------------------------+
@@ -44,7 +44,7 @@ For attributes, the dimension of the array depends on the type of dataset, the t
 |                        | where |Nk|, |k| = |x|, |y|, |z| are the lengths of the              |
 |                        | coordinate vectors, and |Npi| is the length of the |i|\th           |
 |                        | parameter. If the dataset is 2D or 1D, then there                   |
-|                        | are singleton dimensions, so that one of |Nk| = 1.                  |               
+|                        | are singleton dimensions, so that one of |Nk| = 1.                  |
 +------------------------+---------------------------------------------------------------------+
 | Unstructured Dataset   | Dimensions depend on type of attribute:                             |
 |                        |                                                                     |
@@ -89,16 +89,16 @@ The following example uses an example file ‘fdtd_file.fsp’ created using the
         fdtd.addring( x=0.0e-9, y=0.0e-9, z=0.0e-9, inner_radius=0.1e-6, outer_radius=0.2e-6, index=2.0)
         fdtd.addmesh(dx=10.0e-9, dy=10.0e-9, x=0., y=0., x_span=0.4e-6, y_span=0.4e-6)
         fdtd.addtime(name="time", x=0.0e-9, y=0.0e-9)
-        fdtd.addprofile(name="profile", x=0., x_span=3.0e-6, y=0.) 
+        fdtd.addprofile(name="profile", x=0., x_span=3.0e-6, y=0.)
 
-        # Dict ordering is not guaranteed, so if there properties dependant on other properties an ordered dict is necessary
-        # In this case 'override global monitor settings' must be true before 'frequency points' can be set    
+        # Dict ordering is not guaranteed, so if there properties dependent on other properties an ordered dict is necessary
+        # In this case 'override global monitor settings' must be true before 'frequency points' can be set
         props = OrderedDict([("name", "power"),
                             ("override global monitor settings", True),
                             ("x", 0.),("y", 0.4e-6),("monitor type", "linear x"),
                             ("frequency points", 10.0)])
-                        
-        fdtd.addpower(properties=props)  
+
+        fdtd.addpower(properties=props)
         fdtd.save("fdtd_file.fsp")
 
 
@@ -108,10 +108,10 @@ The following script uses this file to obtain rectilinear datasets.
 
     import ansys.lumerical.core as lumapi
     with lumapi.FDTD('fdtd_file.fsp') as fdtd:
-        fdtd.run()   
+        fdtd.run()
         #Return 2 different types of rectilinear datasets
         T, time = fdtd.getresult("power", "T"), fdtd.getresult("time","E")
-    
+
     print('Transmission result T is type', type(T),' with keys', str(T.keys()) )
     print('Time monitor result E is type', type(time),' with keys', str(time.keys()) )
 
@@ -173,7 +173,7 @@ Raw data from monitors are results in their raw, matrix form. You can also pass 
 
 PyLumerical retrieves raw data from Lumerical products as :class:`numpy.ndarray` objects.
 
-The length to each dimension of the returned array depends on whether the raw data was originally an attribute or parameter. 
+The length to each dimension of the returned array depends on whether the raw data was originally an attribute or parameter.
 These dimensions follow the dimensions for attributes and parameters described in the “Accessing dataset” section.
 
 **Example**

@@ -4,7 +4,7 @@ PyLumerical documentation |version|
 
 PyLumerical is the Python automation library for Ansys Lumerical photonics simulation software. Use PyLumerical to seamlessly control Ansys Lumerical products including Ansys Lumerical FDTD™, Ansys Lumerical MODE™, Ansys Lumerical Multiphysics™, and Ansys Lumerical INTERCONNECT™ directly in Python.
 
-You can use PyLumerical to set up geometry and material, run simulations, and retrieve results from Lumerical products, while leveraging the power of extensive Python libraries. 
+You can use PyLumerical to set up geometry and material, run simulations, and retrieve results from Lumerical products, while leveraging the power of extensive Python libraries.
 
 If you have existing automation in the Lumerical Scripting Language, you can also use them seamlessly with PyLumerical, and build your Python workflow around them.
 
@@ -34,7 +34,7 @@ As a part of the PyAnsys project, PyLumerical also enables you to integrate with
       :link: api/index
       :link-type: doc
 
-      Desciption of classes and methods of the PyLumerical module.
+      Description of classes and methods of the PyLumerical module.
 
 
 ..

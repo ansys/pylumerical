@@ -55,7 +55,7 @@ Each of the product's constructor supports various parameters and keyword argume
 Starting a remote session using the interop server
 --------------------------------------------------
 
-Since the 2023 R1.2 release, you can use PyLumerical remotely on a Linux machine running the interop server (see :doc:`Interop server <interop_server>`  to configure and run the interop server). To use the remote API, you must use an additional parameter ``remoteArgs`` when starting a session to specify the IP address and port to use to connect to the interop server. 
+Since the 2023 R1.2 release, you can use PyLumerical remotely on a Linux machine running the interop server (see :doc:`Interop server <interop_server>`  to configure and run the interop server). To use the remote API, you must use an additional parameter ``remoteArgs`` when starting a session to specify the IP address and port to use to connect to the interop server.
 This port must be the starting port defined for the interop server.
 
 This parameter is a :class:`dict` with 2 fields, ``hostname`` and ``port``.
@@ -103,7 +103,7 @@ PyLumerical support Python "with" statement by giving well-defined entrance and 
 
 Passing in command line arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Starting a session using PyLumerical is identical to running the solutions command line executable, as seen in these articles - `Windows <https://optics.ansys.com/hc/en-us/articles/360024812334-Running-simulations-using-the-Windows-command-prompt>`__ / `Linux <https://optics.ansys.com/hc/en-us/articles/360024974033-Running-simulations-using-terminal-on-Linux>`__. 
+Starting a session using PyLumerical is identical to running the solutions command line executable, as seen in these articles - `Windows <https://optics.ansys.com/hc/en-us/articles/360024812334-Running-simulations-using-the-Windows-command-prompt>`__ / `Linux <https://optics.ansys.com/hc/en-us/articles/360024974033-Running-simulations-using-terminal-on-Linux>`__.
 When starting a session using Python, use the ``serverArgs`` parameter to specify command line arguments.
 
 **Example**
@@ -128,7 +128,7 @@ Closing the session
 
 .. vale off
 
-When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted. 
+When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted.
 
 .. vale on
 

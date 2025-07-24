@@ -6,7 +6,7 @@ Interop server
 With Lumerical 2023 R1.2 and later, you can use PyLumerical remotely through the interop server. This documentation shows how to run the interop server required to use the remote API.
 
 .. note::
-    The interop server is available on Linux only. 
+    The interop server is available on Linux only.
 
 The Lumerical install provides three scripts to run the interop server, located in `[path to Lumerical]/api/interop-server/scripts/linux`
 
@@ -17,7 +17,7 @@ The Lumerical install provides three scripts to run the interop server, located 
 Interop server security
 ------------------------
 
-The interop server *does not* authenticate connecting clients, remote API commands from the connecting client have the same permissions as the user that started the interop server process on the host. 
+The interop server *does not* authenticate connecting clients, remote API commands from the connecting client have the same permissions as the user that started the interop server process on the host.
 This could expose the host’s local user space to the remote operator.
 
 To mitigate potential security risks, you must take the following precautions when setting up the interop server:
@@ -29,14 +29,14 @@ To mitigate potential security risks, you must take the following precautions wh
 Generate certificates
 ----------------------
 
-The interop server requires a certificate to encrypt the communication between the client and the server. 
+The interop server requires a certificate to encrypt the communication between the client and the server.
 You can use your own certificate, or use the script generate_certificate.sh to generate them and place them in the user's home folder, in `$HOME/.config/Lumerical/interop_server_certs/`
 
-To run the script, move to the folder and run `generate_certificate.sh`. 
+To run the script, move to the folder and run `generate_certificate.sh`.
 
 For example, if the version of Lumerical you are using is 2025 R2, the commands are:
 
-.. code-block:: bash 
+.. code-block:: bash
 
     cd /opt/Lumerical/252/api/interop-server/scripts/linux
     ./generate_certificate.sh
@@ -59,7 +59,7 @@ The server accepts the following options:
 
 You have to specific the parameters in that order. For example, if you want to specify the server's key, you have to specify the IP address and port as well.
 
-The interop server should be able to receive incoming connection on the specified port. You may want to open the port or disable the firewall on the machine. Please refer to your Linux distribution documentation. 
+The interop server should be able to receive incoming connection on the specified port. You may want to open the port or disable the firewall on the machine. Please refer to your Linux distribution documentation.
 
 .. vale off
 

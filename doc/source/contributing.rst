@@ -29,12 +29,12 @@ you to modify the source and enhance it.
    .. tab-set::
 
         .. tab-item:: POSIX
-        
+
             .. code-block:: bash
 
                 source .venv/bin/activate
 
-        .. tab-item:: Command Line
+        .. tab-item:: Windows Command Prompt
 
             .. code-block:: bash
 
@@ -56,76 +56,89 @@ you to modify the source and enhance it.
 
    .. code:: bash
 
-      python -m pip install -U pip setuptools tox
       python -m pip install -r requirements_build.txt
       python -m pip install ansys-lumerical-core[tests]
       python -m pip install ansys-lumerical-core[doc]
-      
+
 #. Finally, verify your development installation by running:
 
    .. code:: bash
 
       tox
 
-How to test
-------------
 
-This project takes advantage of `tox`_. This tool allows to automate common
-development tasks (similar to Makefile) but it's oriented towards Python
-development.
+Code style
+----------
 
-Using tox
-^^^^^^^^^^
+Use `pre-commit`_ to ensure that your code meets the style requirements for PyLumerical prior to filing a pull request. The automatic CI/CD procedures uses the same checks as pre-commit, hence, it's preferable to first run pre-commit locally.
 
-As Makefile has rules, `tox`_ has environments. In fact, the tool creates its
-own virtual environment to isolate the test files from the project in
-order to guarantee the project's integrity. 
-
-Environment commands for tox:
-
-- **tox -e style**: checks for coding style quality.
-- **tox -e py**: checks for unit tests.
-- **tox -e py-coverage**: checks for unit testing and code coverage.
-- **tox -e doc**: checks for documentation building process.
-
-
-Raw testing
-^^^^^^^^^^^
-
-.. vale off
-
-If required, you can call the style commands (`black`_, `isort`_,
-`flake8`_) or unit testing ones (`pytest`_) from the command line. However,
-this doesn't guarantee that your project is being tested in an isolated
-environment, which is the reason to consider using `tox`_.
-
-.. vale on
-
-Pre-commit
------------
-
-Style checks in PyLumerical is enforced using `pre-commit`_. You can install  `pre-commit`_ to check your code style prior to committing changes.
+To install `pre-commit`_ and check over all your files, run the following commands:
 
 .. code:: bash
 
-    python -m pip install pre-commit && pre-commit install
+    pip install pre-commit
+    pre-commit run --all-files
+
+
+You can also set up pre-commit as a hook to automatically run before committing changes.
+
+.. code:: bash
+
+    pre-commit install
+
+
+Testing
+-------
+
+PyLumerical uses `pytest`_ for testing.
+
+To run tests, first install the test requirements seen in the previous section, and then run the following command in the root directory of the repository:
+
+.. code:: bash
+
+    pytest
 
 
 Documentation
 -------------
 
-For building documentation, you can either run the usual rules provided in the
-`Sphinx`_ Makefile, such as:
+PyLumerical uses reStructuredText and `Sphinx`_ for documentation. Before building the documentation, first install the documentation requirements seen in the previous section.
 
-.. code:: bash
+You can build the documentation locally by navigating to the ``/doc`` directory and running the following commands:
 
-    make -C doc/ html && open doc/html/index.html
+.. tab-set::
 
-However, the recommended way of checking documentation integrity is using:
+    .. tab-item:: Windows
 
-.. code:: bash
+        .. code-block:: bash
 
-    tox -e doc && open .tox/doc_out/index.html
+            .\\make.bat html
+
+    .. tab-item:: Linux
+
+        .. code-block:: bash
+
+            make html
+
+
+The documentation is under the ``doc/_build/html`` directory.
+
+You can also clean the documentation build directory by running:
+
+.. tab-set::
+
+    .. tab-item:: Windows
+
+        .. code-block:: bash
+
+            .\\make.bat clean
+
+    .. tab-item:: Linux
+
+        .. code-block:: bash
+
+            make clean
+
 
 
 Distributing
@@ -142,12 +155,9 @@ the building requirements and then executing the build module:
 
 
 .. LINKS AND REFERENCES
-.. _black: https://github.com/psf/black
-.. _flake8: https://flake8.pycqa.org/en/latest/
-.. _isort: https://github.com/PyCQA/isort
-.. _pip: https://pypi.org/project/pip/
+
 .. _pre-commit: https://pre-commit.com/
 .. _PyAnsys Developer's guide: https://dev.docs.pyansys.com/
 .. _pytest: https://docs.pytest.org/en/stable/
 .. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _tox: https://tox.wiki/
+

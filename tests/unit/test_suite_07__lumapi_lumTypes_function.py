@@ -34,8 +34,6 @@ import ansys.lumerical.core.autodiscovery as autodiscovery
 base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
-# from unit_test_setup import lumapi
-
 
 def test_01__lumapi_lumtypes_function_with_list_argument():
     """Test 01: Test lumapi 'lumTypes' function with a list argument."""

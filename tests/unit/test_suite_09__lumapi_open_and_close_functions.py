@@ -36,7 +36,6 @@ import ansys.lumerical.core.autodiscovery as autodiscovery
 
 base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
-# from unit_test_setup import lumapi, pytest
 
 
 def test_01__lumapi_open_close_fdtd():

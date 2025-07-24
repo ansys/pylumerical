@@ -1,7 +1,7 @@
 Interface classes
 ==================
 
-Instances of these object each represents interactive session with a Lumerical product, and provides methods to create simulation objects, run simulations, and access results.
+Instances of these objects each represent an interactive session with a Lumerical product, and provide methods to create simulation objects, run simulations, and access results.
 
 .. autosummary::
     :toctree: _autosummary
@@ -11,4 +11,4 @@ Instances of these object each represents interactive session with a Lumerical p
     ansys.lumerical.core.DEVICE
     ansys.lumerical.core.INTERCONNECT
 
-The PyLumerical :doc:`User guide <../user_guide/index>` provides information on how to get started, and details of how to use the Lumerical class methods to interact with Lumerical products.
+The PyLumerical :doc:`User guide <../user_guide/index>` provides information on how to get started and details of how to use the Lumerical class methods to interact with Lumerical products.

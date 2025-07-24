@@ -68,7 +68,7 @@ For more information on how to install PyLumerical and import the modules, see :
     import os,sys
     import numpy as np
     sys.path.append("C:\\Program Files\\Lumerical\\v251\\api\\python\\") # locate lumapi files
-    import lumapi
+    import ansys.lumerical.core as lumapi
     import matplotlib.pyplot as plt
 
 

@@ -17,39 +17,50 @@ you to modify the source and enhance it.
 
       git clone https://github.com/ansys/pylumerical
 
-#. Create a fresh-clean Python environment and activate it:
+#. Create a clean Python virtual environment:
 
    .. code:: bash
 
       # Create a virtual environment
       python -m venv .venv
 
-      # Activate it in a POSIX system
-      source .venv/bin/activate
+#. Activate the virtual environment:
 
-      # Activate it in Windows CMD environment
-      .venv\Scripts\activate.bat
+   .. tab-set::
 
-      # Activate it in Windows Powershell
-      .venv\Scripts\Activate.ps1
+        .. tab-item:: POSIX
+        
+            .. code-block:: bash
 
-#. Make sure you have the latest required build system and doc, testing, and CI tools:
+                source .venv/bin/activate
+
+        .. tab-item:: Command Line
+
+            .. code-block:: bash
+
+                .venv\\Scripts\\activate.bat
+
+        .. tab-item:: Windows Powershell
+
+            .. code-block:: bash
+
+                .venv\\Scripts\\Activate.ps1
+
+#. Install PyLumerical in editable mode:
+
+   .. code:: bash
+
+      python -m pip install --e .
+
+#. Install additional requirements as needed for build, documentation, and tests:
 
    .. code:: bash
 
       python -m pip install -U pip setuptools tox
-      python -m pip install -r requirements/requirements_build.txt
-      python -m pip install -r requirements/requirements_doc.txt
-      python -m pip install -r requirements/requirements_tests.txt
-
-
-#. Install the project in editable mode:
-
-    .. code:: bash
-
-      python -m pip install --editable .
-
-    
+      python -m pip install -r requirements_build.txt
+      python -m pip install ansys-lumerical-core[tests]
+      python -m pip install ansys-lumerical-core[doc]
+      
 #. Finally, verify your development installation by running:
 
    .. code:: bash
@@ -86,7 +97,7 @@ Raw testing
 If required, you can call the style commands (`black`_, `isort`_,
 `flake8`_) or unit testing ones (`pytest`_) from the command line. However,
 this doesn't guarantee that your project is being tested in an isolated
-environment, which is the reason why tools like `tox`_ exist.
+environment, which is the reason to consider using `tox`_.
 
 .. vale on
 

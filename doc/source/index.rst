@@ -12,7 +12,7 @@ As a part of the PyAnsys project, PyLumerical also enables you to integrate with
 
 .. note::
 
-   The Lumerical inverse design library lumopt and the high performance computing (HPC) scheduler automation library lumslurm aren't available in PyLumerical, and only available as a part of the Lumerical Python API.
+   The Lumerical inverse design library `lumopt` and the high performance computing (HPC) scheduler automation library `lumslurm` are currently only available as a part of the Lumerical Python API and cannot be accessed in PyLumerical.
 
    The Lumerical Python API is still provided with Lumerical products. If you wish to use the Lumerical Python API instead of PyLumerical, please see the `Lumerical Python API documentation <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ in the Lumerical Knowledge Base.
 

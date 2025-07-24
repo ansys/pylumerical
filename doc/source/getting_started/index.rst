@@ -25,7 +25,7 @@ Requirements
 -------------
 
 You must have an Ansys Lumerical GUI license to use PyLumerical. For more information, please visit the `licensing page <https://optics.ansys.com/hc/en-us/articles/360033862333-Lumerical-product-components-and-licensing-overview>`_ on the Ansys Optics website.
-In addition, you must also have Lumerical product version 2022 R1 or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` function automatically locates the Lumerical installation path. If it fails to do so, you can set the path manually using :func:`ansys.lumerical.core.autodiscovery.locate_lumerical_install`.
+In addition, you must also have Lumerical product version 2022 R1 or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` function automatically locates the Lumerical installation path. If it fails to do so, you must set the path manually using :func:`ansys.lumerical.core.autodiscovery.locate_lumerical_install`.
 
 .. TO-DO: Variablize the supported product version here
 
@@ -40,7 +40,7 @@ The code snippet below provides simple project of using PyLumerical to visualize
 
 .. code-block:: python
 
-   import lumapi #Ensure lumapi has already been added to path
+   import ansys.lumerical.core as lumapi #Ensure lumapi has already been added to path
    import numpy as np
    import matplotlib.pyplot as plt
 
@@ -62,7 +62,7 @@ The code snippet below provides simple project of using PyLumerical to visualize
 
 This simulation returns the following result.
 
-.. image:: ../_static/PyLumerical_Example_Image.png
+.. image:: ../_static/images/PyLumerical_Example_Image.png
    :alt: PyLumerical example
    :align: center
    :width: 50%

@@ -29,7 +29,7 @@ Using an :class:`collections.OrderedDict` is the safest way to ensure that PyLum
 .. code-block:: python
 
     from collections import OrderedDict
-    import lumapi
+    import ansys.lumerical.core as lumapi
     fdtd = lumapi.FDTD()
     props = OrderedDict([("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6),
                         ("monitor type", "linear x"),("frequency points", 10.0)])
@@ -160,7 +160,7 @@ In these cases, PyLumerical gives a warning to inform you of the duplication.
     rect_top["x span"] = 4e-6
     #Note that the BOTTOM rectangle is modified because of the same name
 
-.. image:: ../_static/duplicate_object_animation.gif
+.. image:: ../_static/images/duplicate_object_animation.gif
    :alt: Duplicate object animation
    :align: center
 

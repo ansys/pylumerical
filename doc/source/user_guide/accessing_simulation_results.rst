@@ -82,7 +82,7 @@ The following example uses an example file ‘fdtd_file.fsp’ created using the
 .. code-block:: python
 
     from collections import OrderedDict
-    import lumapi
+    import ansys.lumerical.core as lumapi
     with lumapi.FDTD() as fdtd:
         fdtd.addfdtd(dimension="2D", x=0.0e-9, y=0.0e-9, x_span=3.0e-6, y_span=1.0e-6)
         fdtd.addgaussian(name = 'source', x=0., y=-0.4e-6, injection_axis="y", waist_radius_w0=0.2e-6, wavelength_start=0.5e-6, wavelength_stop=0.6e-6)
@@ -106,7 +106,7 @@ The following script uses this file to obtain rectilinear datasets.
 
 .. code-block:: python
 
-    import lumapi
+    import ansys.lumerical.core as lumapi
     with lumapi.FDTD('fdtd_file.fsp') as fdtd:
         fdtd.run()   
         #Return 2 different types of rectilinear datasets
@@ -127,7 +127,7 @@ The following script creates a p-n junction in Lumerical Multiphysics, and retur
 .. code-block:: python
 
     from collections import OrderedDict
-    import lumapi
+    import ansys.lumerical.core as lumapi
     with lumapi.DEVICE() as device:
         #Create Simulation region
         device.addsimulationregion(name = "SimRegion", dimension = "2D Y-Normal", x_span = 1.5e-6, z_span = 0.5e-6)
@@ -182,7 +182,7 @@ The following example uses the FDTD project file “fdtd_file.fsp” created abo
 
 .. code-block:: python
 
-    import lumapi
+    import ansys.lumerical.core as lumapi
     with lumapi.FDTD('fdtd_file.fsp') as fdtd:
         fdtd.run()
 

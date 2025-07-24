@@ -13,7 +13,7 @@ PyLumerical requires Lumerical products version 2022 R1 or later to run. The aut
     - On Linux, with the Lumerical standalone installer: ``/opt/Lumerical/``
     - On Linux, with the Ansys automated installer: ``~/Ansys/ansys_inc/``
 
-If PyLumerical can't find the installation path automatically, it returns a warning, and you can set the path manually.
+If PyLumerical can't find the installation path automatically, it returns a warning, and you must set the path manually.
 
 The autodiscovery function below is automatically ran when you import PyLumerical:
 

@@ -38,53 +38,55 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-def test_01__lumapi_open_close_fdtd():
-    """Test 01: Test lumapi 'open' and 'close' FDTD."""
-    fdtd = lumapi.open("fdtd", hide=True)
+class TestLumApiOpenClose:
 
-    assert isinstance(fdtd, lumapi.Lumerical) == 1
+    def test_lumapi_open_close_fdtd(self):
+        """Test 01: Test lumapi 'open' and 'close' FDTD."""
+        fdtd = lumapi.open("fdtd", hide=True)
 
-    assert isinstance(fdtd, lumapi.FDTD) == 1
+        assert isinstance(fdtd, lumapi.Lumerical) == 1
 
-    lumapi.close(fdtd)
+        assert isinstance(fdtd, lumapi.FDTD) == 1
 
-
-def test_02__lumapi_open_close_device():
-    """Test 02: Test lumapi 'open' and 'close' DEVICE."""
-    device = lumapi.open("device", hide=True)
-
-    handle = device.handle
-
-    assert isinstance(device, lumapi.DEVICE) == 1
-
-    assert isinstance(handle, lumapi.LumApiSession) == 1
-
-    lumapi.close(device)
+        lumapi.close(fdtd)
 
 
-def test_03__lumapi_open_close_mode():
-    """Test 03: Test lumapi 'open' and 'close' MODE."""
-    mode = lumapi.open("mode", hide=True)
+    def test_lumapi_open_close_device(self):
+        """Test 02: Test lumapi 'open' and 'close' DEVICE."""
+        device = lumapi.open("device", hide=True)
 
-    assert isinstance(mode, lumapi.MODE) == 1
+        handle = device.handle
 
-    lumapi.close(mode)
+        assert isinstance(device, lumapi.DEVICE) == 1
 
+        assert isinstance(handle, lumapi.LumApiSession) == 1
 
-def test_04__lumapi_open_close_interconnect():
-    """Test 04: Test lumapi 'open' and 'close' INTERCOINNECT."""
-    interconnect = lumapi.open("interconnect", hide=True)
-
-    assert isinstance(interconnect, lumapi.INTERCONNECT) == 1
-
-    lumapi.close(interconnect)
+        lumapi.close(device)
 
 
-def test_05__lumapi_open_unexpected_app_raises_product_not_available_lumapierror():
-    """Test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError."""
-    product = "UNEXPECTED"
+    def test_lumapi_open_close_mode(self):
+        """Test 03: Test lumapi 'open' and 'close' MODE."""
+        mode = lumapi.open("mode", hide=True)
 
-    with pytest.raises(lumapi.LumApiError) as ex_info:
-        _ = lumapi.open(product, hide=True)
+        assert isinstance(mode, lumapi.MODE) == 1
 
-    assert "Product [" + product + "] is not available" in str(ex_info.value)
+        lumapi.close(mode)
+
+
+    def test_lumapi_open_close_interconnect(self):
+        """Test 04: Test lumapi 'open' and 'close' INTERCOINNECT."""
+        interconnect = lumapi.open("interconnect", hide=True)
+
+        assert isinstance(interconnect, lumapi.INTERCONNECT) == 1
+
+        lumapi.close(interconnect)
+
+
+    def test_lumapi_open_unexpected_app_raises_product_not_available_lumapierror(self):
+        """Test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError."""
+        product = "UNEXPECTED"
+
+        with pytest.raises(lumapi.LumApiError) as ex_info:
+            _ = lumapi.open(product, hide=True)
+
+        assert "Product [" + product + "] is not available" in str(ex_info.value)

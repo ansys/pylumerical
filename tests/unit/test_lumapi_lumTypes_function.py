@@ -35,21 +35,23 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-def test_01__lumapi_lumtypes_function_with_list_argument():
-    """Test 01: Test lumapi 'lumTypes' function with a list argument."""
-    mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
+class TestLumTypes:
 
-    np_mapping = np.array(mapping)
+    def test_lumapi_lumtypes_function_with_list_argument(self):
+        """Test 01: Test lumapi 'lumTypes' function with a list argument."""
+        mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
 
-    converted = lumapi.lumTypes([mapping, np_mapping])
+        np_mapping = np.array(mapping)
 
-    assert converted == ["cell array", "matrix"]
+        converted = lumapi.lumTypes([mapping, np_mapping])
+
+        assert converted == ["cell array", "matrix"]
 
 
-def test_02__lumapi_lumtypes_function_with_non_list_argument():
-    """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
-    dct = {"a": 1, "b": 2, "c": 3}
+    def test_lumapi_lumtypes_function_with_non_list_argument(self):
+        """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
+        dct = {"a": 1, "b": 2, "c": 3}
 
-    converted = lumapi.lumTypes(dct)
+        converted = lumapi.lumTypes(dct)
 
-    assert converted is None
+        assert converted is None

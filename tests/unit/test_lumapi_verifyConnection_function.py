@@ -52,36 +52,38 @@ def module_setup():
     fdtd.close()
 
 
-def test_01__verifyconnection(module_setup):
-    """Test 01: Test 'verifyConnection' function."""
-    handle = fdtd.handle
+class TestVerifyConnection:
 
-    assert lumapi.verifyConnection(handle)
+    def test_verifyconnection(self, module_setup):
+        """Test 01: Test 'verifyConnection' function."""
+        handle = fdtd.handle
 
-
-def test_02__verifyconnection_raises_error_validating_the_connection_lumapierror(module_setup):
-    """Test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
-    handle = fdtd.handle
-
-    fdtd.close()
-
-    with pytest.raises(lumapi.LumApiError) as ex_info:
-        lumapi.verifyConnection(handle)
-
-    assert "Error validating the connection" in str(ex_info.value)
+        assert lumapi.verifyConnection(handle)
 
 
-def test_03__verifyconnection_raises_error_validating_the_connection_lumapierror(module_setup):
-    """Test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
-    fdtd = lumapi.open("fdtd", hide=True)
+    def test_verifyconnection_raises_error_validating_the_connection_lumapierror(self, module_setup):
+        """Test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
+        handle = fdtd.handle
 
-    fdtd.addrect()
+        fdtd.close()
 
-    _ = fdtd.getObjectBySelection()
+        with pytest.raises(lumapi.LumApiError) as ex_info:
+            lumapi.verifyConnection(handle)
 
-    fdtd.close()
+        assert "Error validating the connection" in str(ex_info.value)
 
-    with pytest.raises(lumapi.LumApiError) as ex_info:
+
+    def test_verifyconnection_raises_error_validating_the_connection_lumapierror(self, module_setup):
+        """Test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
+        fdtd = lumapi.open("fdtd", hide=True)
+
+        fdtd.addrect()
+
         _ = fdtd.getObjectBySelection()
 
-    assert "Error validating the connection" in str(ex_info.value)
+        fdtd.close()
+
+        with pytest.raises(lumapi.LumApiError) as ex_info:
+            _ = fdtd.getObjectBySelection()
+
+        assert "Error validating the connection" in str(ex_info.value)

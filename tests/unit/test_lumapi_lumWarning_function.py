@@ -34,19 +34,21 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-def test_01__lumapi_lumwarning():
-    """Test 01: Test lumapi 'lumWarning'."""
-    fdtd = lumapi.open("fdtd", hide=True)
+class TestLumWarning:
 
-    fdtd.addrect()
-    fdtd.addrect()
+    def test_lumapi_lumwarning(self):
+        """Test 01: Test lumapi 'lumWarning'."""
+        fdtd = lumapi.open("fdtd", hide=True)
 
-    def lum_warning():
-        with pytest.warns(UserWarning, match="Multiple objects named '::model::rectangle'."):
-            _ = fdtd.getObjectById("::model::rectangle")
+        fdtd.addrect()
+        fdtd.addrect()
 
-        return 1
+        def lum_warning():
+            with pytest.warns(UserWarning, match="Multiple objects named '::model::rectangle'."):
+                _ = fdtd.getObjectById("::model::rectangle")
 
-    assert lum_warning() == 1
+            return 1
 
-    fdtd.close()
+        assert lum_warning() == 1
+
+        fdtd.close()

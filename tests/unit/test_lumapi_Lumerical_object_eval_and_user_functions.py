@@ -54,53 +54,55 @@ def module_setup():
     fdtd.close()
 
 
-def test_01__lumerical_object_has_no_user_functions(module_setup):
-    """Test 01: Test 'Lumerical' object has no user functions by default."""
-    global fdtd
+class TestLumericalEval:
 
-    assert fdtd.userFunctions == set()
+    def test_lumerical_object_has_no_user_functions(self, module_setup):
+        """Test 01: Test 'Lumerical' object has no user functions by default."""
+        global fdtd
 
-
-def test_02__lumerical_object_eval_user_function(module_setup):
-    """Test 02: Test 'Lumerical' object 'eval' method with a user function."""
-    global fdtd
-
-    fdtd.eval("function add_function(a, b){ return a + b; }")
-    fdtd.eval("res = add_function(1, 2);")
-
-    assert fdtd.userFunctions == set()
+        assert fdtd.userFunctions == set()
 
 
-def test_03__lumerical_object_add_user_functions(module_setup):
-    """Test 03: Test 'Lumerical' object '_addUserFunctions' method."""
-    global fdtd
+    def test_lumerical_object_eval_user_function(self, module_setup):
+        """Test 02: Test 'Lumerical' object 'eval' method with a user function."""
+        global fdtd
 
-    fdtd._addUserFunctions()
+        fdtd.eval("function add_function(a, b){ return a + b; }")
+        fdtd.eval("res = add_function(1, 2);")
 
-    userfunction_list = list(fdtd.userFunctions)
-
-    assert userfunction_list[0] == "add_function"
-
-    res = fdtd.getv("res")
-
-    assert res == 3
+        assert fdtd.userFunctions == set()
 
 
-def test_04__lumerical_object_sync_user_functions(module_setup):
-    """Test 04: Test 'Lumerical' object '_syncUserFunctions' method."""
-    global fdtd
+    def test_lumerical_object_add_user_functions(self, module_setup):
+        """Test 03: Test 'Lumerical' object '_addUserFunctions' method."""
+        global fdtd
 
-    fdtd.eval("function multiply_function(a, b){ return a * b; }")
+        fdtd._addUserFunctions()
 
-    fdtd._syncUserFunctions()
+        userfunction_list = list(fdtd.userFunctions)
 
-    assert fdtd.userFunctions == {"add_function", "multiply_function"}
+        assert userfunction_list[0] == "add_function"
+
+        res = fdtd.getv("res")
+
+        assert res == 3
 
 
-def test_05__lumerical_object_delete_user_functions(module_setup):
-    """Test 05: Test 'Lumerical' object '_deleteUserFunctions' method."""
-    global fdtd
+    def test_lumerical_object_sync_user_functions(self, module_setup):
+        """Test 04: Test 'Lumerical' object '_syncUserFunctions' method."""
+        global fdtd
 
-    fdtd._deleteUserFunctions()
+        fdtd.eval("function multiply_function(a, b){ return a * b; }")
 
-    assert fdtd.userFunctions == set()
+        fdtd._syncUserFunctions()
+
+        assert fdtd.userFunctions == {"add_function", "multiply_function"}
+
+
+    def test_lumerical_object_delete_user_functions(self, module_setup):
+        """Test 05: Test 'Lumerical' object '_deleteUserFunctions' method."""
+        global fdtd
+
+        fdtd._deleteUserFunctions()
+
+        assert fdtd.userFunctions == set()

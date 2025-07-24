@@ -27,7 +27,12 @@
 - test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'
 """
 
-from unit_test_setup import lumapi
+import ansys.api.lumerical.lumapi as lumapi
+import ansys.lumerical.core.autodiscovery as autodiscovery
+
+base_install_path = autodiscovery.locate_lumerical_install()
+lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
+# from unit_test_setup import lumapi
 
 
 def test_01__lumapi_removepromptlineno_simple_string():

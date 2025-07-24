@@ -31,7 +31,16 @@
 
 from collections import OrderedDict
 
-from unit_test_setup import lumapi, pytest
+import pytest
+
+import ansys.api.lumerical.lumapi as lumapi
+import ansys.lumerical.core.autodiscovery as autodiscovery
+
+base_install_path = autodiscovery.locate_lumerical_install()
+lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
+
+# from collections import OrderedDict
+# from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")

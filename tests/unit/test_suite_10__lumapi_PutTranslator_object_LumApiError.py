@@ -26,7 +26,14 @@
 - test 02: Test 'PutTranslator' object raises 'wrong type for the property' LumApiError
 """
 
-from unit_test_setup import lumapi, pytest
+import pytest
+
+import ansys.api.lumerical.lumapi as lumapi
+import ansys.lumerical.core.autodiscovery as autodiscovery
+
+base_install_path = autodiscovery.locate_lumerical_install()
+lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
+# from unit_test_setup import lumapi, pytest
 
 
 @pytest.fixture(scope="module")

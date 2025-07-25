@@ -50,15 +50,16 @@ you to modify the source and enhance it.
 
    .. code:: bash
 
-      python -m pip install --e .
+      python -m pip install -U pip
+      python -m pip install -e .
 
 #. Install additional requirements as needed for build, documentation, and tests:
 
    .. code:: bash
 
       python -m pip install -r requirements_build.txt
-      python -m pip install ansys-lumerical-core[tests]
-      python -m pip install ansys-lumerical-core[doc]
+      python -m pip install .[tests]
+      python -m pip install .[doc]
 
 #. Finally, verify your development installation by running:
 

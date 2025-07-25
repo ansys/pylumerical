@@ -1,5 +1,5 @@
 Auxiliary classes
-=========================
+=================
 
 These classes represent simulation objects, their results, and IDs.
 

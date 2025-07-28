@@ -6,9 +6,7 @@ on:
 env:
   MAIN_PYTHON_VERSION: '3.12'
   LIBRARY_NAME: 'ansys-lumerical-core'
-  DOCKER_IMAGE_LUMERICAL_FDTD_SOLVE: 'lumerical-fdtd-solve:latest'
   DOCKER_IMAGE_LUMERICAL_UNIFIED: 'lumerical-unified:latest'
-  DOCKER_CONTAINER_LUMERICAL_FDTD_SOLVE_NAME: 'lumerical-fdtd'
   DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
 

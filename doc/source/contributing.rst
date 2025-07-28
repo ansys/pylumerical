@@ -61,13 +61,6 @@ you to modify the source and enhance it.
       python -m pip install .[tests]
       python -m pip install .[doc]
 
-#. Finally, verify your development installation by running:
-
-   .. code:: bash
-
-      tox
-
-
 Code style
 ----------
 
@@ -97,8 +90,9 @@ To run tests, first install the test requirements seen in the previous section, 
 
 .. code:: bash
 
-    pytest
+    pytest --cov="<path_to_virtual_environment>\Lib\site-packages\ansys\api\lumerical" --cov="C:\<pylumerical_repository>\tests\unit" --cov-report=html:coverage_report –verbose
 
+Replace ``<path_to_virtual_environment>`` with the path to your virtual environment, and ``<pylumerical_repository>`` with the path to your local PyLumerical repository.
 
 Documentation
 -------------

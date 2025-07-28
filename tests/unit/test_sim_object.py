@@ -44,7 +44,7 @@ class TestSimObject:
     """Test the lumapi 'SimObject' and 'SimObjectResults' objects."""
 
     @pytest.fixture
-    def test_lumerical_getallselectedobjects_simobject_list(self, setup_fdtd):
+    def test_get_all_selected_objects(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list."""
         obj_lst = setup_fdtd.getAllSelectedObjects()
 
@@ -61,7 +61,7 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-    def test_lumerical_getobjectbyid_simobject(self, setup_fdtd):
+    def test_get_object_by_id(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'getObjectById_SimObject."""
         obj = setup_fdtd.getObjectById("::model::FDTD")
 
@@ -74,7 +74,7 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-    def test_lumerical_getobjectbyselection_simobject(self, setup_fdtd):
+    def test_get_object_by_selection(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject."""
         obj = setup_fdtd.getObjectBySelection()
 
@@ -90,7 +90,7 @@ class TestSimObject:
         assert isinstance(x, np.ndarray)
         assert len(x.shape) == 2
 
-    def test_simobjectresults_raises_simobjectresults_has_no_attribute_attributeerror(self, setup_fdtd):
+    def test_results_attr_error(self, setup_fdtd):
         """Test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError."""
         obj = setup_fdtd.getObjectBySelection()
 
@@ -99,7 +99,7 @@ class TestSimObject:
 
         assert "'SimObjectResults' object has no attribute 'xx'" in str(ex_info.value)
 
-    def test_simobject_raises_attribute_can_not_be_set_lumapierror(self, setup_fdtd):
+    def test_attr_set_error(self, setup_fdtd):
         """Test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError."""
         obj = setup_fdtd.getObjectBySelection()
 
@@ -108,7 +108,7 @@ class TestSimObject:
 
         assert "Attribute 'y' can not be set" in str(ex_info.value)
 
-    def test_simobject_getparent_and_getchildren(self, setup_fdtd):
+    def test_get_parent_and_children(self, setup_fdtd):
         """Test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods."""
         setup_fdtd.addstructuregroup({"name": "group1"})
         setup_fdtd.addrect({"name": "rect1"})

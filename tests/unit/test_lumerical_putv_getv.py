@@ -53,7 +53,7 @@ class TestLumericalPutvGetv:
     """Test the lumapi 'Lumerical' object 'putv' and 'getv' functions."""
 
     @pytest.fixture
-    def test_lumerical_object_putv_getv_int(self, setup_fdtd):
+    def test_int(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'putv' and 'getv' an int."""
         int_name = "I"
         int_value = 3.141592653589
@@ -64,7 +64,7 @@ class TestLumericalPutvGetv:
 
         assert get_int_value == int_value
 
-    def test_lumerical_object_putv_getv_float(self, setup_fdtd):
+    def test_float(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'putv' and 'getv' a float."""
         float_name = "A"
         float_value = 3.141592653589
@@ -75,7 +75,7 @@ class TestLumericalPutvGetv:
 
         assert get_float_value == float_value
 
-    def test_lumerical_object_putv_getv_string(self, setup_fdtd):
+    def test_string(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object 'putv' and 'getv' a string."""
         string_name = "B"
         string_value = "lumerical string variable"
@@ -86,7 +86,7 @@ class TestLumericalPutvGetv:
 
         assert get_string_value == string_value
 
-    def test_lumerical_object_putv_getv_matrix(self, setup_fdtd):
+    def test_matrix(self, setup_fdtd):
         """Test 04: Test 'Lumerical' object 'putv' and 'getv' a matrix."""
         matrix_name = "C"
         matrix_value = [[1, 3, 4], [2, 5, 6], [3, 1, 1]]
@@ -97,7 +97,7 @@ class TestLumericalPutvGetv:
 
         assert get_matrix_value == matrix_value
 
-    def test_lumerical_object_putv_getv_numpy_array(self, setup_fdtd):
+    def test_numpy_array(self, setup_fdtd):
         """Test 05: Test 'Lumerical' object 'putv' and 'getv' a numpy array."""
         array_name = "D"
         array_value = np.array([1, 2, 3, 4, 5])
@@ -108,7 +108,7 @@ class TestLumericalPutvGetv:
 
         assert get_array_value[0] == array_value[0]
 
-    def test_lumerical_object_putv_getv_numpy_2d_array(self, setup_fdtd):
+    def test_numpy_2d_array(self, setup_fdtd):
         """Test 06: Test 'Lumerical' object 'putv' and 'getv' a numpy 2D array."""
         array_name = "D2"
         array_value = np.array([[0, 1, 2], [3, 4, 5]])
@@ -119,7 +119,7 @@ class TestLumericalPutvGetv:
 
         assert get_array_value[1, 1] == array_value[1, 1]
 
-    def test_lumerical_object_putv_getv_numpy_complex_array(self, setup_fdtd):
+    def test_numpy_complex_array(self, setup_fdtd):
         """Test 07: Test 'Lumerical' object 'putv' and 'getv' a numpy complex array."""
         array_name = "D3"
         array_value = np.array([[1 + 2j, 3 - 4j], [5j, 6 + 7j]])
@@ -130,7 +130,7 @@ class TestLumericalPutvGetv:
 
         assert get_array_value[1, 1] == array_value[1, 1]
 
-    def test_lumerical_object_putv_getv_numpy_int(self, setup_fdtd):
+    def test_numpy_int(self, setup_fdtd):
         """Test 08: Test 'Lumerical' object 'putv' and 'getv' a numpy int."""
         int_name = "numpy_int"
         int_value = np.int64(10)
@@ -141,7 +141,7 @@ class TestLumericalPutvGetv:
 
         assert get_int_value == int_value
 
-    def test_lumerical_object_putv_getv_numpy_float(self, setup_fdtd):
+    def test_numpy_float(self, setup_fdtd):
         """Test 09: Test 'Lumerical' object 'putv' and 'getv' a numpy float."""
         float_name = "numpy_float"
         float_value = np.float32(1.2)
@@ -152,7 +152,7 @@ class TestLumericalPutvGetv:
 
         assert get_float_value == float_value
 
-    def test_lumerical_object_putv_getv_list(self, setup_fdtd):
+    def test_list(self, setup_fdtd):
         """Test 10: Test 'Lumerical' object 'putv' and 'getv' a list."""
         list_name = "E"
         list_value = [1, 2, 3, 4, 5]
@@ -163,7 +163,7 @@ class TestLumericalPutvGetv:
 
         assert get_list_value == list_value
 
-    def test_lumerical_object_putv_getv_dict(self, setup_fdtd):
+    def test_dict(self, setup_fdtd):
         """Test 11: Test 'Lumerical' object 'putv' and 'getv' a dict."""
         dict_name = "F"
         dict_value = {"a": 1, "b": 2, "c": 3}
@@ -174,7 +174,7 @@ class TestLumericalPutvGetv:
 
         assert get_dict_value == dict_value
 
-    def test_lumerical_object_putv_getv_set(self, setup_fdtd):
+    def test_set(self, setup_fdtd):
         """Test 12: Test 'Lumerical' object 'putv' and 'getv' a set."""
         set_name = "S"
         set_value = {"a", "b", "c"}
@@ -185,7 +185,7 @@ class TestLumericalPutvGetv:
 
         assert list(get_set_value) == list(set_value)
 
-    def test_lumerical_object_putv_getv_tuple(self, setup_fdtd):
+    def test_tuple(self, setup_fdtd):
         """Test 13: Test 'Lumerical' object 'putv' and 'getv' a tuple."""
         tuple_name = "T"
         tuple_value = ("a", "b", "c")
@@ -196,7 +196,7 @@ class TestLumericalPutvGetv:
 
         assert list(get_tuple_value) == list(tuple_value)
 
-    def test_lumerical_object_putv_getv_none(self, setup_fdtd):
+    def test_none(self, setup_fdtd):
         """Test 14: Test 'Lumerical' object 'putv' and 'getv' None."""
         none_name = "none"
         none_value = None
@@ -207,7 +207,7 @@ class TestLumericalPutvGetv:
 
         assert get_none_value == "None"
 
-    def test_lumerical_object_putv_getv_numpy_nan(self, setup_fdtd):
+    def test_numpy_nan(self, setup_fdtd):
         """Test 15: Test 'Lumerical' object 'putv' and 'getv' numpy nan."""
         nan_name = "numpy_nan"
         nan_value = np.nan

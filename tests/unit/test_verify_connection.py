@@ -40,7 +40,7 @@ class TestVerifyConnection:
     """Test the lumapi 'verifyConnection' function."""
 
     @pytest.fixture
-    def test_verifyconnection(self, setup_fdtd):
+    def test_verify_connection(self, setup_fdtd):
         """Test 01: Test 'verifyConnection' function."""
         handle = setup_fdtd.handle
 

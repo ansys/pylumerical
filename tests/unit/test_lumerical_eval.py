@@ -42,18 +42,18 @@ class TestLumericalEval:
     """Test the lumapi 'Lumerical' object 'eval' and user functions."""
 
     @pytest.fixture
-    def test_lumerical_object_has_no_user_functions(self, setup_fdtd):
+    def test_no_user_functions(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object has no user functions by default."""
         assert setup_fdtd.userFunctions == set()
 
-    def test_lumerical_object_eval_user_function(self, setup_fdtd):
+    def test_eval_user_function(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'eval' method with a user function."""
         setup_fdtd.eval("function add_function(a, b){ return a + b; }")
         setup_fdtd.eval("res = add_function(1, 2);")
 
         assert setup_fdtd.userFunctions == set()
 
-    def test_lumerical_object_add_user_functions(self, setup_fdtd):
+    def test_add_user_functions(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object '_addUserFunctions' method."""
         setup_fdtd._addUserFunctions()
 
@@ -65,7 +65,7 @@ class TestLumericalEval:
 
         assert res == 3
 
-    def test_lumerical_object_sync_user_functions(self, setup_fdtd):
+    def test_sync_user_functions(self, setup_fdtd):
         """Test 04: Test 'Lumerical' object '_syncUserFunctions' method."""
         setup_fdtd.eval("function multiply_function(a, b){ return a * b; }")
 
@@ -73,7 +73,7 @@ class TestLumericalEval:
 
         assert setup_fdtd.userFunctions == {"add_function", "multiply_function"}
 
-    def test_lumerical_object_delete_user_functions(self, setup_fdtd):
+    def test_delete_user_functions(self, setup_fdtd):
         """Test 05: Test 'Lumerical' object '_deleteUserFunctions' method."""
         setup_fdtd._deleteUserFunctions()
 

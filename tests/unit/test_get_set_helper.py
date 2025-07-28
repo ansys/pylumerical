@@ -79,7 +79,7 @@ class TestGetSetHelper:
 
         assert obj.C_1["details"] == details
 
-    def test_getsethelper_raises_property_has_no_sub_property_attributeerror(self, setup_interconnect):
+    def test_getsethelper_raises_no_sub_property_error(self, setup_interconnect):
         """Test 03: Test 'GetSetHelper' raises 'property ... has no ... sub-property' AttributeError."""
         obj = setup_interconnect.getObjectById("::Root Element::COMPOUND_1")
 

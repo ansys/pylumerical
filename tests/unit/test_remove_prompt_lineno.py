@@ -37,7 +37,7 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestRemovePromptLineNo:
     """Test the lumapi 'removePromptLineNo' function."""
 
-    def test_lumapi_removepromptlineno_simple_string(self):
+    def test_simple_string(self):
         """Test 01: Test lumapi 'removePromptLineNo' with a simple string."""
         strval = "remove prompt line number helper function"
 
@@ -45,7 +45,7 @@ class TestRemovePromptLineNo:
 
         assert message == strval
 
-    def test_lumapi_removepromptlineno_string_with_columns(self):
+    def test_string_with_columns(self):
         """Test 02: Test lumapi 'removePromptLineNo' with a string with columns."""
         strval = "123:456:789"
 
@@ -53,7 +53,7 @@ class TestRemovePromptLineNo:
 
         assert message == "123:456:789"
 
-    def test_lumapi_removepromptlineno_string_with_columns_and_prompt_line(self):
+    def test_string_with_columns_and_prompt_line(self):
         """Test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'."""
         strval = "123: prompt line :789"
 

@@ -41,7 +41,7 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestLumApiOpenClose:
     """Test the lumapi 'open' and 'close' functions."""
 
-    def test_lumapi_open_close_fdtd(self):
+    def test_open_close_fdtd(self):
         """Test 01: Test lumapi 'open' and 'close' FDTD."""
         fdtd = lumapi.open("fdtd", hide=True)
 
@@ -51,7 +51,7 @@ class TestLumApiOpenClose:
 
         lumapi.close(fdtd)
 
-    def test_lumapi_open_close_device(self):
+    def test_open_close_device(self):
         """Test 02: Test lumapi 'open' and 'close' DEVICE."""
         device = lumapi.open("device", hide=True)
 
@@ -63,7 +63,7 @@ class TestLumApiOpenClose:
 
         lumapi.close(device)
 
-    def test_lumapi_open_close_mode(self):
+    def test_open_close_mode(self):
         """Test 03: Test lumapi 'open' and 'close' MODE."""
         mode = lumapi.open("mode", hide=True)
 
@@ -71,7 +71,7 @@ class TestLumApiOpenClose:
 
         lumapi.close(mode)
 
-    def test_lumapi_open_close_interconnect(self):
+    def test_open_close_interconnect(self):
         """Test 04: Test lumapi 'open' and 'close' INTERCOINNECT."""
         interconnect = lumapi.open("interconnect", hide=True)
 
@@ -79,7 +79,7 @@ class TestLumApiOpenClose:
 
         lumapi.close(interconnect)
 
-    def test_lumapi_open_unexpected_app_raises_product_not_available_lumapierror(self):
+    def test_unexpected_open_error(self):
         """Test 05: Test lumapi 'open' unexpected app raises 'product not available' LumApiError."""
         product = "UNEXPECTED"
 

@@ -38,7 +38,7 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestLumTypes:
     """Test the lumapi 'lumTypes' function."""
 
-    def test_lumapi_lumtypes_function_with_list_argument(self):
+    def test_lumtypes_with_list_argument(self):
         """Test 01: Test lumapi 'lumTypes' function with a list argument."""
         mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
 
@@ -48,7 +48,7 @@ class TestLumTypes:
 
         assert converted == ["cell array", "matrix"]
 
-    def test_lumapi_lumtypes_function_with_non_list_argument(self):
+    def test_lumtypes_with_non_list_argument(self):
         """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
         dct = {"a": 1, "b": 2, "c": 3}
 

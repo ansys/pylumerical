@@ -22,16 +22,16 @@ Then, install using:
 
     python -m pip install ansys-lumerical-core
 
-For more information, see the installation and getting started section in the documentation.
+For more information, see the `installation and getting started section <doc/source/getting_started/index.rst>` in the documentation.
 
 Contributing to PyLumerical
 ---------------------------
 
-For guidelines on contribution and how to install PyLumerical as a developer, see the contributing section in the documentation.
+For guidelines on contribution and how to install PyLumerical as a developer, see the `contributing section <doc/source/contributing/index.rst>` section in the documentation.
 
 Getting started
 ----------------
 
-Please see the installation and getting started section in the documentation for more information.
+Please see the `installation and getting started section <doc/source/getting_started/index.rst>` in the documentation for more information.
 
 

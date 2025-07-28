@@ -27,7 +27,7 @@ For more information, see the `installation and getting started section </doc/so
 Contributing to PyLumerical
 ---------------------------
 
-For guidelines on contribution and how to install PyLumerical as a developer, see the `contributing section </doc/source/contributing/index.rst>`_ section in the documentation.
+For guidelines on contribution and how to install PyLumerical as a developer, see the `contributing section </doc/source/contributing.rst>`_ section in the documentation.
 
 Getting started
 ----------------

@@ -44,15 +44,15 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
 class TestLumericalOpenClose:
+    """Test the lumapi 'open' and 'close' functions."""
 
-    def test_lumapi_open_close_fdtd_with_no_arg(self):
+    def test_lumapi_open_close_fdtd_without_arg(self):
         """Test 01: Test lumapi 'open' and 'close' FDTD with no arguments."""
         fdtd = lumapi.FDTD()
 
         assert isinstance(fdtd, lumapi.FDTD) == 1
 
         fdtd.close()
-
 
     def test_lumapi_open_close_fdtd_with_project_filename_arg(self):
         """Test 02: Test lumapi 'open' and 'close' FDTD with a project filename argument."""
@@ -68,7 +68,6 @@ class TestLumericalOpenClose:
 
         fdtd.close()
 
-
     def test_lumapi_open_close_fdtd_with_script_filename_arg(self):
         """Test 03: Test lumapi 'open' and 'close' FDTD with a script filename argument."""
         script_file = "fdtd_test.lsf"
@@ -82,7 +81,6 @@ class TestLumericalOpenClose:
         assert obj.name == "rectangle"
 
         fdtd.close()
-
 
     def test_lumapi_open_close_fdtd_with_encrypted_script_filename_arg(self):
         """Test 04: Test lumapi 'open' and 'close' FDTD with an encrypted script filename argument."""
@@ -98,7 +96,6 @@ class TestLumericalOpenClose:
 
         fdtd.close()
 
-
     def test_lumapi_open_close_device_with_server_args(self):
         """Test 05: Test lumapi 'open' and 'close' DEVICE with server arguments."""
         server_args = {"use-solve": True, "threads": "2"}
@@ -109,7 +106,6 @@ class TestLumericalOpenClose:
 
         device.close()
 
-
     def test_lumapi_open_device_with_invalid_server_args_raises_lumapierror(self):
         """Test 06: Test lumapi 'open' DEVICE with invalid server arguments raises LumApiError."""
         server_args = [{"use-solve": True, "threads": "2"}]
@@ -118,7 +114,6 @@ class TestLumericalOpenClose:
             _ = lumapi.DEVICE(hide=True, serverArgs=server_args)
 
         assert "Server arguments must be in dict format" in str(ex_info.value)
-
 
     def test_lumapi_open_device_with_invalid_remote_args_raises_lumapierror(self):
         """Test 07: Test lumapi 'open' DEVICE with invalid remote arguments raises LumApiError."""
@@ -129,7 +124,6 @@ class TestLumericalOpenClose:
 
         assert "appOpen error: Unable to connect to server" in str(ex_info.value)
 
-
     def test_lumapi_open_close_mode(self):
         """Test 08: Test lumapi 'open' and 'close' MODE."""
         mode = lumapi.MODE(hide=True)
@@ -138,7 +132,6 @@ class TestLumericalOpenClose:
 
         mode.close()
 
-
     def test_lumapi_open_close_interconnect(self):
         """Test 09: Test lumapi 'open' and 'close' INTERCONNECT."""
         interconnect = lumapi.INTERCONNECT(hide=True)
@@ -146,7 +139,6 @@ class TestLumericalOpenClose:
         assert isinstance(interconnect, lumapi.INTERCONNECT) == 1
 
         interconnect.close()
-
 
     def test_open_invalid_product_name_lumapierror(self):
         """Test 10: Test lumapi object raises 'Invalid product name' LumApiError."""

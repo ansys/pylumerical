@@ -40,29 +40,13 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global fdtd
-
-    fdtd = lumapi.FDTD(hide=True)
-
-    fdtd.addfdtd()
-
-    yield
-
-    print("\n--> Teardown")
-
-    fdtd.close()
-
-
 class TestSimObject:
+    """Test the lumapi 'SimObject' and 'SimObjectResults' objects."""
 
-    def test_lumerical_getallselectedobjects_simobject_list(self, module_setup):
+    @pytest.fixture
+    def test_lumerical_getallselectedobjects_simobject_list(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list."""
-        obj_lst = fdtd.getAllSelectedObjects()
+        obj_lst = setup_fdtd.getAllSelectedObjects()
 
         assert len(obj_lst) == 1
 
@@ -77,10 +61,9 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-
-    def test_lumerical_getobjectbyid_simobject(self, module_setup):
+    def test_lumerical_getobjectbyid_simobject(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'getObjectById_SimObject."""
-        obj = fdtd.getObjectById("::model::FDTD")
+        obj = setup_fdtd.getObjectById("::model::FDTD")
 
         attributes = dir(obj)
 
@@ -91,10 +74,9 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-
-    def test_lumerical_getobjectbyselection_simobject(self, module_setup):
+    def test_lumerical_getobjectbyselection_simobject(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject."""
-        obj = fdtd.getObjectBySelection()
+        obj = setup_fdtd.getObjectBySelection()
 
         results = dir(obj.results)
 
@@ -108,36 +90,33 @@ class TestSimObject:
         assert isinstance(x, np.ndarray)
         assert len(x.shape) == 2
 
-
-    def test_simobjectresults_raises_simobjectresults_has_no_attribute_attributeerror(self, module_setup):
+    def test_simobjectresults_raises_simobjectresults_has_no_attribute_attributeerror(self, setup_fdtd):
         """Test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError."""
-        obj = fdtd.getObjectBySelection()
+        obj = setup_fdtd.getObjectBySelection()
 
         with pytest.raises(AttributeError) as ex_info:
             _ = obj.results.xx
 
         assert "'SimObjectResults' object has no attribute 'xx'" in str(ex_info.value)
 
-
-    def test_simobject_raises_attribute_can_not_be_set_lumapierror(self, module_setup):
+    def test_simobject_raises_attribute_can_not_be_set_lumapierror(self, setup_fdtd):
         """Test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError."""
-        obj = fdtd.getObjectBySelection()
+        obj = setup_fdtd.getObjectBySelection()
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
             obj.results.y = 1
 
         assert "Attribute 'y' can not be set" in str(ex_info.value)
 
-
-    def test_simobject_getparent_and_getchildren(self, module_setup):
+    def test_simobject_getparent_and_getchildren(self, setup_fdtd):
         """Test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods."""
-        fdtd.addstructuregroup({"name": "group1"})
-        fdtd.addrect({"name": "rect1"})
-        fdtd.select("rect1")
-        fdtd.addtogroup("group1")
-        fdtd.select("group1")
+        setup_fdtd.addstructuregroup({"name": "group1"})
+        setup_fdtd.addrect({"name": "rect1"})
+        setup_fdtd.select("rect1")
+        setup_fdtd.addtogroup("group1")
+        setup_fdtd.select("group1")
 
-        obj = fdtd.getObjectBySelection()
+        obj = setup_fdtd.getObjectBySelection()
 
         parent = obj.getParent()
         child_lst = obj.getChildren()

@@ -20,12 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Test lumapi 'removePromptLineNo' function.
+"""Test lumapi 'lumTypes' function.
 
-- test 01: Test lumapi 'removePromptLineNo' with a simple string
-- test 02: Test lumapi 'removePromptLineNo' with a string with columns
-- test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'
+- test 01: Test lumapi 'lumTypes' function with a list argument
+- test 02: Test lumapi 'lumTypes' function with a non-list argument
 """
+
+import numpy as np
 
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
@@ -34,30 +35,23 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-class TestRemovePromptLineNo:
+class TestLumTypes:
+    """Test the lumapi 'lumTypes' function."""
 
-    def test_lumapi_removepromptlineno_simple_string(self):
-        """Test 01: Test lumapi 'removePromptLineNo' with a simple string."""
-        strval = "remove prompt line number helper function"
+    def test_lumapi_lumtypes_function_with_list_argument(self):
+        """Test 01: Test lumapi 'lumTypes' function with a list argument."""
+        mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
 
-        message = lumapi.removePromptLineNo(strval)
+        np_mapping = np.array(mapping)
 
-        assert message == strval
+        converted = lumapi.lumTypes([mapping, np_mapping])
 
+        assert converted == ["cell array", "matrix"]
 
-    def test_lumapi_removepromptlineno_string_with_columns(self):
-        """Test 02: Test lumapi 'removePromptLineNo' with a string with columns."""
-        strval = "123:456:789"
+    def test_lumapi_lumtypes_function_with_non_list_argument(self):
+        """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
+        dct = {"a": 1, "b": 2, "c": 3}
 
-        message = lumapi.removePromptLineNo(strval)
+        converted = lumapi.lumTypes(dct)
 
-        assert message == "123:456:789"
-
-
-    def test_lumapi_removepromptlineno_string_with_columns_and_prompt_line(self):
-        """Test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'."""
-        strval = "123: prompt line :789"
-
-        message = lumapi.removePromptLineNo(strval)
-
-        assert message == "123:789"
+        assert converted is None

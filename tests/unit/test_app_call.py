@@ -40,25 +40,11 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global fdtd
-
-    fdtd = lumapi.FDTD(hide=True)
-
-    yield
-
-    print("\n--> Teardown")
-
-    fdtd.close()
-
-
 class TestAppCall:
-    
-    def test_appcall_with_ordered_dict_properties(self, module_setup):
+    """Test the lumapi 'appCall' and 'appCallWithConstructor' objects."""
+
+    @pytest.fixture
+    def test_appcall_with_ordered_dict_properties(self, setup_fdtd):
         """Test 01: Test 'appCall' object with ordered dict properties."""
         prop_dict = OrderedDict(
             [
@@ -71,10 +57,9 @@ class TestAppCall:
             ]
         )
 
-        fdtd.adddftmonitor(properties=prop_dict)
+        setup_fdtd.adddftmonitor(properties=prop_dict)
 
-
-    def test_appcall_raises_object_cannot_be_created_lumapierror(self, module_setup):
+    def test_appcall_raises_object_cannot_be_created_lumapierror(self, setup_fdtd):
         """Test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError."""
         prop_dict = {
             "name": "monitor 2",
@@ -86,29 +71,27 @@ class TestAppCall:
         }
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
-            fdtd.adddftmonitor(prop_dict)
+            setup_fdtd.adddftmonitor(prop_dict)
 
         assert "error during property initialization, the requested object cannot be created" in str(ex_info.value)
 
-
-    def test_appcallwithconstructor_object_set_and_get(self, module_setup):
+    def test_appcallwithconstructor_object_set_and_get(self, setup_fdtd):
         """Test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods."""
         name = "addtriangle"
         method = (lambda x: lambda fdtd, *args, **kwargs: lumapi.appCallWithConstructor(fdtd, x, args, **kwargs))(name)
         method.__name__ = str("my_addtriangle")
 
-        setattr(fdtd, "my_addtriangle", method)
+        setattr(setup_fdtd, "my_addtriangle", method)
 
-        _ = getattr(fdtd, "my_addtriangle")
+        _ = getattr(setup_fdtd, "my_addtriangle")
 
-        fdtd.my_addtriangle(fdtd)
+        setup_fdtd.my_addtriangle(setup_fdtd)
 
-        obj = fdtd.getObjectById("::model::triangle")
+        obj = setup_fdtd.getObjectById("::model::triangle")
 
         assert obj.name == "triangle"
 
-
-    def test_appcallwithconstructor_raises_does_not_have_property_attributeerror(self, module_setup):
+    def test_appcallwithconstructor_raises_does_not_have_property_attributeerror(self, setup_fdtd):
         """Test 04: Test 'appCallWithConstructor' object raises 'type added doesn't have property' AttributeError."""
         prop_dict = OrderedDict(
             [
@@ -122,12 +105,11 @@ class TestAppCall:
         )
 
         with pytest.raises(AttributeError) as ex_info:
-            fdtd.adddftmonitor(properties=prop_dict)
+            setup_fdtd.adddftmonitor(properties=prop_dict)
 
         assert "Type added by 'adddftmonitor' doesn't have 'override_global_monitor_settings' property" in str(ex_info.value)
 
-
-    def test_appcallwithconstructor_raises_use_an_ordered_dict_lumwarning(self, module_setup):
+    def test_appcallwithconstructor_raises_use_an_ordered_dict_lumwarning(self, setup_fdtd):
         """Test 05: Test 'appCallWithConstructor' object raises 'use an ordered dict for properties' lumWarning."""
         prop_dict = {
             "name": "monitor 2",
@@ -140,9 +122,10 @@ class TestAppCall:
 
         def lumapi_lum_warning():
             with pytest.warns(
-                UserWarning, match=("It is recommended to use an ordered dict for properties," + "as regular dict elements can be re-ordered by Python")
+                UserWarning,
+                match=("It is recommended to use an ordered dict for properties," + "as regular dict elements can be re-ordered by Python"),
             ):
-                fdtd.adddftmonitor(properties=prop_dict)
+                setup_fdtd.adddftmonitor(properties=prop_dict)
 
             return 1
 

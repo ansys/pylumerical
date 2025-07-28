@@ -20,12 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Test lumapi 'lumWarning' function.
+"""Test lumapi 'removePromptLineNo' function.
 
-- test 01: Test lumapi 'lumWarning'
+- test 01: Test lumapi 'removePromptLineNo' with a simple string
+- test 02: Test lumapi 'removePromptLineNo' with a string with columns
+- test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'
 """
-
-import pytest
 
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
@@ -34,21 +34,29 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-class TestLumWarning:
+class TestRemovePromptLineNo:
+    """Test the lumapi 'removePromptLineNo' function."""
 
-    def test_lumapi_lumwarning(self):
-        """Test 01: Test lumapi 'lumWarning'."""
-        fdtd = lumapi.open("fdtd", hide=True)
+    def test_lumapi_removepromptlineno_simple_string(self):
+        """Test 01: Test lumapi 'removePromptLineNo' with a simple string."""
+        strval = "remove prompt line number helper function"
 
-        fdtd.addrect()
-        fdtd.addrect()
+        message = lumapi.removePromptLineNo(strval)
 
-        def lum_warning():
-            with pytest.warns(UserWarning, match="Multiple objects named '::model::rectangle'."):
-                _ = fdtd.getObjectById("::model::rectangle")
+        assert message == strval
 
-            return 1
+    def test_lumapi_removepromptlineno_string_with_columns(self):
+        """Test 02: Test lumapi 'removePromptLineNo' with a string with columns."""
+        strval = "123:456:789"
 
-        assert lum_warning() == 1
+        message = lumapi.removePromptLineNo(strval)
 
-        fdtd.close()
+        assert message == "123:456:789"
+
+    def test_lumapi_removepromptlineno_string_with_columns_and_prompt_line(self):
+        """Test 03: Test lumapi 'removePromptLineNo' with a string with columns and 'prompt line'."""
+        strval = "123: prompt line :789"
+
+        message = lumapi.removePromptLineNo(strval)
+
+        assert message == "123:789"

@@ -36,38 +36,24 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global intc
-
-    intc = lumapi.open("interconnect", hide=True)
-
-    yield
-
-    print("\n--> Teardown")
-
-    intc.close()
-
-
 class TestGetSetHelper:
+    """Test the lumapi 'GetSetHelper' object."""
 
-    def test_getsethelper_get(self, module_setup):
+    @pytest.fixture
+    def test_getsethelper_get(self, setup_interconnect):
         """Test 01: Test 'GetSetHelper' object 'get' method."""
-        intc.addelement("Waveguide Coupler")
-        intc.addelement("Waveguide Coupler")
-        intc.selectall()
-        intc.createcompound()
+        setup_interconnect.addelement("Waveguide Coupler")
+        setup_interconnect.addelement("Waveguide Coupler")
+        setup_interconnect.selectall()
+        setup_interconnect.createcompound()
 
-        intc.addproperty("COMPOUND_1", "C 1.details", "Standard", "String")
+        setup_interconnect.addproperty("COMPOUND_1", "C 1.details", "Standard", "String")
 
         details = "two couplers"
-        intc.select("COMPOUND_1")
-        intc.set("C 1.details", details)
+        setup_interconnect.select("COMPOUND_1")
+        setup_interconnect.set("C 1.details", details)
 
-        obj = intc.getObjectBySelection()
+        obj = setup_interconnect.getObjectBySelection()
 
         assert type(obj.C_1) is lumapi.GetSetHelper
 
@@ -75,29 +61,27 @@ class TestGetSetHelper:
 
         assert obj["C 1"]["details"] == details
 
-
-    def test_getsethelper_set(self, module_setup):
+    def test_getsethelper_set(self, setup_interconnect):
         """Test 02: Test 'GetSetHelper' object 'set' method."""
-        obj = intc.getObjectById("::Root Element::COMPOUND_1")
+        obj = setup_interconnect.getObjectById("::Root Element::COMPOUND_1")
 
         details = "2 waveguide couplers"
         obj.C_1.details = details
 
-        obj = intc.getObjectBySelection()
+        obj = setup_interconnect.getObjectBySelection()
 
         assert obj.C_1.details == details
 
         details = "2 couplers"
         obj["C 1"]["details"] = details
 
-        obj = intc.getObjectBySelection()
+        obj = setup_interconnect.getObjectBySelection()
 
         assert obj.C_1["details"] == details
 
-
-    def test_getsethelper_raises_property_has_no_sub_property_attributeerror(self, module_setup):
+    def test_getsethelper_raises_property_has_no_sub_property_attributeerror(self, setup_interconnect):
         """Test 03: Test 'GetSetHelper' raises 'property ... has no ... sub-property' AttributeError."""
-        obj = intc.getObjectById("::Root Element::COMPOUND_1")
+        obj = setup_interconnect.getObjectById("::Root Element::COMPOUND_1")
 
         with pytest.raises(AttributeError) as ex_info:
             _ = obj.C_1.xx

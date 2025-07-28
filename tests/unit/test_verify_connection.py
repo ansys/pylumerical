@@ -36,45 +36,29 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global fdtd
-
-    fdtd = lumapi.FDTD(hide=True)
-
-    yield
-
-    print("\n--> Teardown")
-
-    fdtd.close()
-
-
 class TestVerifyConnection:
+    """Test the lumapi 'verifyConnection' function."""
 
-    def test_verifyconnection(self, module_setup):
+    @pytest.fixture
+    def test_verifyconnection(self, setup_fdtd):
         """Test 01: Test 'verifyConnection' function."""
-        handle = fdtd.handle
+        handle = setup_fdtd.handle
 
         assert lumapi.verifyConnection(handle)
 
-
-    def test_verifyconnection_raises_error_validating_the_connection_lumapierror(self, module_setup):
+    def test_verify_connection_raises_error(self, setup_fdtd):
         """Test 02: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
-        handle = fdtd.handle
+        handle = setup_fdtd.handle
 
-        fdtd.close()
+        setup_fdtd.close()
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
             lumapi.verifyConnection(handle)
 
         assert "Error validating the connection" in str(ex_info.value)
 
-
-    def test_verifyconnection_raises_error_validating_the_connection_lumapierror(self, module_setup):
-        """Test 03: Test 'verifyConnection' function raises 'Error validating the connection' LumApiError."""
+    def test_get_obj_raises_error(self):
+        """Test 03: Test 'getObjectBySelection' function raises 'Error validating the connection' LumApiError."""
         fdtd = lumapi.open("fdtd", hide=True)
 
         fdtd.addrect()

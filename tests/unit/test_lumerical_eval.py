@@ -38,71 +38,43 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global fdtd
-
-    fdtd = lumapi.FDTD(hide=True)
-
-    yield
-
-    print("\n--> Teardown")
-
-    fdtd.close()
-
-
 class TestLumericalEval:
+    """Test the lumapi 'Lumerical' object 'eval' and user functions."""
 
-    def test_lumerical_object_has_no_user_functions(self, module_setup):
+    @pytest.fixture
+    def test_lumerical_object_has_no_user_functions(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object has no user functions by default."""
-        global fdtd
+        assert setup_fdtd.userFunctions == set()
 
-        assert fdtd.userFunctions == set()
-
-
-    def test_lumerical_object_eval_user_function(self, module_setup):
+    def test_lumerical_object_eval_user_function(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'eval' method with a user function."""
-        global fdtd
+        setup_fdtd.eval("function add_function(a, b){ return a + b; }")
+        setup_fdtd.eval("res = add_function(1, 2);")
 
-        fdtd.eval("function add_function(a, b){ return a + b; }")
-        fdtd.eval("res = add_function(1, 2);")
+        assert setup_fdtd.userFunctions == set()
 
-        assert fdtd.userFunctions == set()
-
-
-    def test_lumerical_object_add_user_functions(self, module_setup):
+    def test_lumerical_object_add_user_functions(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object '_addUserFunctions' method."""
-        global fdtd
+        setup_fdtd._addUserFunctions()
 
-        fdtd._addUserFunctions()
-
-        userfunction_list = list(fdtd.userFunctions)
+        userfunction_list = list(setup_fdtd.userFunctions)
 
         assert userfunction_list[0] == "add_function"
 
-        res = fdtd.getv("res")
+        res = setup_fdtd.getv("res")
 
         assert res == 3
 
-
-    def test_lumerical_object_sync_user_functions(self, module_setup):
+    def test_lumerical_object_sync_user_functions(self, setup_fdtd):
         """Test 04: Test 'Lumerical' object '_syncUserFunctions' method."""
-        global fdtd
+        setup_fdtd.eval("function multiply_function(a, b){ return a * b; }")
 
-        fdtd.eval("function multiply_function(a, b){ return a * b; }")
+        setup_fdtd._syncUserFunctions()
 
-        fdtd._syncUserFunctions()
+        assert setup_fdtd.userFunctions == {"add_function", "multiply_function"}
 
-        assert fdtd.userFunctions == {"add_function", "multiply_function"}
-
-
-    def test_lumerical_object_delete_user_functions(self, module_setup):
+    def test_lumerical_object_delete_user_functions(self, setup_fdtd):
         """Test 05: Test 'Lumerical' object '_deleteUserFunctions' method."""
-        global fdtd
+        setup_fdtd._deleteUserFunctions()
 
-        fdtd._deleteUserFunctions()
-
-        assert fdtd.userFunctions == set()
+        assert setup_fdtd.userFunctions == set()

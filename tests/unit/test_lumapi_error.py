@@ -38,67 +38,49 @@ base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
 
-@pytest.fixture(scope="module")
-def module_setup():
-    """PyTest module setup / tearadown."""
-    print("\n--> Setup")
-
-    global fdtd
-
-    fdtd = lumapi.FDTD(hide=True)
-
-    yield
-
-    print("\n--> Teardown")
-
-    fdtd.close()
-
-
 class TestLumApiError:
+    """Test the lumapi 'Lumerical' object raises different 'LumApiError'."""
 
-    def test_lumerical_eval_raises_failed_to_evaluate_code_lumapierror(self, module_setup):
+    @pytest.fixture
+    def test_lumerical_eval_raises_failed_to_evaluate_code_lumapierror(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'eval' method raises 'Failed to evaluate code' LumApiError."""
         with pytest.raises(lumapi.LumApiError) as ex_info:
-            fdtd.eval("qwerty")
+            setup_fdtd.eval("qwerty")
 
         assert "Failed to evaluate code" in str(ex_info.value)
 
-
-    def test_lumerical_getv_raises_failed_to_get_variable_lumapierror(self, module_setup):
+    def test_lumerical_getv_raises_failed_to_get_variable_lumapierror(self, setup_fdtd):
         """Test 02: Test 'Lumerical' object 'getv' method raises 'Failed to get variable' LumApiError."""
         with pytest.raises(lumapi.LumApiError) as ex_info:
-            _ = fdtd.getv("qwerty")
+            _ = setup_fdtd.getv("qwerty")
 
         assert "Failed to get variable" in str(ex_info.value)
 
-
-    def test_lumerical_putv_raises_object_has_no_attribute_lumapierror(self, module_setup):
+    def test_lumerical_putv_raises_object_has_no_attribute_lumapierror(self, setup_fdtd):
         """Test 03: Test 'Lumerical' object 'putv' method raises "'SimObject' object has no attribute" LumApiError."""
-        fdtd.addfdtd()
+        setup_fdtd.addfdtd()
 
-        obj = fdtd.getObjectById("::model::FDTD")
+        obj = setup_fdtd.getObjectById("::model::FDTD")
 
         with pytest.raises(AttributeError) as ex_info:
-            fdtd.putv("obj", obj)
+            setup_fdtd.putv("obj", obj)
 
         assert "'SimObject' object has no attribute" in str(ex_info.value)
 
-
-    def test_lumerical_getobjectbyid_raises_object_not_found_lumapierror(self, module_setup):
+    def test_lumerical_getobjectbyid_raises_object_not_found_lumapierror(self, setup_fdtd):
         """Test 04: Test 'Lumerical' object 'getObjectById' method raises 'Object ... not found' LumApiError."""
-        fdtd.addrect({"name": "rect1"})
+        setup_fdtd.addrect({"name": "rect1"})
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
-            _ = fdtd.getObjectById("::model::rect_2")
+            _ = setup_fdtd.getObjectById("::model::rect_2")
 
         assert "Object ::model::rect_2 not found" in str(ex_info.value)
 
-
-    def test_lumerical_getobjectbyselection_raises_no_items_are_currently_selected_lumapierror(self, module_setup):
+    def test_lumerical_getobjectbyselection_raises_no_items_are_currently_selected_lumapierror(self, setup_fdtd):
         """Test 05: Test 'Lumerical' object 'getObjectBySelection' method raises 'in getid, no items are currently selected' LumApiError."""
-        fdtd.unselectall()
+        setup_fdtd.unselectall()
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
-            _ = fdtd.getObjectBySelection()
+            _ = setup_fdtd.getObjectBySelection()
 
         assert "in getid, no items are currently selected" in str(ex_info.value)

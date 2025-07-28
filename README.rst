@@ -3,8 +3,8 @@ PyLumerical
 
 A Python wrapper for Ansys Lumerical products.
 
-Installing as a user
----------------------
+Installing PyLumerical as a user
+--------------------------------
 
 You must have an Ansys Lumerical GUI license to use PyLumerical.
 
@@ -24,12 +24,10 @@ Then, install using:
 
 For more information, see the installation and getting started section in the documentation.
 
-Installing as a developer
--------------------------
+Contributing to PyLumerical
+---------------------------
 
-Extra steps are needed to install PyLumerical as a developer.
-
-For more information, see the contributing section in the documentation.
+For guidelines on contribution and how to install PyLumerical as a developer, see the contributing section in the documentation.
 
 Getting started
 ----------------

@@ -47,7 +47,18 @@ def setup_fdtd():
 
 
 @pytest.fixture(scope="module")
-def setup_fdtd_extras():
+def setup_fdtd_with_addfdtd():
+    """Set up, add, and tear down FDTD."""
+    print("\n--> Setup")
+    fdtd = lumapi.FDTD(hide=True)
+    fdtd.addfdtd()
+    yield fdtd
+    print("\n--> Teardown")
+    fdtd.close()
+
+
+@pytest.fixture(scope="module")
+def setup_fdtd_with_groups():
     """Set up and tear down FDTD with additional groups."""
     print("\n--> Setup")
     fdtd = lumapi.FDTD(hide=True)

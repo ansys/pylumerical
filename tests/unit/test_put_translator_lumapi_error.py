@@ -38,18 +38,18 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestPutTranslatorLumApiError:
     """Test the lumapi 'PutTranslator' object raises LumApiError."""
 
-    def test_unsupported_datatype_error(self, setup_fdtd_extras):
+    def test_unsupported_datatype_error(self, setup_fdtd_with_groups):
         """Test 01: Test 'PutTranslator' object raises 'Unsupported data type' LumApiError."""
         with pytest.raises(lumapi.LumApiError) as excinfo:
-            setup_fdtd_extras.setnamed("assembly_grp", "parameters", {"x", "y", "radius"})
+            setup_fdtd_with_groups.setnamed("assembly_grp", "parameters", {"x", "y", "radius"})
 
         assert "Unsupported data type" in str(excinfo.value)
 
-    def test_wrong_property_type_error(self, setup_fdtd_extras):
+    def test_wrong_property_type_error(self, setup_fdtd_with_groups):
         """Test 02: Test 'PutTranslator' object raises 'wrong type for the property' LumApiError."""
         mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
 
         with pytest.raises(lumapi.LumApiError) as excinfo:
-            setup_fdtd_extras.setnamed("assembly_grp", "mapping", mapping)
+            setup_fdtd_with_groups.setnamed("assembly_grp", "mapping", mapping)
 
         assert ("in setnamed, the value supplied is the wrong type " + "for the property 'mapping'") in str(excinfo.value)

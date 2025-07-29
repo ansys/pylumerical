@@ -44,9 +44,9 @@ class TestSimObject:
     """Test the lumapi 'SimObject' and 'SimObjectResults' objects."""
 
     @pytest.fixture
-    def test_get_all_selected_objects(self, setup_fdtd):
+    def test_get_all_selected_objects(self, setup_fdtd_with_addfdtd):
         """Test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list."""
-        obj_lst = setup_fdtd.getAllSelectedObjects()
+        obj_lst = setup_fdtd_with_addfdtd.getAllSelectedObjects()
 
         assert len(obj_lst) == 1
 
@@ -61,9 +61,9 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-    def test_get_object_by_id(self, setup_fdtd):
+    def test_get_object_by_id(self, setup_fdtd_with_addfdtd):
         """Test 02: Test 'Lumerical' object 'getObjectById_SimObject."""
-        obj = setup_fdtd.getObjectById("::model::FDTD")
+        obj = setup_fdtd_with_addfdtd.getObjectById("::model::FDTD")
 
         attributes = dir(obj)
 
@@ -74,9 +74,9 @@ class TestSimObject:
         assert "x min bc" in attributes
         assert "same settings on all boundaries" in attributes
 
-    def test_get_object_by_selection(self, setup_fdtd):
+    def test_get_object_by_selection(self, setup_fdtd_with_addfdtd):
         """Test 03: Test 'Lumerical' object 'getObjectBySelection_SimObject."""
-        obj = setup_fdtd.getObjectBySelection()
+        obj = setup_fdtd_with_addfdtd.getObjectBySelection()
 
         results = dir(obj.results)
 
@@ -90,33 +90,33 @@ class TestSimObject:
         assert isinstance(x, np.ndarray)
         assert len(x.shape) == 2
 
-    def test_results_attr_error(self, setup_fdtd):
+    def test_results_attr_error(self, setup_fdtd_with_addfdtd):
         """Test 04: Test 'SimObjectResults' object raises 'SimObjectResults has no attribute' AttributeError."""
-        obj = setup_fdtd.getObjectBySelection()
+        obj = setup_fdtd_with_addfdtd.getObjectBySelection()
 
         with pytest.raises(AttributeError) as ex_info:
             _ = obj.results.xx
 
         assert "'SimObjectResults' object has no attribute 'xx'" in str(ex_info.value)
 
-    def test_attr_set_error(self, setup_fdtd):
+    def test_attr_set_error(self, setup_fdtd_with_addfdtd):
         """Test 05: Test 'SimObject' object raises 'attribute can not be set' LumApiError."""
-        obj = setup_fdtd.getObjectBySelection()
+        obj = setup_fdtd_with_addfdtd.getObjectBySelection()
 
         with pytest.raises(lumapi.LumApiError) as ex_info:
             obj.results.y = 1
 
         assert "Attribute 'y' can not be set" in str(ex_info.value)
 
-    def test_get_parent_and_children(self, setup_fdtd):
+    def test_get_parent_and_children(self, setup_fdtd_with_addfdtd):
         """Test 06: Test 'SimObject' object 'getParent' and 'getChildren' methods."""
-        setup_fdtd.addstructuregroup({"name": "group1"})
-        setup_fdtd.addrect({"name": "rect1"})
-        setup_fdtd.select("rect1")
-        setup_fdtd.addtogroup("group1")
-        setup_fdtd.select("group1")
+        setup_fdtd_with_addfdtd.addstructuregroup({"name": "group1"})
+        setup_fdtd_with_addfdtd.addrect({"name": "rect1"})
+        setup_fdtd_with_addfdtd.select("rect1")
+        setup_fdtd_with_addfdtd.addtogroup("group1")
+        setup_fdtd_with_addfdtd.select("group1")
 
-        obj = setup_fdtd.getObjectBySelection()
+        obj = setup_fdtd_with_addfdtd.getObjectBySelection()
 
         parent = obj.getParent()
         child_lst = obj.getChildren()

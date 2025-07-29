@@ -40,7 +40,6 @@
 """
 
 import numpy as np
-import pytest
 
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
@@ -52,7 +51,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestLumericalPutvGetv:
     """Test the lumapi 'Lumerical' object 'putv' and 'getv' functions."""
 
-    @pytest.fixture
     def test_int(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'putv' and 'getv' an int."""
         int_name = "I"

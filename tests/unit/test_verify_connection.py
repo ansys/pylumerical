@@ -39,7 +39,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestVerifyConnection:
     """Test the lumapi 'verifyConnection' function."""
 
-    @pytest.fixture
     def test_verify_connection(self, setup_fdtd):
         """Test 01: Test 'verifyConnection' function."""
         handle = setup_fdtd.handle

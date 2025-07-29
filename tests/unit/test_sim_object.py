@@ -43,7 +43,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestSimObject:
     """Test the lumapi 'SimObject' and 'SimObjectResults' objects."""
 
-    @pytest.fixture
     def test_get_all_selected_objects(self, setup_fdtd_with_addfdtd):
         """Test 01: Test 'Lumerical' object 'getAllSelectedObjects' returns as 'SimObject' list."""
         obj_lst = setup_fdtd_with_addfdtd.getAllSelectedObjects()

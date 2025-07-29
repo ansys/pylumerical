@@ -29,8 +29,6 @@
 - test 05: Test 'Lumerical' object '_deleteUserFunctions' method
 """
 
-import pytest
-
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
 
@@ -41,7 +39,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestLumericalEval:
     """Test the lumapi 'Lumerical' object 'eval' and user functions."""
 
-    @pytest.fixture
     def test_no_user_functions(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object has no user functions by default."""
         assert setup_fdtd.userFunctions == set()

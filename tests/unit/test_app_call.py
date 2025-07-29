@@ -43,7 +43,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestAppCall:
     """Test the lumapi 'appCall' and 'appCallWithConstructor' objects."""
 
-    @pytest.fixture
     def test_appcall_with_ordered_dict_properties(self, setup_fdtd):
         """Test 01: Test 'appCall' object with ordered dict properties."""
         prop_dict = OrderedDict(

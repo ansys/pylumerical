@@ -41,7 +41,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestLumApiError:
     """Test the lumapi 'Lumerical' object raises different 'LumApiError'."""
 
-    @pytest.fixture
     def test_eval_fails(self, setup_fdtd):
         """Test 01: Test 'Lumerical' object 'eval' method raises 'Failed to evaluate code' LumApiError."""
         with pytest.raises(lumapi.LumApiError) as ex_info:

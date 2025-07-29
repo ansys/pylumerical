@@ -27,8 +27,6 @@
 - test 03: Test 'UnstructuredDatasetTranslator' object
 """
 
-import pytest
-
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
 
@@ -39,7 +37,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestDatasetTranslator:
     """Test the lumapi 'MatrixDatasetTranslator', 'RectilinearDatasetTranslator', and 'UnstructuredDatasetTranslator' objects."""
 
-    @pytest.fixture
     def test_matrix_dataset_translator(self, setup_fdtd):
         """Test 01: Test 'MatrixDatasetTranslator' object."""
         setup_fdtd.eval("matrix_dataset = matrixdataset;")

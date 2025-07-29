@@ -43,6 +43,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
     "sphinx_design",  # Needed for cards
+    "sphinx.ext.extlinks",
 ]
 
 # Intersphinx mapping
@@ -113,6 +114,11 @@ linkcheck_ignore = [
 # available until the release is published.
 if switcher_version != "dev":
     linkcheck_ignore.append(f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}")
+
+
+# Define extlinks
+
+extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
 
 
 def setup(app):

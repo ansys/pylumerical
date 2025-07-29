@@ -39,7 +39,6 @@ lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 class TestGetSetHelper:
     """Test the lumapi 'GetSetHelper' object."""
 
-    @pytest.fixture
     def test_getsethelper_get(self, setup_interconnect):
         """Test 01: Test 'GetSetHelper' object 'get' method."""
         setup_interconnect.addelement("Waveguide Coupler")

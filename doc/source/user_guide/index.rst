@@ -26,7 +26,7 @@ This user guide provides important informational resources on key concepts of Py
 
       Learning how to create and manipulate simulation objects.
 
-.. grid:: 3
+.. grid:: 2
 
    .. grid-item-card:: Passing data
       :link: passing_data
@@ -40,12 +40,6 @@ This user guide provides important informational resources on key concepts of Py
 
       Learn how to access simulation results and work with Lumerical datasets.
 
-   .. grid-item-card:: Interop server
-      :link: interop_server
-      :link-type: doc
-
-      Learn how to access PyLumerical remotely through the interop server.
-
 .. toctree::
    :hidden:
    :maxdepth: 2
@@ -55,4 +49,3 @@ This user guide provides important informational resources on key concepts of Py
    working_with_simulation_objects
    passing_data
    accessing_simulation_results
-   interop_server

@@ -52,23 +52,6 @@ Each of the product's constructor supports various parameters and keyword argume
 
     inc = lumapi.INTERCONNECT(filename="script.lsf", hide=True)
 
-Starting a remote session using the interop server
---------------------------------------------------
-
-Since the 2023 R1.2 release, you can use PyLumerical remotely on a Linux machine running the interop server (see :doc:`Interop server <interop_server>`  to configure and run the interop server). To use the remote API, you must use an additional parameter ``remoteArgs`` when starting a session to specify the IP address and port to use to connect to the interop server.
-This port must be the starting port defined for the interop server.
-
-This parameter is a :class:`dict` with 2 fields, ``hostname`` and ``port``.
-
-**Example**
-
-.. code-block:: python
-
-    #Start a remote Lumerical FDTD session
-    remoteArgs = { "hostname": "192.168.215.129",
-                 "port": 8989 }
-    fdtd = lumapi.FDTD(hide=True, remoteArgs=remoteArgs)
-
 Advanced session management
 ----------------------------
 

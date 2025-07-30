@@ -34,6 +34,9 @@
 - test 10: Test lumapi object raises 'Invalid product name' LumApiError
 """
 
+import os
+from pathlib import Path
+
 import pytest
 
 import ansys.api.lumerical.lumapi as lumapi
@@ -41,6 +44,9 @@ import ansys.lumerical.core.autodiscovery as autodiscovery
 
 base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
+
+test_path = Path(__file__).parent.absolute()
+os.chdir(test_path)
 
 
 class TestLumericalOpenClose:

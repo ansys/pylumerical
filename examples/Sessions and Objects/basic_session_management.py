@@ -1,12 +1,12 @@
 """
 
-Basic session management
+Basic session management.
+
 ------------------------
 This example demonstrates how to initialize a local Lumerical session.
-PyLumerical interacts with Lumerical products through sessions. 
+PyLumerical interacts with Lumerical products through sessions.
 
-
-Prerequesites: Valid FDTD and MODE licenses are required. 
+Prerequisites: Valid FDTD and MODE licenses are required.
 """
 
 ###############################################################################
@@ -26,12 +26,12 @@ fdtd = lumapi.FDTD()
 fdtd.pause(1)
 fdtd.addfdtd()
 fdtd.print("Example complete. Press space bar to close.")
-fdtd.pause(30) # Will close in 30 seconds if left idle
+fdtd.pause(30)  # Will close in 30 seconds if left idle
 fdtd.close()
 
 mode = lumapi.MODE()
 mode.print("Example complete. Press space bar to close.")
-mode.pause(30) 
+mode.pause(30)
 mode.close()
 
 # Load a session but hide the application window
@@ -46,7 +46,7 @@ fdtd.close()
 with lumapi.FDTD() as fdtd:
     fdtd.addfdtd()
     fdtd.print("Example complete. Press space bar to close.")
-    fdtd.pause(30) 
+    fdtd.pause(30)
 # FDTD closes automatically
 
 ###############################################################################
@@ -55,17 +55,18 @@ with lumapi.FDTD() as fdtd:
 # Get the number of grid cells in FDTD region for set span
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 def get_x_cells(fdtd_span):
     """Return the number of grid cells in FDTD region for a set span."""
     with lumapi.FDTD() as fdtd:
         # Adds FDTD region with span set by fdtd_span
-        fdtd.addfdtd(dimension = "3D", x_span = fdtd_span, y_span = fdtd_span, z_span = fdtd_span)
+        fdtd.addfdtd(dimension="3D", x_span=fdtd_span, y_span=fdtd_span, z_span=fdtd_span)
         # Get the x-coordinates of created FDTD region
-        x = fdtd.getresult("FDTD","x")
+        x = fdtd.getresult("FDTD", "x")
     x_cells = len(x)
     return x_cells
+
 
 # Test the function and print out the result
 test = get_x_cells(1e-6)
 print(test)
-

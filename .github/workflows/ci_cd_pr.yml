@@ -106,6 +106,13 @@ jobs:
         os: ['ubuntu-latest', 'windows-latest']
         python: ['3.10', '3.11', '3.12', '3.13']
     steps:
+      - name: "Checkout ansys-api-lumerical"
+        uses: actions/checkout@v4
+        with:
+          repository: ansys-internal/ansys-api-lumerical
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: ansys-api-lumerical
+
       - uses: ansys/actions/build-wheelhouse@v10
         with:
           library-name: ${{ env.LIBRARY_NAME }}
@@ -121,7 +128,7 @@ jobs:
       contents: write
     steps:
 
-      - name: "Checkout project"
+      - name: "Checkout PyLumerical"
         uses: actions/checkout@v4
 
       - name: "Login to GitHub container registry"
@@ -131,11 +138,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "Pull lumerical services"
+      - name: "Pull Lumerical Unified Container"
         run: |
           docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
 
-      - name: "Run lumerical services"
+      - name: "Run Lumerical Unified Container"
         run: |
           docker run \
             --detach -it \

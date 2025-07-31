@@ -4,7 +4,7 @@ on:
     types: [opened, reopened, synchronize, edited, labeled, closed]
 
 env:
-  MAIN_PYTHON_VERSION: '3.12'
+  MAIN_PYTHON_VERSION: '3.13'
   LIBRARY_NAME: 'ansys-lumerical-core'
   DOCKER_IMAGE_LUMERICAL_UNIFIED: 'lumerical-unified:latest'
   DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'

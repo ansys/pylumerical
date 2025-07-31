@@ -104,7 +104,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
-        python: ['3.10', '3.11', '3.12', '3.13']
+        python: ['3.13']
     steps:
       - name: "Checkout ansys-api-lumerical"
         uses: actions/checkout@v4

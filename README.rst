@@ -1,132 +1,37 @@
 PyLumerical
 ===========
 
-A Python wrapper for Ansys Lumerical
+A Python wrapper for Ansys Lumerical products.
 
+Installing PyLumerical as a user
+--------------------------------
 
-How to install
---------------
+You must have an Ansys Lumerical GUI license to use PyLumerical.
 
-At least two installation modes are provided: user and developer.
+You can install PyLumerical using pip.
 
-For users
-^^^^^^^^^
+First, ensure that you have the latest pip version:
 
-User installation can be performed by running:
+.. code:: bash
+
+    python -m pip install -U pip
+
+Then, install using:
 
 .. code:: bash
 
     python -m pip install ansys-lumerical-core
 
-For developers
-^^^^^^^^^^^^^^
+For more information, see the `installation and getting started section </doc/source/getting_started/index.rst>`_ in the documentation.
 
-Installing PyLumerical in developer mode allows
-you to modify the source and enhance it.
+Contributing to PyLumerical
+---------------------------
 
-Before contributing to the project, please refer to the `PyAnsys Developer's guide`_. You will
-need to follow these steps:
+For guidelines on contribution and how to install PyLumerical as a developer, see the `contributing section </doc/source/contributing.rst>`_ section in the documentation.
 
-#. Start by cloning this repository:
+Getting started
+----------------
 
-   .. code:: bash
-
-      git clone https://github.com/ansys/pylumerical
-
-#. Create a fresh-clean Python environment and activate it. Refer to the
-   official `venv`_ documentation if you require further information:
-
-   .. code:: bash
-
-      # Create a virtual environment
-      python -m venv .venv
-
-      # Activate it in a POSIX system
-      source .venv/bin/activate
-
-      # Activate it in Windows CMD environment
-      .venv\Scripts\activate.bat
-
-      # Activate it in Windows Powershell
-      .venv\Scripts\Activate.ps1
-
-#. Make sure you have the latest version of `pip`_:
-
-   .. code:: bash
-
-      python -m pip install -U pip
-
-#. Install the project in editable mode:
-
-   .. code:: bash
-
-      python -m pip install --editable ansys-lumerical-core
-
-#. Install additional requirements (if needed):
-
-   .. code:: bash
-
-      python -m pip install -r requirements/requirements_build.txt
-      python -m pip install ansys-lumerical-core[tests]
-      python -m pip install ansys-lumerical-core[doc]
-
-#. Finally, verify your development installation by running:
-
-   .. code:: bash
-
-      python -m pip install ansys-lumerical-core[tests]
-      pytest tests -v
+Please see the `installation and getting started section </doc/source/getting_started/index.rst>`_ in the documentation for more information.
 
 
-Style and Testing
------------------
-
-If required, you can always call the style commands (`black`_, `isort`_,
-`flake8`_...) or unit testing ones (`pytest`_) from the command line. However,
-this does not guarantee that your project is being tested in an isolated
-environment, which is another reason to consider using `tox`_.
-
-
-Documentation
--------------
-
-For building documentation, you can either run the usual rules provided in the
-`Sphinx`_ Makefile, such us:
-
-.. code:: bash
-
-    python -m pip install -r requirements/requirements_doc.txt
-    make -C doc/ html
-
-    # subsequently open the documentation with (under Linux):
-    open doc/html/index.html
-
-Distributing
-------------
-
-If you would like to create either source or wheel files, start by installing
-the building requirements:
-
-.. code:: bash
-
-    python -m pip install -r requirements/requirements_build.txt
-
-Then, you can execute:
-
-.. code:: bash
-
-    python -m build
-    python -m twine check dist/*
-
-
-.. LINKS AND REFERENCES
-.. _black: https://github.com/psf/black
-.. _flake8: https://flake8.pycqa.org/en/latest/
-.. _isort: https://github.com/PyCQA/isort
-.. _PyAnsys Developer's guide: https://dev.docs.pyansys.com/
-.. _pre-commit: https://pre-commit.com/
-.. _pytest: https://docs.pytest.org/en/stable/
-.. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _pip: https://pypi.org/project/pip/
-.. _tox: https://tox.wiki/
-.. _venv: https://docs.python.org/3/library/venv.html

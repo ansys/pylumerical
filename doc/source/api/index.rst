@@ -3,7 +3,7 @@ API reference
 
 The API reference provides an overview of classes and methods used in PyLumerical.
 
-.. grid:: 3
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: Interface classes
         :link: interface_class

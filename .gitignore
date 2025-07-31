@@ -3,4 +3,5 @@
 *.pyc
 _build/
 doc/source/api/_autosummary
+# Visual studio Code
 .vscode

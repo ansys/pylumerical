@@ -29,6 +29,8 @@ In addition, you must also have Lumerical product version 2022 R1 or later insta
 
 .. TO-DO: Variablize the supported product version here
 
+.. Turn off vale here due to captizalization issues being wrongly flagged by vale.
+
 .. vale off
 
 My first PyLumerical project
@@ -40,7 +42,7 @@ The code snippet below provides simple project of using PyLumerical to visualize
 
 .. code-block:: python
 
-   import ansys.lumerical.core as lumapi #Ensure lumapi has already been added to path
+   import ansys.lumerical.core as lumapi # Ensure lumapi has already been added to path
    import numpy as np
    import matplotlib.pyplot as plt
 
@@ -48,11 +50,11 @@ The code snippet below provides simple project of using PyLumerical to visualize
       lambda_range = np.linspace(300e-9, 1100e-9, 500)
       c=2.99792458e8
       f_range = c/lambda_range
-      au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) #Use the getfdtdindex command to obtain the correct complex index for gold
+      au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) # Use the getfdtdindex command to obtain the correct complex index for gold
 
 
-      stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) #Use the stackrt command to calculate the transmission and reflection
-   #Visualize using matplotlib
+      stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) # Use the stackrt command to calculate the transmission and reflection
+   # Visualize using matplotlib
    fig, ax = plt.subplots()
    ax.plot(lambda_range*1e9, stackRT_result["Ts"], label="Transmission")
    ax.set_xlabel("Wavelength [nm]")
@@ -70,7 +72,7 @@ This simulation returns the following result.
 Further resources
 -----------------
 
-.. grid:: 3
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: User guide
       :link: ../user_guide/index

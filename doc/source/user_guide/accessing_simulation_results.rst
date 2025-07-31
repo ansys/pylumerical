@@ -73,6 +73,7 @@ For attributes, the dimension of the array depends on the type of dataset, the t
 .. |i|   replace:: :math:`i`
 
 .. note::
+
     You can remove singleton dimensions with the `pinch <https://optics.ansys.com/hc/en-us/articles/360034405674>`__ command in Lumerical or :func:`numpy.squeeze` in numpy.
 
 **Example**
@@ -109,7 +110,7 @@ The following script uses this file to obtain rectilinear datasets.
     import ansys.lumerical.core as lumapi
     with lumapi.FDTD('fdtd_file.fsp') as fdtd:
         fdtd.run()
-        #Return 2 different types of rectilinear datasets
+        # Return 2 different types of rectilinear datasets
         T, time = fdtd.getresult("power", "T"), fdtd.getresult("time","E")
 
     print('Transmission result T is type', type(T),' with keys', str(T.keys()) )
@@ -129,32 +130,32 @@ The following script creates a p-n junction in Lumerical Multiphysics, and retur
     from collections import OrderedDict
     import ansys.lumerical.core as lumapi
     with lumapi.DEVICE() as device:
-        #Create Simulation region
+        # Create Simulation region
         device.addsimulationregion(name = "SimRegion", dimension = "2D Y-Normal", x_span = 1.5e-6, z_span = 0.5e-6)
         device.addchargesolver(name = "CHARGE", simulation_region = "SimRegion")
 
-        #Add materials
+        # Add materials
         device.addmodelmaterial(name = "Silicon")
         device.addmaterialproperties("CT","Si (Silicon)")
 
-        #Add Geometry
+        # Add Geometry
         device.addrect(name = "junction", x_span = 2e-6, y_span = 1e-6, z_span = 0.5e-6, material = "Silicon")
 
-        #Add Doping
+        # Add Doping
         device.adddope(name ="n dope", x_min = -1e-6, x_max = 0, dopant_type = "n", concentration = 1e16)
         device.adddope(name ="p dope", x_min = 0, x_max = 1e-6, dopant_type = "p", concentration = 1e16)
 
-        #Add Contacts
+        # Add Contacts
         prop_n_contact = OrderedDict([("name", "n_contact"), ("surface type", "simulation region"), ("x min", True)])
         device.addelectricalcontact(properties = prop_n_contact)
 
         prop_p_contact = OrderedDict([("name", "p_contact"), ("surface type", "simulation region"), ("x max", True)])
         device.addelectricalcontact(properties = prop_p_contact)
 
-        #Save File
+        # Save File
         device.save("UnstructuredDatasetTest.ldev")
 
-        #mesh and get doping results
+        # mesh and get doping results
         device.mesh()
         unstructured_result = device.getresult("CHARGE","grid")
 
@@ -186,7 +187,7 @@ The following example uses the FDTD project file “fdtd_file.fsp” created abo
     with lumapi.FDTD('fdtd_file.fsp') as fdtd:
         fdtd.run()
 
-        #Return raw E field data
+        # Return raw E field data
         Ex = fdtd.getdata("profile","Ex")
         f = fdtd.getdata("profile","f")
         x = fdtd.getdata("profile","x")

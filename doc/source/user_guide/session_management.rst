@@ -12,7 +12,7 @@ The Python API interacts with Lumerical products through sessions. The simplest 
 
 .. code-block:: python
 
-    #Starting a local Lumerical FDTD session
+    # Starting a local Lumerical FDTD session
 
     fdtd = lumapi.FDTD()
 
@@ -36,7 +36,7 @@ You can also create multiple sessions, even if they're for the same product.
 
 .. code-block:: python
 
-    #Starting two Lumerical MODE sessions one one Lumerical Multiphysics session
+    # Starting two Lumerical MODE sessions one one Lumerical Multiphysics session
     mode1 = lumapi.MODE()
     mode2 = lumapi.MODE()
     device = lumapi.DEVICE()
@@ -48,7 +48,7 @@ Each of the product's constructor supports various parameters and keyword argume
 
 .. code-block:: python
 
-    #Loads and runs script.lsf while hiding the application window
+    # Loads and runs script.lsf while hiding the application window
 
     inc = lumapi.INTERCONNECT(filename="script.lsf", hide=True)
 
@@ -79,10 +79,10 @@ PyLumerical support Python "with" statement by giving well-defined entrance and 
 
     with lumapi.FDTD(hide=True) as fdtd:
         fdtd.addfdtd()
-        fdtd.setnamed("bad name") ## you will see
+        fdtd.setnamed("bad name") # you will see
     LumApiError: "in setnamed, no items matching the name 'bad name' can be found."
         ...
-    ## fdtd still successfully closes
+    # fdtd still successfully closes
 
 Passing in command line arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -109,6 +109,8 @@ The Python code above is equivalent to running the following command:
 Closing the session
 --------------------
 
+.. Turning off vale here, intentional use of passive voice
+
 .. vale off
 
 When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted.
@@ -121,4 +123,4 @@ Python automatically deletes variables as they removed from scope, so most of th
 
 .. code-block:: python
 
-    inc.close() #inc is the name of the active session
+    inc.close() # inc is the name of the active session

@@ -6,7 +6,7 @@ Use Python to analyze data, automate complex workflows, optimizations, and produ
 
 This user guide provides important informational resources on key concepts of PyLumerical.
 
-.. grid:: 3
+.. grid:: 2 2 3 3
 
    .. grid-item-card:: Session management
       :link: session_management
@@ -26,7 +26,7 @@ This user guide provides important informational resources on key concepts of Py
 
       Learning how to create and manipulate simulation objects.
 
-.. grid:: 2
+.. grid:: 2 2 2 2
 
    .. grid-item-card:: Passing data
       :link: passing_data

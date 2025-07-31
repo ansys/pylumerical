@@ -16,7 +16,7 @@ As a part of the PyAnsys project, PyLumerical also enables you to integrate with
 
    The Lumerical Python API is still provided with Lumerical products. If you wish to use the Lumerical Python API instead of PyLumerical, please see the `Lumerical Python API documentation <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ in the Lumerical Knowledge Base.
 
-.. grid:: 3
+.. grid:: 2 2 3 3
 
    .. grid-item-card:: Getting started
       :link: getting_started/index

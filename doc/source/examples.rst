@@ -5,7 +5,7 @@ You can use the examples below to get started with PyLumerical and learn its bas
 
 For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_guide/index>`.
 
-.. grid:: 3
+.. grid:: 2 2 3 3
 
    .. grid-item-card:: Session management
 

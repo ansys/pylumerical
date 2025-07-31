@@ -44,14 +44,14 @@ For more information on how to install PyLumerical and import the modules, see :
         c=2.99792458e8
         f_range = c/lambda_range
 
-        #Use the getfdtdindex command to obtain the correct complex index for gold
+        # Use the getfdtdindex command to obtain the correct complex index for gold
         au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range))
 
-        #Use the stackrt command to calculate the transmission and reflection
+        # Use the stackrt command to calculate the transmission and reflection
         stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range)
 
 
-    #Visualize using matplotlib
+    # Visualize using matplotlib
     fig, ax = plt.subplots()
     ax.plot(lambda_range*1e9, stackRT_result["Ts"], label="Transmission")
     ax.set_xlabel("Wavelength [nm]")
@@ -147,8 +147,8 @@ The following code creates the FDTD region uses an ordered dictionary to set its
 
 .. code-block:: python
 
-    from collections import OrderedDict #Ensure OrderedDict is imported
-    #import other modules
+    from collections import OrderedDict # Ensure OrderedDict is imported
+    # import other modules
 
     fdtd = lumapi.FDTD()
     props = OrderedDict([("x", 0),("y",0), ("z", 0), ("x span", 1e-6), ("y span", 1e-6), ("z span", 1e-6)])
@@ -159,7 +159,7 @@ The following code creates the FDTD region using keyword arguments
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    fdtd.addfdtd(x=0,y=0,z=0,x_span=1e-6, y_span=1e-6, z_span=1e-6) #Note that the property names where a space was present is replaced by an underscore
+    fdtd.addfdtd(x=0,y=0,z=0,x_span=1e-6, y_span=1e-6, z_span=1e-6) # Note that the property names where a space was present is replaced by an underscore
 
 For more information regarding adding and manipulating simulation objects, including other ways to interact with these objects and best practices see the article on :doc:`Working with simulation objects <working_with_simulation_objects>`.
 
@@ -202,10 +202,10 @@ The following script imports functions from both custom script files upon sessio
 .. code-block:: python
 
     with lumapi.FDTD(script = ["MyFunctions.lsf", "MyFunctions2.lsf"]) as fdtd:
-    #From MyFunctions.lsf
+    # From MyFunctions.lsf
     print(fdtd.helloWorld())
     print(fdtd.customAdd(1,2))
-    #From MyFunctions2.lsf
+    # From MyFunctions2.lsf
     print(fdtd.customMultiply(4,5))
 
 Returns
@@ -230,7 +230,7 @@ For example, the following code results in an error, even though the `set <https
     fdtd.addfdtd()
     fdtd.set(property = "x span", value = 1e-6)
 
-    #Results in an error
+    # Results in an error
 
 The correct usage is the following.
 
@@ -240,6 +240,8 @@ The correct usage is the following.
     fdtd.set("x span", 1e-6)
 
 .. vale off
+
+.. Intentional use of passive voice here
 
 This applies also to methods defined in other scripting files that are loaded by first evaluating the script file.
 
@@ -252,7 +254,7 @@ A Lumerical script file named MyConstructor.lsf contains the following function 
 .. code-block::
 
     function constructFDTDandRect(x_input,y_input,z_input){
-    #This function creates an FDTD and a rectangle region with center coordinates at x, y, and z
+    # This function creates an FDTD and a rectangle region with center coordinates at x, y, and z
     addfdtd;
     set("x",x_input);
     set("y",y_input);
@@ -266,6 +268,8 @@ A Lumerical script file named MyConstructor.lsf contains the following function 
 
 .. vale off
 
+.. Intentional use of passive voice here
+
 The following Python driver script causes an error, even though the function defined in the script file have arguments named x_input, y_input, and z_input.
 
 .. vale on
@@ -273,18 +277,18 @@ The following Python driver script causes an error, even though the function def
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    custom_code = open("MyConstructor.lsf", "r").read()#This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
+    custom_code = open("MyConstructor.lsf", "r").read()# This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
     fdtd.eval(custom_code)
     fdtd.constructFDTDandRect(x_input =0,y_input = 0, z_input = 0)
 
-    #Results in error
+    # Results in error
 
 In contrast, the following driver script executes without error, and add both the FDTD region as well as the rectangle.
 
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    custom_code = open("MyConstructor.lsf", "r").read()#This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
+    custom_code = open("MyConstructor.lsf", "r").read()# This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
     fdtd.eval(custom_code)
     fdtd.constructFDTDandRect(0,0,0)
 
@@ -302,6 +306,8 @@ However, if the :meth:`ansys.lumerical.core.FDTD.eval` method is used, you shoul
 **Operators**
 
 PyLumerical doesn't overload script operators in the Lumerical Scripting Language, and you can't use them “as-is” in Python. Use alternatives in Python. The unavailable operators include:
+
+.. Turn vale off for the whole block since otherwise the spacing between bullet points is inconsistent, the () is needed for the "?" line to explain what it is
 
 .. vale off
 
@@ -354,10 +360,10 @@ You can view the docstring by using the Python built-in function "help" or most 
 
 .. code-block:: python
 
-    #First, create an FDTD object
+    # First, create an FDTD object
     fdtd = lumapi.FDTD()
 
-    #Then, use the help function to view the docstring
+    # Then, use the help function to view the docstring
     help(fdtd.addfdtd)
 
 Returns

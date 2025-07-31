@@ -74,7 +74,7 @@ In addition to the two methods above, you can also use the traditional Lumerical
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    fdtd.addfdtd() #After the object is added, it is automatically selected, hence, fdtd.set will set dimensions to that object
+    fdtd.addfdtd() # After the object is added, it is automatically selected, hence, fdtd.set will set dimensions to that object
     fdtd.set("x",0)
     fdtd.set("x span", 3e-6)
 
@@ -97,7 +97,7 @@ Returns
 
 .. code-block:: python
 
-    rect1.x_span=2e-06 #Note that this is different than what was set earlier from the x_span argument
+    rect1.x_span=2e-06 # Note that this is different than what was set earlier from the x_span argument
 
 Manipulating simulation objects
 --------------------------------
@@ -152,13 +152,13 @@ In these cases, PyLumerical gives a warning to inform you of the duplication.
     rect_bot =fdtd.addrect(name = "Rect1",x_span = 1e-6, z_span = 0.25e-6, z=0) #Create a bottom rectangle, Rect1
     rect_top = fdtd.addrect(name = "Rect2", x_span = 1e-6, z_span = 0.25e-6, z=0.5e-6) #Create a top rectangle, Rect 2
 
-    rect_top["x span"] = 2e-6 #expand the top rectangle
+    rect_top["x span"] = 2e-6 # expand the top rectangle
 
-    rect_top["name"] = "Rect1" #Rename the top rectangle to Rect 1
+    rect_top["name"] = "Rect1" # Rename the top rectangle to Rect 1
 
-    rect_top["y span"] = 2e-6 #Attempt to modify the top rectangle again..
+    rect_top["y span"] = 2e-6 # Attempt to modify the top rectangle again..
     rect_top["x span"] = 4e-6
-    #Note that the BOTTOM rectangle is modified because of the same name
+    # Note that the BOTTOM rectangle is modified because of the same name
 
 .. image:: ../_static/images/duplicate_object_animation.gif
    :alt: Duplicate object animation
@@ -173,7 +173,7 @@ You can traverse the tree of objects in a Lumerical product using the parent or 
 
 .. code-block:: python
 
-    #Create 3 rectangles and list their names
+    # Create 3 rectangles and list their names
     device = lumapi.DEVICE()
 
     aRect = device.addrect(name="rectA")

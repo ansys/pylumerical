@@ -104,7 +104,7 @@ jobs:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: true
           needs-quarto: true
-          requirements-file: ../ansys-api-lumerical.txt
+          optional-dependencies-name:  -e ../ansys-api-lumerical
 
   wheelhouse:
     name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"

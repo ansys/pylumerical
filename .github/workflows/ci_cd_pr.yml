@@ -106,36 +106,36 @@ jobs:
           use-python-cache: false
           needs-quarto: true
 
-  # wheelhouse:
-  #   name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"
-  #   runs-on: ${{ matrix.os }}
-  #   needs: code-style
-  #   permissions:
-  #     id-token: write
-  #     contents: write
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: ['ubuntu-latest', 'windows-latest']
-  #       python: ['3.13']
-  #   steps:
-  #     - name: "Checkout ansys-api-lumerical"
-  #       uses: actions/checkout@v4
-  #       with:
-  #         repository: ansys-internal/ansys-api-lumerical
-  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-  #         path: ansys-api-lumerical
+  wheelhouse:
+    name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"
+    runs-on: ${{ matrix.os }}
+    needs: code-style
+    permissions:
+      id-token: write
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        python: ['3.10', '3.11', '3.12', '3.13']
+    steps:
+      - name: "Checkout ansys-api-lumerical"
+        uses: actions/checkout@v4
+        with:
+          repository: ansys-internal/ansys-api-lumerical
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          path: ansys-api-lumerical
 
-  #     - name: "Install ansys-api-lumerical in editable mode"
-  #       run: |
-  #         python -m pip install --upgrade pip
-  #         python -m pip install -e ./ansys-api-lumerical
+      - name: "Install ansys-api-lumerical in editable mode"
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ./ansys-api-lumerical
 
-  #     - uses: ansys/actions/build-wheelhouse@v10
-  #       with:
-  #         library-name: ${{ env.LIBRARY_NAME }}
-  #         operating-system: ${{ matrix.os }}
-  #         python-version: ${{ matrix.python }}
+      - uses: ansys/actions/build-wheelhouse@v10
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python }}
 
   tests:
     name: "Tests"

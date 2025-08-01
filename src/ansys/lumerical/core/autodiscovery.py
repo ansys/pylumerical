@@ -37,17 +37,18 @@ def locate_lumerical_install():
 
     Returns
     -------
-        lumerical_install_dir (str or None): The path to the Lumerical installation directory,
-          or None if not found.
+    str or None
+        The path to the Lumerical installation directory, or None if not found.
 
     Raises
     ------
-        RuntimeError: If the operating system is not Windows or Linux.
+    RuntimeError
+        If the operating system is not Windows or Linux.
 
     Notes
     -----
-        - On Windows, the function searches under "C:\Program Files\Lumerical\" and
-          "C:\Program Files\Ansys Inc\Lumerical".
+        - On Windows, the function first searches the registry, then searches under "C:\\Program Files\\Lumerical\\" and
+          "C:\\Program Files\\Ansys Inc\\Lumerical".
         - On Linux, the function searches under "/opt/lumerical/" and "~/Ansys/ansys_inc/Lumerical".
 
     Examples

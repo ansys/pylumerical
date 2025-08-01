@@ -25,7 +25,7 @@
 import ansys.lumerical.core as lumapi  # Import the lumapi module
 
 
-def test_MODE_start_session():
+def test_mode_start_session():
     """
     Test the functionality of starting a MODE session and adding a rectangle with specified properties.
 

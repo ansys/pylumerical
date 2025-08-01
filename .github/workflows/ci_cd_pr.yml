@@ -103,7 +103,7 @@ jobs:
         with:
           skip-install: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          use-python-cache: false
+          use-python-cache: true
           needs-quarto: true
 
   wheelhouse:

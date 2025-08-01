@@ -173,7 +173,7 @@ jobs:
             --detach -it \
             --network="host" \
             --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} \
-             --env LICENSE_SERVER=1055@${{ secrets.LICENSE_SERVER }} \
+             --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
              --volume ${PWD}:/home/ansys/pylumerical \
              ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
 
@@ -181,14 +181,14 @@ jobs:
         run: |
             docker exec \
               --workdir /home/ansys/pylumerical \
-              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
+              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
               "python -m pip install -e ./ansys-api-lumerical"
 
       - name: "Install project"
         run: |
             docker exec \
               --workdir /home/ansys/pylumerical \
-              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
+              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
               "python -m pip install -e .[tests] && pytest tests"
 
       - name: "Stop lumerical services"

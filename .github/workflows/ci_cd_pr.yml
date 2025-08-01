@@ -104,7 +104,7 @@ jobs:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: true
           needs-quarto: true
-          optional-dependencies-name:  -e../ansys-api-lumerical
+          optional-dependencies-name:  ../ansys-api-lumerical
 
   wheelhouse:
     name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"
@@ -181,14 +181,14 @@ jobs:
         run: |
             docker exec \
               --workdir /home/ansys/pylumerical \
-              ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
+              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
               "python -m pip install -e ./ansys-api-lumerical"
 
       - name: "Install project"
         run: |
             docker exec \
               --workdir /home/ansys/pylumerical \
-              ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
+              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash -c \
               "python -m pip install -e .[tests] && pytest tests"
 
       - name: "Stop lumerical services"

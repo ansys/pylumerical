@@ -105,7 +105,6 @@ jobs:
           use-python-cache: true
           needs-quarto: true
           requirements-file: "../ansys-api-lumerical.txt"
-          optional-dependencies-name: "doc"
 
   wheelhouse:
     name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"

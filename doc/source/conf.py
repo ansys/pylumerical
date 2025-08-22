@@ -6,12 +6,15 @@ import os
 from ansys_sphinx_theme import get_version_match
 
 from ansys.lumerical.core import __version__
+from ansys.lumerical.core import __supported_lum_version__
+
 
 # Project information
 project = "ansys-lumerical-core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
+supported_version = f"20{__supported_lum_version__['year']} R{__supported_lum_version__['release']}"
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 
@@ -91,6 +94,11 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not documented."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
+# RST prolog for substitution of custom variables
+
+rst_prolog = ""
+
+rst_prolog += f""".. |supported_version| replace:: {supported_version}"""
 
 # static path
 html_static_path = ["_static"]

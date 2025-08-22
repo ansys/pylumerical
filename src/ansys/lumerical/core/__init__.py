@@ -39,7 +39,7 @@ Currently supports Lumerical 2022 R1 and later.
 """
 
 if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = autodiscovery.locate_lumerical_install(lum_version_requirement = __supported_lum_version__)
+    install_dir = autodiscovery.locate_lumerical_install(required_lum_version = __supported_lum_version__)
     if install_dir is not None:
         ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
     else:

@@ -26,8 +26,12 @@ from pathlib import Path
 import platform
 import re
 
+__min_supported_lum_release__ = {"year": 22, "release": 1}
+"""
+Supports Lumerical 2022R1 release and later.
+"""
 
-def locate_lumerical_install(required_lum_version={"year": 22, "release": 1}):
+def locate_lumerical_install():
     r"""
     Locate the installation directory and interop library directory for Lumerical software.
 
@@ -93,12 +97,8 @@ def locate_lumerical_install(required_lum_version={"year": 22, "release": 1}):
         raise RuntimeError("Unsupported operating system. Only Windows and Linux are supported.")
 
     # Find the latest installed version that is >= the required version
-    # Later, the code uses > instead of >= to find the latest version, hence, starting version is one that is one less than the supported
-    latest_ver_year = (
-        required_lum_version["year"] if required_lum_version["release"] != 1 else required_lum_version["year"] - 1
-    )  # Decrement year if release is R1
-    release_per_year = 2
-    latest_ver_release = (required_lum_version["release"] - 2) % release_per_year + 1  # Decrement release
+    latest_ver_year = __min_supported_lum_release__["year"]
+    latest_ver_release = __min_supported_lum_release__["release"]
 
     for guess_base, suffix in guess_base_and_suffix:
         if Path(guess_base).exists():
@@ -108,7 +108,7 @@ def locate_lumerical_install(required_lum_version={"year": 22, "release": 1}):
                     if match:
                         ver_year = int(match.group(1))
                         ver_maj = int(match.group(2))
-                        if ver_year > latest_ver_year or (ver_year == latest_ver_year and ver_maj > latest_ver_release):
+                        if ver_year > latest_ver_year or (ver_year == latest_ver_year and ver_maj >= latest_ver_release):
                             latest_ver_year = ver_year
                             latest_ver_release = ver_maj
                             # check to make sure the api/python path is there (avoids some false positives from uninstalls)

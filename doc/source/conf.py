@@ -5,14 +5,15 @@ import os
 
 from ansys_sphinx_theme import get_version_match
 
-from ansys.lumerical.core import __supported_lum_version__, __version__
+from ansys.lumerical.core import __version__
+from ansys.lumerical.core.autodiscovery import __min_supported_lum_release__
 
 # Project information
 project = "ansys-lumerical-core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-supported_version = f"20{__supported_lum_version__['year']} R{__supported_lum_version__['release']}"
+supported_version = f"20{__min_supported_lum_release__['year']} R{__min_supported_lum_release__['release']}"
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 

@@ -32,14 +32,8 @@ from . import autodiscovery
 __version__ = "0.1.dev0"
 """Lumerical API version."""
 
-
-__supported_lum_version__ = {"year": 22, "release": 1}
-"""
-Currently supports Lumerical 2022 R1 and later.
-"""
-
 if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = autodiscovery.locate_lumerical_install(required_lum_version=__supported_lum_version__)
+    install_dir = autodiscovery.locate_lumerical_install()
     if install_dir is not None:
         ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
     else:

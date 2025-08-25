@@ -5,9 +5,7 @@ import os
 
 from ansys_sphinx_theme import get_version_match
 
-from ansys.lumerical.core import __version__
-from ansys.lumerical.core import __supported_lum_version__
-
+from ansys.lumerical.core import __supported_lum_version__, __version__
 
 # Project information
 project = "ansys-lumerical-core"
@@ -93,6 +91,7 @@ copybutton_prompt_is_regexp = True
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not documented."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+
 
 # RST prolog for substitution of custom variables
 

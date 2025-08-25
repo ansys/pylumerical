@@ -27,7 +27,7 @@ import platform
 import re
 
 
-def locate_lumerical_install(required_lum_version = {"year": 22, "release": 1}):
+def locate_lumerical_install(required_lum_version={"year": 22, "release": 1}):
     r"""
     Locate the installation directory and interop library directory for Lumerical software.
 
@@ -94,9 +94,11 @@ def locate_lumerical_install(required_lum_version = {"year": 22, "release": 1}):
 
     # Find the latest installed version that is >= the required version
     # Later, the code uses > instead of >= to find the latest version, hence, starting version is one that is one less than the supported
-    latest_ver_year = required_lum_version['year'] if required_lum_version['release'] != 1 else required_lum_version['year'] - 1 #Decrement year if release is R1
+    latest_ver_year = (
+        required_lum_version["year"] if required_lum_version["release"] != 1 else required_lum_version["year"] - 1
+    )  # Decrement year if release is R1
     release_per_year = 2
-    latest_ver_release = ( required_lum_version['release'] - 2 ) % release_per_year + 1 #Decrement release
+    latest_ver_release = (required_lum_version["release"] - 2) % release_per_year + 1  # Decrement release
 
     for guess_base, suffix in guess_base_and_suffix:
         if Path(guess_base).exists():

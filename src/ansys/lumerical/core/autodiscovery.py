@@ -27,7 +27,7 @@ import platform
 import re
 
 
-def locate_lumerical_install(required_lum_version):
+def locate_lumerical_install(required_lum_version = {"year": 22, "release": 1}):
     r"""
     Locate the installation directory and interop library directory for Lumerical software.
 

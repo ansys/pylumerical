@@ -31,6 +31,7 @@ __min_supported_lum_release__ = {"year": 22, "release": 1}
 Supports Lumerical 2022R1 release and later.
 """
 
+
 def locate_lumerical_install():
     r"""
     Locate the installation directory and interop library directory for Lumerical software.

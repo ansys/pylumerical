@@ -13,7 +13,7 @@ project = "ansys-lumerical-core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-supported_version = f"20{__min_supported_lum_release__['year']} R{__min_supported_lum_release__['release']}"
+supported_lum_release = f"20{__min_supported_lum_release__['year']} R{__min_supported_lum_release__['release']}"
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 
@@ -98,7 +98,7 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
 
 rst_prolog = ""
 
-rst_prolog += f""".. |supported_version| replace:: {supported_version}"""
+rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}"""
 
 # static path
 html_static_path = ["_static"]

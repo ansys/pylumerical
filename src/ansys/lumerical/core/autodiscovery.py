@@ -26,6 +26,11 @@ from pathlib import Path
 import platform
 import re
 
+__min_supported_lum_release__ = {"year": 22, "release": 1}
+"""
+Supports Lumerical 2022R1 release and later.
+"""
+
 
 def locate_lumerical_install():
     r"""
@@ -92,9 +97,9 @@ def locate_lumerical_install():
     else:
         raise RuntimeError("Unsupported operating system. Only Windows and Linux are supported.")
 
-    # support 22R1+
-    latest_ver_year = 21
-    latest_ver_release = 2
+    # Find the latest installed version that is >= the required version
+    latest_ver_year = __min_supported_lum_release__["year"]
+    latest_ver_release = __min_supported_lum_release__["release"]
 
     for guess_base, suffix in guess_base_and_suffix:
         if Path(guess_base).exists():
@@ -104,7 +109,7 @@ def locate_lumerical_install():
                     if match:
                         ver_year = int(match.group(1))
                         ver_maj = int(match.group(2))
-                        if ver_year > latest_ver_year or (ver_year == latest_ver_year and ver_maj > latest_ver_release):
+                        if ver_year > latest_ver_year or (ver_year == latest_ver_year and ver_maj >= latest_ver_release):
                             latest_ver_year = ver_year
                             latest_ver_release = ver_maj
                             # check to make sure the api/python path is there (avoids some false positives from uninstalls)

@@ -46,6 +46,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",  # Needed for cards
     "sphinx.ext.extlinks",
+    "nbsphinx",
 ]
 
 # Intersphinx mapping
@@ -93,6 +94,13 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not documented."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
+# nbpsphinx configurations
+
+nbsphinx_execute = "never"
+
+nbsphinx_custom_formats = {
+    ".py": ["jupytext.reads", {"fmt": ""}]
+}
 
 # RST prolog for substitution of custom variables
 

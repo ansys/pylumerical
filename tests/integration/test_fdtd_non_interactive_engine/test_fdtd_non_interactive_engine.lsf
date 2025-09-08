@@ -1,0 +1,41 @@
+# @DESCRIPTION
+# {	
+#      test for non-interactive CAD 
+#       
+#      
+# }
+
+newproject;
+addfdtd;
+addrect;
+
+temp = 1;
+
+assert("test should be running fine", 1);
+
+
+try{run;}catch(ErrMsg);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

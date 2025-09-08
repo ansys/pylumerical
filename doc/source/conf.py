@@ -2,6 +2,8 @@
 
 from datetime import datetime
 import os
+import shutil
+import pathlib
 
 from ansys_sphinx_theme import get_version_match
 
@@ -102,6 +104,20 @@ nbsphinx_custom_formats = {
     ".py": ["jupytext.reads", {"fmt": ""}]
 }
 
+# Define auxiliary functions needed for examples
+
+def copy_examples_to_source_dir(app):
+    """Copy examples to source directory for nbsphinx."""
+    
+    source_dir = pathlib.Path(app.srcdir)
+
+    shutil.copytree(source_dir.parent.parent / "examples", source_dir / "examples", dirs_exist_ok=True)
+
+def remove_examples_from_source_dir(app, exception):
+    """Remove examples from source directory after build."""
+    source_dir = pathlib.Path(app.srcdir)
+    shutil.rmtree(source_dir / "examples")
+
 # RST prolog for substitution of custom variables
 
 rst_prolog = ""
@@ -137,6 +153,11 @@ if switcher_version != "dev":
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
 
 
+
+# Define setup function
+
 def setup(app):
     """Sphinx setup function."""
+    app.connect("builder-inited", copy_examples_to_source_dir)
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
+    app.connect("build-finished", remove_examples_from_source_dir)

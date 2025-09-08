@@ -28,4 +28,3 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       Download the example :examples_url:`here <Sessions%20and%20Objects/fdtd_example1_pythonic.py>`.
 
 
-   

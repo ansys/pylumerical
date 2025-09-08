@@ -3,8 +3,8 @@
 # This example demonstrates how to initialize a local Lumerical session.
 # PyLumerical interacts with Lumerical products through sessions.
 #
-# ## Prerequisites: 
-# 
+# ## Prerequisites:
+#
 # Valid FDTD and MODE licenses are required.
 #
 # ### Perform required imports
@@ -45,6 +45,7 @@ with lumapi.FDTD() as fdtd:
 
 # ### Session wrapped in a function
 # Get the number of grid cells in FDTD region for set span
+
 
 def get_x_cells(fdtd_span):
     """Return the number of grid cells in FDTD region for a set span."""

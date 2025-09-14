@@ -21,6 +21,7 @@
 # SOFTWARE.
 
 """Test FDTD Simulation Object Property Access Syntax.
+
 - Test 01: test single level property access
 - Test 02: test parent children object access with geometries
 - Test 03: test ordered property initialization
@@ -30,28 +31,18 @@
 - Test 07: test partial path access
 """
 
-import pytest
 import collections
+
 import ansys.api.lumerical.lumapi as lumapi
 import ansys.lumerical.core.autodiscovery as autodiscovery
 
 base_install_path = autodiscovery.locate_lumerical_install()
 lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
-'''
-@pytest.fixture(scope = "module")
-def setup_fdtd():
-    """Set up and tear down FDTD."""
-    print("\n--> Setup")
-    fdtd = lumapi.FDTD(hide = True)
-    yield fdtd
-    print("\n--> Teardown")
-    fdtd.close()
-'''
 
-class TestSimulationObjectPropertyAccessSyntax():
+class TestSimulationObjectPropertyAccessSyntax:
     """Test Simulation Object Property Access Syntax."""
-    
+
     def test_single_level_property_access(self, setup_fdtd):
         """Test 01: test single level property access."""
         fdtd = setup_fdtd
@@ -59,17 +50,17 @@ class TestSimulationObjectPropertyAccessSyntax():
         fdtd.setnamed("::model::rectangle", "x span", 10.1e-6)
         expected = fdtd.getnamed("::model::rectangle", "x span")
         actual = fdtd.getObjectById("::model::rectangle")["x span"]
-        
+
         assert actual == expected
-        
+
         fdtd.deleteall()
-    
+
     def test_parent_children_object_access_with_geometries(self, setup_fdtd):
         """Test 02: test parent children object access with geometries."""
         fdtd = setup_fdtd
         fdtd.addstructuregroup()
         fdtd.setnamed("structure group", "name", "sg0")
-        
+
         for j in range(1, 5):
             fdtd.addstructuregroup()
             fdtd.setnamed("structure group", "name", "sg" + str(j))
@@ -78,39 +69,39 @@ class TestSimulationObjectPropertyAccessSyntax():
 
         obj = fdtd.getObjectById("::model")
         obj.getChildren()
-        
+
         assert fdtd.getObjectById("::model::sg4::sg3::sg2").getParent().getParent()["name"] == "sg4"
         assert fdtd.getObjectById("::model::sg4::sg3::sg2").getChildren()[0].getChildren()[0]["name"] == "sg0"
-        
+
         fdtd.deleteall()
-      
+
     def test_ordered_property_initialization(self, setup_fdtd):
         """Test 03: test ordered property initialization."""
         fdtd = setup_fdtd
         props = collections.OrderedDict()
         props["first axis"] = "x"
         props["rotation 1"] = 90
-        ring = fdtd.addring(properties = props)
-        
+        ring = fdtd.addring(properties=props)
+
         assert ring["rotation 1"] == 90
-        
+
         fdtd.deleteall()
-       
+
     def test_disabled_property_initialization_fails(self, setup_fdtd):
         """Test 04: test disabled property initialization fails."""
         fdtd = setup_fdtd
         props = collections.OrderedDict()
         props["rotation 1"] = 10
-        
+
         excepted = False
         try:
-            fdtd.addring(properties = props)
+            fdtd.addring(properties=props)
         except AttributeError:
             excepted = True
         assert excepted
-        
+
         fdtd.deleteall()
-        
+
     def test_constructor_initialization_props(self, setup_fdtd):
         """Test 05: test constructor initialization properties."""
         fdtd = setup_fdtd
@@ -127,9 +118,9 @@ class TestSimulationObjectPropertyAccessSyntax():
         props["x span"] = 1e-6
         props["y span"] = 2e-6
         props["z span"] = 3e-6
-        
-        rect = fdtd.addrect(properties = props)
-        
+
+        rect = fdtd.addrect(properties=props)
+
         assert rect["x"] == 100
         assert rect["y"] == 200
         assert rect["z"] == 300
@@ -149,9 +140,8 @@ class TestSimulationObjectPropertyAccessSyntax():
     def test_constructor_initialization_kwargs(self, setup_fdtd):
         """Test 06: test constructor initialization kwargs."""
         fdtd = setup_fdtd
-        rect = fdtd.addrect(x = 100, y = 200, z = 300, 
-                            x_span = 1e-6, y_span = 2e-6, z_span = 3e-6)
-        
+        rect = fdtd.addrect(x=100, y=200, z=300, x_span=1e-6, y_span=2e-6, z_span=3e-6)
+
         assert rect.x == 100
         assert rect.y == 200
         assert rect.z == 300
@@ -161,12 +151,11 @@ class TestSimulationObjectPropertyAccessSyntax():
         assert rect.type == "Rectangle"
 
         fdtd.deleteall()
-        
+
     def test_partial_path_access(self, setup_fdtd):
         """Test 07: test partial path access."""
         fdtd = setup_fdtd
-        fdtd.addrect(name = "rect", x = 100, y = 200, z = 300, 
-                     x_span = 1e-6, y_span = 2e-6, z_span = 3e-6)
+        fdtd.addrect(name="rect", x=100, y=200, z=300, x_span=1e-6, y_span=2e-6, z_span=3e-6)
         rect = fdtd.getObjectById("rect")
 
         assert rect.x == 100
@@ -176,5 +165,5 @@ class TestSimulationObjectPropertyAccessSyntax():
         assert rect.y_span == 2e-6
         assert rect.z_span == 3e-6
         assert rect.type == "Rectangle"
-        
+
         fdtd.deleteall()

@@ -1,25 +1,28 @@
-"""
-
-A simple example to demonstrate using PyLumerical.
-
--------------------------------------------------
-Sets up and runs a basic FDTD simulation. E field results are plotted using Matplotlib
-Demonstrates initializing objects using keyword arguments and OrderedDict.
-
-
-Prerequisites: Valid FDTD license is required.
-"""
-
-###############################################################################
+# # Basic FDTD Simulation - Python style commands
 #
-# Perform required imports
-# ~~~~~~~~~~~~~~~~~~~~~~~~
+# A simple example to demonstrate using PyLumerical.
+#
+# Sets up and runs a basic FDTD simulation. E field results are plotted using Matplotlib
+# Demonstrates initializing objects using keyword arguments and OrderedDict.
+
+
+# ## Prerequisites: 
+# 
+# Valid FDTD license is required.
+#
+# ### Perform required imports
+
+# +
 
 from collections import OrderedDict
 
 import matplotlib.pyplot as plt
 
 import ansys.lumerical.core as lumapi
+
+# -
+
+# ### Open interactive session with the "with" context manager, run session, retrieve and plots results, and close session
 
 # Set hide = True to hide the Lumerical GUI.
 with lumapi.FDTD() as fdtd:

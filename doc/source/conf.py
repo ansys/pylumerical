@@ -90,6 +90,9 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
+#Ignore files for build
+
+exclude_patterns =["conf.py"]
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
@@ -127,7 +130,7 @@ nbsphinx_prolog = """
 
             :octicon:`download` Download Python script (.py)
     
-    ----
+----
 """.format(
     base_path = f"https://{cname}/version/{get_version_match(version)}",
     py_file_path ="{{ env.docname }}.py",

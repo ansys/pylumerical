@@ -103,6 +103,37 @@ nbsphinx_execute = "never"
 
 nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
 
+nbsphinx_prolog = """
+
+
+.. grid:: 1 2 2 2
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{ipynb_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Jupyter Notebook (.ipynb)
+            
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{py_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Python script (.py)
+    
+    ----
+""".format(
+    base_path = f"https://{cname}/version/{get_version_match(version)}",
+    py_file_path ="{{ env.docname }}.py",
+    ipynb_file_path ="{{ env.docname }}.ipynb"
+)
+
 # Define auxiliary functions needed for examples
 
 
@@ -118,8 +149,13 @@ def remove_examples_from_source_dir(app, exception):
     source_dir = pathlib.Path(app.srcdir)
     shutil.rmtree(source_dir / "examples")
 
+def copy_examples_to_output_dir(app, exception):
+    """Copy examples to output directory."""
+    
+    source_dir = pathlib.Path(app.srcdir)
+    build_dir = pathlib.Path(app.outdir)
 
-# RST prolog for substitution of custom variables
+    shutil.copytree(source_dir.parent.parent / "examples", build_dir / "examples", dirs_exist_ok=True)
 
 rst_prolog = ""
 
@@ -162,3 +198,6 @@ def setup(app):
     app.connect("builder-inited", copy_examples_to_source_dir)
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
     app.connect("build-finished", remove_examples_from_source_dir)
+    app.connect("build-finished", copy_examples_to_output_dir)
+    
+    

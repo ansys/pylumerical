@@ -6,7 +6,7 @@ Session management
 Starting a local session
 -------------------------
 
-The Python API interacts with Lumerical products through sessions. The simplest way to create a session is by calling the relevant constructor for the Lumerical product and storing it in an object. These constructors construct objects derived from the :doc:`Lumerical class <../api/interface_class>`.
+The Python API interacts with Lumerical products through sessions. The simplest way to create a session is by calling the relevant constructor for the Lumerical product and storing it in an object. These constructors construct objects derived from the :doc:`Lumerical class <../api/ansys/lumerical/core/interface_class>`.
 
 **Example**
 

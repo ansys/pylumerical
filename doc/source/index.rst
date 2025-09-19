@@ -37,14 +37,6 @@ As a part of the PyAnsys project, PyLumerical also enables you to integrate with
       Description of classes and methods of the PyLumerical module.
 
 
-..
-   Just reuse the root readme to avoid duplicating the documentation.
-   Provide any documentation specific to your online documentation
-   here.
-
-.. include:: ../../README.rst
-   :start-after: .. contribute_start
-
 .. toctree::
    :hidden:
    :maxdepth: 3

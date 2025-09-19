@@ -90,22 +90,10 @@ jobs:
       - name: "Checkout PyLumerical"
         uses: actions/checkout@v4
 
-      - name: "Checkout ansys-api-lumerical"
-        uses: actions/checkout@v4
-        with:
-          repository: ansys-internal/ansys-api-lumerical
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          path: ansys-api-lumerical
-
       - name: "Set up Python"
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
-      - name: "Install ansys-api-lumerical in editable mode"
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install -e ./ansys-api-lumerical
 
       - uses: ansys/actions/doc-build@v10
         with:

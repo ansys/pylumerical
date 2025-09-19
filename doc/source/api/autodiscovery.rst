@@ -1,9 +1,7 @@
 Autodiscovery
 =============
 
-.. TODO: Variablize the supported product version here
-
-PyLumerical requires Lumerical products version 2022 R1 or later to run. The autodiscovery function first attempts to find the installation location using the following methods:
+PyLumerical requires Lumerical |supported_lum_release| or later to run. The autodiscovery function first attempts to find the installation location using the following methods:
 
 1. **Windows registry**: On Windows, PyLumerical checks the registry for the installation path of Lumerical products.
 

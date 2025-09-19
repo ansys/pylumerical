@@ -122,8 +122,3 @@ if switcher_version != "dev":
 # Define extlinks
 
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
-
-
-def setup(app):
-    """Sphinx setup function."""
-    app.connect("autodoc-skip-member", autodoc_skip_member_custom)

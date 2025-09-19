@@ -133,13 +133,6 @@ jobs:
       - name: "Checkout PyLumerical"
         uses: actions/checkout@v4
 
-      - name: "Checkout ansys-api-lumerical in working directory"
-        uses: actions/checkout@v4
-        with:
-          repository: ansys-internal/ansys-api-lumerical
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          path: ansys-api-lumerical
-
       - name: "Login to GitHub container registry"
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
@@ -160,13 +153,6 @@ jobs:
              --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
              --volume ${PWD}:/home/ansys/pylumerical \
              ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
-
-      - name: "Install ansys-api-lumerical in editable mode"
-        run: |
-            docker exec \
-              --workdir /home/ansys/pylumerical \
-              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
-              "python -m pip install -e ./ansys-api-lumerical"
 
       - name: "Install project"
         run: |

@@ -37,5 +37,5 @@ if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
     if install_dir is not None:
         ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
     else:
-        print("Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
+        print("Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
     del install_dir  # remove the local variable to exclude from the namespace

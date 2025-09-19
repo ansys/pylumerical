@@ -35,12 +35,14 @@ html_theme_options = {
     },
     "check_switcher": False,
     "logo": "pyansys",
+    "ansys_sphinx_theme_autoapi": {
+        "project": "PyLumerical",
+    },
 }
 
 # Sphinx extensions
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
+    "ansys_sphinx_theme.extension.autoapi",
     "numpydoc",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
@@ -86,13 +88,6 @@ numpydoc_validation_checks = {
 # Strip Python prompt from code block copy, this will make copied code easier to use
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
-
-
-# Skipping members
-def autodoc_skip_member_custom(app, what, name, obj, skip, options):
-    """Skip members that are not documented."""
-    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
-
 
 # RST prolog for substitution of custom variables
 

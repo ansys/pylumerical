@@ -85,21 +85,12 @@ jobs:
     name: "Doc build"
     runs-on: ubuntu-latest
     needs: doc-style
-
     steps:
-      - name: "Checkout PyLumerical"
-        uses: actions/checkout@v4
-
-      - name: "Set up Python"
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-
       - uses: ansys/actions/doc-build@v10
         with:
           skip-install: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          use-python-cache: true
+          use-python-cache: false
           needs-quarto: true
 
   wheelhouse:
@@ -124,7 +115,7 @@ jobs:
   tests:
     name: "Test Python 3.13 with Lumerical Unified Linux Container"
     runs-on: ubuntu-latest
-    needs: code-style # used to need wheelhouse
+    needs: wheelhouse
     permissions:
       id-token: write
       contents: write

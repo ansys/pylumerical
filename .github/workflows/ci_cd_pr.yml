@@ -5,7 +5,7 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.13'
-  LIBRARY_NAME: 'pylumerical'
+  LIBRARY_NAME: 'ansys-lumerical-core'
   DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:latest'
   DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'

@@ -90,8 +90,8 @@ When you set linked properties, unexpected changes may occur to the object.
 .. code-block:: python
 
     with lumapi.FDTD() as fdtd:
-        rect1 = fdtd.addrect(name = "rect1", x = 0, x_span = 1e-6, x_min = -1e-6, x_max = 1e-6)
-        print(f"{rect1.x_span=}")
+    rect1 = fdtd.addrect(name = "rect1", x = 0, x_span = 1e-6, x_min = -1e-6, x_max = 1e-6)
+    print(f"{rect1.x_span=}")
 
 Returns
 

@@ -42,7 +42,8 @@ html_theme_options = {
 
 # Sphinx extensions
 extensions = [
-    "ansys_sphinx_theme.extension.autoapi",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosummary",
     "numpydoc",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
@@ -89,6 +90,11 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
+# Skipping members
+def autodoc_skip_member_custom(app, what, name, obj, skip, options):
+    """Skip members that are not intended to be in documentation."""
+    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+
 # RST prolog for substitution of custom variables
 
 rst_prolog = ""
@@ -122,3 +128,7 @@ if switcher_version != "dev":
 # Define extlinks
 
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
+
+def setup(app):
+    """Sphinx setup function."""
+    app.connect("autodoc-skip-member", autodoc_skip_member_custom)

@@ -4,9 +4,15 @@ from datetime import datetime
 import os
 
 from ansys_sphinx_theme import get_version_match
+from sphinx.builders.latex import LaTeXBuilder
 
 from ansys.lumerical.core import __version__
 from ansys.lumerical.core.autodiscovery import __min_supported_lum_release__
+
+# Workaround for pdf build. An override of the LaTeX builder for sphinx is required, else the latex build will fail with seemingly unrelated warnings.
+# Using autoapi will solve this issue
+LaTeXBuilder.supported_image_types = ["image/png", "image/pdf", "image/svg+xml"]
+os.environ["PYANSYS_VISUALIZER_HTML_BACKEND"] = "true"
 
 # Project information
 project = "ansys-lumerical-core"
@@ -90,10 +96,12 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
+
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not intended to be in documentation."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+
 
 # RST prolog for substitution of custom variables
 
@@ -128,6 +136,7 @@ if switcher_version != "dev":
 # Define extlinks
 
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
+
 
 def setup(app):
     """Sphinx setup function."""

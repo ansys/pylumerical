@@ -40,6 +40,11 @@ html_theme_options = {
     },
 }
 
+suppress_warnings = [
+    "toc.not_included",
+    "numpydoc",
+]
+
 # Sphinx extensions
 extensions = [
     "sphinx.ext.autodoc",

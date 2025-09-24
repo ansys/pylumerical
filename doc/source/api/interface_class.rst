@@ -5,6 +5,7 @@ Instances of these objects each represent an interactive session with a Lumerica
 
 .. autosummary::
     :toctree: _autosummary
+    :recursive:
 
     ansys.lumerical.core.FDTD
     ansys.lumerical.core.MODE

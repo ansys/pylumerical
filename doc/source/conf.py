@@ -124,6 +124,7 @@ master_doc = "index"
 linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
+    r"https://optics.ansys.com/hc/" # ignore Zendesk articles because help center is not accessible by bots/crawlers
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
@@ -135,6 +136,7 @@ if switcher_version != "dev":
 # Define extlinks
 
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
+
 
 
 def setup(app):

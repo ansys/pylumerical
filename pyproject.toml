@@ -8,31 +8,29 @@ dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
 requires-python = ">=3.10,<4"
-license = {file = "LICENSE"}
+license = "MIT"
+license_files = ["LICENSE"]
 authors=[
-    {name="ANSYS, Inc.", email="pyansys.support@ansys.com"}
+    {name="ANSYS, Inc.", email="pyansys.core@ansys.com"}
 ]
 maintainers=[
-    {name="PyAnsys developers", email="pyansys.core@ansys.com"}
+    {name="ANSYS, Inc.", email="pyansys.core@ansys.com"}
 ]
 keywords = ["Ansys", "Lumerical", "photonics", "simulation"]
-classifiers=[
+classifiers = [
     "Development Status :: 4 - Beta",
-    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Topic :: Software Development :: Libraries",
-    "Topic :: Scientific/Engineering :: Physics",
-    "Topic :: Scientific/Engineering :: Information Analysis",
 ]
 
 dependencies = [
     "ansys-api-lumerical",
-    "numpy >= 2.2.2",
-    "importlib-metadata >=4.0"
+    "numpy>=2.2.2",
 ]
 
 [project.optional-dependencies]
@@ -41,7 +39,7 @@ tests = [
     "pytest-cov==4.1.0",
 ]
 doc = [
-    "ansys-sphinx-theme==1.4.2",
+    "ansys-sphinx-theme[autoapi]==1.4.2",
     "numpydoc==1.8.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
@@ -103,26 +101,16 @@ show_missing = true
 
 [tool.towncrier]
 package = "ansys.lumerical.core"
-directory = "doc/changelog.d"
+directory = "doc/source/changelog"
 filename = "doc/source/changelog.rst"
 start_string = ".. towncrier release notes start\n"
-template = "doc/changelog.d/changelog_template.jinja"
-title_format = "`{version} <https://github.com/ansys-internal/pylumerical/releases/tag/v{version}>`_ - {project_date}"
-issue_format = "`#{issue} <https://github.com/ansys-internal/pylumerical/pull/{issue}>`_"
+template = "doc/source/changelog/template"
+title_format = "`{version} <https://github.com/ansys/pystk/releases/tag/v{version}>`_ - {project_date}"
+issue_format = "`#{issue} <https://github.com/ansys/pystk/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
 directory = "added"
 name = "Added"
-showcontent = true
-
-[[tool.towncrier.type]]
-directory = "changed"
-name = "Changed"
-showcontent = true
-
-[[tool.towncrier.type]]
-directory = "fixed"
-name = "Fixed"
 showcontent = true
 
 [[tool.towncrier.type]]
@@ -131,6 +119,26 @@ name = "Dependencies"
 showcontent = true
 
 [[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
 directory = "miscellaneous"
 name = "Miscellaneous"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
 showcontent = true

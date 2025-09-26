@@ -35,6 +35,9 @@ html_theme_options = {
     },
     "check_switcher": False,
     "logo": "pyansys",
+    "ansys_sphinx_theme_autoapi": {
+        "project": "PyLumerical",
+    },
 }
 
 # Sphinx extensions
@@ -90,7 +93,7 @@ copybutton_prompt_is_regexp = True
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
-    """Skip members that are not documented."""
+    """Skip members that are not intended to be in documentation."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
@@ -116,6 +119,7 @@ master_doc = "index"
 linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
+    r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not

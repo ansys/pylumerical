@@ -46,7 +46,7 @@ doc = [
     "sphinx_design==0.6.1",
 ]
 examples = [
-    "matplotlib>=3.10.0",
+    "matplotlib==3.10.0",
 ]
 
 [tool.flit.module]

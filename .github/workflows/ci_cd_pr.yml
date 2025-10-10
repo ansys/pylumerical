@@ -106,7 +106,7 @@ jobs:
         uses: ansys/actions/doc-deploy-dev@v10.1
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
@@ -121,7 +121,7 @@ jobs:
   #       with:
   #         doc-artifact-name: '<html-artifact-name>'
   #         cname: ${{ env.DOCUMENTATION_CNAME }}
-  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
 
 
   doc-deploy-pr:
@@ -134,7 +134,7 @@ jobs:
       - uses: ansys/actions/doc-deploy-pr@v10.1
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
           maximum-pr-doc-deployments: 3

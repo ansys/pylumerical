@@ -65,6 +65,10 @@
   description: Skip documentation runs in CI/CD
   color: 0677ba
 
+- name: 'deploy-pr-doc'
+  description: Deploy pull request documentation
+  color: 0677ba
+
 # -- Dependencies labels -----------------------------------------------------
 
 - name: 'dependencies'

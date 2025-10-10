@@ -9,6 +9,7 @@ env:
   DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:latest'
   DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
 permissions:
   contents: read
@@ -105,7 +106,7 @@ jobs:
       - uses: ansys/actions/doc-deploy-pr@v10
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
           # Limit the number of PR documentation deployments to avoid excessive resource usage.

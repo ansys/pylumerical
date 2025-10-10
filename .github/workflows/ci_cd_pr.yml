@@ -217,7 +217,9 @@ jobs:
             docker exec \
               --workdir /home/ansys/pylumerical \
               ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
-              "python -m pip install -e .[tests] && pytest -v tests/ --cov-report=html:coverage_report"
+              "python -m pip install -e .[tests] && \
+              pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
+              --cov="./tests/unit" --cov-report=html:coverage_report --verbose"
 
       - name: Upload Coverage Results
         if: always()

@@ -178,25 +178,25 @@ jobs:
             --detach -it \
             --network="host" \
             --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} \
-             --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
-             --volume ${PWD}:/home/ansys/pylumerical \
-             ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+            --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
+            --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
+            ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
 
       - name: "Install Project Dependencies and Run Tests"
         run: |
             docker exec \
-              --workdir /home/ansys/pylumerical \
+              --workdir /home/lumerical/pylumerical \
               ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
               "python -m pip install -e .[tests] && \
               pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
-              --cov="./tests/unit" --cov-report=xml:/tmp/cov/xml --cov-report=html:/tmp/cov/html --verbose"
+              --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
 
       - name: Upload Coverage Results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: coverage-html-ubuntu
-          path: /tmp/cov/html
+          path: .cov/html
           retention-days: 7
 
       - name: Upload coverage to Codecov
@@ -204,7 +204,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          files: /tmp/cov/xml
+          files: .cov/xml
 
       - name: "Stop lumerical services"
         if: always()

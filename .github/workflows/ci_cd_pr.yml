@@ -225,7 +225,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: coverage-html-ubuntu
-          path: ./pylumerical/.cov/html
+          path: .cov/html
           retention-days: 7
 
       - name: Upload coverage to Codecov
@@ -233,7 +233,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          files: ./pylumerical/.cov/xml
+          files: .cov/xml
 
       - name: "Stop lumerical services"
         if: always()

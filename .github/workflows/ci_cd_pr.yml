@@ -179,8 +179,8 @@ jobs:
         run: |
           echo "ORIG_UID=$(id -u)" >> $GITHUB_ENV
           echo "ORIG_GID=$(id -g)" >> $GITHUB_ENV
-          sudo chown -R "$LUMERICAL_UID:$LUMERICAL_GID" ./pylumerical
-          ls -ld .
+          sudo chown -R "$LUMERICAL_UID:$LUMERICAL_GID" .
+          ls -la
 
       - name: "Run Lumerical Unified Container"
         run: |
@@ -200,6 +200,25 @@ jobs:
               "python -m pip install -e .[tests] && \
               pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
               --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
+
+      - name: "Restore original ownership"
+        if: always()
+        env:
+          ORIG_UID: ${{ env.ORIG_UID }}
+          ORIG_GID: ${{ env.ORIG_GID }}
+        run: |
+          if [[ -z "$ORIG_UID" || -z "$ORIG_GID" || ! "$ORIG_UID" =~ ^[0-9]+$ || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+            if [[ -z "$ORIG_UID" || ! "$ORIG_UID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_UID ('$ORIG_UID') is not set or not a valid integer (expected a numeric UID)."
+            elif [[ -z "$ORIG_GID" || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_GID ('$ORIG_GID') is not set or not a valid integer (expected a numeric GID)."
+            else
+              echo "Skipping chown: Unknown error with ORIG_UID ('$ORIG_UID') or ORIG_GID ('$ORIG_GID')."
+            fi
+          else
+            sudo chown -R "$ORIG_UID:$ORIG_GID" .
+          fi
+          ls -la
 
       - name: Upload Coverage Results
         if: always()
@@ -222,22 +241,3 @@ jobs:
           docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
           docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
           docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-
-      - name: "Restore original ownership"
-        if: always()
-        env:
-          ORIG_UID: ${{ env.ORIG_UID }}
-          ORIG_GID: ${{ env.ORIG_GID }}
-        run: |
-          if [[ -z "$ORIG_UID" || -z "$ORIG_GID" || ! "$ORIG_UID" =~ ^[0-9]+$ || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
-            if [[ -z "$ORIG_UID" || ! "$ORIG_UID" =~ ^[0-9]+$ ]]; then
-              echo "Skipping chown: ORIG_UID ('$ORIG_UID') is not set or not a valid integer (expected a numeric UID)."
-            elif [[ -z "$ORIG_GID" || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
-              echo "Skipping chown: ORIG_GID ('$ORIG_GID') is not set or not a valid integer (expected a numeric GID)."
-            else
-              echo "Skipping chown: Unknown error with ORIG_UID ('$ORIG_UID') or ORIG_GID ('$ORIG_GID')."
-            fi
-          else
-            sudo chown -R "$ORIG_UID:$ORIG_GID" .
-          fi
-          ls -ld .

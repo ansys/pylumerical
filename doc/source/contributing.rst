@@ -53,11 +53,10 @@ you to modify the source and enhance it.
       python -m pip install -U pip
       python -m pip install -e .
 
-#. Install additional requirements as needed for build, documentation, and tests:
+#. Install additional requirements as needed for documentation and tests:
 
    .. code:: bash
 
-      python -m pip install -r requirements_build.txt
       python -m pip install .[tests]
       python -m pip install .[doc]
 
@@ -133,20 +132,6 @@ You can also clean the documentation build directory by running:
         .. code-block:: bash
 
             make clean
-
-
-
-Distributing
-------------
-
-If you would like to create either source or wheel files, start by installing
-the building requirements and then executing the build module:
-
-.. code:: bash
-
-    python -m pip install -r requirements/requirements_build.txt
-    python -m build
-    python -m twine check dist/*
 
 
 .. LINKS AND REFERENCES

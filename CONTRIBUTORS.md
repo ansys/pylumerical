@@ -11,4 +11,4 @@
 * Marius Ghetie (https://github.com/mghetie-ansys)
 * Adan Wang (https://github.com/adan-wang-2)
 * Anna Wirth-Singh (https://github.com/annawirthsingh-ansys)
-* Taylor Robertson (https://github.com/)
+* Taylor Robertson (https://github.com/taylor5005)

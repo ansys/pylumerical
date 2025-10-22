@@ -1,7 +1,7 @@
 Examples
 ========
 
-Examples source files for PyLumerical are .py files. The PyLumerical documentation infrastructure converts these .py source files into .rst files for display on the documentation site, by first converting them into Jupyter Notebooks using `Jupytext <https://jupytext.readthedocs.io/en/latest/>`_, and then converting the notebooks into .rst files using `nbsphinx <https://nbsphinx.readthedocs.io/en/fastdoc/>`_.
+Examples source files for PyLumerical are .py files. The PyLumerical documentation infrastructure converts these .py source files into .rst files for display on the documentation site, by first converting them into Jupyter Notebooks using `Jupytext <https://jupytext.readthedocs.io/en/latest/>`_, and then converting the notebooks into .rst files using `nbsphinx <https://nbsphinx.readthedocs.io/en/latest/>`_.
 
 Formatting
 ----------

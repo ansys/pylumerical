@@ -33,5 +33,3 @@ Getting started
 ----------------
 
 Please see the `installation and getting started section </doc/source/getting_started/index.rst>`_ in the documentation for more information.
-
-

@@ -8,7 +8,7 @@ Formatting
 
 Example files must be compliant with `PEP8 <https://peps.python.org/pep-0008/>`_ guidelines, as listed on the PyAnsys Developer's `guide <https://dev.docs.pyansys.com/how-to/documenting.html#examples>`_.
 
-Currently, PyLumerical examples uses the "Light" format for jupytext conversion. To write comment cells into your source file, follow the formatting guidelines listed in the `Jupytext documentation <https://jupytext.readthedocs.io/en/latest/formats-scripts.html>`_.
+PyLumerical examples uses the "Light" format for jupytext conversion. To write comment cells into your source file, follow the formatting guidelines listed in the `Jupytext documentation <https://jupytext.readthedocs.io/en/latest/formats-scripts.html>`_.
 
 Always ensure that your example files run without errors, and are properly formatted prior to submitting a pull request.
 

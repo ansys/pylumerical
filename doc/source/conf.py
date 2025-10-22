@@ -37,6 +37,9 @@ html_theme_options = {
     },
     "check_switcher": False,
     "logo": "pyansys",
+    "ansys_sphinx_theme_autoapi": {
+        "project": "PyLumerical",
+    },
 }
 
 # Sphinx extensions
@@ -90,13 +93,14 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
-#Ignore files for build
+# Ignore files for build
 
-exclude_patterns =["conf.py"]
+exclude_patterns = ["conf.py"]
+
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
-    """Skip members that are not documented."""
+    """Skip members that are not intended to be in documentation."""
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
@@ -119,7 +123,7 @@ nbsphinx_prolog = """
             :align: center
 
             :octicon:`download` Download Jupyter Notebook (.ipynb)
-            
+
 
     .. grid-item::
 
@@ -129,12 +133,10 @@ nbsphinx_prolog = """
             :align: center
 
             :octicon:`download` Download Python script (.py)
-    
+
 ----
 """.format(
-    base_path = f"https://{cname}/version/{get_version_match(version)}",
-    py_file_path ="{{ env.docname }}.py",
-    ipynb_file_path ="{{ env.docname }}.ipynb"
+    base_path=f"https://{cname}/version/{get_version_match(version)}", py_file_path="{{ env.docname }}.py", ipynb_file_path="{{ env.docname }}.ipynb"
 )
 
 # Define auxiliary functions needed for examples
@@ -152,13 +154,14 @@ def remove_examples_from_source_dir(app, exception):
     source_dir = pathlib.Path(app.srcdir)
     shutil.rmtree(source_dir / "examples")
 
+
 def copy_examples_to_output_dir(app, exception):
     """Copy examples to output directory."""
-    
     source_dir = pathlib.Path(app.srcdir)
     build_dir = pathlib.Path(app.outdir)
 
     shutil.copytree(source_dir.parent.parent / "examples", build_dir / "examples", dirs_exist_ok=True)
+
 
 rst_prolog = ""
 
@@ -180,6 +183,7 @@ master_doc = "index"
 linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
+    r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
@@ -202,5 +206,3 @@ def setup(app):
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
     app.connect("build-finished", remove_examples_from_source_dir)
     app.connect("build-finished", copy_examples_to_output_dir)
-    
-    

@@ -180,7 +180,7 @@ jobs:
     steps:
 
       - name: "Checkout PyLumerical"
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
 
       - name: "Login to GitHub container registry"
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0

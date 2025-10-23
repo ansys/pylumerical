@@ -6,8 +6,6 @@ on:
 env:
   MAIN_PYTHON_VERSION: '3.13'
   LIBRARY_NAME: 'ansys-lumerical-core'
-  DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_3'
-  DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
   PIP_EXTRA_INDEX_URL: 'https://${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}@pkgs.dev.azure.com/pyansys/_packaging/pyansys/pypi/simple/'
   DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
@@ -177,10 +175,15 @@ jobs:
     permissions:
       id-token: write
       contents: write
+    env:
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_3'
+      DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 
       - name: "Checkout PyLumerical"
         uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+        with:
+          persist-credentials: false
 
       - name: "Login to GitHub container registry"
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0

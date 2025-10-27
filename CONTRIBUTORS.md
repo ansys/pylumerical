@@ -4,7 +4,7 @@
 
 * Luke Queenan (https://github.com/lukequeenan-ansys)
 * Dylan McGuire (https://github.com/dylanm-ansys)
-* Greg Baethge (https://github.com/)
+* Greg Baethge (https://github.com/gregbaethge)
 
 ## Individual Contributors
 

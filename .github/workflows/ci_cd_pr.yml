@@ -193,8 +193,10 @@ jobs:
           password: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
 
       - name: "Pull Lumerical Unified Container"
+        env:
+          DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
         run: |
-          docker pull ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+          docker pull ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
 
       - name: "Prepare ownership for container user (lumerical)"
         env:
@@ -207,20 +209,25 @@ jobs:
           ls -la
 
       - name: "Run Lumerical Unified Container"
+        env:
+            DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+            DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
         run: |
           docker run \
             --detach -it \
             --network="host" \
-            --name ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} \
+            --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
             --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
             --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
-            ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+            ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
 
       - name: "Install Project Dependencies and Run Tests"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
         run: |
             docker exec \
               --workdir /home/lumerical/pylumerical \
-              ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }} /bin/bash --login -c \
+              ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} /bin/bash --login -c \
               "python -m pip install -e .[tests] && \
               pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
               --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
@@ -261,7 +268,9 @@ jobs:
 
       - name: "Stop lumerical services"
         if: always()
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
         run: |
-          docker stop ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-          docker logs ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
-          docker rm ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          docker stop ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }
+          docker logs ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }
+          docker rm ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }

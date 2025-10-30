@@ -212,12 +212,13 @@ jobs:
         env:
             DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
             DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+            LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
         run: |
           docker run \
             --detach -it \
             --network="host" \
             --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
-            --env ANSYSLMD_LICENSE_FILE=1055@${{ secrets.LICENSE_SERVER }} \
+            --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
             --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
             ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
 

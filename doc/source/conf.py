@@ -95,7 +95,7 @@ copybutton_prompt_is_regexp = True
 
 # Ignore files for build
 
-exclude_patterns = ["conf.py"]
+exclude_patterns = ["conf.py", "examples/README.rst"]
 
 
 # Skipping members

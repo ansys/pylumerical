@@ -29,3 +29,9 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       This example uses PyLumerical with workflows and syntax that is more native to Python.
 
 
+.. toctree::
+   :hidden:
+
+   examples/Sessions_and_Objects/basic_session_management
+   examples/Sessions_and_Objects/fdtd_example1_lsf
+   examples/Sessions_and_Objects/fdtd_example1_pythonic

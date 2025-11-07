@@ -16,7 +16,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    .. grid-item-card:: Basic FDTD simulation - Lumerical style commands
       :link: examples/Sessions_and_Objects/fdtd_example1_lsf
       :link-type: doc
-      
+
       This example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.
       The example uses PyLumerical with workflows and syntax similar to the Lumerical Scripting Language.
 

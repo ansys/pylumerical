@@ -4,8 +4,8 @@
 # Sets up and runs a basic FDTD simulation. E field results are plotted in Lumerical.
 
 
-# ## Prerequisites: 
-# 
+# ## Prerequisites:
+#
 # Valid FDTD license is required.
 #
 # ### Perform required imports

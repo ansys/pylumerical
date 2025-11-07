@@ -6,8 +6,8 @@
 # Demonstrates initializing objects using keyword arguments and OrderedDict.
 
 
-# ## Prerequisites: 
-# 
+# ## Prerequisites:
+#
 # Valid FDTD license is required.
 #
 # ### Perform required imports

@@ -1,0 +1,263 @@
+name: release
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  MAIN_PYTHON_VERSION: '3.13'
+  LIBRARY_NAME: 'ansys-lumerical-core'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  update-changelog:
+    name: "Update CHANGELOG (on release)"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: ansys/actions/doc-deploy-changelog@v10
+        with:
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+  code-style:
+    name: "Code style"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Run code style checks"
+        uses: ansys/actions/code-style@v10
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+
+  doc-style:
+    name: "Doc style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/doc-style@v10
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  doc-build:
+    name: "Doc build"
+    runs-on: ubuntu-latest
+    needs: doc-style
+    steps:
+      - uses: ansys/actions/doc-build@v10
+        with:
+          skip-install: true
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+          needs-quarto: true
+
+  wheelhouse:
+    name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"
+    runs-on: ${{ matrix.os }}
+    needs: code-style
+    permissions:
+      id-token: write
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest']
+        python: ['3.10', '3.11', '3.12', '3.13']
+    steps:
+      - uses: ansys/actions/build-wheelhouse@v10
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python }}
+
+  tests:
+    name: "Test Python 3.13 with Lumerical Unified Linux Container"
+    runs-on: ubuntu-latest
+    needs: wheelhouse
+    permissions:
+      id-token: write
+      contents: write
+    env:
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_3'
+      DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
+    steps:
+
+      - name: "Checkout PyLumerical"
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+        with:
+          persist-credentials: false
+
+      - name: "Login to GitHub container registry"
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+      - name: "Pull Lumerical Unified Container"
+        env:
+          DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+        run: |
+          docker pull ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Prepare ownership for container user (lumerical)"
+        env:
+          LUMERICAL_UID: 1000
+          LUMERICAL_GID: 1000
+        run: |
+          echo "ORIG_UID=$(id -u)" >> $GITHUB_ENV
+          echo "ORIG_GID=$(id -g)" >> $GITHUB_ENV
+          sudo chown -R "$LUMERICAL_UID:$LUMERICAL_GID" .
+          ls -la
+
+      - name: "Run Lumerical Unified Container"
+        env:
+            DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+            DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+            LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+        run: |
+          docker run \
+            --detach -it \
+            --network="host" \
+            --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
+            --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
+            --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
+            ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Install Project Dependencies and Run Tests"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+            docker exec \
+              --workdir /home/lumerical/pylumerical \
+              ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} /bin/bash --login -c \
+              "python -m pip install -e .[tests] && \
+              pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
+              --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
+
+      - name: "Restore original ownership"
+        if: always()
+        env:
+          ORIG_UID: ${{ env.ORIG_UID }}
+          ORIG_GID: ${{ env.ORIG_GID }}
+        run: |
+          if [[ -z "$ORIG_UID" || -z "$ORIG_GID" || ! "$ORIG_UID" =~ ^[0-9]+$ || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+            if [[ -z "$ORIG_UID" || ! "$ORIG_UID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_UID ('$ORIG_UID') is not set or not a valid integer (expected a numeric UID)."
+            elif [[ -z "$ORIG_GID" || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_GID ('$ORIG_GID') is not set or not a valid integer (expected a numeric GID)."
+            else
+              echo "Skipping chown: Unknown error with ORIG_UID ('$ORIG_UID') or ORIG_GID ('$ORIG_GID')."
+            fi
+          else
+            sudo chown -R "$ORIG_UID:$ORIG_GID" .
+          fi
+          ls -la
+
+      - name: Upload Coverage Results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage-html-ubuntu
+          path: .cov/html
+          retention-days: 7
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          files: .cov/xml
+
+      - name: "Stop lumerical services"
+        if: always()
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+          docker stop ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker logs ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker rm ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+
+  package:
+    name: Package library
+    needs: [tests, doc-build]
+    runs-on: ubuntu-latest
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+    steps:
+      - name: Build library source and wheel artifacts
+        uses: ansys/actions/build-library@v10
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          attest-provenance: true
+
+  release:
+    name: Release project to GitHub
+    needs: [package, update-changelog]
+    runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: Release to GitHub
+        uses: ansys/actions/release-github@v10
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          library-name: ${{ env.LIBRARY_NAME }}
+          add-artifact-attestation-notes: true
+          changelog-release-notes: true
+
+  release-pypi:
+    name: Release project to PyPI
+    needs: [package, update-changelog]
+    runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: "Download the library artifacts from build-library step"
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: ${{ env.LIBRARY_NAME }}-artifacts
+          path: ${{ env.LIBRARY_NAME }}-artifacts
+
+      - name: "Upload artifacts to PyPI using trusted publisher"
+        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
+        with:
+          repository-url: "https://upload.pypi.org/legacy/"
+          print-hash: true
+          packages-dir: ${{ env.LIBRARY_NAME }}-artifacts
+          skip-existing: false
+
+  doc-deploy-stable:
+    name: Upload release documentation
+    needs: [release, release-pypi]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Deploy the stable documentation
+        uses: ansys/actions/doc-deploy-stable@v10
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}

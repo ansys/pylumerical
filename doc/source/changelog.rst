@@ -10,7 +10,7 @@ This document contains the release notes for the project.
 .. towncrier release notes start
 
 `0.1.0 <https://github.com/ansys/pylumerical/releases/tag/v0.1.0>`_ - November 14, 2025
-=================================================================================
+=======================================================================================
 
 .. tab-set::
 

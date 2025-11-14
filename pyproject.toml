@@ -30,7 +30,7 @@ classifiers = [
 
 dependencies = [
     "ansys-api-lumerical",
-    "numpy>=2.2.2",
+    "numpy>=1.26",
 ]
 
 [project.optional-dependencies]

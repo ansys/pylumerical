@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 5 # Fallback cooldown if no specific rule applies
+      semver-major-days: 30 # Cooldown for major version updates
+      semver-minor-days: 7 # Cooldown for minor version updates
+      semver-patch-days: 3 # Cooldown for patch updates
+    labels:
+      - "maintenance"
+      - "dependencies"
+    commit-message:
+      prefix: "build"
+    groups:
+      pip-deps:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "maintenance"
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"

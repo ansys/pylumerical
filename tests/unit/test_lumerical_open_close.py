@@ -128,7 +128,7 @@ class TestLumericalOpenClose:
         with pytest.raises(lumapi.LumApiError) as ex_info:
             _ = lumapi.DEVICE(hide=True, remoteArgs=remote_args)
 
-        assert "appOpen error: Unable to connect to server" in str(ex_info.value)
+        assert "appOpen error: Interop-client: Unable to open the SSL key file" in str(ex_info.value)
 
     def test_open_close_mode(self):
         """Test 08: Test lumapi 'open' and 'close' MODE."""

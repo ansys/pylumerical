@@ -1,0 +1,100 @@
+# This script file builds the simulation for the nanowire example
+# entirely using script commands. Objects are added to the simulation file
+# using the specific add commands. The set commands sets the
+# parameter you defined, any other parameters that are not set will remain as is (Default).
+
+switchtolayout;
+
+selectall; deleteall; # select and delete all objects to make sure we start with a clean project file
+setprofile = 0; # not add the profile monitor for the first run; 1 to set this monitor 
+
+############################################
+# add structures
+addcircle; # add a circle object
+set("x",0); # sets the x position
+set("y",0);
+set("z",0);
+set("radius", 25e-9); # sets the radius of the circle, in meter
+set("material", "Ag (Silver) - Palik (0-2um)"); # material name has to be exact
+
+
+#############################################
+# add simulation region and mesh override
+addfdtd;
+set("simulation time", 200e-15); # the unit is second
+set("dimension", "2D");
+set("x",0);
+set("y",0);
+set("z",0);
+set("x span", 800e-9);
+set("y span", 800e-9);
+# add finer mesh
+addmesh;
+set("dx", 1e-9);
+set("dy", 1e-9);
+set("x", 0);
+set("y", 0);
+set("x span", 110e-9);
+set("y span", 110e-9);
+# Mesh Reinement and Boundary conditions use the deault settings.
+
+#############################################
+# add light source
+addtfsf;
+set("polarization angle", 0);
+set("x", 0);
+set("y", 0);
+set("x span", 100e-9);
+set("y span", 100e-9);
+set("wavelength start", 300e-9);
+set("wavelength stop", 400e-9);
+
+
+#############################################
+# add analysis group
+addobject("cross_section");
+set("name", "scat");
+set("x", 0);
+set("y", 0);
+set("z", 0);
+set("x span", 110e-9);
+set("y span", 110e-9);
+
+addobject("cross_section");
+set("name", "total");
+set("x", 0);
+set("y", 0);
+set("z", 0);
+set("x span", 90e-9);
+set("y span", 90e-9);
+
+#############################################
+# add monitos
+
+
+addtime;
+set("name", "time");
+set("x", 28e-9);
+set("y", 26e-9);
+
+setglobalmonitor("frequency points", 100); # setting the global frequency resolution
+
+#
+if(setprofile == 1){# once you know the wavelength to be monitored
+addprofile;
+set("name", "profile");
+set("x", 0);
+set("y", 0);
+set("x span", 90e-9);
+set("y span", 90e-9);
+set("override global monitor settings",1);
+set("use source limits",0);
+set("frequency points",1);# only record one frequnecy point
+set("wavelength center",345e-9);
+set("wavelength span",0);
+
+setnamed("mesh","dx",0.5e-9);
+setnamed("mesh","dy",0.5e-9);
+
+setnamed("FDTD","mesh refinement","conformal variant 1");
+}

@@ -64,6 +64,16 @@ intersphinx_mapping = {
     # "grpc": ("https://grpc.github.io/grpc/python/", None),
 }
 
+html_context = {
+    "github_user": "ansys",
+    "github_repo": "pylumerical",
+    "github_version": "main",
+    "doc_path": "doc/source",
+    "pyansys_tags": [
+        "Optics"
+    ]
+}
+
 # numpydoc configuration
 numpydoc_show_class_members = False
 numpydoc_xref_param_type = True

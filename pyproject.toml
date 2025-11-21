@@ -39,14 +39,14 @@ tests = [
     "pytest-cov==7.0.0",
 ]
 doc = [
-    "ansys-sphinx-theme[autoapi]==1.4.2",
-    "numpydoc==1.8.0",
+    "ansys-sphinx-theme[autoapi]==1.6.3",
+    "numpydoc==1.9.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.6.1",
 ]
 examples = [
-    "matplotlib==3.10.0",
+    "matplotlib==3.10.7",
 ]
 
 [tool.flit.module]

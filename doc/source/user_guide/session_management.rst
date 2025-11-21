@@ -36,7 +36,7 @@ You can also create multiple sessions, even if they're for the same product.
 
 .. code-block:: python
 
-    # Starting two Lumerical MODE sessions one one Lumerical Multiphysics session
+    # Starting two Lumerical MODE sessions one Lumerical Multiphysics session
     mode1 = lumapi.MODE()
     mode2 = lumapi.MODE()
     device = lumapi.DEVICE()
@@ -48,7 +48,7 @@ Each of the product's constructor supports various parameters and keyword argume
 
 .. code-block:: python
 
-    # Loads and runs script.lsf while hiding the application window
+    # Loads and runs script.lsf while hiding the application
 
     inc = lumapi.INTERCONNECT(filename="script.lsf", hide=True)
 
@@ -57,21 +57,26 @@ Advanced session management
 
 Wrapping the session in a function
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-In Python, you can use functions if you need to run numerous similar instances. For example, when sweeping over some optional parameters. For more information on how Lumerical sessions return results, see :doc:`Passing data <passing_data>` and :doc:`Working with simulation objects <working_with_simulation_objects>`.
+You can wrap Lumerical sessions in a function to simplify setup. This is useful when you need multiple sessions where some parameters are constant while others change. For example, when sweeping over parameters. For more information on how Lumerical sessions return results, see :doc:`Passing data <passing_data>` and :doc:`Working with simulation objects <working_with_simulation_objects>`.
 
 **Example**
 
 .. code-block:: python
 
-    def myFunction(someOptionalParameter):
+    def myFunction(optionalParameter):
         fdtd = lumapi.FDTD()
+        # Setup code that does not change in the sweep
         ...
-        return importantResult
+        # Setup code that changes depending on the input parameter "optionalParameter"
+        fdtd.addgaussian(optionalParameter)
+        ...
+
+        return result
 
 Using the "with" context manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PyLumerical support Python "with" statement by giving well-defined entrance and exit behavior to Lumerical session objects in Python. If there are any errors within the "with" code block, the session still closes successfully, unlike in a function. Any error message you typically see in a Lumerical script environment is also displayed in the Python exception.
+PyLumerical support Python "with" statement by giving well-defined entrance and exit behavior to Lumerical session objects in Python. If there are any errors within the "with" code block, the session still closes successfully, unlike in a function. When an error occurs, an exception is raised, and the error from Lumerical is shown.
 
 **Example**
 
@@ -113,13 +118,13 @@ Closing the session
 
 .. vale off
 
-When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted.
+When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to that session are deleted.
 
 .. vale on
 
 The Lumerical session also automatically terminate after the python script reaches the end.
 
-Python automatically deletes variables as they removed from scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.
+Python automatically deletes variables as they are removed from scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.
 
 .. code-block:: python
 

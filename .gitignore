@@ -5,3 +5,6 @@ _build/
 doc/source/api/_autosummary
 # Visual studio Code
 .vscode
+
+# Quarto extension
+doc/source/cheat_sheet/_extensions

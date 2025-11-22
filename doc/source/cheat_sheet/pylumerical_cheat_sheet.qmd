@@ -2,8 +2,8 @@
 title: PyLumerical Cheat Sheet
 format: cheat_sheet-pdf
 params:
-  version: "Your version here"
-footer: Your footer here
+  version: main
+footer: PyLumerical
 footerlinks:
   - urls: Your URL here
     text: Your text here

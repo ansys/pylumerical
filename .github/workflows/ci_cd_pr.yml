@@ -132,6 +132,7 @@ jobs:
           skip-install: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
+          dependencies: "pandoc"
           needs-quarto: true
 
   doc-deploy-pr:

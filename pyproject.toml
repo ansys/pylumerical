@@ -44,6 +44,7 @@ doc = [
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.6.1",
+    "jupyter == 1.1.1",
 ]
 examples = [
     "matplotlib==3.10.0",

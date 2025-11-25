@@ -45,6 +45,7 @@ doc = [
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.6.1",
     "ipykernel==6.30.1",
+    "nbclient==0.10.2",
 ]
 examples = [
     "matplotlib==3.10.0",

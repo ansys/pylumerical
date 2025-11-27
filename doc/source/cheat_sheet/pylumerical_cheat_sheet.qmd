@@ -5,10 +5,16 @@ params:
   version: main
 footer: PyLumerical
 footerlinks:
-  - urls: Your URL here
-    text: Your text here
-  - urls: Your URL here
-    text: Your text here
+  - urls: 'https://lumerical.docs.pyansys.com/'
+    text: Documentation
+  - urls: 'https://lumerical.docs.pyansys.com/version/stable/getting_started/index.html'
+    text: Getting Started
+  - urls: 'https://lumerical.docs.pyansys.com/version/stable/api/index.html'
+    text: API Reference
+  - urls: 'https://lumerical.docs.pyansys.com/version/stable/user_guide/index.html'
+    text: User Guide
+  - urls: 'https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category'
+    text: Lumerical Scripting Language
 # Uncomment the following line to not evaluate code cells
 execute:
      eval: false # Set to true to evaluate code cells
@@ -25,14 +31,111 @@ jupyter:
     name: python3
 ---
 
-# Test section
+# Install with virtual environment (Windows Powershell)
 
-Description of the first section goes here.
-
-```{python}
-import ansys-lumerical-core as lumapi
-with lumapi.FDTD() as fdtd:
-  fdtd.addrect()
-  fdtd.eval("?print('Hello Lumerical')")
+```{bash}
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install -U pip
+python -m pip install ansys-lumerical-core
 ```
 
+# Starting a session
+
+Start FDTD session
+
+```{python}
+import ansys.lumerical.core as lumapi
+with lumapi.FDTD() as fdtd:
+  fdtd.addgaussian()
+  fdtd.eval("?print('Welcome to Lumerical!');")
+  fdtd.pause(5) # Pause for 5 seconds, session closes after completion
+```
+
+Start a Multiphysics session, add CHARGE and HEAT solver regions
+
+```{python}
+import ansys.lumerical.core as lumapi
+# The hide flag will prevent the GUI from appearing
+with lumapi.DEVICE(hide = True) as device:
+  device.addcharge()
+  device.addheat()
+```
+
+
+Running an existing script on an existing Lumerical project file
+```{python}
+import ansys.lumerical.core as lumapi
+# Assuming there are some setup and analysis script, along with project file (.fsp)
+
+with lumapi.FDTD(script = "SetupScript.lsf", project = "MyLumericalProject.fsp") as fdtd:
+  # Use function from SetupScript.lsf directly
+  fdtd.customsetupfunction()
+  # Do some additional setup, and run simulation
+  # ...
+  fdtd.eval('AnalysisScript.lsf')
+```
+
+# Set up simulation objects
+
+Using keyword arguments
+```{python}
+import ansys.lumerical.core as lumapi
+
+with lumapi.FDTD(hide = true) as fdtd:
+  fdtd.addfdtd(dimension="2D", x=0.0e-9, y=0.0e-9, x_span=3.0e-6, y_span=1.0e-6)
+```
+
+Using set commands
+```{python}
+import ansys.lumerical.core as lumapi
+
+with lumapi.FDTD(hide = true) as fdtd:
+  fdtd.addrect()​
+  fdtd.set(“x”, 0)​
+  fdtd.set(“x span”, 1e-6)
+```
+
+Using OrderedDict to preserve property assignment order
+
+```{python}
+import ansys.lumerical.core as lumapi
+from collections import OrderedDict
+
+with lumapi.FDTD(hide = true) as fdtd:
+  props = OrderedDict(("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6), ("monitor type", "linear x"),("frequency points", 10.0)])​
+  fdtd.adddftmonitor(properties = props)
+```
+
+# Running simulations
+
+## Setting up resource
+
+```{python}
+import ansys.lumerical.core as lumapi
+with lumapi.FDTD(hide = True) as fdtd:
+  resource_num = fdtd.addresource("FDTD")
+  # Add a CPU resource called "PyLumerical CPU"
+  fdtd.setresource("FDTD", resource_num, "device type", "CPU")
+  fdtd.setresource("FDTD", "name", "PyLumerical CPU")
+
+  # Add a GPU resource called "PyLumerical GPU"
+  fdtd.setresource("FDTD", resource_num, "device type", "GPU")
+  fdtd.setresource("FDTD", "name", "PyLumerical GPU")
+```
+
+## Running a local simulation in FDTD
+```{python}
+import ansys.lumerical.core as lumapi
+with lumapi.FDTD(hide = True) as fdtd:
+  run_mode = "GPU" # Use "CPU" for CPU simulation, use "GPU" for GPU simulation
+  # Setup code for project
+  # ...
+  # Save and run project
+  fdtd.save("MyPyLumericalProject.fsp") # Save to current working directory
+  fdtd.run("FDTD", run_mode, f"PyLumerical {run_mode}")
+```
+
+## Running a simulation on Ansys Cloud Burst Compute
+
+# Visualize results

@@ -11,7 +11,7 @@ format:
         morestring=[b]"
       }
 params:
-  version: main
+  version: v0.1
 footer: PyLumerical
 footerlinks:
   - urls: 'https://lumerical.docs.pyansys.com/'
@@ -66,7 +66,7 @@ Start a Multiphysics session, add CHARGE and HEAT solvers
 ```{python}
 import ansys.lumerical.core as lumapi
 # The hide flag will prevent the GUI from appearing
-with lumapi.DEVICE(hide = True) as device:
+with lumapi.DEVICE(hide=True) as device:
   device.addcharge()
   device.addheat()
 ```
@@ -75,8 +75,7 @@ with lumapi.DEVICE(hide = True) as device:
 Running an existing script on an existing Lumerical project file
 ```{python}
 # Assume there are some setup and analysis scripts, along with project file (.fsp)
-
-with lumapi.FDTD(hide =True, script = "SetupScript.lsf", project = "MyLumericalProject.fsp") as fdtd:
+with lumapi.FDTD(hide=True, script="SetupScript.lsf", project="MyLumericalProject.fsp") as fdtd:
   # Use function from SetupScript.lsf directly as needed
   fdtd.customsetupfunction()
   # Do some additional setup, and run simulation
@@ -112,7 +111,7 @@ with lumapi.FDTD(hide=True) as fdtd:
 # Running simulations
 Setting up resource
 ```{python}
-with lumapi.FDTD(hide = True) as fdtd:
+with lumapi.FDTD(hide=True) as fdtd:
   resourceNum = fdtd.addresource("FDTD")
   # Add a CPU resource called "PyLumerical CPU"
   fdtd.setresource("FDTD", resourceNum, "device type", "CPU")
@@ -125,7 +124,7 @@ with lumapi.FDTD(hide = True) as fdtd:
 Run simulation locally
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
-  runMode = "GPU" # Use "CPU" for CPU simulation, use "GPU" for GPU simulation
+  runMode = "GPU" # "CPU" or "GPU"
   # Setup code for project ...
   fdtd.save("MyPyLumericalProject.fsp") # Save to current working directory
   fdtd.run("FDTD", runMode, f"PyLumerical {runMode}")
@@ -142,7 +141,7 @@ with lumapi.FDTD(hide=True) as fdtd:
 
 Run a MODE simulation
 ```{python}
-with lumapi.MODE(hide =True) as mode:
+with lumapi.MODE(hide=True) as mode:
   mode.addfde()
   # Set up code ...
   mode.setanalysis("wavelength", 1.55e-6)
@@ -153,7 +152,7 @@ with lumapi.MODE(hide =True) as mode:
 
 Run a sweep
 ```{python}
-with lumapi.FDTD(hide =True) as fdtd:
+with lumapi.FDTD(hide=True) as fdtd:
   fdtd.addsweep(0) # 0 - Sweep, 1 - Optimization, 2 - Monte Carlo, 3 - S-parmaeter Matrix, 4 - Corner
   fdtd.setsweep("sweep","name","childSweep")
   fdtd.setsweep("childSweep", "type", "Ranges")
@@ -161,7 +160,7 @@ with lumapi.FDTD(hide =True) as fdtd:
   # Add parameters to existing object named film
   sweepParams={"Name":"thickness", "Parameter": "::model::film::z max", "Type": "Length", "Start":0.05e-6, "Stop": 0.15e-6}
   fdtd.addsweepparameter("childSweep",sweepParams)
-  # Insertsweep adds as a parent for sweeps, child for other types
+  # insertsweep adds as a parent for sweeps, child for other types
   fdtd.insertsweep("childSweep")
   fdtd.setsweep("sweep","name","parentSweep")
   # Add result to existing monitor named monitor
@@ -176,16 +175,15 @@ Visualize monitor data using matplotlib ```contourf```.
 import numpy as np
 import matplotlib.pyplot as plt
 
-with lumapi.FDTD(hide =True) as fdtd:
+with lumapi.FDTD(hide=True) as fdtd:
   # Set up code ...
-  # Retrieve results
+  # Retrieve result from Lumerical dataset
   electricFieldRes = fdtd.getresult("monitor", "E")
-  # Extract result from Lumerical dataset
   x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um
   Ex, Ey, Ez = electricFieldRes['E'][:,:,0,0,0], electricFieldRes['E'][:,:,0,0,1], electricFieldRes['E'][:,:,0,0,2]
-  # Can also use fdtd.getelectric(), fdtd.getmagnetic() to get amplitude quickly
+  # Can also use fdtd.getelectric(), fdtd.getmagnetic() to get amplitude
   electricFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
   # Plot with Matplotlib
   X, Y = np.meshgrid(x, y)  # Create meshgrid
-  plt.contourf(X, Y, electricFieldAmplitude, cmap='jet')
+  plt.contourf(X, Y, electricFieldAmplitude)
 ```

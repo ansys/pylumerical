@@ -1,6 +1,15 @@
 ---
 title: PyLumerical Cheat Sheet
-format: cheat_sheet-pdf
+format:
+  cheat_sheet-pdf:
+    header-includes: |
+      \lstdefinelanguage{Python}{
+        morekeywords={False,None,True,and,as,assert,async,await,break,class,continue,def,del,elif,else,except,finally,for,from,global,if,import,in,is,lambda,nonlocal,not,or,pass,raise,return,try,while,with,yield},
+        sensitive=true,
+        morecomment=[l]{\#},
+        morestring=[b]',
+        morestring=[b]"
+      }
 params:
   version: main
 footer: PyLumerical

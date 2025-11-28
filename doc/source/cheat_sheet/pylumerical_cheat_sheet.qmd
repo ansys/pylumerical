@@ -13,8 +13,10 @@ footerlinks:
     text: API Reference
   - urls: 'https://lumerical.docs.pyansys.com/version/stable/user_guide/index.html'
     text: User Guide
-  - urls: 'https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category'
+  - urls: 'https://optics.ansys.com/hc/en-us/articles/360037228834'
     text: Lumerical Scripting Language
+  - urls: 'https://optics.ansys.com/hc/en-us/articles/42325093231251'
+    text: Lumerical Knowledge Base
 # Uncomment the following line to not evaluate code cells
 execute:
      eval: false # Set to true to evaluate code cells
@@ -31,7 +33,7 @@ jupyter:
     name: python3
 ---
 
-# Install with virtual environment (Windows Powershell)
+# Install (Windows Powershell)
 
 ```{bash}
 python -m venv .venv
@@ -41,18 +43,16 @@ python -m pip install ansys-lumerical-core
 ```
 
 # Starting a session
-
 Start FDTD session
 
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.FDTD() as fdtd:
-  fdtd.addgaussian()
-  fdtd.eval("?print('Welcome to Lumerical!');")
+  fdtd.eval("?print('Welcome to Lumerical!');") # Use 'eval' to run Lumerical scripts
   fdtd.pause(5) # Pause for 5 seconds, session closes after completion
 ```
 
-Start a Multiphysics session, add CHARGE and HEAT solver regions
+Start a Multiphysics session, add CHARGE and HEAT solvers
 
 ```{python}
 import ansys.lumerical.core as lumapi
@@ -65,77 +65,118 @@ with lumapi.DEVICE(hide = True) as device:
 
 Running an existing script on an existing Lumerical project file
 ```{python}
-import ansys.lumerical.core as lumapi
-# Assuming there are some setup and analysis script, along with project file (.fsp)
+# Assume there are some setup and analysis scripts, along with project file (.fsp)
 
-with lumapi.FDTD(script = "SetupScript.lsf", project = "MyLumericalProject.fsp") as fdtd:
-  # Use function from SetupScript.lsf directly
+with lumapi.FDTD(hide =True, script = "SetupScript.lsf", project = "MyLumericalProject.fsp") as fdtd:
+  # Use function from SetupScript.lsf directly as needed
   fdtd.customsetupfunction()
   # Do some additional setup, and run simulation
-  # ...
-  fdtd.eval('AnalysisScript.lsf')
+  analysisScript = open("AnalysisScript.lsf","r").read()
+  fdtd.eval(analysisScript)
 ```
 
 # Set up simulation objects
-
 Using keyword arguments
 ```{python}
-import ansys.lumerical.core as lumapi
-
-with lumapi.FDTD(hide = true) as fdtd:
+with lumapi.FDTD(hide=True) as fdtd:
   fdtd.addfdtd(dimension="2D", x=0.0e-9, y=0.0e-9, x_span=3.0e-6, y_span=1.0e-6)
 ```
 
 Using set commands
 ```{python}
-import ansys.lumerical.core as lumapi
-
-with lumapi.FDTD(hide = true) as fdtd:
+with lumapi.FDTD(hide=True) as fdtd:
   fdtd.addrect()​
-  fdtd.set(“x”, 0)​
-  fdtd.set(“x span”, 1e-6)
+  fdtd.set("x", 0)​
+  fdtd.set("x span", 1e-6)
 ```
 
 Using OrderedDict to preserve property assignment order
 
 ```{python}
-import ansys.lumerical.core as lumapi
 from collections import OrderedDict
 
-with lumapi.FDTD(hide = true) as fdtd:
-  props = OrderedDict(("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6), ("monitor type", "linear x"),("frequency points", 10.0)])​
+with lumapi.FDTD(hide=True) as fdtd:
+  props = OrderedDict([("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6), ("monitor type", "linear x"),("frequency points", 10.0)])​
   fdtd.adddftmonitor(properties = props)
 ```
 
 # Running simulations
-
-## Setting up resource
-
+Setting up resource
 ```{python}
-import ansys.lumerical.core as lumapi
 with lumapi.FDTD(hide = True) as fdtd:
-  resource_num = fdtd.addresource("FDTD")
+  resourceNum = fdtd.addresource("FDTD")
   # Add a CPU resource called "PyLumerical CPU"
-  fdtd.setresource("FDTD", resource_num, "device type", "CPU")
+  fdtd.setresource("FDTD", resourceNum, "device type", "CPU")
   fdtd.setresource("FDTD", "name", "PyLumerical CPU")
-
   # Add a GPU resource called "PyLumerical GPU"
-  fdtd.setresource("FDTD", resource_num, "device type", "GPU")
+  fdtd.setresource("FDTD", resourceNum, "device type", "GPU")
   fdtd.setresource("FDTD", "name", "PyLumerical GPU")
 ```
 
-## Running a local simulation in FDTD
+Run simulation locally
 ```{python}
-import ansys.lumerical.core as lumapi
-with lumapi.FDTD(hide = True) as fdtd:
-  run_mode = "GPU" # Use "CPU" for CPU simulation, use "GPU" for GPU simulation
-  # Setup code for project
-  # ...
-  # Save and run project
+with lumapi.FDTD(hide=True) as fdtd:
+  runMode = "GPU" # Use "CPU" for CPU simulation, use "GPU" for GPU simulation
+  # Setup code for project ...
   fdtd.save("MyPyLumericalProject.fsp") # Save to current working directory
-  fdtd.run("FDTD", run_mode, f"PyLumerical {run_mode}")
+  fdtd.run("FDTD", runMode, f"PyLumerical {runMode}")
 ```
 
-## Running a simulation on Ansys Cloud Burst Compute
+Run on Ansys Cloud Burst Compute™
+```{python}
+with lumapi.FDTD(hide=True) as fdtd:
+  # Set up code ...
+  burstSettings={"account": "user@company.com:", "download": True, "Name": "MyPyLumericalBurstJob"}
+  fdtd.run("FDTD", "GPU", "burst", burstSettings)
+
+```
+
+Run a MODE simulation
+```{python}
+with lumapi.MODE(hide =True) as mode:
+  mode.addfde()
+  # Set up code ...
+  mode.setanalysis("wavelength", 1.55e-6)
+  mode.setanalysis("search", "near n")
+  mode.save("MyPyLumericalMODEProject.lms")
+  mode.findmodes()
+```
+
+Run a sweep
+```{python}
+with lumapi.FDTD(hide =True) as fdtd:
+  fdtd.addsweep(0) # 0 - Sweep, 1 - Optimization, 2 - Monte Carlo, 3 - S-parmaeter Matrix, 4 - Corner
+  fdtd.setsweep("sweep","name","childSweep")
+  fdtd.setsweep("childSweep", "type", "Ranges")
+  fdtd.setsweep("childSweep", "number of points", 10)
+  # Add parameters to existing object named film
+  sweepParams={"Name":"thickness", "Parameter": "::model::film::z max", "Type": "Length", "Start":0.05e-6, "Stop": 0.15e-6}
+  fdtd.addsweepparameter("childSweep",sweepParams)
+  # Insertsweep adds as a parent for sweeps, child for other types
+  fdtd.insertsweep("childSweep")
+  fdtd.setsweep("sweep","name","parentSweep")
+  # Add result to existing monitor named monitor
+  sweepResult1={"Name": "T", "Result": "::model::monitor::T"}
+  fdtd.addsweepresult("parentSweep", sweepResult1)
+  fdtd.runsweep("parentSweep")
+```
 
 # Visualize results
+Visualize monitor data using matplotlib ```contourf```.
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+with lumapi.FDTD(hide =True) as fdtd:
+  # Set up code ...
+  # Retrieve results
+  electricFieldRes = fdtd.getresult("monitor", "E")
+  # Extract result from Lumerical dataset
+  x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um
+  Ex, Ey, Ez = electricFieldRes['E'][:,:,0,0,0], electricFieldRes['E'][:,:,0,0,1], electricFieldRes['E'][:,:,0,0,2]
+  # Can also use fdtd.getelectric(), fdtd.getmagnetic() to get amplitude quickly
+  electricFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
+  # Plot with Matplotlib
+  X, Y = np.meshgrid(x, y)  # Create meshgrid
+  plt.contourf(X, Y, electricFieldAmplitude, cmap='jet')
+```

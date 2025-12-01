@@ -176,9 +176,8 @@ with lumapi.FDTD(hide=True) as fdtd:
   electricFieldRes = fdtd.getresult("monitor", "E")
   x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um
   Ex, Ey, Ez = electricFieldRes['E'][:,:,0,0,0], electricFieldRes['E'][:,:,0,0,1], electricFieldRes['E'][:,:,0,0,2]
-  # Can also use fdtd.getelectric() to get amplitude directly
+  # fdtd.getelectric() also gets amplitude
   electricFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
-  # Plot with Matplotlib
   X, Y = np.meshgrid(x, y)  # Create meshgrid
   plt.contourf(X, Y, electricFieldAmplitude)
 ```

@@ -114,12 +114,12 @@ Set up resources
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
   resourceNum = fdtd.addresource("FDTD")
-  # Add a CPU resource called "PyLumerical CPU"
+  # Add a CPU resource called "PyLum CPU"
   fdtd.setresource("FDTD", resourceNum, "device type", "CPU")
-  fdtd.setresource("FDTD", "name", "PyLumerical CPU")
-  # Add a GPU resource called "PyLumerical GPU"
+  fdtd.setresource("FDTD", "name", "PyLum CPU")
+  # Add a GPU resource called "PyLum GPU"
   fdtd.setresource("FDTD", resourceNum, "device type", "GPU")
-  fdtd.setresource("FDTD", "name", "PyLumerical GPU")
+  fdtd.setresource("FDTD", "name", "PyLum GPU")
 ```
 
 Run simulation locally
@@ -127,7 +127,7 @@ Run simulation locally
 with lumapi.FDTD() as fdtd:
   runMode = "GPU" # "CPU" or "GPU"
   fdtd.save("MyPyLumericalProject.fsp")
-  fdtd.run("FDTD", runMode, f"PyLumerical {runMode}")
+  fdtd.run("FDTD", runMode, f"PyLum {runMode}")
 ```
 
 Run FDTD solver on [Ansys Cloud Burst Compute\texttrademark](https://optics.ansys.com/hc/en-us/articles/39824576734867-Ansys-Cloud-Burst-Compute-for-Lumerical)
@@ -173,11 +173,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 with lumapi.FDTD(hide=True) as fdtd:
   # Retrieve result from Lumerical dataset
-  electricFieldRes = fdtd.getresult("monitor", "E")
-  x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um
-  Ex, Ey, Ez = electricFieldRes['E'][:,:,0,0,0], electricFieldRes['E'][:,:,0,0,1], electricFieldRes['E'][:,:,0,0,2]
+  eFieldRes = fdtd.getresult("monitor", "E")
+  x, y = eFieldRes['x'] , eFieldRes['y']  # Convert to um
+  Ex, Ey, Ez = eFieldRes['E'][:,:,0,0,0], eFieldRes['E'][:,:,0,0,1], eFieldRes['E'][:,:,0,0,2]
   # fdtd.getelectric() also gets amplitude
-  electricFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
+  eFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
   X, Y = np.meshgrid(x, y)  # Create meshgrid
-  plt.contourf(X, Y, electricFieldAmplitude)
+  plt.contourf(X, Y, eFieldAmplitude)
 ```

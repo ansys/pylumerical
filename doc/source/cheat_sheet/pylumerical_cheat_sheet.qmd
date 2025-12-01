@@ -42,24 +42,17 @@ python -m pip install -U pip
 python -m pip install ansys-lumerical-core
 ```
 
-# Starting a session
+# [Starting a session](https://lumerical.docs.pyansys.com/version/stable/user_guide/session_management.html)
 Start a Lumerical FDTD session
 
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.FDTD() as fdtd:
-  fdtd.eval("?print('Welcome to Lumerical!');") # Use 'eval' to run Lumerical scripts
-  fdtd.pause(5) # Session closes after completion
-```
-
-The ```hide``` flag hides the GUI during execution
-```{python}
-import ansys.lumerical.core as lumapi
-with lumapi.FDTD(hide=True) as fdtd:
   print(f"Welcome to Lumerical {fdtd.version()}!")
+  input("Press any key to close session")
 ```
 
-Start a Lumerical Multiphysics session, add CHARGE and HEAT solver regions
+Start Lumerical Multiphysics, add CHARGE and HEAT solvers
 
 ```{python}
 import ansys.lumerical.core as lumapi
@@ -75,6 +68,13 @@ with lumapi.INTERCONNECT() as intc:
   print(intc.library())
 ```
 
+The ```hide``` flag hides the GUI during execution
+```{python}
+import ansys.lumerical.core as lumapi
+with lumapi.FDTD(hide=True) as fdtd:
+  print(f"Welcome to Lumerical {fdtd.version()}!")
+```
+
 Run existing scripts on an existing Lumerical FDTD project
 ```{python}
 with lumapi.FDTD(hide=True, script="SetupScript.lsf", project="MyLumericalProject.fsp") as fdtd:
@@ -85,32 +85,32 @@ with lumapi.FDTD(hide=True, script="SetupScript.lsf", project="MyLumericalProjec
   fdtd.eval(analysisScript)
 ```
 
-# Set up simulation objects
+# [Set up simulation objects](https://lumerical.docs.pyansys.com/version/stable/user_guide/working_with_simulation_objects.html)
 Using keyword arguments
 ```{python}
-with lumapi.FDTD(hide=True) as fdtd:
+with lumapi.FDTD() as fdtd:
   fdtd.addfdtd(dimension="2D", x=0.0e-9, y=0.0e-9, x_span=3.0e-6, y_span=1.0e-6)
 ```
 
 Using set commands
 ```{python}
-with lumapi.FDTD(hide=True) as fdtd:
-  fdtd.addrect()​
-  fdtd.set("x", 0)​
-  fdtd.set("x span", 1e-6)
+with lumapi.FDTD() as fdtd:
+  fdtd.addrect(name = "MyRect")
+  fdtd.setnamed("MyRect","x", 0)
+  fdtd.setnamed("MyRect","x span", 1e-6)
 ```
 
-Using OrderedDict to preserve property assignment order
+Using ```OrderedDict``` to preserve property assignment order
 
 ```{python}
 from collections import OrderedDict
-with lumapi.FDTD(hide=True) as fdtd:
+with lumapi.FDTD() as fdtd:
   props = OrderedDict([("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6), ("monitor type", "linear x"),("frequency points", 10.0)])​
   fdtd.adddftmonitor(properties = props)
 ```
 
 # Running simulations
-Setting up resource
+Set up resources
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
   resourceNum = fdtd.addresource("FDTD")
@@ -124,23 +124,22 @@ with lumapi.FDTD(hide=True) as fdtd:
 
 Run simulation locally
 ```{python}
-with lumapi.FDTD(hide=True) as fdtd:
+with lumapi.FDTD() as fdtd:
   runMode = "GPU" # "CPU" or "GPU"
-  fdtd.save("MyPyLumericalProject.fsp") # Save to current working directory
+  fdtd.save("MyPyLumericalProject.fsp")
   fdtd.run("FDTD", runMode, f"PyLumerical {runMode}")
 ```
 
-Run FDTD solver on Ansys Cloud Burst Compute
+Run FDTD solver on [Ansys Cloud Burst Compute\texttrademark](https://optics.ansys.com/hc/en-us/articles/39824576734867-Ansys-Cloud-Burst-Compute-for-Lumerical)
 ```{python}
-with lumapi.FDTD(hide=True) as fdtd:
+with lumapi.FDTD() as fdtd:
   burstSettings={"account": "user@company.com:", "download": True, "Name": "MyPyLumericalBurstJob"}
   fdtd.run("FDTD", "GPU", "burst", burstSettings)
-
 ```
 
 Run a MODE simulation
 ```{python}
-with lumapi.MODE(hide=True) as mode:
+with lumapi.MODE() as mode:
   mode.addfde()
   mode.setanalysis("wavelength", 1.55e-6)
   mode.setanalysis("search", "near n")
@@ -167,7 +166,7 @@ with lumapi.FDTD(hide=True) as fdtd:
   fdtd.runsweep("parentSweep")
 ```
 
-# Visualize results
+# [Visualize results](https://lumerical.docs.pyansys.com/version/stable/user_guide/accessing_simulation_results.html)
 Visualize monitor data using matplotlib Python library
 ```{python}
 import numpy as np
@@ -177,7 +176,7 @@ with lumapi.FDTD(hide=True) as fdtd:
   electricFieldRes = fdtd.getresult("monitor", "E")
   x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um
   Ex, Ey, Ez = electricFieldRes['E'][:,:,0,0,0], electricFieldRes['E'][:,:,0,0,1], electricFieldRes['E'][:,:,0,0,2]
-  # Can also use fdtd.getelectric(), fdtd.getmagnetic() to get amplitude
+  # Can also use fdtd.getelectric() to get amplitude directly
   electricFieldAmplitude = Ex ** 2 + Ey ** 2 + Ez ** 2
   # Plot with Matplotlib
   X, Y = np.meshgrid(x, y)  # Create meshgrid

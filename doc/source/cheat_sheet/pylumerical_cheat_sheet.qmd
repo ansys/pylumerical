@@ -43,33 +43,44 @@ python -m pip install ansys-lumerical-core
 ```
 
 # Starting a session
-Start FDTD session
+Start a Lumerical FDTD session
 
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.FDTD() as fdtd:
   fdtd.eval("?print('Welcome to Lumerical!');") # Use 'eval' to run Lumerical scripts
-  fdtd.pause(5) # Pause for 5 seconds, session closes after completion
+  fdtd.pause(5) # Session closes after completion
 ```
 
-Start a Multiphysics session, add CHARGE and HEAT solvers
+The ```hide``` flag hides the GUI during execution
+```{python}
+import ansys.lumerical.core as lumapi
+with lumapi.FDTD(hide=True) as fdtd:
+  print(f"Welcome to Lumerical {fdtd.version()}!")
+```
+
+Start a Lumerical Multiphysics session, add CHARGE and HEAT solver regions
 
 ```{python}
 import ansys.lumerical.core as lumapi
-# The hide flag will prevent the GUI from appearing
-with lumapi.DEVICE(hide=True) as device:
+with lumapi.DEVICE() as device:
   device.addcharge()
   device.addheat()
 ```
 
-
-Running an existing script on an existing Lumerical project file
+Start a Lumerical INTERCONNECT session, and print library
 ```{python}
-# Assume there are some setup and analysis scripts, along with project file (.fsp)
+import ansys.lumerical.core as lumapi
+with lumapi.INTERCONNECT() as intc:
+  print(intc.library())
+```
+
+Run existing scripts on an existing Lumerical FDTD project
+```{python}
 with lumapi.FDTD(hide=True, script="SetupScript.lsf", project="MyLumericalProject.fsp") as fdtd:
-  # Use function from SetupScript.lsf directly as needed
+  # Use function from SetupScript.lsf
   fdtd.customsetupfunction()
-  # Do some additional setup, and run simulation
+  # Do analysis after running simulation
   analysisScript = open("AnalysisScript.lsf","r").read()
   fdtd.eval(analysisScript)
 ```
@@ -93,7 +104,6 @@ Using OrderedDict to preserve property assignment order
 
 ```{python}
 from collections import OrderedDict
-
 with lumapi.FDTD(hide=True) as fdtd:
   props = OrderedDict([("name", "power"),("override global monitor settings", True),("x", 0.),("y", 0.4e-6), ("monitor type", "linear x"),("frequency points", 10.0)])​
   fdtd.adddftmonitor(properties = props)
@@ -116,15 +126,13 @@ Run simulation locally
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
   runMode = "GPU" # "CPU" or "GPU"
-  # Setup code for project ...
   fdtd.save("MyPyLumericalProject.fsp") # Save to current working directory
   fdtd.run("FDTD", runMode, f"PyLumerical {runMode}")
 ```
 
-Run on Ansys Cloud Burst Compute™
+Run FDTD solver on Ansys Cloud Burst Compute
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
-  # Set up code ...
   burstSettings={"account": "user@company.com:", "download": True, "Name": "MyPyLumericalBurstJob"}
   fdtd.run("FDTD", "GPU", "burst", burstSettings)
 
@@ -134,7 +142,6 @@ Run a MODE simulation
 ```{python}
 with lumapi.MODE(hide=True) as mode:
   mode.addfde()
-  # Set up code ...
   mode.setanalysis("wavelength", 1.55e-6)
   mode.setanalysis("search", "near n")
   mode.save("MyPyLumericalMODEProject.lms")
@@ -161,13 +168,11 @@ with lumapi.FDTD(hide=True) as fdtd:
 ```
 
 # Visualize results
-Visualize monitor data using matplotlib ```contourf```.
+Visualize monitor data using matplotlib Python library
 ```{python}
 import numpy as np
 import matplotlib.pyplot as plt
-
 with lumapi.FDTD(hide=True) as fdtd:
-  # Set up code ...
   # Retrieve result from Lumerical dataset
   electricFieldRes = fdtd.getresult("monitor", "E")
   x, y = electricFieldRes['x'] , electricFieldRes['y']  # Convert to um

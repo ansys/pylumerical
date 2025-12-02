@@ -39,7 +39,7 @@ tests = [
     "pytest-cov==7.0.0",
 ]
 doc = [
-    "ansys-sphinx-theme[autoapi] @ git+https://github.com/ansys/ansys-sphinx-theme@fix/quarto-remove",
+    "ansys-sphinx-theme[autoapi]==1.6.1",
     "numpydoc==1.8.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",

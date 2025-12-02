@@ -6,12 +6,14 @@ import os
 from ansys_sphinx_theme import get_version_match
 
 from ansys.lumerical.core import __version__
+from ansys.lumerical.core.autodiscovery import __min_supported_lum_release__
 
 # Project information
 project = "ansys-lumerical-core"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
+supported_lum_release = f"20{__min_supported_lum_release__['year']} R{__min_supported_lum_release__['release']}"
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 
@@ -33,6 +35,9 @@ html_theme_options = {
     },
     "check_switcher": False,
     "logo": "pyansys",
+    "ansys_sphinx_theme_autoapi": {
+        "project": "PyLumerical",
+    },
 }
 
 # Sphinx extensions
@@ -42,11 +47,14 @@ extensions = [
     "numpydoc",
     "sphinx.ext.intersphinx",
     "sphinx_copybutton",
+    "sphinx_design",  # Needed for cards
+    "sphinx.ext.extlinks",
 ]
 
 # Intersphinx mapping
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable/", None),
     # kept here as an example
     # "scipy": ("https://docs.scipy.org/doc/scipy/reference", None),
     # "numpy": ("https://numpy.org/devdocs", None),
@@ -55,6 +63,8 @@ intersphinx_mapping = {
     # "pyvista": ("https://docs.pyvista.org/", None),
     # "grpc": ("https://grpc.github.io/grpc/python/", None),
 }
+
+html_context = {"github_user": "ansys", "github_repo": "pylumerical", "github_version": "main", "doc_path": "doc/source", "pyansys_tags": ["Optics"]}
 
 # numpydoc configuration
 numpydoc_show_class_members = False
@@ -78,6 +88,22 @@ numpydoc_validation_checks = {
     # type, unless multiple values are being returned"
 }
 
+# Strip Python prompt from code block copy, this will make copied code easier to use
+copybutton_prompt_text = r">>> ?|\.\.\. ?"
+copybutton_prompt_is_regexp = True
+
+
+# Skipping members
+def autodoc_skip_member_custom(app, what, name, obj, skip, options):
+    """Skip members that are not intended to be in documentation."""
+    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+
+
+# RST prolog for substitution of custom variables
+
+rst_prolog = ""
+
+rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}"""
 
 # static path
 html_static_path = ["_static"]
@@ -95,9 +121,20 @@ master_doc = "index"
 linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
+    r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
 # available until the release is published.
 if switcher_version != "dev":
     linkcheck_ignore.append(f"https://github.com/ansys/ansys.lumerical.core/releases/tag/v{__version__}")
+
+
+# Define extlinks
+
+extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
+
+
+def setup(app):
+    """Sphinx setup function."""
+    app.connect("autodoc-skip-member", autodoc_skip_member_custom)

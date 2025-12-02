@@ -1,132 +1,64 @@
 PyLumerical
 ===========
+|pyansys| |python| |pypi| |codecov| |GH-CI| |MIT| |ruff|
 
-A Python wrapper for Ansys Lumerical
+.. |pyansys| image:: https://img.shields.io/badge/Py-Ansys-ffc107.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAABDklEQVQ4jWNgoDfg5mD8vE7q/3bpVyskbW0sMRUwofHD7Dh5OBkZGBgW7/3W2tZpa2tLQEOyOzeEsfumlK2tbVpaGj4N6jIs1lpsDAwMJ278sveMY2BgCA0NFRISwqkhyQ1q/Nyd3zg4OBgYGNjZ2ePi4rB5loGBhZnhxTLJ/9ulv26Q4uVk1NXV/f///////69du4Zdg78lx//t0v+3S88rFISInD59GqIH2esIJ8G9O2/XVwhjzpw5EAam1xkkBJn/bJX+v1365hxxuCAfH9+3b9/+////48cPuNehNsS7cDEzMTAwMMzb+Q2u4dOnT2vWrMHu9ZtzxP9vl/69RVpCkBlZ3N7enoDXBwEAAA+YYitOilMVAAAAAElFTkSuQmCC
+   :target: https://docs.pyansys.com/
+   :alt: PyAnsys
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/ansys-lumerical-core?logo=pypi
+   :target: https://pypi.org/project/ansys-lumerical-core/
+   :alt: Python
+
+.. |pypi| image:: https://img.shields.io/pypi/v/ansys-lumerical-core.svg?logo=python&logoColor=white&label=PyPI
+   :target: https://pypi.org/project/ansys-lumerical-core
+   :alt: PyPI
+
+.. |codecov| image:: https://codecov.io/github/ansys/pylumerical/graph/badge.svg?token=34FKDS6ZKJ
+   :target: https://codecov.io/github/ansys/pylumerical
+   :alt: Codecov
+
+.. |GH-CI| image:: https://github.com/ansys/pylumerical/actions/workflows/ci_cd_pr.yml/badge.svg
+   :target: https://github.com/ansys/pylumerical/actions/workflows/ci_cd_pr.yml
+
+.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: https://opensource.org/licenses/MIT
+   :alt: MIT
+
+.. |ruff| image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
+   :target: https://github.com/astral-sh/ruff
+   :alt: Ruff
 
 
-How to install
---------------
+A Python wrapper for Ansys Lumerical products.
 
-At least two installation modes are provided: user and developer.
+Installing PyLumerical as a user
+--------------------------------
 
-For users
-^^^^^^^^^
+You must have an Ansys Lumerical GUI license to use PyLumerical.
 
-User installation can be performed by running:
+You can install PyLumerical using pip.
+
+First, ensure that you have the latest pip version:
+
+.. code:: bash
+
+    python -m pip install -U pip
+
+Then, install using:
 
 .. code:: bash
 
     python -m pip install ansys-lumerical-core
 
-For developers
-^^^^^^^^^^^^^^
+For more information, see the `installation and getting started section <https://lumerical.docs.pyansys.com/version/stable/getting_started/index.html>`_ in the documentation.
 
-Installing PyLumerical in developer mode allows
-you to modify the source and enhance it.
+Contributing to PyLumerical
+---------------------------
 
-Before contributing to the project, please refer to the `PyAnsys Developer's guide`_. You will
-need to follow these steps:
+For guidelines on contribution and how to install PyLumerical as a developer, see the `contributing section <https://lumerical.docs.pyansys.com/version/stable/contributing.html>`_ section in the documentation.
 
-#. Start by cloning this repository:
+Getting started
+----------------
 
-   .. code:: bash
-
-      git clone https://github.com/ansys/pylumerical
-
-#. Create a fresh-clean Python environment and activate it. Refer to the
-   official `venv`_ documentation if you require further information:
-
-   .. code:: bash
-
-      # Create a virtual environment
-      python -m venv .venv
-
-      # Activate it in a POSIX system
-      source .venv/bin/activate
-
-      # Activate it in Windows CMD environment
-      .venv\Scripts\activate.bat
-
-      # Activate it in Windows Powershell
-      .venv\Scripts\Activate.ps1
-
-#. Make sure you have the latest version of `pip`_:
-
-   .. code:: bash
-
-      python -m pip install -U pip
-
-#. Install the project in editable mode:
-
-   .. code:: bash
-
-      python -m pip install --editable ansys-lumerical-core
-
-#. Install additional requirements (if needed):
-
-   .. code:: bash
-
-      python -m pip install -r requirements/requirements_build.txt
-      python -m pip install ansys-lumerical-core[tests]
-      python -m pip install ansys-lumerical-core[doc]
-
-#. Finally, verify your development installation by running:
-
-   .. code:: bash
-
-      python -m pip install ansys-lumerical-core[tests]
-      pytest tests -v
-
-
-Style and Testing
------------------
-
-If required, you can always call the style commands (`black`_, `isort`_,
-`flake8`_...) or unit testing ones (`pytest`_) from the command line. However,
-this does not guarantee that your project is being tested in an isolated
-environment, which is another reason to consider using `tox`_.
-
-
-Documentation
--------------
-
-For building documentation, you can either run the usual rules provided in the
-`Sphinx`_ Makefile, such us:
-
-.. code:: bash
-
-    python -m pip install -r requirements/requirements_doc.txt
-    make -C doc/ html
-
-    # subsequently open the documentation with (under Linux):
-    open doc/html/index.html
-
-Distributing
-------------
-
-If you would like to create either source or wheel files, start by installing
-the building requirements:
-
-.. code:: bash
-
-    python -m pip install -r requirements/requirements_build.txt
-
-Then, you can execute:
-
-.. code:: bash
-
-    python -m build
-    python -m twine check dist/*
-
-
-.. LINKS AND REFERENCES
-.. _black: https://github.com/psf/black
-.. _flake8: https://flake8.pycqa.org/en/latest/
-.. _isort: https://github.com/PyCQA/isort
-.. _PyAnsys Developer's guide: https://dev.docs.pyansys.com/
-.. _pre-commit: https://pre-commit.com/
-.. _pytest: https://docs.pytest.org/en/stable/
-.. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _pip: https://pypi.org/project/pip/
-.. _tox: https://tox.wiki/
-.. _venv: https://docs.python.org/3/library/venv.html
+Please see the `installation and getting started section <https://lumerical.docs.pyansys.com/version/stable/getting_started/index.html>`_ in the documentation for more information.

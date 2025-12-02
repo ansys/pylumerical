@@ -1,0 +1,59 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  MAIN_PYTHON_VERSION: '3.13'
+  LIBRARY_NAME: 'ansys-lumerical-core'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # vulnerabilities:
+  #   name: Vulnerabilities
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: PyAnsys Vulnerability check (on main)
+  #       uses: ansys/actions/check-vulnerabilities@v10
+  #       with:
+  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
+  #         python-package-name: ${{ env.LIBRARY_NAME }}
+  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+  #         dev-mode: false
+
+  doc-build:
+    name: "Doc build"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/doc-build@v10
+        with:
+          skip-install: true
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+          needs-quarto: true
+
+  doc-deploy-dev:
+    name: Upload dev documentation
+    if: github.ref == 'refs/heads/main'
+    needs: doc-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Deploy the latest documentation
+        uses: ansys/actions/doc-deploy-dev@v10
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}

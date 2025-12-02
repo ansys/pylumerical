@@ -4,3 +4,29 @@ isort
 Makefile
 py
 pytest
+Lumerical
+[Ii]nterop
+[Nn]anowire
+Ansys Lumerical FDTD™
+Ansys Lumerical MODE™
+Ansys Lumerical Multiphysics™
+Ansys Lumerical INTERCONNECT™
+Ansys Lumerical CML Compiler™
+FDTD
+MODE
+Multiphysics
+INTERCONNECT
+CML Compiler
+gaussian
+[Nn]umpy
+Python
+Dockerfile
+sudo
+docstring
+docstrings
+IPython
+photonic
+photonics
+lumopt
+lumslurm
+[Aa]utodiscovery

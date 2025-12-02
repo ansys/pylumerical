@@ -20,22 +20,36 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Set up the imports for PyLumerical."""
+"""Test lumapi 'lumWarning' function.
 
-import ansys.api.lumerical
+- test 01: Test lumapi 'lumWarning'
+"""
 
-# Make common names from lumapi available in the top-level namespace
-from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, InteropPaths, SimObject, SimObjectId, SimObjectResults
+import pytest
 
-from . import autodiscovery
+import ansys.api.lumerical.lumapi as lumapi
+import ansys.lumerical.core.autodiscovery as autodiscovery
 
-__version__ = "0.1.dev0"
-"""Lumerical API version."""
+base_install_path = autodiscovery.locate_lumerical_install()
+lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
-if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = autodiscovery.locate_lumerical_install()
-    if install_dir is not None:
-        ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
-    else:
-        print("Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
-    del install_dir  # remove the local variable to exclude from the namespace
+
+class TestLumWarning:
+    """Test the lumapi 'lumWarning' function."""
+
+    def test_lumapi_lumwarning(self):
+        """Test 01: Test lumapi 'lumWarning'."""
+        fdtd = lumapi.open("fdtd", hide=True)
+
+        fdtd.addrect()
+        fdtd.addrect()
+
+        def lum_warning():
+            with pytest.warns(UserWarning, match="Multiple objects named '::model::rectangle'."):
+                _ = fdtd.getObjectById("::model::rectangle")
+
+            return 1
+
+        assert lum_warning() == 1
+
+        fdtd.close()

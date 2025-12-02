@@ -20,22 +20,38 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Set up the imports for PyLumerical."""
+"""Test lumapi 'lumTypes' function.
 
-import ansys.api.lumerical
+- test 01: Test lumapi 'lumTypes' function with a list argument
+- test 02: Test lumapi 'lumTypes' function with a non-list argument
+"""
 
-# Make common names from lumapi available in the top-level namespace
-from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, InteropPaths, SimObject, SimObjectId, SimObjectResults
+import numpy as np
 
-from . import autodiscovery
+import ansys.api.lumerical.lumapi as lumapi
+import ansys.lumerical.core.autodiscovery as autodiscovery
 
-__version__ = "0.1.dev0"
-"""Lumerical API version."""
+base_install_path = autodiscovery.locate_lumerical_install()
+lumapi.InteropPaths.setLumericalInstallPath(base_install_path)
 
-if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = autodiscovery.locate_lumerical_install()
-    if install_dir is not None:
-        ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
-    else:
-        print("Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
-    del install_dir  # remove the local variable to exclude from the namespace
+
+class TestLumTypes:
+    """Test the lumapi 'lumTypes' function."""
+
+    def test_lumtypes_with_list_argument(self):
+        """Test 01: Test lumapi 'lumTypes' function with a list argument."""
+        mapping = [[0, 2, 0, 1], [0, 0, 2, 1], [1, 0.5, 0.5, 1]]
+
+        np_mapping = np.array(mapping)
+
+        converted = lumapi.lumTypes([mapping, np_mapping])
+
+        assert converted == ["cell array", "matrix"]
+
+    def test_lumtypes_with_non_list_argument(self):
+        """Test 02: Test lumapi 'lumTypes' function with a non-list argument."""
+        dct = {"a": 1, "b": 2, "c": 3}
+
+        converted = lumapi.lumTypes(dct)
+
+        assert converted is None

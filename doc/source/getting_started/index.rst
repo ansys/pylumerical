@@ -1,152 +1,116 @@
-Getting started
----------------
+.. _ref_installation:
 
-At least two installation modes are provided: user and developer.
+Installation and getting started
+================================
 
-For users
-^^^^^^^^^
-In order to install PyLumerical, make sure you
-have the latest version of `pip`_. To do so, run:
+Installation
+-------------
+
+You can install PyLumerical using pip.
+
+First, ensure that you have the latest pip version:
 
 .. code:: bash
 
     python -m pip install -U pip
 
-Then, you can simply execute:
+Then, install using:
 
 .. code:: bash
 
     python -m pip install ansys-lumerical-core
 
-For developers
-^^^^^^^^^^^^^^
-Installing PyLumerical in developer mode allows
-you to modify the source and enhance it.
 
-Before contributing to the project, please refer to the `PyAnsys Developer's guide`_ and then follow these steps:
-
-#. Start by cloning this repository:
-
-   .. code:: bash
-
-      git clone https://github.com/ansys/pylumerical
-
-#. Create a fresh-clean Python environment and activate it:
-
-   .. code:: bash
-
-      # Create a virtual environment
-      python -m venv .venv
-
-      # Activate it in a POSIX system
-      source .venv/bin/activate
-
-      # Activate it in Windows CMD environment
-      .venv\Scripts\activate.bat
-
-      # Activate it in Windows Powershell
-      .venv\Scripts\Activate.ps1
-
-#. Make sure you have the latest required build system and doc, testing, and CI tools:
-
-   .. code:: bash
-
-      python -m pip install -U pip setuptools tox
-      python -m pip install -r requirements/requirements_build.txt
-      python -m pip install -r requirements/requirements_doc.txt
-      python -m pip install -r requirements/requirements_tests.txt
-
-
-#. Install the project in editable mode:
-
-    .. code:: bash
-
-      python -m pip install --editable .
-
-    #. Finally, verify your development installation by running:
-
-   .. code:: bash
-
-      tox
-
-
-How to test
------------
-
-This project takes advantage of `tox`_. This tool allows to automate common
-development tasks (similar to Makefile) but it is oriented towards Python
-development.
-
-Using tox
-^^^^^^^^^
-
-As Makefile has rules, `tox`_ has environments. In fact, the tool creates its
-own virtual environment so anything being tested is isolated from the project in
-order to guarantee project's integrity. The following environments commands are provided:
-
-- **tox -e style**: checks for coding style quality.
-- **tox -e py**: checks for unit tests.
-- **tox -e py-coverage**: checks for unit testing and code coverage.
-- **tox -e doc**: checks for documentation building process.
-
-
-Raw testing
-^^^^^^^^^^^
-
-If required, you can always call the style commands (`black`_, `isort`_,
-`flake8`_) or unit testing ones (`pytest`_) from the command line. However,
-this does not guarantee that your project is being tested in an isolated
-environment, which is the reason why tools like `tox`_ exist.
-
-
-A note on pre-commit
-^^^^^^^^^^^^^^^^^^^^
-
-The style checks take advantage of `pre-commit`_. Developers are not forced but
-encouraged to install this tool via:
-
-.. code:: bash
-
-    python -m pip install pre-commit && pre-commit install
-
-
-Documentation
+Requirements
 -------------
 
-For building documentation, you can either run the usual rules provided in the
-`Sphinx`_ Makefile, such as:
+You must have an Ansys Lumerical GUI license to use PyLumerical. For more information, please visit the `licensing page <https://optics.ansys.com/hc/en-us/articles/360033862333-Lumerical-product-components-and-licensing-overview>`_ on the Ansys Optics website.
+In addition, you must also have Lumerical |supported_lum_release| or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` function automatically locates the Lumerical installation path. If it fails to do so, you must set the path manually using :func:`ansys.lumerical.core.autodiscovery.locate_lumerical_install`.
 
-.. code:: bash
+.. Turn off vale here due to captizalization issues being wrongly flagged by vale.
 
-    make -C doc/ html && open doc/html/index.html
+.. vale off
 
-However, the recommended way of checking documentation integrity is using:
+My first PyLumerical project
+-----------------------------
 
-.. code:: bash
+.. vale on
 
-    tox -e doc && open .tox/doc_out/index.html
+The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a plane wave.
+
+.. code-block:: python
+
+   import ansys.lumerical.core as lumapi # Ensure lumapi has already been added to path
+   import numpy as np
+   import matplotlib.pyplot as plt
+
+   with lumapi.FDTD() as fdtd:
+      lambda_range = np.linspace(300e-9, 1100e-9, 500)
+      c=2.99792458e8
+      f_range = c/lambda_range
+      au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) # Use the getfdtdindex command to obtain the correct complex index for gold
 
 
-Distributing
-------------
+      stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) # Use the stackrt command to calculate the transmission and reflection
+   # Visualize using matplotlib
+   fig, ax = plt.subplots()
+   ax.plot(lambda_range*1e9, stackRT_result["Ts"], label="Transmission")
+   ax.set_xlabel("Wavelength [nm]")
+   ax.set_ylabel("Transmission")
+   ax.legend()
+   plt.show()
 
-If you would like to create either source or wheel files, start by installing
-the building requirements and then executing the build module:
+This simulation returns the following result.
 
-.. code:: bash
+.. image:: ../_static/images/PyLumerical_Example_Image.png
+   :alt: PyLumerical example
+   :align: center
+   :width: 50%
 
-    python -m pip install -r requirements/requirements_build.txt
-    python -m build
-    python -m twine check dist/*
+Further resources
+-----------------
 
+.. grid:: 2 2 3 3
 
-.. LINKS AND REFERENCES
-.. _black: https://github.com/psf/black
-.. _flake8: https://flake8.pycqa.org/en/latest/
-.. _isort: https://github.com/PyCQA/isort
-.. _pip: https://pypi.org/project/pip/
-.. _pre-commit: https://pre-commit.com/
-.. _PyAnsys Developer's guide: https://dev.docs.pyansys.com/
-.. _pytest: https://docs.pytest.org/en/stable/
-.. _Sphinx: https://www.sphinx-doc.org/en/master/
-.. _tox: https://tox.wiki/
+    .. grid-item-card:: User guide
+      :link: ../user_guide/index
+      :link-type: doc
+
+      Information on key concepts of PyLumerical.
+
+    .. grid-item-card:: API reference
+      :link: ../api/index
+      :link-type: doc
+
+      Reference for the PyLumerical API.
+
+    .. grid-item-card:: Examples
+        :link: ../examples
+        :link-type: doc
+
+        Gallery of examples using PyLumerical.
+
+..
+    TODO: Revamp application examples below. Give a few recommended ones. Add link to example landing page above.
+
+Recommended examples
+----------------------
+
+Recommended examples to further build your understanding of PyLumerical and its capabilities.
+
+Ansys Lumerical FDTD™
+^^^^^^^^^^^^^^^^^^^^^^
+
+- `Nanowire example using FDTD`_
+
+.. _Nanowire example using FDTD: https://optics.ansys.com/hc/en-us/articles/360034416574-FDTD-application-example
+
+Ansys Lumerical INTERCONNECT™
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- `Monte Carlo analysis in INTERCONNECT`_
+- `Optical transceiver co-simulation in INTERCONNECT`_
+
+.. _Optical transceiver co-simulation in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034936773-Python-co-simulation-with-INTERCONNECT
+.. _Monte Carlo analysis in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034416574-INTERCONNECT-application-example
+

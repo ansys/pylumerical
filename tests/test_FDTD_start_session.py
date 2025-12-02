@@ -25,7 +25,7 @@
 import ansys.lumerical.core as lumapi  # Import the lumapi module
 
 
-def test_FDTD_start_session():
+def test_fdtd_start_session():
     """
     Test the starting of an FDTD session and variable manipulation.
 

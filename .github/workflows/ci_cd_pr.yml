@@ -39,7 +39,8 @@ jobs:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          dev-mode: true
+          dev-mode: ${{ github.ref != 'refs/heads/main' }}
+          upload-reports: true
 
   update-changelog:
     name: "Update CHANGELOG (on release)"

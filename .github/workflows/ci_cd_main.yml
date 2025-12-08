@@ -48,7 +48,7 @@ jobs:
     needs: doc-build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # Required to deploy documentation
     steps:
       - name: Deploy the latest documentation
         uses: ansys/actions/doc-deploy-dev@v10

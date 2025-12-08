@@ -8,9 +8,9 @@ env:
   LIBRARY_NAME: 'ansys-lumerical-core'
   DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
-permissions:
-  contents: read
-  pull-requests: read
+# Disable all default permissions at workflow level for security (least privilege principle)
+# Individual jobs will explicitly request only the permissions they need
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

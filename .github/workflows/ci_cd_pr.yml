@@ -280,9 +280,9 @@ jobs:
     needs: [tests, doc-build]
     runs-on: ubuntu-latest
     permissions:
-      attestations: write
-      contents: read
-      id-token: write
+      attestations: write # Required to create attestations
+      contents: read # Required to access repository contents for build
+      id-token: write # Required for trusted publisher
     steps:
       - name: Build library source and wheel artifacts
         uses: ansys/actions/build-library@v10

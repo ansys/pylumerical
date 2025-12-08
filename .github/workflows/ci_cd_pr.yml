@@ -29,17 +29,17 @@ jobs:
           auditing-level: "high"
           trust-ansys-actions: true
 
-  # vulnerabilities:
-  #   name: Vulnerabilities
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: PyAnsys Vulnerability check (on PR)
-  #       uses: ansys/actions/check-vulnerabilities@v10
-  #       with:
-  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
-  #         python-package-name: ${{ env.LIBRARY_NAME }}
-  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-  #         dev-mode: true
+  vulnerabilities:
+    name: Vulnerabilities
+    runs-on: ubuntu-latest
+    steps:
+      - name: PyAnsys Vulnerability check (on PR)
+        uses: ansys/actions/check-vulnerabilities@v10
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-package-name: ${{ env.LIBRARY_NAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          dev-mode: true
 
   update-changelog:
     name: "Update CHANGELOG (on release)"

@@ -109,12 +109,8 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
 # nbpsphinx configurations
 
 nbsphinx_execute = "never"
-
 nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
-
 nbsphinx_prolog = """
-
-
 .. grid:: 1 2 2 2
 
     .. grid-item::
@@ -166,7 +162,6 @@ def copy_examples_to_output_dir(app, exception):
 
 
 rst_prolog = ""
-
 rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}"""
 
 # static path

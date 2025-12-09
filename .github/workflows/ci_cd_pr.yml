@@ -32,6 +32,8 @@ jobs:
   vulnerabilities:
     name: Vulnerabilities
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: PyAnsys Vulnerability check (on PR)
         uses: ansys/actions/check-vulnerabilities@v10

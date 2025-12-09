@@ -22,6 +22,8 @@ jobs:
   vulnerabilities:
     name: Vulnerabilities
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: PyAnsys Vulnerability check (on main)
         uses: ansys/actions/check-vulnerabilities@v10
@@ -29,7 +31,7 @@ jobs:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          dev-mode: false
+          dev-mode: ${{ github.ref != 'refs/heads/main' }}
           upload-reports: true
 
   doc-build:

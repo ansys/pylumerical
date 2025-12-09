@@ -5,10 +5,12 @@ on:
     secrets:
       PYANSYS_CI_BOT_TOKEN:
         required: true
-      PYANSYS_CI_BOT_USERNAME:
+      LICENSE_SERVER:
         required: true
-      PYANSYS_CI_BOT_EMAIL:
-        required: true
+
+# Disable all default permissions at workflow level for security (least privilege principle)
+# Individual jobs will explicitly request only the permissions they need
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.run_id }}

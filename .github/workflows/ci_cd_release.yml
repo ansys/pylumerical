@@ -89,8 +89,7 @@ jobs:
     uses: ./.github/workflows/common-tests-lumerical.yml
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-      PYANSYS_CI_BOT_USERNAME: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-      PYANSYS_CI_BOT_EMAIL: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
 
   package:
     name: Package library

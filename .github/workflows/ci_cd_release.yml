@@ -87,7 +87,10 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write  # Required to access repository contents and match reusable workflow
     uses: ./.github/workflows/common-tests-lumerical.yml
-    secrets: inherit
+    secrets:
+      PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+      PYANSYS_CI_BOT_USERNAME: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+      PYANSYS_CI_BOT_EMAIL: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
 
   package:
     name: Package library

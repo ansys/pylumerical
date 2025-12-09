@@ -32,7 +32,6 @@ jobs:
           python-package-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           dev-mode: ${{ github.ref != 'refs/heads/main' }}
-          upload-reports: true
 
   doc-build:
     name: "Doc build"

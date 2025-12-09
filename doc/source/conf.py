@@ -181,6 +181,9 @@ linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
     r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
+    # Ignore example download links for .ipynb and .py files, these links do not work until a version is published
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.ipynb",
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.py",
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not

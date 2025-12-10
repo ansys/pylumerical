@@ -21,7 +21,7 @@ on:
         required: true
       LICENSE_SERVER:
         required: true
-      GITHUB_TOKEN:
+      TOKEN:
         required: true
 
 env:
@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: ansys/actions/doc-style@v10
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
 
   doc-build:
     name: "Doc build"

@@ -45,7 +45,7 @@ jobs:
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Release project to GitHub

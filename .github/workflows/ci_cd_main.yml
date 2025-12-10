@@ -10,26 +10,28 @@ env:
   LIBRARY_NAME: 'ansys-lumerical-core'
   DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
-permissions:
-  contents: read
-  pull-requests: read
+# Disable all default permissions at workflow level for security (least privilege principle)
+# Individual jobs will explicitly request only the permissions they need
+permissions: {}
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # vulnerabilities:
-  #   name: Vulnerabilities
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: PyAnsys Vulnerability check (on main)
-  #       uses: ansys/actions/check-vulnerabilities@v10
-  #       with:
-  #         python-version: ${{ env.MAIN_PYTHON_VERSION }}
-  #         python-package-name: ${{ env.LIBRARY_NAME }}
-  #         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-  #         dev-mode: false
+  vulnerabilities:
+    name: Vulnerabilities
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: PyAnsys Vulnerability check (on main)
+        uses: ansys/actions/check-vulnerabilities@v10
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-package-name: ${{ env.LIBRARY_NAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          dev-mode: ${{ github.ref != 'refs/heads/main' }}
 
   doc-build:
     name: "Doc build"
@@ -42,13 +44,22 @@ jobs:
           use-python-cache: false
           needs-quarto: true
 
+  tests:
+    permissions:
+      id-token: write # Required for trusted publisher
+      contents: write # Required by reusable workflow for write operations
+    uses: ./.github/workflows/common-tests-lumerical.yml
+    secrets:
+      PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+
   doc-deploy-dev:
     name: Upload dev documentation
     if: github.ref == 'refs/heads/main'
     needs: doc-build
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # Required to deploy documentation
     steps:
       - name: Deploy the latest documentation
         uses: ansys/actions/doc-deploy-dev@v10

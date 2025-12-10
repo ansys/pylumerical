@@ -12,10 +12,6 @@ on:
 # Individual jobs will explicitly request only the permissions they need
 permissions: {}
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.run_id }}
-  cancel-in-progress: true
-
 jobs:
   tests:
     name: "Test with Lumerical Unified Linux Container"

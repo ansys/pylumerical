@@ -1,14 +1,18 @@
 # Contributors
 
-## Project Lead or Owner
+## Project Lead
 
-* Luke Queenan (https://github.com/lukequeenan-ansys)
-* Dylan McGuire (https://github.com/dylanm-ansys)
-* Greg Baethge (https://github.com/gregbaethge)
+* [Luke Queenan](https://github.com/lukequeenan-ansys)
+* [Greg Baethge](https://github.com/gregbaethge)
 
 ## Individual Contributors
 
-* Marius Ghetie (https://github.com/mghetie-ansys)
-* Adan Wang (https://github.com/adan-wang-2)
-* Anna Wirth-Singh (https://github.com/annawirthsingh-ansys)
-* Taylor Robertson (https://github.com/taylor5005)
+* [Adan Wang](https://github.com/adan-wang-2)
+* [annawirthsingh-ansys](https://github.com/annawirthsingh-ansys)
+* [Cole Rees](https://github.com/crees-ansys)
+* [Dylan McGuire](https://github.com/dylanm-ansys)
+* [Jorge Martínez](https://github.com/jorgepiloto)
+* [Kerry McAdams](https://github.com/klmcadams)
+* [Marius Ghetie](https://github.com/mghetie-ansys)
+* [Revathy Venugopal](https://github.com/Revathyvenugopal162)
+* [Roberto Pastor Muela](https://github.com/RobPasMue)

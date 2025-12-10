@@ -31,6 +31,10 @@ env:
 # Individual jobs will explicitly request only the permissions they need
 permissions: {}
 
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   code-style:
     name: "Code style"

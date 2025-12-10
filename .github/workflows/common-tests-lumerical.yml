@@ -12,9 +12,13 @@ on:
 # Individual jobs will explicitly request only the permissions they need
 permissions: {}
 
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  tests:
-    name: "Test with Lumerical Unified Linux Container"
+  unit-tests:
+    name: "Unit Tests with Lumerical Unified Linux Container"
     runs-on: ubuntu-latest
     permissions:
       id-token: write # Required for trusted publisher

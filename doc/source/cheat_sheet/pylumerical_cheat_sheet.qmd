@@ -49,7 +49,7 @@ Start a Lumerical FDTD session
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.FDTD() as fdtd:
-  print(f"Welcome to Lumerical {fdtd.version()}!")
+  print(f"Welcome to Lumerical FDTD {fdtd.version()}!")
   input("Press any key to close session")
 ```
 

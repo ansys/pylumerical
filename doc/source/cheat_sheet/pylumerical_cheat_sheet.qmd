@@ -37,8 +37,7 @@ jupyter:
 
 ```{bash}
 python -m venv .venv
-.venv\Scripts\Activate.ps1 # Windows PowerShell
-source .venv/bin/activate # Linux
+.venv\Scripts\Activate.ps1 # Windows PowerShell. For Linux, run source .venv/bin/activate
 python -m pip install -U pip
 python -m pip install ansys-lumerical-core
 ```
@@ -96,7 +95,7 @@ with lumapi.FDTD() as fdtd:
 Using set commands
 ```{python}
 with lumapi.FDTD() as fdtd:
-  fdtd.addrect(name = "MyRect")
+  fdtd.addrect({"name " : "MyRect"})
   fdtd.setnamed("MyRect","x", 0)
   fdtd.setnamed("MyRect","x span", 1e-6)
 ```
@@ -126,9 +125,9 @@ with lumapi.FDTD(hide=True) as fdtd:
 Run simulation locally
 ```{python}
 with lumapi.FDTD() as fdtd:
-  runMode = "GPU" # "CPU" or "GPU"
+  # ... Create your project
   fdtd.save("MyPyLumericalProject.fsp")
-  fdtd.run("FDTD", runMode, f"PyLum {runMode}")
+  fdtd.run("FDTD", "GPU", f"PyLum GPU") # Run GPU solver on the PyLum GPU resource
 ```
 
 Run FDTD solver on [Ansys Cloud Burst Compute\texttrademark](https://optics.ansys.com/hc/en-us/articles/39824576734867-Ansys-Cloud-Burst-Compute-for-Lumerical)

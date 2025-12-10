@@ -23,6 +23,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5 # Fallback cooldown if no specific rule applies
     labels:
       - "maintenance"
     commit-message:

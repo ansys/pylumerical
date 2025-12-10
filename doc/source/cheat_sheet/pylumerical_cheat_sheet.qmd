@@ -95,7 +95,7 @@ with lumapi.FDTD() as fdtd:
 Using set commands
 ```{python}
 with lumapi.FDTD() as fdtd:
-  fdtd.addrect({"name " : "MyRect"})
+  fdtd.addrect({"name": "MyRect"})
   fdtd.setnamed("MyRect","x", 0)
   fdtd.setnamed("MyRect","x span", 1e-6)
 ```

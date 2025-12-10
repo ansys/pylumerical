@@ -5,8 +5,8 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.13'
-  LIBRARY_NAME: 'ansys-lumerical-core'
-  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
+  LIBRARY_NAME: 'ansys-lumerical-core' # Note that this is duplicated in the build-test-package job
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com' # Note that this is duplicated in the build-test-package job
 
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need
@@ -113,10 +113,9 @@ jobs:
       attestations: write # Required to create attestations
     uses: ./.github/workflows/common-build-test-package.yml
     with:
-      python-version: ${{ env.MAIN_PYTHON_VERSION }}
-      library-name: ${{ env.LIBRARY_NAME }}
-      documentation-cname: ${{ env.DOCUMENTATION_CNAME }}
-      skip-doc-build-if-closed: ${{ github.event.action == 'closed' && 'true' || 'false' }}
+      library-name: 'ansys-lumerical-core'
+      documentation-cname: 'lumerical.docs.pyansys.com'
+      skip-doc-build-if-closed: ${{ github.event.action == 'closed' }}
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}

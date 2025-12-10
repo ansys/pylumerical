@@ -3,10 +3,6 @@ name: Common Build, Test, and Package
 on:
   workflow_call:
     inputs:
-      python-version:
-        description: 'Main Python version to use'
-        required: true
-        type: string
       library-name:
         description: 'Name of the library'
         required: true
@@ -28,6 +24,9 @@ on:
       GITHUB_TOKEN:
         required: true
 
+env:
+  MAIN_PYTHON_VERSION: '3.13'
+
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need
 permissions: {}
@@ -46,7 +45,7 @@ jobs:
       - name: "Run code style checks"
         uses: ansys/actions/code-style@v10
         with:
-          python-version: ${{ inputs.python-version }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
 
   doc-style:
@@ -70,7 +69,7 @@ jobs:
       - uses: ansys/actions/doc-build@v10
         with:
           skip-install: true
-          python-version: ${{ inputs.python-version }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
           needs-quarto: true
 
@@ -116,5 +115,5 @@ jobs:
         uses: ansys/actions/build-library@v10
         with:
           library-name: ${{ inputs.library-name }}
-          python-version: ${{ inputs.python-version }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
           attest-provenance: true

@@ -58,8 +58,8 @@ Start Lumerical Multiphysics, add CHARGE and HEAT solvers
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.DEVICE() as device:
-  device.addcharge()
-  device.addheat()
+  device.addchargesolver()
+  device.addheatsolver()
 ```
 
 Start a Lumerical INTERCONNECT session, and print library

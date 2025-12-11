@@ -89,7 +89,7 @@ To run tests, first install the test requirements seen in the previous section, 
 
 .. code:: bash
 
-    pytest --cov="<path_to_virtual_environment>\Lib\site-packages\ansys\api\lumerical" --cov="<pylumerical_repository>\tests\unit" --cov-report=html:coverage_report –verbose
+    pytest --cov="<path_to_virtual_environment>\Lib\site-packages\ansys\api\lumerical" --cov="<pylumerical_repository>\tests\unit" --cov-report=html:coverage_report –-verbose
 
 Replace ``<path_to_virtual_environment>`` with the path to your virtual environment, and ``<pylumerical_repository>`` with the path to your local PyLumerical repository.
 

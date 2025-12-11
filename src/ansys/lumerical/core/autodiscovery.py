@@ -22,6 +22,7 @@
 
 """Autodiscover the Lumerical installation directory."""
 
+import os
 from pathlib import Path
 import platform
 import re
@@ -52,6 +53,7 @@ def locate_lumerical_install():
 
     Notes
     -----
+        - Checks the LUMERICAL_HOME environment variable first. If set and valid, uses it.
         - On Windows, the function first searches the registry, then searches under "C:\\Program Files\\Lumerical\\" and
           "C:\\Program Files\\Ansys Inc\\Lumerical".
         - On Linux, the function searches under "/opt/lumerical/" and "~/Ansys/ansys_inc/Lumerical".
@@ -60,6 +62,13 @@ def locate_lumerical_install():
     --------
         Example 1: Use autodiscovery to locate a Lumerical installation in a default location.
 
+        >>> import ansys.lumerical.core as lumapi
+        >>> # use lumapi ...
+
+        Example 1a: Set the environment variable before importing the module.
+
+        >>> import os
+        >>> os.environ["LUMERICAL_HOME"] = r"C:\Program Files\Lumerical\v252\"
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
@@ -78,6 +87,11 @@ def locate_lumerical_install():
         >>> # use lumapi ...
     """
     lumerical_install_dir = None
+
+    # Check for environment variable first
+    env_install_dir = os.environ.get("LUMERICAL_HOME")
+    if env_install_dir and Path(env_install_dir).exists():
+        return env_install_dir
 
     if platform.system() == "Windows":
         try:

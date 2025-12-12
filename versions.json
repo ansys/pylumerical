@@ -1,0 +1,12 @@
+[
+  {
+    "name": "dev",
+    "version": "dev",
+    "url": "https://lumerical.docs.pyansys.com/version/dev/"
+  },
+  {
+    "name": "0.1 (stable)",
+    "version": "0.1",
+    "url": "https://lumerical.docs.pyansys.com/version/stable/"
+  }
+]

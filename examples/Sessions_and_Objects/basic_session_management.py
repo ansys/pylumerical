@@ -1,25 +1,20 @@
-"""
-
-Basic session management.
-
-------------------------
-This example demonstrates how to initialize a local Lumerical session.
-PyLumerical interacts with Lumerical products through sessions.
-
-Prerequisites: Valid FDTD and MODE licenses are required.
-"""
-
-###############################################################################
+# # Basic Session Management
 #
-# Perform required imports
-# ~~~~~~~~~~~~~~~~~~~~~~~~
+# This example demonstrates how to initialize a local Lumerical session.
+# PyLumerical interacts with Lumerical products through sessions.
+#
+# ## Prerequisites:
+#
+# Valid FDTD and MODE licenses are required.
+#
+# ### Perform required imports
 
 import ansys.lumerical.core as lumapi
 
-###############################################################################
 #
-# Open an interactive session
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ### Open an interactive session
+
+# +
 
 fdtd = lumapi.FDTD()
 # Wait for a second, then add FDTD region
@@ -38,10 +33,9 @@ mode.close()
 fdtd = lumapi.FDTD(hide=True)
 fdtd.close()
 
-###############################################################################
-#
-# Use the "with" context manager
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# -
+
+# ### Use the "with" context manager
 
 with lumapi.FDTD() as fdtd:
     fdtd.addfdtd()
@@ -49,11 +43,8 @@ with lumapi.FDTD() as fdtd:
     fdtd.pause(30)
 # FDTD closes automatically
 
-###############################################################################
-#
-# Session wrapped in a function
+# ### Session wrapped in a function
 # Get the number of grid cells in FDTD region for set span
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 def get_x_cells(fdtd_span):
@@ -67,6 +58,7 @@ def get_x_cells(fdtd_span):
     return x_cells
 
 
-# Test the function and print out the result
+# ### Test the function and print out the result
+
 test = get_x_cells(1e-6)
 print(test)

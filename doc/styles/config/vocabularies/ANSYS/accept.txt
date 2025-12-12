@@ -29,4 +29,5 @@ photonic
 photonics
 lumopt
 lumslurm
+[Jj]upytext
 [Aa]utodiscovery

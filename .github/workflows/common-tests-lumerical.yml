@@ -1,0 +1,123 @@
+name: Common Tests with Lumerical
+
+on:
+  workflow_call:
+    secrets:
+      PYANSYS_CI_BOT_TOKEN:
+        required: true
+      LICENSE_SERVER:
+        required: true
+
+# Disable all default permissions at workflow level for security (least privilege principle)
+# Individual jobs will explicitly request only the permissions they need
+permissions: {}
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    name: "Unit Tests with Lumerical Unified Linux Container"
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for trusted publisher
+      contents: write # Required for GitHub uploads
+    env:
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_3'
+      DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
+    steps:
+
+      - name: "Checkout PyLumerical"
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Login to GitHub container registry"
+        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+      - name: "Pull Lumerical Unified Container"
+        env:
+          DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+        run: |
+          docker pull ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Prepare ownership for container user (lumerical)"
+        env:
+          LUMERICAL_UID: 1000
+          LUMERICAL_GID: 1000
+        run: |
+          echo "ORIG_UID=$(id -u)" >> $GITHUB_ENV
+          echo "ORIG_GID=$(id -g)" >> $GITHUB_ENV
+          sudo chown -R "$LUMERICAL_UID:$LUMERICAL_GID" .
+          ls -la
+
+      - name: "Run Lumerical Unified Container"
+        env:
+            DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+            DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+            LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+        run: |
+          docker run \
+            --detach -it \
+            --network="host" \
+            --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
+            --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
+            --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
+            ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Install Project Dependencies and Run Tests"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+            docker exec \
+              --workdir /home/lumerical/pylumerical \
+              ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} /bin/bash --login -c \
+              "python -m pip install -e .[tests] && \
+              pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
+              --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
+
+      - name: "Restore original ownership"
+        if: always()
+        env:
+          ORIG_UID: ${{ env.ORIG_UID }}
+          ORIG_GID: ${{ env.ORIG_GID }}
+        run: |
+          if [[ -z "$ORIG_UID" || -z "$ORIG_GID" || ! "$ORIG_UID" =~ ^[0-9]+$ || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+            if [[ -z "$ORIG_UID" || ! "$ORIG_UID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_UID ('$ORIG_UID') is not set or not a valid integer (expected a numeric UID)."
+            elif [[ -z "$ORIG_GID" || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+              echo "Skipping chown: ORIG_GID ('$ORIG_GID') is not set or not a valid integer (expected a numeric GID)."
+            else
+              echo "Skipping chown: Unknown error with ORIG_UID ('$ORIG_UID') or ORIG_GID ('$ORIG_GID')."
+            fi
+          else
+            sudo chown -R "$ORIG_UID:$ORIG_GID" .
+          fi
+          ls -la
+
+      - name: Upload Coverage Results
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: coverage-html-ubuntu
+          path: .cov/html
+          retention-days: 7
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
+        with:
+          files: .cov/xml
+
+      - name: "Stop lumerical services"
+        if: always()
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+          docker stop ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker logs ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker rm ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}

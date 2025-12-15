@@ -193,13 +193,10 @@ if switcher_version != "dev":
 
 
 # Define extlinks
-
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
 
 
 # Define setup function
-
-
 def setup(app):
     """Sphinx setup function."""
     app.connect("builder-inited", copy_examples_to_source_dir)

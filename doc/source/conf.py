@@ -40,6 +40,7 @@ html_theme_options = {
     "ansys_sphinx_theme_autoapi": {
         "project": "PyLumerical",
     },
+    "cheatsheet": {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"},
 }
 
 # Sphinx extensions

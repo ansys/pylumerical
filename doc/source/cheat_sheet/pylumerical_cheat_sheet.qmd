@@ -72,7 +72,7 @@ The ```hide``` flag hides the GUI during execution
 ```{python}
 import ansys.lumerical.core as lumapi
 with lumapi.FDTD(hide=True) as fdtd:
-  print(f"Welcome to Lumerical {fdtd.version()}!")
+  print(f"Welcome to Lumerical FDTD {fdtd.version()}!")
 ```
 
 Run existing scripts on an existing Lumerical FDTD project
@@ -113,13 +113,13 @@ with lumapi.FDTD() as fdtd:
 Set up resources
 ```{python}
 with lumapi.FDTD(hide=True) as fdtd:
-  resourceNum = fdtd.addresource("FDTD")
-  # Add a CPU resource called "PyLum CPU"
-  fdtd.setresource("FDTD", resourceNum, "device type", "CPU")
-  fdtd.setresource("FDTD", "name", "PyLum CPU")
-  # Add a GPU resource called "PyLum GPU"
-  fdtd.setresource("FDTD", resourceNum, "device type", "GPU")
-  fdtd.setresource("FDTD", "name", "PyLum GPU")
+  # Add a CPU/GPU resources, "PyLum CPU"/"PyLum GPU"
+  cpuRes = fdtd.addresource("FDTD")
+  fdtd.setresource("FDTD", cpuRes, "device type", "CPU")
+  fdtd.setresource("FDTD", cpuRes, "name", "PyLum CPU")
+  gpuRes = fdtd.addresource("FDTD")
+  fdtd.setresource("FDTD", gpuRes, "device type", "GPU")
+  fdtd.setresource("FDTD", gpuRes, "name", "PyLum GPU")
 ```
 
 Run simulation locally
@@ -127,7 +127,7 @@ Run simulation locally
 with lumapi.FDTD() as fdtd:
   # ... Create your project
   fdtd.save("MyPyLumericalProject.fsp")
-  fdtd.run("FDTD", "GPU", f"PyLum GPU") # Run GPU solver on the PyLum GPU resource
+  fdtd.run("FDTD", "GPU", "PyLum GPU") # Run GPU solver on the PyLum GPU resource
 ```
 
 Run FDTD solver on [Ansys Cloud Burst Compute\texttrademark](https://optics.ansys.com/hc/en-us/articles/39824576734867-Ansys-Cloud-Burst-Compute-for-Lumerical)

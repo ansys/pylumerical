@@ -3,6 +3,12 @@ PyLumerical |version|
 
 PyLumerical is the Python automation library for Ansys Lumerical photonics simulation software. Use PyLumerical to seamlessly control Ansys Lumerical products including Ansys Lumerical FDTD™, Ansys Lumerical MODE™, Ansys Lumerical Multiphysics™, and Ansys Lumerical INTERCONNECT™ directly in Python.
 
+.. note::
+
+   The Lumerical inverse design library `lumopt` and the high performance computing (HPC) scheduler automation library `lumslurm` are currently only available as a part of the Lumerical Python API and unavailable in PyLumerical.
+
+   The `Lumerical Python API <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ is still provided with Lumerical products.
+
 Capabilities
 -------------------
 
@@ -81,12 +87,6 @@ Documentation
       ^^^
 
       Learn how to contribute to the PyLumerical project.
-
-.. note::
-
-   The Lumerical inverse design library `lumopt` and the high performance computing (HPC) scheduler automation library `lumslurm` are currently only available as a part of the Lumerical Python API and unavailable in PyLumerical.
-
-   The `Lumerical Python API <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ is still provided with Lumerical products.
 
 .. toctree::
    :hidden:

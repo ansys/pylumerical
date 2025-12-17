@@ -89,16 +89,18 @@ To run tests, first install the test requirements seen in the previous section, 
 
 .. code:: bash
 
-    pytest --cov="<path_to_virtual_environment>\Lib\site-packages\ansys\api\lumerical" --cov="<pylumerical_repository>\tests\unit" --cov-report=html:coverage_report –verbose
+    pytest --cov="<path_to_virtual_environment>\Lib\site-packages\ansys\api\lumerical" --cov="<pylumerical_repository>\tests\unit" --cov-report=html:coverage_report --verbose
 
 Replace ``<path_to_virtual_environment>`` with the path to your virtual environment, and ``<pylumerical_repository>`` with the path to your local PyLumerical repository.
 
 Documentation
 -------------
 
-PyLumerical uses reStructuredText and `Sphinx`_ for documentation. Before building the documentation, first install the documentation requirements seen in the previous section.
+PyLumerical uses reStructuredText and `Sphinx`_ for documentation.
 
-You can build the documentation locally by navigating to the ``/doc`` directory and running the following commands:
+Before building the documentation, first install the documentation requirements seen in the previous section. Beyond the Python module requirements, PyLumerical also requires `Pandoc <https://pandoc.org/installing.html>`_ and `Quarto <https://quarto.org/docs/get-started/>`_ to build the documentation examples and cheatsheet locally.
+
+After installing the dependencies, you can build the documentation locally by navigating to the ``/doc`` directory and running the following commands:
 
 .. tab-set::
 

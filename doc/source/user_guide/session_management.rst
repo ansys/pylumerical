@@ -76,7 +76,7 @@ You can wrap Lumerical sessions in a function to simplify setup. This is useful 
 Using the "with" context manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-PyLumerical support Python "with" statement by giving well-defined entrance and exit behavior to Lumerical session objects in Python. If there are any errors within the "with" code block, the session still closes successfully, unlike in a function. When an error occurs, an exception is raised, and the error from Lumerical is shown.
+PyLumerical support Python "with" statement by giving well-defined entrance and exit behavior to Lumerical session objects in Python. If there are any errors within the "with" code block, the session still closes successfully, unlike in a function. When an error occurs during execution, PyLumerical raises an exception and shows any error messages from the Lumerical script environment.
 
 **Example**
 
@@ -101,7 +101,7 @@ When starting a session using Python, use the ``serverArgs`` parameter to specif
     fdtd = lumapi.FDTD(serverArgs = {
                         'use-solve':True,
                         'platform':'offscreen',
-                        'threads': '2’}
+                        'threads': '2'}
                 )
 
 
@@ -124,7 +124,7 @@ When the variables local to the function or context manager go out of scope, the
 
 The Lumerical session also automatically terminate after the python script reaches the end.
 
-Python automatically deletes variables as they are removed from scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.
+Python automatically deletes variables as they exit the scope, so most of the time you don't need to close a session manually. However, you can also do so explicitly using the following command.
 
 .. code-block:: python
 

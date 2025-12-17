@@ -2,6 +2,8 @@
 
 from datetime import datetime
 import os
+import pathlib
+import shutil
 
 from ansys_sphinx_theme import get_version_match
 
@@ -38,6 +40,7 @@ html_theme_options = {
     "ansys_sphinx_theme_autoapi": {
         "project": "PyLumerical",
     },
+    "cheatsheet": {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"},
 }
 
 # Sphinx extensions
@@ -49,6 +52,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",  # Needed for cards
     "sphinx.ext.extlinks",
+    "nbsphinx",
 ]
 
 # Intersphinx mapping
@@ -63,6 +67,8 @@ intersphinx_mapping = {
     # "pyvista": ("https://docs.pyvista.org/", None),
     # "grpc": ("https://grpc.github.io/grpc/python/", None),
 }
+
+html_context = {"github_user": "ansys", "github_repo": "pylumerical", "github_version": "main", "doc_path": "doc/source", "pyansys_tags": ["Optics"]}
 
 # numpydoc configuration
 numpydoc_show_class_members = False
@@ -90,6 +96,10 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
+# Ignore files for build
+
+exclude_patterns = ["conf.py", "examples/README.rst"]
+
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
@@ -97,10 +107,62 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
-# RST prolog for substitution of custom variables
+# nbpsphinx configurations
+
+nbsphinx_execute = "never"
+nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
+nbsphinx_prolog = """
+.. grid:: 1 2 2 2
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{ipynb_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Jupyter Notebook (.ipynb)
+
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{py_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Python script (.py)
+
+----
+""".format(
+    base_path=f"https://{cname}/version/{get_version_match(version)}", py_file_path="{{ env.docname }}.py", ipynb_file_path="{{ env.docname }}.ipynb"
+)
+
+# Define auxiliary functions needed for examples
+
+
+def copy_examples_to_source_dir(app):
+    """Copy examples to source directory for nbsphinx."""
+    source_dir = pathlib.Path(app.srcdir)
+
+    shutil.copytree(source_dir.parent.parent / "examples", source_dir / "examples", dirs_exist_ok=True)
+
+
+def remove_examples_from_source_dir(app, exception):
+    """Remove examples from source directory after build."""
+    source_dir = pathlib.Path(app.srcdir)
+    shutil.rmtree(source_dir / "examples")
+
+
+def copy_examples_to_output_dir(app, exception):
+    """Copy examples to output directory."""
+    source_dir = pathlib.Path(app.srcdir)
+    build_dir = pathlib.Path(app.outdir)
+
+    shutil.copytree(source_dir.parent.parent / "examples", build_dir / "examples", dirs_exist_ok=True)
+
 
 rst_prolog = ""
-
 rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}"""
 
 # static path
@@ -120,6 +182,9 @@ linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
     r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
+    # Ignore example download links for .ipynb and .py files, these links do not work until a version is published
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.ipynb",
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.py",
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
@@ -129,10 +194,13 @@ if switcher_version != "dev":
 
 
 # Define extlinks
-
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
 
 
+# Define setup function
 def setup(app):
     """Sphinx setup function."""
+    app.connect("builder-inited", copy_examples_to_source_dir)
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
+    app.connect("build-finished", remove_examples_from_source_dir)
+    app.connect("build-finished", copy_examples_to_output_dir)

@@ -21,6 +21,15 @@ Capabilities
 
       Set up geometry, material, run simulations locally and on cloud, and retrieve results from Lumerical products.
 
+      +++
+
+      .. button-ref:: user_guide/index
+         :ref-type: doc
+         :shadow:
+         :color: primary
+         :click-parent:
+
+         Show me how ➤
 
    .. grid-item-card:: Seamlessly integrate existing automation
       :text-align: center
@@ -28,12 +37,31 @@ Capabilities
 
       Leverage Lumerical Scripting Language commands with Pythonic syntaxes, seamlessly integrate with existing automation scripts.
 
+      +++
+
+      .. button-ref:: examples
+         :ref-type: doc
+         :shadow:
+         :color: primary
+         :click-parent:
+
+         See it in action ➤
+
 
    .. grid-item-card:: Leverage the Python and PyAnsys ecosystem
       :text-align: center
       :padding: 3 3 4 4
 
       Leverage extensive Python libraries and easily integrate with other Ansys products through the PyAnsys ecosystem to create powerful multiphysics workflows.
+
+      +++
+
+      .. button-link:: https://docs.pyansys.com/version/stable/
+         :shadow:
+         :color: primary
+         :click-parent:
+
+         Explore PyAnsys ➤
 
 Documentation
 --------------

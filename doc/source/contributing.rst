@@ -28,7 +28,7 @@ you to modify the source and enhance it.
 
    .. tab-set::
 
-        .. tab-item:: POSIX
+        .. tab-item:: Linux
 
             .. code-block:: bash
 

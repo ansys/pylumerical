@@ -1,19 +1,18 @@
 # %% [markdown]
 # ## Basic FDTD Simulation - Lumerical style commands
-# 
+#
 # This simple example demonstrates using PyLumerical to start a session using Lumerical Script File (lsf) style commands.
 # Sets up and runs a basic FDTD simulation. E field results are plotted in Lumerical.
 # [Lumerical API](https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview)
-# 
-# 
-# ## Prerequisites: 
-# 
+#
+#
+# ## Prerequisites:
+#
 # Valid FDTD license is required.
-# 
+#
 
 # %%
 import ansys.lumerical.core as lumapi
-
 
 # Set hide = True to hide the Lumerical GUI.
 fdtd = lumapi.FDTD(hide=False)
@@ -74,9 +73,9 @@ fdtd.print("Example complete. Hit space bar to close.")
 
 # %% [markdown]
 # ## Python style commands
-# 
+#
 # A simple example to demonstrate using PyLumerical.
-# 
+#
 # Sets up and runs a basic FDTD simulation. E field results are plotted using Matplotlib
 # Demonstrates initializing objects using keyword arguments and OrderedDict.
 
@@ -132,6 +131,3 @@ with lumapi.FDTD() as fdtd:
 
     print("Example complete. Press Enter to close.")
     input()
-
-
-

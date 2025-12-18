@@ -63,7 +63,7 @@ You can wrap Lumerical sessions in a function to simplify setup. This is useful 
 
 .. code-block:: python
 
-    def myFunction(optionalParameter):
+    def myFunction(gaussianParameters=dict()):
         fdtd = lumapi.FDTD()
         # Setup code that does not change in the sweep
         ...

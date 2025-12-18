@@ -68,7 +68,7 @@ You can wrap Lumerical sessions in a function to simplify setup. This is useful 
         # Setup code that does not change in the sweep
         ...
         # Setup code that changes depending on the input parameter "optionalParameter"
-        fdtd.addgaussian(optionalParameter)
+        fdtd.addgaussian(gaussianParameters)
         ...
 
         return result

@@ -12,7 +12,7 @@ First, create a virtual environment and activate it to avoid dependency conflict
 
 .. tab-set::
 
-   .. tab-item:: POSIX
+   .. tab-item:: Linux
 
       .. code-block:: bash
 

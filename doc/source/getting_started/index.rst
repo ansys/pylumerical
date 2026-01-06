@@ -8,18 +8,40 @@ Installation
 
 You can install PyLumerical using pip.
 
-First, ensure that you have the latest pip version:
+First, create a virtual environment and activate it to avoid dependency conflicts and to keep your global Python environment clean.
+
+.. tab-set::
+
+   .. tab-item:: Linux
+
+      .. code-block:: bash
+
+         python -m venv .venv
+         source .venv/bin/activate
+
+   .. tab-item:: Windows Command Prompt
+
+      .. code-block:: bash
+
+         python -m venv .venv
+         .venv\\Scripts\\activate.bat
+
+   .. tab-item:: Windows Powershell
+
+      .. code-block:: bash
+
+         python -m venv .venv
+         .venv\\Scripts\\Activate.ps1
+
+Then, upgrade pip to the latest version, and install PyLumerical with the package name `ansys-lumerical-core`.
 
 .. code:: bash
 
     python -m pip install -U pip
-
-Then, install using:
-
-.. code:: bash
-
     python -m pip install ansys-lumerical-core
 
+.. tip::
+    Using a virtual environment isn't a requirement, but it's a best practice for Python development.
 
 Requirements
 -------------
@@ -36,13 +58,13 @@ My first PyLumerical project
 
 .. vale on
 
-The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a plane wave.
+The code snippet below provides simple project of using PyLumerical and Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave. Matplotlib isn't automatically installed with PyLumerical, so you need to install it separately in your environment.
 
 .. code-block:: python
 
-   import ansys.lumerical.core as lumapi # Ensure lumapi has already been added to path
+   import ansys.lumerical.core as lumapi
    import numpy as np
-   import matplotlib.pyplot as plt
+   import matplotlib.pyplot as plt # Ensure matplotlib is installed in your environment first
 
    with lumapi.FDTD() as fdtd:
       lambda_range = np.linspace(300e-9, 1100e-9, 500)

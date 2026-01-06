@@ -67,7 +67,6 @@ For more information on how to install PyLumerical and import the modules, see :
 
     import os,sys
     import numpy as np
-    sys.path.append("C:\\Program Files\\Lumerical\\v251\\api\\python\\") # locate lumapi files
     import ansys.lumerical.core as lumapi
     import matplotlib.pyplot as plt
 
@@ -277,7 +276,7 @@ The following Python driver script causes an error, even though the function def
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    custom_code = open("MyConstructor.lsf", "r").read()# This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
+    custom_code = open("MyConstructor.lsf", "r").read() # This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
     fdtd.eval(custom_code)
     fdtd.constructFDTDandRect(x_input =0,y_input = 0, z_input = 0)
 
@@ -288,7 +287,7 @@ In contrast, the following driver script executes without error, and add both th
 .. code-block:: python
 
     fdtd = lumapi.FDTD()
-    custom_code = open("MyConstructor.lsf", "r").read()# This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
+    custom_code = open("MyConstructor.lsf", "r").read() # This assumes the current working directory has a file named “MyConstructor.lsf”. Use os.chdir to change the current working directory if needed.
     fdtd.eval(custom_code)
     fdtd.constructFDTDandRect(0,0,0)
 

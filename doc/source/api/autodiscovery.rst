@@ -3,9 +3,11 @@ Autodiscovery
 
 PyLumerical requires Lumerical |supported_lum_release| or later to run. The autodiscovery function first attempts to find the installation location using the following methods:
 
-1. **Windows registry**: On Windows, PyLumerical checks the registry for the installation path of Lumerical products.
+1. **Environment variable**: PyLumerical checks the `LUMERICAL_HOME` environment variable for the installation path. If found, this path is used.
 
-2. **Default installation paths**: If the registry lookup fails, or if you are using Linux, PyLumerical checks the default installation paths:
+2. **Windows registry**: On Windows, PyLumerical checks the registry for the installation path of Lumerical products.
+
+3. **Default installation paths**: If the registry lookup fails, or if you are using Linux, PyLumerical checks the default installation paths:
     - On Windows, with the Lumerical standalone installer: ``C:\Program Files\Lumerical\``
     - On Windows, with the Ansys automated installer: ``C:\Program Files\ANSYS Inc\ANSYS Optics\``
     - On Linux, with the Lumerical standalone installer: ``/opt/Lumerical/``

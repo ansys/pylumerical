@@ -1,4 +1,4 @@
-# Copyright (C) 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2025 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -65,21 +65,21 @@ def locate_lumerical_install():
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 1a: Set the environment variable before importing the module.
+        Example 2: Set the environment variable before importing the module.
 
         >>> import os
         >>> os.environ["LUMERICAL_HOME"] = r"C:\Program Files\Lumerical\v252\"
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 2: Provide a custom installation path before importing the module.
+        Example 3: Provide a custom installation path before importing the module.
 
         >>> import ansys.api.lumerical.lumapi
         >>> ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 3: Provide a custom installation path after importing the module.
+        Example 4: Provide a custom installation path after importing the module.
 
         >>> import ansys.lumerical.core as lumapi
         Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.

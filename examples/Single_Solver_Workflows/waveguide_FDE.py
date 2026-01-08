@@ -1,18 +1,5 @@
-# ---
-# jupyter:
-#   jupytext:
-#     formats: ipynb,py:light
-#     text_representation:
-#       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.18.1
-#   kernelspec:
-#     display_name: .venv
-#     language: python
-#     name: .venv
-# ---
-
+# # Simple Waveguide (MODE FDE)
+#
 # A simple example using MODE.
 # Waveguide (FDE): https://optics.ansys.com/hc/en-us/articles/360042800453-Waveguide-FDE
 #

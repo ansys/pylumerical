@@ -1,18 +1,5 @@
-# ---
-# jupyter:
-#   jupytext:
-#     formats: ipynb,py:light
-#     text_representation:
-#       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.18.1
-#   kernelspec:
-#     display_name: .venv
-#     language: python
-#     name: .venv
-# ---
-
+# # Photonic Crystal Bandstructure (FDTD)
+#
 # This example demonstrates a photonic crystal simulation utilizing a built-in Structure Group object. Based on: https://optics.ansys.com/hc/en-us/articles/360041566614-Rectangular-Photonic-Crystal-Bandstructure
 #
 #

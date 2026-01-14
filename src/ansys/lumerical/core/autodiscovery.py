@@ -22,6 +22,7 @@
 
 """Autodiscover the Lumerical installation directory."""
 
+import os
 from pathlib import Path
 import platform
 import re
@@ -52,6 +53,7 @@ def locate_lumerical_install():
 
     Notes
     -----
+        - Checks the LUMERICAL_HOME environment variable first. If set and valid, uses it.
         - On Windows, the function first searches the registry, then searches under "C:\\Program Files\\Lumerical\\" and
           "C:\\Program Files\\Ansys Inc\\Lumerical".
         - On Linux, the function searches under "/opt/lumerical/" and "~/Ansys/ansys_inc/Lumerical".
@@ -63,14 +65,21 @@ def locate_lumerical_install():
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 2: Provide a custom installation path before importing the module.
+        Example 2: Set the environment variable before importing the module.
+
+        >>> import os
+        >>> os.environ["LUMERICAL_HOME"] = r"C:\Program Files\Lumerical\v252\"
+        >>> import ansys.lumerical.core as lumapi
+        >>> # use lumapi ...
+
+        Example 3: Provide a custom installation path before importing the module.
 
         >>> import ansys.api.lumerical.lumapi
         >>> ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 3: Provide a custom installation path after importing the module.
+        Example 4: Provide a custom installation path after importing the module.
 
         >>> import ansys.lumerical.core as lumapi
         Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.
@@ -78,6 +87,11 @@ def locate_lumerical_install():
         >>> # use lumapi ...
     """
     lumerical_install_dir = None
+
+    # Check for environment variable first
+    env_install_dir = os.environ.get("LUMERICAL_HOME")
+    if env_install_dir and Path(env_install_dir).exists():
+        return env_install_dir
 
     if platform.system() == "Windows":
         try:

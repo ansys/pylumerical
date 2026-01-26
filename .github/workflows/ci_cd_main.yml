@@ -61,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # Required to deploy documentation
+      pull-requests: write # Needed to add comments to the PR when cleaning pull directory
     steps:
       - name: Deploy the latest documentation
         uses: ansys/actions/doc-deploy-dev@v10

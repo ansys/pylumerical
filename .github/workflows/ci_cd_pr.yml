@@ -128,6 +128,7 @@ jobs:
     if: always() && (needs.build-test-package.result == 'success' || needs.build-test-package.result == 'skipped')
     permissions:
       contents: write # Required to deploy PR documentation
+      pull-requests: write # Needed to add comments to the PR when cleaning pull directory
     steps:
       - uses: ansys/actions/doc-deploy-pr@v10
         with:

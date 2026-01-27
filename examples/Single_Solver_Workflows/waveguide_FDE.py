@@ -91,7 +91,8 @@ mesh_props = OrderedDict(
 )
 mode.addmesh(properties=mesh_props)
 
-# Part 2: Calculate the supported modes of the waveguide. The analysis_props are equivalent to the settings in the Eigensolver Analysis window in the GUI.
+# Part 2: Calculate the supported modes of the waveguide.
+# The analysis_props are equivalent to the settings in the Eigensolver Analysis window in the GUI.
 
 mode.setanalysis("wavelength", wavelength)
 mode.setanalysis("number of trial modes", 10)
@@ -113,9 +114,9 @@ Efield = mode.getresult("FDE::data::" + selected_mode, "E")
 Ex = mode.getdata("FDE::data::" + selected_mode, "Ex")[:, :, 0, 0]
 Ey = mode.getdata("FDE::data::" + selected_mode, "Ey")[:, :, 0, 0]
 Ez = mode.getdata("FDE::data::" + selected_mode, "Ez")[:, :, 0, 0]
-absE = np.abs(Ex) ** 2 + np.abs(Ey) ** 2 + np.abs(Ez) ** 2
+E_mag = np.abs(Ex) ** 2 + np.abs(Ey) ** 2 + np.abs(Ez) ** 2
 plt.figure()
-plt.imshow(np.transpose(absE))
+plt.imshow(np.transpose(E_mag))
 plt.show()
 
 # Plot in Lumerical GUI

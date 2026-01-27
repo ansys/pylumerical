@@ -1,11 +1,15 @@
 # # Photonic Crystal Bandstructure (FDTD)
 #
-# This example demonstrates a photonic crystal simulation utilizing a built-in Structure Group object. Based on: https://optics.ansys.com/hc/en-us/articles/360041566614-Rectangular-Photonic-Crystal-Bandstructure
+# This example demonstrates a photonic crystal simulation utilizing a built-in Structure Group object.
+# Based on: https://optics.ansys.com/hc/en-us/articles/360041566614-Rectangular-Photonic-Crystal-Bandstructure
 #
 #
-# In Part 1, we build the structure and set the FDTD simulation region. In this case, the spheres are holes (filled with air, n = 1) and the background material is a simple dielectric material. Some advanced simulation objects, including the photonic crystal array and bandstructure analysis groups, are imported from the Object Library. We run a single simulation and visualize the resulting spectrum.
+# In Part 1, we build the structure and set the FDTD simulation region. In this case, the spheres are holes (filled with air, n = 1)
+# and the background material is a simple dielectric material. Some advanced simulation objects, including the photonic crystal array
+# and bandstructure analysis groups, are imported from the Object Library. We run a single simulation and visualize the resulting spectrum.
 #
-# In Part 2, we set up a series of sweeps to collect the resonant frequencies. In this example, we use the built-in sweep tool in Lumerical, but the parameter sweeps could also be set up from Python. We then run the sweeps and plot the results.
+# In Part 2, we set up a series of sweeps to collect the resonant frequencies. In this example, we use the built-in sweep tool in Lumerical,
+# but the parameter sweeps could also be set up from Python. We then run the sweeps and plot the results.
 #
 # Prerequisites: Valid FDTD license is required.
 

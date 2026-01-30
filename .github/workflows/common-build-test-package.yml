@@ -26,6 +26,7 @@ on:
 
 env:
   MAIN_PYTHON_VERSION: '3.13'
+  DOCUMENTATION_CNAME: ${{ inputs.documentation-cname }}
 
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need

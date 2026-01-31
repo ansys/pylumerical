@@ -2,8 +2,8 @@
 
 ## Project Lead
 
-* [Luke Queenan](https://github.com/lukequeenan-ansys)
 * [Greg Baethge](https://github.com/gregbaethge)
+* [Luke Queenan](https://github.com/lukequeenan-ansys)
 
 ## Individual Contributors
 

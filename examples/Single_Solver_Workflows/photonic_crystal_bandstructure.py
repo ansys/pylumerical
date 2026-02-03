@@ -137,6 +137,8 @@ fdtd.runanalysis()
 single_spectrum = fdtd.getresult("bandstructure", "spectrum")
 fdtd.visualize(single_spectrum)
 
+print("Part 1 complete. Single simulation has been run. Next, we set up and run sweeps.")
+
 # Part 2: Set up and run sweeps to extract resonant frequencies and plot the bandstructure
 
 # +
@@ -210,7 +212,9 @@ fdtd.addsweepresult("M-R", result_spectrum)
 
 # +
 # Run all the sweeps - this may take a few minutes
+print("Sweeps have been set up. Starting sweep run now.")
 fdtd.runsweep()
+print("Sweep run completed. Now retrieving and plotting results.")
 
 # If you have previously run the sweeps, you can load them using this line instead:
 # fdtd.loadsweep()
@@ -237,11 +241,10 @@ fs_all[0:50, 40:60] = resonance_fs
 
 # -
 
-print(fs_all.shape)  # Check result array
-
 k = np.linspace(1, 60, 60)
 c = 3 * 10**8
 for f in range(0, 50):
     plt.scatter(k, fs_all[f] * ax / c)
 plt.xlabel("k (Gamma-X-M-R-Gamma")
 plt.ylabel("Resonant Frequency f (Hz*a/c)")
+plt.show()

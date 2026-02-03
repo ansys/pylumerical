@@ -7,7 +7,6 @@
 #
 # In Part 1, we build the structure and set the FDE simulation region.
 # In Part 2, we calculate the supported mode profiles of the waveguide.
-# In Part 3, we perform a frequency sweep and obtain the effective index, group index, and dispersion.
 #
 # Prerequisites:
 # Valid MODE license is required.
@@ -108,19 +107,20 @@ selected_mode_number = 1
 selected_mode = "mode" + str(selected_mode_number)
 Efield = mode.getresult("FDE::data::" + selected_mode, "E")
 
-# Plot in Python  - requires matplotlib
-# Note that passing field data from Lumerical to Python may require additional effort.
-# Lumerical uses an unstructured mesh, so the spacing between points may be non-constant.
-Ex = mode.getdata("FDE::data::" + selected_mode, "Ex")[:, :, 0, 0]
-Ey = mode.getdata("FDE::data::" + selected_mode, "Ey")[:, :, 0, 0]
-Ez = mode.getdata("FDE::data::" + selected_mode, "Ez")[:, :, 0, 0]
-E_mag = np.abs(Ex) ** 2 + np.abs(Ey) ** 2 + np.abs(Ez) ** 2
-plt.figure()
-plt.imshow(np.transpose(E_mag))
-plt.show()
-
 # Plot in Lumerical GUI
 mode.visualize((Efield))
+
+# Plot in Python - requires matplotlib
+# Note that Lumerical uses an unstructured mesh, so the spacing between points may be non-constant.
+# Therefore, it is preferable to collect x, y data from the monitor and plot using contourf. 
+x, y = Efield['x'] , Efield['y']
+Ex, Ey, Ez = Efield['E'][:,:,0,0,0], Efield['E'][:,:,0,0,1], Efield['E'][:,:,0,0,2]
+E_mag = np.abs(Ex)**2+np.abs(Ey)**2+np.abs(Ez)**2
+X, Y = np.meshgrid(x, y) # Create meshgrid for plotting
+plt.figure()
+plt.contourf(X, Y, np.transpose(E_mag))
+plt.show()
+
 # -
 
 #

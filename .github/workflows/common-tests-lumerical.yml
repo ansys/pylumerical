@@ -24,7 +24,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads
     env:
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_3'
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v252_4'
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 

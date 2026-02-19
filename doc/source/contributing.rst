@@ -107,7 +107,7 @@ To enable them, first install the following dependencies:
 * **Examples**: PyLumerical requires `Pandoc <https://pandoc.org/installing.html>`_ to build the examples locally.
 * **Cheatsheet**: PyLumerical requires `Quarto <https://quarto.org/docs/get-started/>`_  and a LaTeX distribution, such as `MiKTeX <https://miktex.org>`_, to build the cheatsheet locally.
 
-After installing the dependencies, enable local builds of the examples and cheatsheet by setting the following environment variables:
+After installing the dependencies, enable local builds of the examples and cheatsheet by setting the following environment variables in your operating system:
 
 * **Examples**: Set ``BUILD_PYLUMERICAL_EXAMPLES=TRUE`` to enable local builds of the examples.
 * **Cheatsheet**: Set ``BUILD_PYLUMERICAL_CHEATSHEET=TRUE`` to enable local builds of the cheatsheet.

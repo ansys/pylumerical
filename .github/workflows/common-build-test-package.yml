@@ -68,6 +68,9 @@ jobs:
       contents: read # Required to checkout repository
     steps:
       - uses: ansys/actions/doc-build@v10
+        env:
+          BUILD_PYLUMERICAL_CHEATSHEET: 'TRUE'
+          BUILD_PYLUMERICAL_EXAMPLES: 'TRUE'
         with:
           skip-install: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}

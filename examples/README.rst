@@ -12,6 +12,10 @@ PyLumerical examples uses the "Light" format for jupytext conversion. To write c
 
 Always ensure that your example files run without errors, and are properly formatted prior to submitting a pull request.
 
-The documentation build process currently not automatically execute the examples, as such, no outputs are displayed in the resulting documentation pages.
+The documentation build process currently does not automatically execute the examples, as such, no outputs are displayed in the resulting documentation pages.
 
-You can test your examples locally by running them as scripts, and you can test that the documentation formatting is correct by locally building the documentation. See the `contributing section <../doc/source/contributing.rst>`_ for more information.
+You can test your examples locally by running them as scripts, and you can test that the documentation formatting is correct by locally building the documentation.
+
+By default, PyLumerical disables local builds of examples to speed up documentation builds. To enable examples in your local documentation build, set the environment variable ``BUILD_PYLUMERICAL_EXAMPLES=TRUE`` before building the documentation.
+
+See the `contributing section <../doc/source/contributing.rst>`_ for more information on building documentation locally, such as the dependencies required.

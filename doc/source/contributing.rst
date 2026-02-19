@@ -98,9 +98,21 @@ Documentation
 
 PyLumerical uses reStructuredText and `Sphinx`_ for documentation.
 
-Before building the documentation, first install the documentation requirements seen in the previous section. Beyond the Python module requirements, PyLumerical also requires `Pandoc <https://pandoc.org/installing.html>`_ and `Quarto <https://quarto.org/docs/get-started/>`_ to build the documentation examples and cheatsheet locally.
+Before building the documentation locally, first install the documentation requirements seen in the previous section. You don't need additional dependencies unless you want to build the examples and cheatsheet locally.
 
-After installing the dependencies, you can build the documentation locally by navigating to the ``/doc`` directory and running the following commands:
+By default, PyLumerical disables local builds of the examples and cheatsheet.
+
+To enable them, first install the following dependencies:
+
+* **Examples**: PyLumerical requires `Pandoc <https://pandoc.org/installing.html>`_ to build the examples locally.
+* **Cheatsheet**: PyLumerical requires `Quarto <https://quarto.org/docs/get-started/>`_  and a LaTeX distribution, such as `MiKTeX <https://miktex.org>`_, to build the cheatsheet locally.
+
+After installing the dependencies, enable local builds of the examples and cheatsheet by setting the following environment variables:
+
+* **Examples**: Set ``BUILD_PYLUMERICAL_EXAMPLES=TRUE`` to enable local builds of the examples.
+* **Cheatsheet**: Set ``BUILD_PYLUMERICAL_CHEATSHEET=TRUE`` to enable local builds of the cheatsheet.
+
+To build the documentation, navigate to the ``/doc`` directory and run:
 
 .. tab-set::
 

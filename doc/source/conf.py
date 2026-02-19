@@ -19,6 +19,10 @@ supported_lum_release = f"20{__min_supported_lum_release__['year']} R{__min_supp
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 
+# Build configuration flags
+build_cheatsheet = os.getenv("BUILD_CHEATSHEET", "").lower() == "true"
+build_examples = os.getenv("BUILD_EXAMPLES", "").lower() == "true"
+
 # Select desired logo, theme, and declare the html title
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "PyLumerical"
@@ -40,8 +44,11 @@ html_theme_options = {
     "ansys_sphinx_theme_autoapi": {
         "project": "PyLumerical",
     },
-    "cheatsheet": {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"},
 }
+
+# Conditionally add cheatsheet if enabled
+if build_cheatsheet:
+    html_theme_options["cheatsheet"] = {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"}
 
 # Sphinx extensions
 extensions = [
@@ -111,7 +118,10 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
 
 nbsphinx_execute = "never"
 nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
-nbsphinx_prolog = """
+
+# Conditionally configure nbsphinx_prolog if examples are enabled
+if build_examples:
+    nbsphinx_prolog = """
 .. grid:: 1 2 2 2
 
     .. grid-item::
@@ -135,8 +145,12 @@ nbsphinx_prolog = """
 
 ----
 """.format(
-    base_path=f"https://{cname}/version/{get_version_match(version)}", py_file_path="{{ env.docname }}.py", ipynb_file_path="{{ env.docname }}.ipynb"
-)
+        base_path=f"https://{cname}/version/{get_version_match(version)}",
+        py_file_path="{{ env.docname }}.py",
+        ipynb_file_path="{{ env.docname }}.ipynb",
+    )
+else:
+    nbsphinx_prolog = ""
 
 # Define auxiliary functions needed for examples
 
@@ -200,7 +214,10 @@ extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/exam
 # Define setup function
 def setup(app):
     """Sphinx setup function."""
-    app.connect("builder-inited", copy_examples_to_source_dir)
+    # Conditionally register example-related handlers if examples are enabled
+    if build_examples:
+        app.connect("builder-inited", copy_examples_to_source_dir)
+        app.connect("build-finished", remove_examples_from_source_dir)
+        app.connect("build-finished", copy_examples_to_output_dir)
+
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
-    app.connect("build-finished", remove_examples_from_source_dir)
-    app.connect("build-finished", copy_examples_to_output_dir)

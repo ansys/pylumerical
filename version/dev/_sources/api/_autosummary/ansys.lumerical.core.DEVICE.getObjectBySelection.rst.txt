@@ -1,0 +1,6 @@
+getObjectBySelection
+====================
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: DEVICE.getObjectBySelection

@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /version/0.1
+Disallow: /pull/
+
+Sitemap: https://lumerical.docs.pyansys.com/sitemap.xml

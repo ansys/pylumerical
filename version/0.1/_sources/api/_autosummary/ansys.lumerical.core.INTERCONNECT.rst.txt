@@ -1,0 +1,42 @@
+﻿INTERCONNECT
+============
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: INTERCONNECT
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      INTERCONNECT.close
+      
+      
+      INTERCONNECT.eval
+      
+      
+      INTERCONNECT.getAllSelectedObjects
+      
+      
+      INTERCONNECT.getObjectById
+      
+      
+      INTERCONNECT.getObjectBySelection
+      
+      
+      INTERCONNECT.getv
+      
+      
+      INTERCONNECT.putv
+      
+   
+   
+
+   
+   
+   

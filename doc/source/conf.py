@@ -19,9 +19,9 @@ supported_lum_release = f"20{__min_supported_lum_release__['year']} R{__min_supp
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
 
-# Build configuration flags
-build_cheatsheet = os.getenv("BUILD_CHEATSHEET", "").lower() == "true"
-build_examples = os.getenv("BUILD_EXAMPLES", "").lower() == "true"
+# Build configuration environment variable flags
+build_cheatsheet = os.getenv("BUILD_PYLUMERICAL_CHEATSHEET", "").lower() == "true"
+build_examples = os.getenv("BUILD_PYLUMERICAL_EXAMPLES", "").lower() == "true"
 
 # Select desired logo, theme, and declare the html title
 html_theme = "ansys_sphinx_theme"

@@ -46,7 +46,7 @@ doc = [
     "sphinx_design==0.7.0",
     "nbsphinx==0.9.8",
     "jupytext==1.19.1",
-    "ipykernel==7.1.0"
+    "ipykernel==7.2.0"
 ]
 examples = [
     "matplotlib==3.10.8",

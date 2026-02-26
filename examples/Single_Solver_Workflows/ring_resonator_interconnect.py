@@ -61,7 +61,7 @@ with lumapi.INTERCONNECT() as intc:  # Open INTERCONNECT
 
     # Visualize ring transmission results
     results = intc.getresult("ONA", "input 1/mode 1/transmission")  # Get transmission from ONA
-    transmission = results["TE transmission"]  # codespell:ignore TE
+    transmission = results["TE transmission"]
     wavelength = results["wavelength"]
 
     # Plot transmission

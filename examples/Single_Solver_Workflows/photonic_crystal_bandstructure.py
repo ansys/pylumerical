@@ -176,10 +176,10 @@ with lumapi.FDTD(filename, hide=False) as fdtd:
 # Now run all the sweeps - this may take a few minutes
 with lumapi.FDTD(filename, hide=False) as fdtd:
     print("Running sweeps...")
-    # fdtd.runsweep()
-    # fdtd.save(filename)
+    fdtd.runsweep()
+    fdtd.save(filename)
     # If you have previously run the sweeps, you can load them using this line instead:
-    fdtd.loadsweep()
+    # fdtd.loadsweep()
 print("Sweeps have been run.")
 
 # Retrieve and analyze data from the sweeps

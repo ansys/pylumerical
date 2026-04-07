@@ -107,6 +107,9 @@ copybutton_prompt_is_regexp = True
 
 exclude_patterns = ["conf.py", "examples/README.rst"]
 
+# Suppress unpickleable config warning for nbsphinx_custom_formats, necessary for syntax highlighting without execution of notebooks
+suppress_warnings = ["config.cache"]
+
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):

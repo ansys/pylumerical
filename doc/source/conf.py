@@ -114,10 +114,26 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
-# nbpsphinx configurations
+# nbsphinx configurations
+
+
+def _read_py_as_notebook(text):
+    """Convert a Python light-format script to a notebook with language metadata.
+
+    jupytext does not inject kernelspec or language_info when reading a plain
+    .py file without a YAML header. nbsphinx needs language_info.pygments_lexer
+    to select the Pygments lexer; without it rendering defaults to no highlighting.
+    """
+    import jupytext
+
+    nb = jupytext.reads(text, fmt="")
+    nb.metadata.setdefault("kernelspec", {"display_name": "Python 3", "language": "python", "name": "python3"})
+    nb.metadata.setdefault("language_info", {"name": "python", "pygments_lexer": "ipython3"})
+    return nb
+
 
 nbsphinx_execute = "never"
-nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
+nbsphinx_custom_formats = {".py": _read_py_as_notebook}
 
 # Conditionally configure nbsphinx_prolog if examples are enabled
 if build_examples:
@@ -181,6 +197,7 @@ rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}""
 
 # static path
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

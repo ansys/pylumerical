@@ -6,6 +6,7 @@ import pathlib
 import shutil
 
 from ansys_sphinx_theme import get_version_match
+from docutils import nodes
 
 from ansys.lumerical.core import __version__
 from ansys.lumerical.core.autodiscovery import __min_supported_lum_release__
@@ -212,6 +213,13 @@ extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/exam
 
 
 # Define setup function
+# Add line numbers to all code blocks
+def _add_linenos(app, doctree):
+    """Add line numbers to all literal_block nodes in the doctree."""
+    for node in doctree.traverse(nodes.literal_block):
+        node["linenos"] = True
+
+
 def setup(app):
     """Sphinx setup function."""
     # Conditionally register example-related handlers if examples are enabled
@@ -220,4 +228,5 @@ def setup(app):
         app.connect("build-finished", remove_examples_from_source_dir)
         app.connect("build-finished", copy_examples_to_output_dir)
 
+    app.connect("doctree-read", _add_linenos)
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)

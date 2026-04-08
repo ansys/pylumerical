@@ -87,6 +87,7 @@ numpydoc_validate = True
 numpydoc_validation_checks = {
     "GL06",  # Found unknown section
     "GL07",  # Sections are in the wrong order.
+    "GL08",  # The object does not have a docstring
     "GL09",  # Deprecation warning should precede extended summary
     "GL10",  # reST directives {directives} must be followed by two colons
     "SS01",  # No summary found
@@ -110,12 +111,7 @@ exclude_patterns = ["conf.py", "examples/README.rst"]
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not intended to be in documentation."""
-    if name.startswith("_"):
-        return True  # Skip internal methods
-    elif obj.__doc__ is None:
-        return True  # Skip members without docstrings
-    else:
-        return None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
 # nbsphinx configurations
@@ -123,7 +119,7 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
 # The language_info header is injected into .py files during copy_examples_to_source_dir so that
 # jupytext can populate the pygments_lexer metadata needed for syntax highlighting.
 nbsphinx_execute = "never"
-nbsphinx_custom_formats = {".py": ["jupytext.reads", {}]}
+nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
 
 # Conditionally configure nbsphinx_prolog if examples are enabled
 if build_examples:

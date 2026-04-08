@@ -5,6 +5,11 @@ Installation and getting started
 
 Installation
 -------------
+|python|
+
+.. |python| image:: https://img.shields.io/pypi/pyversions/ansys-lumerical-core?logo=pypi
+   :target: https://pypi.org/project/ansys-lumerical-core/
+   :alt: Python
 
 You can install PyLumerical using pip.
 
@@ -55,10 +60,15 @@ In addition, you must also have Lumerical |supported_lum_release| or later insta
 
 My first PyLumerical project
 -----------------------------
+.. tip::
+    PyLumerical is compatible with various Python editors including VS Code and Jupyter Notebook. After installation, you can use your preferred editor to start using PyLumerical.
 
 .. vale on
 
-The code snippet below provides simple project of using PyLumerical and Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave. Matplotlib isn't automatically installed with PyLumerical, so you need to install it separately in your environment.
+The code snippet below provides simple project of using PyLumerical and Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave.
+
+
+Matplotlib isn't automatically installed with PyLumerical, you need to install it separately in your environment using ``python -m pip install matplotlib``.
 
 .. code-block:: python
 
@@ -134,5 +144,5 @@ Ansys Lumerical INTERCONNECT™
 - `Optical transceiver co-simulation in INTERCONNECT`_
 
 .. _Optical transceiver co-simulation in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034936773-Python-co-simulation-with-INTERCONNECT
-.. _Monte Carlo analysis in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034416574-INTERCONNECT-application-example
+.. _Monte Carlo analysis in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034416594-INTERCONNECT-application-example
 

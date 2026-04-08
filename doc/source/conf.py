@@ -111,7 +111,12 @@ exclude_patterns = ["conf.py", "examples/README.rst"]
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not intended to be in documentation."""
-    return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
+    if name.startswith("_"):
+        return True  # Skip internal methods
+    elif obj.__doc__ is None:
+        return True  # Skip members without docstrings
+    else:
+        return None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
 # nbsphinx configurations

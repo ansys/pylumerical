@@ -178,6 +178,11 @@ def remove_examples_from_source_dir(app, exception):
     shutil.rmtree(source_dir / "examples")
 
 
+def remove_doctree(app, exception):
+    """Remove the .doctrees directory after each builder to ensure a clean environment for the next builder."""
+    shutil.rmtree(app.doctreedir, ignore_errors=True)
+
+
 def copy_examples_to_output_dir(app, exception):
     """Copy examples to output directory."""
     source_dir = pathlib.Path(app.srcdir)
@@ -233,3 +238,4 @@ def setup(app):
         app.connect("build-finished", copy_examples_to_output_dir)
 
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
+    app.connect("build-finished", remove_doctree, priority=600)  # Needed to avoid orphan stub page problems in CI

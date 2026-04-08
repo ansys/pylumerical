@@ -107,9 +107,6 @@ copybutton_prompt_is_regexp = True
 
 exclude_patterns = ["conf.py", "examples/README.rst"]
 
-# Suppress unpickleable config warning for nbsphinx_custom_formats, necessary for syntax highlighting without execution of notebooks
-suppress_warnings = ["config.cache"]
-
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
@@ -118,25 +115,11 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
 
 
 # nbsphinx configurations
-
-
-def _read_py_as_notebook(text):
-    """Convert a Python light-format script to a notebook with language metadata.
-
-    jupytext does not inject kernelspec or language_info when reading a plain
-    .py file without a YAML header. nbsphinx needs language_info.pygments_lexer
-    to select the Pygments lexer; without it rendering defaults to no highlighting.
-    """
-    import jupytext
-
-    nb = jupytext.reads(text, fmt="")
-    nb.metadata.setdefault("kernelspec", {"display_name": "Python 3", "language": "python", "name": "python3"})
-    nb.metadata.setdefault("language_info", {"name": "python", "pygments_lexer": "ipython3"})
-    return nb
-
-
+# Use a 2-element [converter_string, kwargs] form so the value is fully pickleable (no callable).
+# The language_info header is injected into .py files during copy_examples_to_source_dir so that
+# jupytext can populate the pygments_lexer metadata needed for syntax highlighting.
 nbsphinx_execute = "never"
-nbsphinx_custom_formats = {".py": _read_py_as_notebook}
+nbsphinx_custom_formats = {".py": ["jupytext.reads", {}]}
 
 # Conditionally configure nbsphinx_prolog if examples are enabled
 if build_examples:
@@ -179,6 +162,14 @@ def copy_examples_to_source_dir(app):
     source_dir = pathlib.Path(app.srcdir)
 
     shutil.copytree(source_dir.parent.parent / "examples", source_dir / "examples", dirs_exist_ok=True)
+
+
+def add_nb_yaml_header(app):
+    """Prepend jupytext language_info YAML header to .py examples for nbsphinx syntax highlighting."""
+    header = "# ---\n# jupyter:\n#   language_info:\n#     name: python\n#     pygments_lexer: ipython3\n# ---\n\n"
+    source_dir = pathlib.Path(app.srcdir)
+    for py_file in (source_dir / "examples").rglob("*.py"):
+        py_file.write_text(header + py_file.read_text(encoding="utf-8"), encoding="utf-8")
 
 
 def remove_examples_from_source_dir(app, exception):
@@ -237,6 +228,7 @@ def setup(app):
     # Conditionally register example-related handlers if examples are enabled
     if build_examples:
         app.connect("builder-inited", copy_examples_to_source_dir)
+        app.connect("builder-inited", add_nb_yaml_header)
         app.connect("build-finished", remove_examples_from_source_dir)
         app.connect("build-finished", copy_examples_to_output_dir)
 

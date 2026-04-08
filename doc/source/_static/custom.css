@@ -1,0 +1,4 @@
+/* Make Pygments line-number spans less prominent. */
+.highlight span.linenos {
+    opacity: 0.4 !important;
+}

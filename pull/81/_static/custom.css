@@ -1,0 +1,5 @@
+/* Do not show In [ ]: / Out [ ]: prompt boxes on notebook cells.*/
+.nbinput .prompt,
+.nboutput .prompt {
+    display: none;
+}

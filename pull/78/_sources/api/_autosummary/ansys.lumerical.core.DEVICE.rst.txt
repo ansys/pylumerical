@@ -1,0 +1,42 @@
+﻿DEVICE
+======
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: DEVICE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      DEVICE.close
+      
+      
+      DEVICE.eval
+      
+      
+      DEVICE.getAllSelectedObjects
+      
+      
+      DEVICE.getObjectById
+      
+      
+      DEVICE.getObjectBySelection
+      
+      
+      DEVICE.getv
+      
+      
+      DEVICE.putv
+      
+   
+   
+
+   
+   
+   

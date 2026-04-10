@@ -1,0 +1,6 @@
+getChildren
+===========
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: SimObject.getChildren

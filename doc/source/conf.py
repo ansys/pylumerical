@@ -114,8 +114,10 @@ def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
-# nbpsphinx configurations
-
+# nbsphinx configurations
+# Use a 2-element [converter_string, kwargs] form so the value is fully pickleable (no callable).
+# The language_info header is injected into .py files during copy_examples_to_source_dir so that
+# jupytext can populate the pygments_lexer metadata needed for syntax highlighting.
 nbsphinx_execute = "never"
 nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
 
@@ -162,10 +164,29 @@ def copy_examples_to_source_dir(app):
     shutil.copytree(source_dir.parent.parent / "examples", source_dir / "examples", dirs_exist_ok=True)
 
 
+def add_nb_yaml_header(app):
+    """Prepend jupytext language_info YAML header to .py examples for nbsphinx syntax highlighting."""
+    header = "# ---\n# jupyter:\n#   language_info:\n#     name: python\n#     pygments_lexer: ipython3\n# ---\n\n"
+    source_dir = pathlib.Path(app.srcdir)
+    for py_file in (source_dir / "examples").rglob("*.py"):
+        py_file.write_text(header + py_file.read_text(encoding="utf-8"), encoding="utf-8")
+
+
 def remove_examples_from_source_dir(app, exception):
     """Remove examples from source directory after build."""
     source_dir = pathlib.Path(app.srcdir)
     shutil.rmtree(source_dir / "examples")
+
+
+def remove_doctree_and_autosummary(app, exception):
+    """Remove the .doctrees directory and autosummary stubs after each builder.
+
+    This ensures a clean environment for the next builder and prevents current toctree
+    state from causing toc.not_included warnings in subsequent builders.
+    """
+    shutil.rmtree(app.doctreedir, ignore_errors=True)
+    autosummary_dir = pathlib.Path(app.srcdir) / "api" / "_autosummary"
+    shutil.rmtree(autosummary_dir, ignore_errors=True)
 
 
 def copy_examples_to_output_dir(app, exception):
@@ -181,6 +202,7 @@ rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}""
 
 # static path
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -217,7 +239,9 @@ def setup(app):
     # Conditionally register example-related handlers if examples are enabled
     if build_examples:
         app.connect("builder-inited", copy_examples_to_source_dir)
+        app.connect("builder-inited", add_nb_yaml_header)
         app.connect("build-finished", remove_examples_from_source_dir)
         app.connect("build-finished", copy_examples_to_output_dir)
 
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
+    app.connect("build-finished", remove_doctree_and_autosummary, priority=600)  # Needed to avoid orphan stub page problems in CI

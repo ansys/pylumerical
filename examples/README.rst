@@ -10,6 +10,8 @@ Example files must be compliant with `PEP8 <https://peps.python.org/pep-0008/>`_
 
 PyLumerical examples uses the "Light" format for jupytext conversion. To write comment cells into your source file, follow the formatting guidelines listed in the `Jupytext documentation <https://jupytext.readthedocs.io/en/latest/formats-scripts.html>`_.
 
+The doc build injects a YAML header, enclosed by `# ---` into each .py file to enable syntax highlighting without running the example. Do not include your own YAML header.
+
 Always ensure that your example files run without errors, and are properly formatted prior to submitting a pull request.
 
 The documentation build process currently does not automatically execute the examples, as such, no outputs are displayed in the resulting documentation pages.

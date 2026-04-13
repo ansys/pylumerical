@@ -3,3 +3,6 @@
 .nboutput .prompt {
     display: none;
 }
+.highlight span.linenos {
+    opacity: 0.4 !important;
+}

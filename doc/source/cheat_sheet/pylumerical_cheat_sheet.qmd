@@ -1,6 +1,7 @@
 ---
 title: PyLumerical Cheat Sheet
 format: cheat_sheet-pdf
+syntax-highlighting: idiomatic
 params:
   version: v0.1
 footer: PyLumerical

@@ -1,4 +1,8 @@
-/* Make Pygments line-number spans less prominent. */
+/* Do not show In [ ]: / Out [ ]: prompt boxes on notebook cells.*/
+.nbinput .prompt,
+.nboutput .prompt {
+    display: none;
+}
 .highlight span.linenos {
     opacity: 0.4 !important;
 }

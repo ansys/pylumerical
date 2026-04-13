@@ -217,8 +217,31 @@ extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/exam
 # Add line numbers to all code blocks
 def _add_linenos(app, doctree):
     """Add line numbers to all literal_block nodes in the doctree."""
-    for node in doctree.traverse(nodes.literal_block):
-        node["linenos"] = True
+    source_path = pathlib.Path(doctree["source"])
+    relative_source = source_path.relative_to(pathlib.Path(app.srcdir))
+    is_examples_page = relative_source.parts[0] == "examples"
+
+    if is_examples_page:
+        next_start_line = 1
+        for node in doctree.traverse(nodes.literal_block):
+            node_classes = node.get("classes", [])
+            is_prompt_block = "prompt" in node_classes  # This ensures code block don't randomly skip a line (from prompt blocks)
+            if is_prompt_block:
+                node["linenos"] = False
+                continue
+
+            node["linenos"] = True
+
+            highlight_args = dict(node.get("highlight_args", {}))
+            highlight_args["linenostart"] = next_start_line
+            node["highlight_args"] = highlight_args
+
+            block_text = node.astext()
+            block_line_count = len(block_text.splitlines())
+            next_start_line += block_line_count
+    else:
+        for node in doctree.traverse(nodes.literal_block):
+            node["linenos"] = True
 
 
 def setup(app):

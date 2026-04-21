@@ -22,8 +22,8 @@
 
 """Compatibility alias for importing bundled ``lumopt2`` from PyLumerical namespace."""
 
-import sys
 from importlib import import_module
+import sys
 
 _lumopt2_module = import_module("lumopt2")
 sys.modules[__name__] = _lumopt2_module

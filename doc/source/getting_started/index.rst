@@ -45,6 +45,12 @@ Then, upgrade pip to the latest version, and install PyLumerical with the packag
     python -m pip install -U pip
     python -m pip install ansys-lumerical-core
 
+If you plan to use bundled ``lumopt2`` workflows, install the optional dependencies in the same environment:
+
+.. code:: bash
+
+    python -m pip install "ansys-lumerical-core[lumopt2]"
+
 .. tip::
     Using a virtual environment isn't a requirement, but it's a best practice for Python development.
 
@@ -52,7 +58,12 @@ Requirements
 -------------
 
 You must have an Ansys Lumerical GUI license to use PyLumerical. For more information, please visit the `licensing page <https://optics.ansys.com/hc/en-us/articles/360033862333-Lumerical-product-components-and-licensing-overview>`_ on the Ansys Optics website.
-In addition, you must also have Lumerical |supported_lum_release| or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` function automatically locates the Lumerical installation path. If it fails to do so, you must set the path manually using :func:`ansys.lumerical.core.autodiscovery.locate_lumerical_install`.
+In addition, you must also have Lumerical |supported_lum_release| or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` logic automatically locates the Lumerical installation path and configures interop. If bundled ``lumopt2`` is available, PyLumerical enables ``import lumopt2`` without exposing all modules from ``<LUMERICAL_HOME>/api/python``.
+If autodiscovery fails, set ``LUMERICAL_HOME`` before import and start a new Python session.
+For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
+Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
+
+When using ``lumopt2``, Python 3.10 support is best-effort because upstream ``lumopt2`` targets newer Python versions.
 
 .. Turn off vale here due to captizalization issues being wrongly flagged by vale.
 

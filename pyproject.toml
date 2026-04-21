@@ -31,6 +31,8 @@ classifiers = [
 dependencies = [
     "ansys-api-lumerical",
     "numpy>=1.26",
+    "autograd>=1.6",
+    "scipy>=1.10",
 ]
 
 [project.optional-dependencies]
@@ -50,10 +52,6 @@ doc = [
 ]
 examples = [
     "matplotlib==3.10.8",
-]
-lumopt2 = [
-    "autograd>=1.6",
-    "scipy>=1.10",
 ]
 
 [tool.flit.module]

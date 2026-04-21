@@ -22,7 +22,7 @@
 
 """Test bootstrap helpers for bundled ``lumopt2`` support."""
 
-import importlib.util
+import importlib
 from pathlib import Path
 import sys
 import types
@@ -34,9 +34,9 @@ import ansys.lumerical.core as lumcore
 import ansys.lumerical.core.autodiscovery as autodiscovery
 
 
-def _meta_path_without_lumopt2_guards():
-    """Return ``sys.meta_path`` without bundled lumopt2 guard instances."""
-    return [finder for finder in sys.meta_path if not isinstance(finder, lumcore._Lumopt2DependencyGuard)]
+def _meta_path_without_lumopt2_finders():
+    """Return ``sys.meta_path`` without bundled lumopt2 finder instances."""
+    return [finder for finder in sys.meta_path if not isinstance(finder, lumcore._BundledLumopt2Finder)]
 
 
 class TestBootstrapLumopt2:
@@ -157,37 +157,25 @@ class TestBootstrapLumopt2:
 
         lumcore._validate_lumopt2_origin(str(bundled_lumopt2_dir))
 
-    def test_dependency_guard_ignores_other_modules(self, tmp_path):
-        """Guard ignores imports that are not lumopt2."""
+    def test_finder_ignores_other_modules(self, tmp_path):
+        """Finder ignores imports that are not lumopt2."""
         bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
         bundled_lumopt2_dir.mkdir(parents=True)
         (bundled_lumopt2_dir / "__init__.py").write_text("x = 1\n", encoding="utf-8")
-        guard = lumcore._Lumopt2DependencyGuard(str(bundled_lumopt2_dir))
-        assert guard.find_spec("numpy", None, None) is None
+        finder = lumcore._BundledLumopt2Finder(str(bundled_lumopt2_dir))
+        assert finder.find_spec("numpy", None, None) is None
 
-    def test_dependency_guard_raises_when_bundled_module_missing(self, tmp_path):
-        """Guard raises when bundled lumopt2 is absent."""
+    def test_finder_raises_when_bundled_module_missing(self, tmp_path):
+        """Finder raises when bundled lumopt2 is absent."""
         bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
         bundled_lumopt2_dir.mkdir(parents=True)
-        guard = lumcore._Lumopt2DependencyGuard(str(bundled_lumopt2_dir))
+        finder = lumcore._BundledLumopt2Finder(str(bundled_lumopt2_dir))
 
         with pytest.raises(ModuleNotFoundError, match="may not include lumopt2"):
-            guard.find_spec("lumopt2", None, None)
+            finder.find_spec("lumopt2", None, None)
 
-    def test_dependency_guard_raises_on_missing_deps(self, monkeypatch, tmp_path):
-        """Guard raises ImportError with install hint when deps are missing."""
-        bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
-        bundled_lumopt2_dir.mkdir(parents=True)
-        (bundled_lumopt2_dir / "__init__.py").write_text("x = 1\n", encoding="utf-8")
-        guard = lumcore._Lumopt2DependencyGuard(str(bundled_lumopt2_dir))
-
-        monkeypatch.setattr(importlib.util, "find_spec", lambda name: None)
-
-        with pytest.raises(ImportError, match=r"ansys-lumerical-core\[lumopt2\]"):
-            guard.find_spec("lumopt2", None, None)
-
-    def test_dependency_guard_returns_package_and_module_specs(self, monkeypatch, tmp_path):
-        """Guard returns package and module specs when bundled lumopt2 exists."""
+    def test_finder_returns_package_and_module_specs(self, tmp_path):
+        """Finder returns package and module specs when bundled lumopt2 exists."""
         bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
         bundled_lumopt2_dir.mkdir(parents=True)
         package_init = bundled_lumopt2_dir / "__init__.py"
@@ -195,11 +183,10 @@ class TestBootstrapLumopt2:
         module_file = bundled_lumopt2_dir / "core.py"
         module_file.write_text("y = 1\n", encoding="utf-8")
 
-        guard = lumcore._Lumopt2DependencyGuard(str(bundled_lumopt2_dir))
-        monkeypatch.setattr(importlib.util, "find_spec", lambda name: object())
+        finder = lumcore._BundledLumopt2Finder(str(bundled_lumopt2_dir))
 
-        package_spec = guard.find_spec("lumopt2", None, None)
-        module_spec = guard.find_spec("lumopt2.core", None, None)
+        package_spec = finder.find_spec("lumopt2", None, None)
+        module_spec = finder.find_spec("lumopt2.core", None, None)
 
         assert package_spec.origin == str(package_init)
         assert module_spec.origin == str(module_file)
@@ -221,14 +208,14 @@ class TestBootstrapLumopt2:
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
         original_sys_path = list(sys.path)
         monkeypatch.setattr(sys, "path", list(original_sys_path), raising=False)
-        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_guards(), raising=False)
+        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
 
         lumcore._bootstrap_lumerical_environment()
 
         assert lumapi.InteropPaths.LUMERICALINSTALLDIR == str(install_dir)
         assert sys.modules.get("lumapi") is lumapi
         assert sys.path == original_sys_path
-        assert any(isinstance(finder, lumcore._Lumopt2DependencyGuard) for finder in sys.meta_path)
+        assert any(isinstance(finder, lumcore._BundledLumopt2Finder) for finder in sys.meta_path)
 
     def test_bootstrap_without_api_python_dir(self, monkeypatch, tmp_path):
         """Bootstrap succeeds when install directory lacks ``api/python/lumopt2``."""
@@ -238,12 +225,12 @@ class TestBootstrapLumopt2:
         monkeypatch.setattr(lumapi.InteropPaths, "LUMERICALINSTALLDIR", str(install_dir))
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
         monkeypatch.delitem(sys.modules, "lumopt2", raising=False)
-        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_guards(), raising=False)
+        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
 
         lumcore._bootstrap_lumerical_environment()
 
         assert sys.modules.get("lumapi") is lumapi
-        assert not any(isinstance(finder, lumcore._Lumopt2DependencyGuard) for finder in sys.meta_path)
+        assert not any(isinstance(finder, lumcore._BundledLumopt2Finder) for finder in sys.meta_path)
 
     def test_bootstrap_without_api_python_and_lumopt2_loaded(self, monkeypatch, tmp_path):
         """Bootstrap doesn't crash when api/python is missing and lumopt2 is preloaded."""
@@ -255,8 +242,22 @@ class TestBootstrapLumopt2:
         monkeypatch.setattr(lumapi.InteropPaths, "LUMERICALINSTALLDIR", str(install_dir))
         monkeypatch.setitem(sys.modules, "lumopt2", conflicting)
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
-        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_guards(), raising=False)
+        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
 
         lumcore._bootstrap_lumerical_environment()
 
         assert sys.modules.get("lumapi") is lumapi
+
+    def test_namespace_alias_import_returns_top_level_lumopt2(self, monkeypatch):
+        """Importing namespaced lumopt2 returns the top-level lumopt2 module."""
+        fake_lumopt2 = types.ModuleType("lumopt2")
+        fake_lumopt2.__file__ = "C:/fake/path/lumopt2/__init__.py"
+        fake_lumopt2.marker = "fake-lumopt2"
+
+        monkeypatch.setitem(sys.modules, "lumopt2", fake_lumopt2)
+        monkeypatch.delitem(sys.modules, "ansys.lumerical.core.lumopt2", raising=False)
+
+        aliased_module = importlib.import_module("ansys.lumerical.core.lumopt2")
+
+        assert aliased_module is fake_lumopt2
+        assert getattr(aliased_module, "marker") == "fake-lumopt2"

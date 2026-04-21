@@ -115,11 +115,8 @@ def _bind_lumapi_alias():
         )
 
 
-class _Lumopt2DependencyGuard(importlib.abc.MetaPathFinder):
-    """Load bundled ``lumopt2`` and raise clear errors when unsupported."""
-
-    _REQUIRED_DEPS = ("autograd", "scipy")
-    _INSTALL_HINT = 'Install them with: pip install "ansys-lumerical-core[lumopt2]"'
+class _BundledLumopt2Finder(importlib.abc.MetaPathFinder):
+    """Load bundled ``lumopt2`` from the discovered Lumerical installation."""
 
     def __init__(self, bundled_lumopt2_package_dir):
         self._bundled_lumopt2_package_dir = Path(bundled_lumopt2_package_dir).resolve()
@@ -143,7 +140,7 @@ class _Lumopt2DependencyGuard(importlib.abc.MetaPathFinder):
         return None
 
     def find_spec(self, fullname, path, target=None):
-        """Load bundled lumopt2 modules and enforce dependency checks."""
+        """Load bundled ``lumopt2`` modules from disk."""
         if fullname != "lumopt2" and not fullname.startswith("lumopt2."):
             return None
 
@@ -154,10 +151,6 @@ class _Lumopt2DependencyGuard(importlib.abc.MetaPathFinder):
                 "This Lumerical installation may not include lumopt2."
             )
 
-        missing = [dep for dep in self._REQUIRED_DEPS if importlib.util.find_spec(dep) is None]
-        if missing:
-            raise ImportError(f"lumopt2 requires {', '.join(missing)}. {self._INSTALL_HINT}")
-
         if module_file.name == "__init__.py":
             return importlib.util.spec_from_file_location(
                 fullname,
@@ -167,17 +160,17 @@ class _Lumopt2DependencyGuard(importlib.abc.MetaPathFinder):
         return importlib.util.spec_from_file_location(fullname, str(module_file))
 
 
-def _install_lumopt2_dependency_guard(bundled_lumopt2_package_dir):
+def _install_bundled_lumopt2_finder(bundled_lumopt2_package_dir):
     """Register a finder that exposes bundled ``lumopt2`` only."""
     normalized_bundled_path = _normalize_path(bundled_lumopt2_package_dir)
     for index, finder in enumerate(sys.meta_path):
-        if isinstance(finder, _Lumopt2DependencyGuard):
+        if isinstance(finder, _BundledLumopt2Finder):
             existing_bundled_path = _normalize_path(str(finder._bundled_lumopt2_package_dir))
             if existing_bundled_path == normalized_bundled_path:
                 return
             sys.meta_path.pop(index)
             break
-    sys.meta_path.insert(0, _Lumopt2DependencyGuard(bundled_lumopt2_package_dir))
+    sys.meta_path.insert(0, _BundledLumopt2Finder(bundled_lumopt2_package_dir))
 
 
 def _bootstrap_lumerical_environment():
@@ -187,7 +180,7 @@ def _bootstrap_lumerical_environment():
         bundled_lumopt2_package_dir = _get_bundled_lumopt2_package_dir(install_dir)
         if bundled_lumopt2_package_dir is not None:
             _validate_lumopt2_origin(bundled_lumopt2_package_dir)
-            _install_lumopt2_dependency_guard(bundled_lumopt2_package_dir)
+            _install_bundled_lumopt2_finder(bundled_lumopt2_package_dir)
     _bind_lumapi_alias()
 
 

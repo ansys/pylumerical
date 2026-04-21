@@ -14,7 +14,7 @@ PyLumerical requires Lumerical |supported_lum_release| or later to run. The auto
     - On Linux, with the Ansys automated installer: ``~/Ansys/ansys_inc/``
 
 When PyLumerical finds an installation path, it configures the interop path. If bundled ``lumopt2`` is present, PyLumerical enables
-``import lumopt2`` directly without exposing unrelated modules from ``<install>/api/python``.
+``import lumopt2`` and ``import ansys.lumerical.core.lumopt2`` directly without exposing unrelated modules from ``<install>/api/python``.
 
 If PyLumerical can't find the installation path automatically, it returns a warning.
 Set ``LUMERICAL_HOME`` before import and start a new Python session. Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.

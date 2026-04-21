@@ -24,9 +24,9 @@
 
 import importlib.abc
 import importlib.util
+from pathlib import Path
 import sys
 import warnings
-from pathlib import Path
 
 import ansys.api.lumerical
 import ansys.api.lumerical.lumapi as _ansys_lumapi_module

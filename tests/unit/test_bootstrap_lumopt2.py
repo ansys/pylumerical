@@ -23,10 +23,9 @@
 """Test bootstrap helpers for bundled ``lumopt2`` support."""
 
 import importlib.util
+from pathlib import Path
 import sys
 import types
-from pathlib import Path
-
 import pytest
 
 import ansys.api.lumerical.lumapi as lumapi
@@ -183,7 +182,7 @@ class TestBootstrapLumopt2:
 
         monkeypatch.setattr(importlib.util, "find_spec", lambda name: None)
 
-        with pytest.raises(ImportError, match=r'ansys-lumerical-core\[lumopt2\]'):
+        with pytest.raises(ImportError, match=r"ansys-lumerical-core\[lumopt2\]"):
             guard.find_spec("lumopt2", None, None)
 
     def test_dependency_guard_returns_package_and_module_specs(self, monkeypatch, tmp_path):

@@ -26,6 +26,7 @@ import importlib.util
 from pathlib import Path
 import sys
 import types
+
 import pytest
 
 import ansys.api.lumerical.lumapi as lumapi

@@ -25,7 +25,7 @@ on:
         required: true
 
 env:
-  MAIN_PYTHON_VERSION: '3.13'
+  MAIN_PYTHON_VERSION: '3.14'
   DOCUMENTATION_CNAME: ${{ inputs.documentation-cname }}
 
 # Disable all default permissions at workflow level for security (least privilege principle)
@@ -89,7 +89,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
-        python: ['3.10', '3.11', '3.12', '3.13']
+        python: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
       - uses: ansys/actions/build-wheelhouse@v10
         with:

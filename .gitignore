@@ -12,3 +12,6 @@ doc/source/api/_autosummary
 
 # Quarto extension
 doc/source/cheat_sheet/_extensions
+
+# macOS
+.DS_Store

@@ -106,6 +106,17 @@ class TestBootstrapLumopt2:
         with pytest.warns(UserWarning, match="Lumerical installation not found"):
             assert lumcore._resolve_lumerical_install_dir() is None
 
+    def test_resolve_install_dir_when_already_set(self, monkeypatch, tmp_path):
+        """Return pre-configured install directory without invoking autodiscovery."""
+        preset_dir = str(tmp_path / "v261")
+        monkeypatch.setattr(lumapi.InteropPaths, "LUMERICALINSTALLDIR", preset_dir)
+
+        locate_called = []
+        monkeypatch.setattr(autodiscovery, "locate_lumerical_install", lambda: locate_called.append(True) or preset_dir)
+
+        assert lumcore._resolve_lumerical_install_dir() == preset_dir
+        assert locate_called == [], "autodiscovery should not be invoked when install dir is already set"
+
     def test_bind_lumapi_alias_when_missing(self, monkeypatch):
         """Create top-level ``lumapi`` alias when missing."""
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
@@ -156,6 +167,8 @@ class TestBootstrapLumopt2:
         monkeypatch.setitem(sys.modules, "lumopt2", bundled_module)
 
         lumcore._validate_lumopt2_origin(str(bundled_lumopt2_dir))
+
+        assert sys.modules.get("lumopt2") is bundled_module
 
     def test_finder_ignores_other_modules(self, tmp_path):
         """Finder ignores imports that are not lumopt2."""
@@ -232,10 +245,12 @@ class TestBootstrapLumopt2:
         assert sys.modules.get("lumapi") is lumapi
         assert not any(isinstance(finder, lumcore._BundledLumopt2Finder) for finder in sys.meta_path)
 
-    def test_bootstrap_without_api_python_and_lumopt2_loaded(self, monkeypatch, tmp_path):
-        """Bootstrap doesn't crash when api/python is missing and lumopt2 is preloaded."""
+    def test_bootstrap_raises_when_conflicting_lumopt2_preloaded(self, monkeypatch, tmp_path):
+        """Bootstrap raises when ``api/python`` exists but ``lumopt2`` is loaded from elsewhere."""
         install_dir = tmp_path / "v261"
-        install_dir.mkdir()
+        bundled_lumopt2_dir = install_dir / "api" / "python" / "lumopt2"
+        bundled_lumopt2_dir.mkdir(parents=True)
+        (bundled_lumopt2_dir / "__init__.py").write_text("x = 1\n", encoding="utf-8")
 
         conflicting = types.ModuleType("lumopt2")
         conflicting.__file__ = "C:/fake/path/lumopt2/__init__.py"
@@ -244,9 +259,8 @@ class TestBootstrapLumopt2:
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
         monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
 
-        lumcore._bootstrap_lumerical_environment()
-
-        assert sys.modules.get("lumapi") is lumapi
+        with pytest.raises(RuntimeError, match="A different 'lumopt2' module is already loaded"):
+            lumcore._bootstrap_lumerical_environment()
 
     def test_namespace_alias_import_returns_top_level_lumopt2(self, monkeypatch):
         """Importing namespaced lumopt2 returns the top-level lumopt2 module."""

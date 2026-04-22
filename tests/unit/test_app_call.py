@@ -78,10 +78,7 @@ class TestAppCall:
             setup_fdtd.adddftmonitor(prop_dict)
 
         msg = str(ex_info.value).lower()
-        assert (
-            "the requested object cannot be created" in msg
-            or "unable to set property" in msg
-        ), ex_info.value
+        assert "the requested object cannot be created" in msg or "unable to set property" in msg, ex_info.value
 
     def test_appcallwithconstructor_obj_set_and_get(self, setup_fdtd):
         """Test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods."""

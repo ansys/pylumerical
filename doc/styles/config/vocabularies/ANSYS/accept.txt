@@ -28,6 +28,7 @@ IPython
 photonic
 photonics
 lumopt
+fom
 lumslurm
 [Jj]upytext
 [Aa]utodiscovery

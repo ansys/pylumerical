@@ -11,3 +11,4 @@ doc/source/cheat_sheet/_extensions
 
 # macOS
 .DS_Store
+_autosummary

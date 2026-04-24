@@ -146,7 +146,8 @@ plt.colorbar()
 plt.title("Target Phase Mask")
 plt.xlabel("x (mm)")
 plt.ylabel("y (mm)")
-plt.show()
+plt.show(block=False)
+plt.pause(5)
 
 
 # -
@@ -282,7 +283,8 @@ plt.plot(pillar_radius/nm, amp_results, 'r')
 plt.xlabel('Pillar Radius (half total width)')
 plt.ylabel('Amplitude')
 
-plt.show()
+plt.show(block=False)
+plt.pause(5)
 
 # -
 
@@ -311,7 +313,8 @@ plt.colorbar()
 plt.title("Radius Array")
 plt.xlabel("x (mm)")
 plt.ylabel("y (mm)")
-plt.show()
+plt.show(block=False)
+plt.pause(5)
 # -
 
 
@@ -506,7 +509,8 @@ with lumapi.FDTD(full_lens_filename, hide = True) as fdtd:
     ax2.contourf(X, Z, np.transpose(eFieldAmplitude_side))
     ax2.set_title("E Field, Side View")
     
-    plt.show()
+    plt.show(block=False)
+    plt.pause(5)
 # -
 
 
@@ -536,7 +540,8 @@ plt.plot(z_list/um, proj_intensity, 'k-')
 plt.xlabel('Z position (microns)')
 plt.ylabel('E field intensity')
 plt.title('Projected Field Intensity (a.u.), slice along z')
-plt.show()
+plt.show(block=False)
+plt.pause(5)
 
 # +
 # Now, plot a cross-sectional image of the xz plane 
@@ -562,7 +567,8 @@ plt.imshow(proj_intensity, extent = [min(z_list)/um, max(z_list)/um, min(x_list)
 plt.xlabel('X (microns)')
 plt.ylabel('Z (microns)')
 plt.title('Projected Field Intensity (a.u.), x-z image')
-plt.show()
+plt.show(block=False)
+plt.pause(5)
 # -
 
 

@@ -43,6 +43,16 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       This example uses built-in Lumerical Structure and Analysis Groups to calculate the resonant frequencies of photonic
       crystals using FDTD. Lumerical's built-in sweep tool is used to calculate the full bandstructure.
 
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Metalens (RCWA / FDTD)
+      :link: examples/Multiple_Solver_Workflows/Metalens_FDTD_with_projections
+      :link-type: doc
+
+      This example runs RCWA simulations to create a unit cell library and constructs a full metalens in FDTD.
+      The full metalens is simulated using symmetric boundary conditions in FDTD. A top-down monitor collects the
+      fields after the structures and far-field calculations are used to plot the focusing behavior.
+
 .. toctree::
    :hidden:
 
@@ -51,3 +61,4 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Sessions_and_Objects/fdtd_example1_pythonic
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE
+   examples/Multiple_Solver_Workflows/Metalens_FDTD_with_projections

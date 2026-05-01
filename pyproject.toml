@@ -32,6 +32,9 @@ classifiers = [
 dependencies = [
     "ansys-api-lumerical",
     "numpy>=1.26",
+    "autograd>=1.6",
+    "scipy>=1.10",
+    "matplotlib>=3.10",
 ]
 
 [project.optional-dependencies]
@@ -48,9 +51,6 @@ doc = [
     "nbsphinx==0.9.8",
     "jupytext==1.19.1",
     "ipykernel==7.2.0"
-]
-examples = [
-    "matplotlib==3.10.9",
 ]
 
 [tool.flit.module]

@@ -5,7 +5,12 @@ PyLumerical is the Python automation library for Ansys Lumerical photonics simul
 
 .. note::
 
-   The Lumerical inverse design library `lumopt` and the high performance computing (HPC) scheduler automation library `lumslurm` are currently only available as a part of the Lumerical Python API and unavailable in PyLumerical.
+   The Lumerical inverse design libraries `lumopt` and `lumopt2`, and the high performance computing (HPC) scheduler automation library `lumslurm`,
+   are currently distributed with Lumerical products and are not included in the ``ansys-lumerical-core`` wheel.
+
+   When a Lumerical installation with bundled ``lumopt2`` is found, importing PyLumerical automatically enables
+   ``import lumopt2`` and ``import ansys.lumerical.core.lumopt2`` without exposing unrelated modules from
+   ``<LUMERICAL_HOME>/api/python``.
 
    The `Lumerical Python API <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ is still provided with Lumerical products.
 

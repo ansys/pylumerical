@@ -23,7 +23,7 @@
 """Test the lumapi 'appCall' and 'appCallWithConstructor' objects.
 
 - test 01: Test 'appCall' object with ordered dict properties
-- test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError
+- test 02: Misused positional dict to 'appCall' raises LumApiError (exact message is argument-dependent)
 - test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods
 - test 04: Test 'appCallWithConstructor' object raises 'type added doesn't have property' AttributeError
 - test 05: Test 'appCallWithConstructor' object raises 'use an ordered dict for properties' lumWarning
@@ -59,7 +59,12 @@ class TestAppCall:
         setup_fdtd.adddftmonitor(properties=prop_dict)
 
     def test_appcall_raises_obj_cannot_be_created(self, setup_fdtd):
-        """Test 02: Test 'appCall' object raises 'the requested object cannot be created' LumApiError."""
+        """Test 02: Passing a properties dict positionally (not via ``properties=``) is invalid.
+
+        ``appCall`` turns a dict into a list of keys, so Lumerical ``adddftmonitor`` is invoked
+        with the wrong argument shape. The resulting LumApiError text depends on the product
+        version (e.g. object creation failure vs. property set failure on a partially built object).
+        """
         prop_dict = {
             "name": "monitor 2",
             "override global monitor settings": True,
@@ -72,7 +77,8 @@ class TestAppCall:
         with pytest.raises(lumapi.LumApiError) as ex_info:
             setup_fdtd.adddftmonitor(prop_dict)
 
-        assert "error during property initialization, the requested object cannot be created" in str(ex_info.value)
+        msg = str(ex_info.value).lower()
+        assert "the requested object cannot be created" in msg or "unable to set property" in msg, ex_info.value
 
     def test_appcallwithconstructor_obj_set_and_get(self, setup_fdtd):
         """Test 03: Test 'appCallWithConstructor' object 'set' and 'get' methods."""

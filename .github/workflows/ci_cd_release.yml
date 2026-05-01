@@ -25,7 +25,7 @@ jobs:
       contents: write # Required to push changelog updates
       pull-requests: write # Required to update PRs
     steps:
-      - uses: ansys/actions/doc-deploy-changelog@v10
+      - uses: ansys/actions/doc-deploy-changelog@v10.2.12
         with:
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
@@ -58,7 +58,7 @@ jobs:
       contents: write # Required for GitHub release uploads
     steps:
       - name: Release to GitHub
-        uses: ansys/actions/release-github@v10
+        uses: ansys/actions/release-github@v10.2.12
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           library-name: ${{ env.LIBRARY_NAME }}
@@ -97,7 +97,7 @@ jobs:
       contents: write # Required to push to gh-pages branch
     steps:
       - name: Deploy the release documentation
-        uses: ansys/actions/doc-deploy-stable@v10
+        uses: ansys/actions/doc-deploy-stable@v10.2.12
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}

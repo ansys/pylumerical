@@ -22,7 +22,7 @@ jobs:
     name: "Actions Security"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-actions-security@v10
+      - uses: ansys/actions/check-actions-security@v10.2.12
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
       contents: read
     steps:
       - name: PyAnsys Vulnerability check (on PR)
-        uses: ansys/actions/check-vulnerabilities@v10
+        uses: ansys/actions/check-vulnerabilities@v10.2.12
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
@@ -52,7 +52,7 @@ jobs:
       contents: write # Required to push changelog updates
       pull-requests: write # Required to update PRs
     steps:
-      - uses: ansys/actions/doc-deploy-changelog@v10
+      - uses: ansys/actions/doc-deploy-changelog@v10.2.12
         with:
           bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
@@ -88,7 +88,7 @@ jobs:
       pull-requests: write # Required to update PRs
     runs-on: ubuntu-latest
     steps:
-    - uses: ansys/actions/doc-changelog@v10
+    - uses: ansys/actions/doc-changelog@v10.2.12
       with:
         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
         use-conventional-commits: true
@@ -100,7 +100,7 @@ jobs:
     name: "Run commit style checks"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-pr-title@v10
+      - uses: ansys/actions/check-pr-title@v10.2.12
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -130,7 +130,7 @@ jobs:
       contents: write # Required to deploy PR documentation
       pull-requests: write # Needed to add comments to the PR when cleaning pull directory
     steps:
-      - uses: ansys/actions/doc-deploy-pr@v10
+      - uses: ansys/actions/doc-deploy-pr@v10.2.12
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}

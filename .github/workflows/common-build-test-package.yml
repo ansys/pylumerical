@@ -44,7 +44,7 @@ jobs:
       contents: read # Required to checkout repository
     steps:
       - name: "Run code style checks"
-        uses: ansys/actions/code-style@v10
+        uses: ansys/actions/code-style@v10.2.12
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
@@ -55,7 +55,7 @@ jobs:
     permissions:
       contents: read # Required to checkout repository
     steps:
-      - uses: ansys/actions/doc-style@v10
+      - uses: ansys/actions/doc-style@v10.2.12
         with:
           token: ${{ secrets.TOKEN }}
 
@@ -67,7 +67,7 @@ jobs:
     permissions:
       contents: read # Required to checkout repository
     steps:
-      - uses: ansys/actions/doc-build@v10
+      - uses: ansys/actions/doc-build@v10.2.12
         env:
           BUILD_PYLUMERICAL_CHEATSHEET: 'TRUE'
           BUILD_PYLUMERICAL_EXAMPLES: 'TRUE'
@@ -91,7 +91,7 @@ jobs:
         os: ['ubuntu-latest', 'windows-latest']
         python: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
-      - uses: ansys/actions/build-wheelhouse@v10
+      - uses: ansys/actions/build-wheelhouse@v10.2.12
         with:
           library-name: ${{ inputs.library-name }}
           operating-system: ${{ matrix.os }}
@@ -117,7 +117,7 @@ jobs:
       id-token: write # Required for trusted publisher
     steps:
       - name: Build library source and wheel artifacts
-        uses: ansys/actions/build-library@v10
+        uses: ansys/actions/build-library@v10.2.12
         with:
           library-name: ${{ inputs.library-name }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}

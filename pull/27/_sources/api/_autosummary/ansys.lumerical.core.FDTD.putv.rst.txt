@@ -1,0 +1,6 @@
+putv
+====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: FDTD.putv

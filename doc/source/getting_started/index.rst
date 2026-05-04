@@ -57,7 +57,6 @@ If autodiscovery fails, set ``LUMERICAL_HOME`` before import and start a new Pyt
 For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
 Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
 
-When using ``lumopt2``, Python 3.10 support is best-effort because upstream ``lumopt2`` targets newer Python versions.
 
 .. Turn off vale here due to captizalization issues being wrongly flagged by vale.
 

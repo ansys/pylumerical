@@ -142,8 +142,7 @@ class _BundledLumopt2Finder(importlib.abc.MetaPathFinder):
         init_file = Path(self._bundled_lumopt2_package_dir, "__init__.py")
         if not init_file.is_file():
             raise ModuleNotFoundError(
-                f"Bundled 'lumopt2' package was not found under {self._bundled_api_python_dir}. "
-                "This Lumerical installation may not include lumopt2."
+                f"Bundled 'lumopt2' package was not found under {self._bundled_api_python_dir}. This Lumerical installation may not include lumopt2."
             )
 
         return importlib.util.spec_from_file_location(

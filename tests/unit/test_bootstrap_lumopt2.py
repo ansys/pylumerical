@@ -170,6 +170,30 @@ class TestBootstrapLumopt2:
 
         assert sys.modules.get("lumopt2") is bundled_module
 
+    def test_validate_lumopt2_origin_rejects_sibling_prefix_collision(self, monkeypatch, tmp_path):
+        """Reject a ``lumopt2`` loaded from a sibling dir that shares a prefix with bundled dir.
+
+        Regression test: comparing normalized paths via ``startswith`` without a trailing
+        separator previously allowed ``.../lumopt2_backup/__init__.py`` to appear to be
+        nested under ``.../lumopt2`` and pass the origin check.
+        """
+        api_python_dir = tmp_path / "v261" / "api" / "python"
+        bundled_lumopt2_dir = api_python_dir / "lumopt2"
+        bundled_lumopt2_dir.mkdir(parents=True)
+        (bundled_lumopt2_dir / "__init__.py").write_text("x = 'bundled'\n", encoding="utf-8")
+
+        sibling_lumopt2_dir = api_python_dir / "lumopt2_backup"
+        sibling_lumopt2_dir.mkdir(parents=True)
+        sibling_init = sibling_lumopt2_dir / "__init__.py"
+        sibling_init.write_text("x = 'sibling'\n", encoding="utf-8")
+
+        conflicting_module = types.ModuleType("lumopt2")
+        conflicting_module.__file__ = str(sibling_init.resolve())
+        monkeypatch.setitem(sys.modules, "lumopt2", conflicting_module)
+
+        with pytest.raises(RuntimeError, match="A different 'lumopt2' module is already loaded"):
+            lumcore._validate_lumopt2_origin(str(bundled_lumopt2_dir))
+
     def test_finder_ignores_other_modules(self, tmp_path):
         """Finder ignores imports that are not lumopt2."""
         bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
@@ -187,22 +211,41 @@ class TestBootstrapLumopt2:
         with pytest.raises(ModuleNotFoundError, match="may not include lumopt2"):
             finder.find_spec("lumopt2", None, None)
 
-    def test_finder_returns_package_and_module_specs(self, tmp_path):
-        """Finder returns package and module specs when bundled lumopt2 exists."""
+    def test_finder_returns_package_spec_with_bundled_search_locations(self, tmp_path):
+        """Finder returns a package spec that constrains submodule lookup to the bundled dir."""
         bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
         bundled_lumopt2_dir.mkdir(parents=True)
         package_init = bundled_lumopt2_dir / "__init__.py"
         package_init.write_text("x = 1\n", encoding="utf-8")
-        module_file = bundled_lumopt2_dir / "core.py"
-        module_file.write_text("y = 1\n", encoding="utf-8")
 
         finder = lumcore._BundledLumopt2Finder(str(bundled_lumopt2_dir))
 
         package_spec = finder.find_spec("lumopt2", None, None)
-        module_spec = finder.find_spec("lumopt2.core", None, None)
 
-        assert package_spec.origin == str(package_init)
-        assert module_spec.origin == str(module_file)
+        # Compare resolved paths: on macOS ``tmp_path`` sits under ``/var/folders`` which is a
+        # symlink to ``/private/var/folders``. ``_BundledLumopt2Finder.__init__`` resolves the
+        # directory, so the spec's paths end up under the resolved prefix.
+        assert package_spec is not None
+        assert package_spec.origin == str(package_init.resolve())
+        assert list(package_spec.submodule_search_locations) == [str(bundled_lumopt2_dir.resolve())]
+
+    def test_finder_defers_submodules_to_path_finder(self, tmp_path):
+        """Finder returns ``None`` for lumopt2 submodules so Python's PathFinder handles them.
+
+        ``lumopt2.__path__`` is set by ``find_spec("lumopt2", ...)`` to ``[bundled_dir]``,
+        so deferring keeps submodule resolution constrained to the bundled package without
+        the finder having to reimplement path-based search.
+        """
+        bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
+        bundled_lumopt2_dir.mkdir(parents=True)
+        (bundled_lumopt2_dir / "__init__.py").write_text("x = 1\n", encoding="utf-8")
+        (bundled_lumopt2_dir / "core.py").write_text("y = 1\n", encoding="utf-8")
+
+        finder = lumcore._BundledLumopt2Finder(str(bundled_lumopt2_dir))
+
+        assert finder.find_spec("lumopt2.core", None, None) is None
+        assert finder.find_spec("lumopt2.missing", None, None) is None
+        assert finder.find_spec("lumopt2.sub.deep", None, None) is None
 
     def test_bootstrap_full_flow(self, monkeypatch, tmp_path):
         """Bootstrap configures install path, lumapi alias, and bundled finder."""
@@ -275,3 +318,40 @@ class TestBootstrapLumopt2:
 
         assert aliased_module is fake_lumopt2
         assert getattr(aliased_module, "marker") == "fake-lumopt2"
+
+    def test_namespace_alias_raises_clear_error_when_lumopt2_unavailable(self, monkeypatch):
+        """Alias raises a descriptive ModuleNotFoundError when no bundled ``lumopt2`` is available."""
+        monkeypatch.delitem(sys.modules, "lumopt2", raising=False)
+        monkeypatch.delitem(sys.modules, "ansys.lumerical.core.lumopt2", raising=False)
+        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
+
+        with pytest.raises(ModuleNotFoundError, match="bundled 'lumopt2'") as exc_info:
+            importlib.import_module("ansys.lumerical.core.lumopt2")
+
+        assert exc_info.value.name == "lumopt2"
+        assert isinstance(exc_info.value.__cause__, ModuleNotFoundError)
+
+    def test_namespace_alias_propagates_unrelated_module_not_found(self, monkeypatch, tmp_path):
+        """Do not rewrap ``ModuleNotFoundError`` for dependencies of ``lumopt2`` itself.
+
+        If bundled lumopt2 imports something that is missing, the user should see the
+        actual missing-dependency error, not a generic "bundled lumopt2 not available"
+        message that would be false.
+        """
+        bundled_lumopt2_dir = tmp_path / "v261" / "api" / "python" / "lumopt2"
+        bundled_lumopt2_dir.mkdir(parents=True)
+        (bundled_lumopt2_dir / "__init__.py").write_text(
+            "import definitely_not_a_real_package\n",
+            encoding="utf-8",
+        )
+
+        monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
+        lumcore._install_bundled_lumopt2_finder(str(bundled_lumopt2_dir))
+        monkeypatch.delitem(sys.modules, "lumopt2", raising=False)
+        monkeypatch.delitem(sys.modules, "ansys.lumerical.core.lumopt2", raising=False)
+
+        with pytest.raises(ModuleNotFoundError) as exc_info:
+            importlib.import_module("ansys.lumerical.core.lumopt2")
+
+        assert exc_info.value.name == "definitely_not_a_real_package"
+        assert "bundled 'lumopt2'" not in str(exc_info.value)

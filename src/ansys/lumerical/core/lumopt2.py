@@ -25,5 +25,20 @@
 from importlib import import_module
 import sys
 
-_lumopt2_module = import_module("lumopt2")
+try:
+    _lumopt2_module = import_module("lumopt2")
+except ModuleNotFoundError as exc:
+    # Only rewrap when ``lumopt2`` itself is missing. Leave errors about other
+    # modules (e.g. a missing transitive dependency of lumopt2) untouched so the
+    # original ``name`` and traceback stay visible.
+    if exc.name != "lumopt2":
+        raise
+    raise ModuleNotFoundError(
+        "Could not import bundled 'lumopt2' as 'ansys.lumerical.core.lumopt2'. "
+        "This alias requires a Lumerical installation whose 'api/python' directory "
+        "contains a 'lumopt2' package. Ensure autodiscovery can locate the install "
+        "(for example by setting the LUMERICAL_HOME environment variable) and that "
+        "the installed Lumerical version bundles lumopt2.",
+        name="lumopt2",
+    ) from exc
 sys.modules[__name__] = _lumopt2_module

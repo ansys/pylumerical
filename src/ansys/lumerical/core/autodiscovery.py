@@ -104,8 +104,12 @@ def locate_lumerical_install():
 
         Example 4: Provide a custom installation path after importing the module.
 
-        >>> import ansys.lumerical.core as lumapi
-        Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.
+        If autodiscovery fails to find an installation, a :class:`UserWarning` is emitted
+        (text: "Lumerical installation not found. Set the LUMERICAL_HOME environment
+        variable or call InteropPaths.setLumericalInstallPath() to configure the path
+        manually.").
+
+        >>> import ansys.lumerical.core as lumapi  # doctest: +SKIP
         >>> lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> # use lumapi ...
     """

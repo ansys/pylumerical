@@ -24,6 +24,7 @@
 
 import importlib.abc
 import importlib.util
+import os
 from pathlib import Path
 import sys
 import warnings
@@ -61,7 +62,9 @@ def _resolve_lumerical_install_dir():
         if install_dir is not None:
             _ansys_lumapi_module.InteropPaths.setLumericalInstallPath(install_dir)
         else:
-            warnings.warn(_INSTALL_NOT_FOUND_MESSAGE, stacklevel=2)
+            # stacklevel=3 attributes the warning to the module body that calls
+            # _bootstrap_lumerical_environment() at import time, instead of this helper.
+            warnings.warn(_INSTALL_NOT_FOUND_MESSAGE, stacklevel=3)
     return install_dir
 
 
@@ -88,9 +91,11 @@ def _validate_lumopt2_origin(bundled_lumopt2_package_dir):
     if existing_path is None:
         return
 
+    # Compare with a trailing separator on the bundled directory so that sibling
+    # directories sharing a prefix (e.g. ``.../lumopt2_backup``) are rejected.
     normalized_existing_path = _normalize_path(existing_path)
-    normalized_bundled_path = _normalize_path(bundled_lumopt2_package_dir)
-    if not normalized_existing_path.startswith(normalized_bundled_path):
+    normalized_bundled_prefix = _normalize_path(bundled_lumopt2_package_dir) + os.sep
+    if not normalized_existing_path.startswith(normalized_bundled_prefix):
         raise RuntimeError(
             "A different 'lumopt2' module is already loaded "
             f"({existing_path}). PyLumerical requires the bundled module under {bundled_lumopt2_package_dir}. "
@@ -116,48 +121,36 @@ def _bind_lumapi_alias():
 
 
 class _BundledLumopt2Finder(importlib.abc.MetaPathFinder):
-    """Load bundled ``lumopt2`` from the discovered Lumerical installation."""
+    """Resolve the top-level ``lumopt2`` package to the bundled Lumerical location.
+
+    Only the top-level ``lumopt2`` package is handled here. The returned spec sets
+    ``submodule_search_locations`` to the bundled package directory, so Python's
+    standard :class:`importlib.machinery.PathFinder` loads any ``lumopt2.*`` submodule
+    from that same directory. This keeps the finder minimal and follows the usual
+    Python contract of returning ``None`` for names the finder does not own.
+    """
 
     def __init__(self, bundled_lumopt2_package_dir):
         self._bundled_lumopt2_package_dir = Path(bundled_lumopt2_package_dir).resolve()
         self._bundled_api_python_dir = self._bundled_lumopt2_package_dir.parent
 
-    def _resolve_module_file(self, fullname):
-        if fullname == "lumopt2":
-            init_file = Path(self._bundled_lumopt2_package_dir, "__init__.py")
-            return init_file if init_file.is_file() else None
-
-        relative_parts = fullname.split(".")[1:]
-        relative_path = Path(*relative_parts)
-        package_init = Path(self._bundled_lumopt2_package_dir, relative_path, "__init__.py")
-        if package_init.is_file():
-            return package_init
-
-        module_file = Path(self._bundled_lumopt2_package_dir, relative_path).with_suffix(".py")
-        if module_file.is_file():
-            return module_file
-
-        return None
-
     def find_spec(self, fullname, path, target=None):
-        """Load bundled ``lumopt2`` modules from disk."""
-        if fullname != "lumopt2" and not fullname.startswith("lumopt2."):
+        """Return a spec for ``lumopt2`` only; defer submodules to the next finder."""
+        if fullname != "lumopt2":
             return None
 
-        module_file = self._resolve_module_file(fullname)
-        if module_file is None:
+        init_file = Path(self._bundled_lumopt2_package_dir, "__init__.py")
+        if not init_file.is_file():
             raise ModuleNotFoundError(
-                f"Bundled module '{fullname}' was not found under {self._bundled_api_python_dir}. "
+                f"Bundled 'lumopt2' package was not found under {self._bundled_api_python_dir}. "
                 "This Lumerical installation may not include lumopt2."
             )
 
-        if module_file.name == "__init__.py":
-            return importlib.util.spec_from_file_location(
-                fullname,
-                str(module_file),
-                submodule_search_locations=[str(module_file.parent)],
-            )
-        return importlib.util.spec_from_file_location(fullname, str(module_file))
+        return importlib.util.spec_from_file_location(
+            fullname,
+            str(init_file),
+            submodule_search_locations=[str(self._bundled_lumopt2_package_dir)],
+        )
 
 
 def _install_bundled_lumopt2_finder(bundled_lumopt2_package_dir):

@@ -50,7 +50,7 @@ doc = [
     "ipykernel==7.2.0"
 ]
 examples = [
-    "matplotlib==3.10.8",
+    "matplotlib==3.10.9",
 ]
 
 [tool.flit.module]
@@ -116,13 +116,18 @@ title_format = "`{version} <https://github.com/ansys/pylumerical/releases/tag/v{
 issue_format = "`#{issue} <https://github.com/ansys/pylumerical/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
 directory = "added"
 name = "Added"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "dependencies"
-name = "Dependencies"
+directory = "fixed"
+name = "Fixed"
 showcontent = true
 
 [[tool.towncrier.type]]
@@ -131,8 +136,8 @@ name = "Documentation"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "fixed"
-name = "Fixed"
+directory = "dependencies"
+name = "Dependencies"
 showcontent = true
 
 [[tool.towncrier.type]]

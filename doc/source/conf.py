@@ -112,6 +112,9 @@ exclude_patterns = ["conf.py", "examples/README.rst"]
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not intended to be in documentation."""
+    # Skip members inherited from built-in types (e.g. int.real, int.imag on IntEnum subclasses)
+    if hasattr(obj, "__objclass__") and obj.__objclass__.__module__ == "builtins":
+        return True
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 

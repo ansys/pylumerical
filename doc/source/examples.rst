@@ -48,6 +48,14 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
       This example uses built-in Lumerical Structure and Analysis Groups to calculate the resonant frequencies of photonic
       crystals using FDTD. Lumerical's built-in sweep tool is used to calculate the full bandstructure.
+      
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Basic INTERCONNECT simulation - Ring Resonator
+      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link-type: doc
+
+      This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
 .. toctree::
    :hidden:
@@ -58,3 +66,5 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Single_Solver_Workflows/waveguide_FDE
    examples/Single_Solver_Workflows/thermal_tuner_heat
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure
+   examples/Single_Solver_Workflows/waveguide_FDE
+   examples/Single_Solver_Workflows/ring_resonator_interconnect

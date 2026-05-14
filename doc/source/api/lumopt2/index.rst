@@ -7,19 +7,19 @@ with Ansys Lumerical FDTD to automate the design of photonic components by maxim
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: Core
-        :link: core
+        :link: core/index
         :link-type: doc
 
         Project configuration, FDTD session management, and optimization orchestration.
 
     .. grid-item-card:: Figure of merit
-        :link: fom
+        :link: fom/index
         :link-type: doc
 
         Figure of merit definitions, simulation result containers, and the factory function to create FOMs.
 
     .. grid-item-card:: Optimizer
-        :link: optimizer
+        :link: optimizer/index
         :link-type: doc
 
         Optimization algorithms, including the SciPy-based optimizer.
@@ -27,13 +27,13 @@ with Ansys Lumerical FDTD to automate the design of photonic components by maxim
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: Parametrization
-        :link: parametrization
+        :link: parametrization/index
         :link-type: doc
 
         Geometry parametrization methods for shape, topology, and closed-curve optimization.
 
     .. grid-item-card:: Utilities
-        :link: utils
+        :link: utils/index
         :link-type: doc
 
         Helper functions and classes for logging, configuration, gradient validation, running jobs, and visualization.
@@ -41,8 +41,8 @@ with Ansys Lumerical FDTD to automate the design of photonic components by maxim
 .. toctree::
     :hidden:
 
-    core
-    fom
-    optimizer
-    parametrization
-    utils
+    core/index
+    fom/index
+    optimizer/index
+    parametrization/index
+    utils/index

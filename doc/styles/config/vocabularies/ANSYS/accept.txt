@@ -28,6 +28,7 @@ IPython
 photonic
 photonics
 lumopt
+parametrization[s]?
 fom
 lumslurm
 [Jj]upytext

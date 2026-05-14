@@ -44,9 +44,9 @@ def test_lumopt2_import_and_basics():
     assert hasattr(lmpt, "FdtdSession")
     assert hasattr(lmpt, "Parametrization")
     assert hasattr(lmpt, "Fom")
-    assert hasattr(lmpt, "OptimizationVisualizer")
+    assert hasattr(lmpt, "GraphicalVisualizer")
 
-    # OptimizationVisualizer construction triggers the lazy matplotlib import
+    # GraphicalVisualizer construction triggers the lazy matplotlib import
     matplotlib.use("Agg")  # non-interactive backend for CI/CD
-    viz = lmpt.OptimizationVisualizer()
+    viz = lmpt.GraphicalVisualizer()
     assert viz is not None

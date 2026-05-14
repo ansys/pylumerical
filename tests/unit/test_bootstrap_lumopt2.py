@@ -262,6 +262,7 @@ class TestBootstrapLumopt2:
 
         monkeypatch.setattr(lumapi.InteropPaths, "setLumericalInstallPath", staticmethod(_fake_set_install_path))
         monkeypatch.delitem(sys.modules, "lumapi", raising=False)
+        monkeypatch.delitem(sys.modules, "lumopt2", raising=False)
         original_sys_path = list(sys.path)
         monkeypatch.setattr(sys, "path", list(original_sys_path), raising=False)
         monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)

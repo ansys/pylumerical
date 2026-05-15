@@ -38,7 +38,7 @@ jobs:
       contents: read # Required by reusable workflow to checkout repository
     uses: ./.github/workflows/common-doc-build-lumerical.yml
     with:
-      documentation-cname: ${{ env.DOCUMENTATION_CNAME }}
+      documentation-cname: 'lumerical.docs.pyansys.com'
       skip-doc-build-if-closed: false
     secrets:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}

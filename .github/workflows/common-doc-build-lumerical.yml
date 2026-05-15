@@ -105,7 +105,8 @@ jobs:
           docker exec \
             --workdir /home/lumerical/pylumerical \
             ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} /bin/bash --login -c \
-            "python -m pip install --upgrade pip && \
+            "yum install -y make && \
+            python -m pip install --upgrade pip && \
             python -m pip install -e .[doc] && \
             BUILD_PYLUMERICAL_CHEATSHEET='${BUILD_PYLUMERICAL_CHEATSHEET}' \
             BUILD_PYLUMERICAL_EXAMPLES='${BUILD_PYLUMERICAL_EXAMPLES}' \

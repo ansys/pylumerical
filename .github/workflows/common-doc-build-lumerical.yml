@@ -119,10 +119,23 @@ jobs:
             fi && \
             export PATH=/home/lumerical/.local/quarto/bin:\$PATH && \
             quarto --version && \
+            if ! command -v xelatex >/dev/null 2>&1; then \
+              quarto install tinytex --update-path --no-prompt; \
+            fi && \
+            TINYTEX_BIN=\$(ls -d /home/lumerical/.TinyTeX/bin/* 2>/dev/null | head -n 1) && \
+            if [ -n \"\$TINYTEX_BIN\" ]; then export PATH=\$TINYTEX_BIN:\$PATH; fi && \
             BUILD_PYLUMERICAL_CHEATSHEET='${BUILD_PYLUMERICAL_CHEATSHEET}' \
             BUILD_PYLUMERICAL_EXAMPLES='${BUILD_PYLUMERICAL_EXAMPLES}' \
             DOCUMENTATION_CNAME='${DOCUMENTATION_CNAME}' \
             \${PYTHON_BIN} -m sphinx -b html -W --keep-going -j auto doc/source doc/_build/html && \
+            \${PYTHON_BIN} -m sphinx -b latex -W --keep-going -j auto doc/source doc/_build/latex && \
+            cd doc/_build/latex && \
+            if command -v latexmk >/dev/null 2>&1; then \
+              latexmk -r latexmkrc -pdf *.tex -interaction=nonstopmode || true; \
+            else \
+              echo 'latexmk not found; skipping PDF compilation step.'; \
+            fi && \
+            cd /home/lumerical/pylumerical && \
             \${PYTHON_BIN} -m sphinx -b linkcheck -W --keep-going -j auto doc/source doc/_build/linkcheck"
 
       - name: "Upload HTML documentation artifact"

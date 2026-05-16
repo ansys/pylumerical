@@ -121,11 +121,6 @@ Documentation
 
       Learn how to contribute to the PyLumerical project.
 
-Cheat Sheet
------------
-
-- :download:`Download the PyLumerical cheatsheet (PDF) <cheat_sheet/pylumerical_cheat_sheet.pdf>`
-
 .. toctree::
    :hidden:
    :maxdepth: 3

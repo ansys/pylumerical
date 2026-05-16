@@ -47,6 +47,10 @@ html_theme_options = {
     },
 }
 
+# Conditionally add cheatsheet if enabled
+if build_cheatsheet:
+    html_theme_options["cheatsheet"] = {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"}
+
 # Sphinx extensions
 extensions = [
     "sphinx.ext.autodoc",

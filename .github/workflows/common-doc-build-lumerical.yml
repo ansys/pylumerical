@@ -50,7 +50,7 @@ jobs:
       DOCUMENTATION_CNAME: ${{ inputs.documentation-cname }}
       BUILD_PYLUMERICAL_CHEATSHEET: "TRUE"
       BUILD_PYLUMERICAL_EXAMPLES: "TRUE"
-      QUARTO_VERSION: "1.7.32"
+      QUARTO_VERSION: "1.10.3"
       DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_2"
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: "lumerical-unified-docs"
     steps:
@@ -110,9 +110,9 @@ jobs:
                 pandoc \
                 poppler-utils \
                 make
-              curl -fsSLO "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.rpm"
-              dnf install -y "./quarto-${QUARTO_VERSION}-linux-amd64.rpm"
-              rm -f "./quarto-${QUARTO_VERSION}-linux-amd64.rpm"
+              curl -fsSLO "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
+              dnf install -y "./quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
+              rm -f "./quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
               quarto --version
             '
 

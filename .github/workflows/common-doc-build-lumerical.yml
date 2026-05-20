@@ -111,7 +111,7 @@ jobs:
                 poppler-utils \
                 texlive-collection-latexrecommended \
                 texlive-fncychap texlive-wrapfig \
-                texlive-captof texlive-framed \
+                texlive-capt-of texlive-framed \
                 texlive-upquote texlive-needspace \
                 texlive-tabulary texlive-titlesec \
                 latexmk \

@@ -325,6 +325,7 @@ class TestBootstrapLumopt2:
         monkeypatch.delitem(sys.modules, "lumopt2", raising=False)
         monkeypatch.delitem(sys.modules, "ansys.lumerical.core.lumopt2", raising=False)
         monkeypatch.setattr(sys, "meta_path", _meta_path_without_lumopt2_finders(), raising=False)
+        monkeypatch.setattr(sys, "path", [p for p in sys.path if not Path(p, "lumopt2").is_dir()])
 
         with pytest.raises(ModuleNotFoundError, match="bundled 'lumopt2'") as exc_info:
             importlib.import_module("ansys.lumerical.core.lumopt2")

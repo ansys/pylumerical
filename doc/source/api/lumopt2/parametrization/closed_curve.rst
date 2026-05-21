@@ -1,5 +1,5 @@
-parametrization.closed_curve
-============================
+lumopt2.parametrization.closed_curve
+====================================
 
 .. automodule:: lumopt2.parametrization.closed_curve
    :no-members:

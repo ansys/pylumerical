@@ -1,5 +1,5 @@
-parametrization.base_parametrization
-====================================
+lumopt2.parametrization.base_parametrization
+============================================
 
 .. automodule:: lumopt2.parametrization.base_parametrization
    :no-members:

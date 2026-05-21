@@ -1,5 +1,5 @@
-Figure of Merit
-===============
+lumopt2.fom
+===========
 
 The figure of merit (FOM) module defines the objective functions used during optimization. It provides
 simulation result containers, concrete FOM classes, and a factory function to create the appropriate
@@ -27,6 +27,8 @@ FOM type from simulation results.
         :link-type: doc
 
         FOM calculator for field-based (DFT monitor) simulations.
+
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: fom.port_fom
         :link: port_fom

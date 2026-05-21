@@ -1,5 +1,5 @@
-fom.fom
-=======
+lumopt2.fom.fom
+================
 
 .. automodule:: lumopt2.fom.fom
    :no-members:

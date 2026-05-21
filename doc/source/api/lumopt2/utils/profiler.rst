@@ -1,5 +1,5 @@
-utils.profiler
-==============
+lumopt2.utils.profiler
+=======================
 
 .. automodule:: lumopt2.utils.profiler
    :no-members:

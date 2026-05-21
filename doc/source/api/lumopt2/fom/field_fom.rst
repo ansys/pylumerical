@@ -1,5 +1,5 @@
-fom.field_fom
-=============
+lumopt2.fom.field_fom
+=====================
 
 .. automodule:: lumopt2.fom.field_fom
    :no-members:

@@ -1,5 +1,5 @@
-optimizer.scipy_optimizer
-=========================
+lumopt2.optimizer.scipy_optimizer
+=================================
 
 .. automodule:: lumopt2.optimizer.scipy_optimizer
    :no-members:

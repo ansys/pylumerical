@@ -1,5 +1,5 @@
-parametrization.d_eps_calculator
-================================
+lumopt2.parametrization.d_eps_calculator
+=========================================
 
 .. automodule:: lumopt2.parametrization.d_eps_calculator
    :no-members:

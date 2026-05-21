@@ -1,5 +1,5 @@
-utils.common
-============
+lumopt2.utils.common
+====================
 
 .. automodule:: lumopt2.utils.common
    :no-members:

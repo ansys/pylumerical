@@ -1,5 +1,5 @@
-parametrization.combined_parametrization
-========================================
+lumopt2.parametrization.combined_parametrization
+================================================
 
 .. automodule:: lumopt2.parametrization.combined_parametrization
    :no-members:

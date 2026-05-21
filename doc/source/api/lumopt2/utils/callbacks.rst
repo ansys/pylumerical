@@ -1,5 +1,5 @@
-utils.callbacks
-===============
+lumopt2.utils.callbacks
+=======================
 
 .. automodule:: lumopt2.utils.callbacks
    :no-members:

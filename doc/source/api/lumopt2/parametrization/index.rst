@@ -1,7 +1,7 @@
-Parametrization
-===============
+lumopt2.parametrization
+=======================
 
-The parametrization module defines how the design geometry is represented and how
+The parametrization module defines how it represents the design geometry and how
 design parameters map to permittivity distributions. It supports shape, topology,
 and closed-curve optimization.
 
@@ -24,6 +24,8 @@ and closed-curve optimization.
         :link-type: doc
 
         Density-based topology optimization.
+
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: parametrization.closed_curve
         :link: closed_curve

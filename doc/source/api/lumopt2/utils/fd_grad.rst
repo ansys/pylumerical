@@ -1,5 +1,5 @@
-utils.fd_grad
-=============
+lumopt2.utils.fd_grad
+======================
 
 .. automodule:: lumopt2.utils.fd_grad
    :no-members:

@@ -1,5 +1,5 @@
-utils.sparse_helpers
-====================
+lumopt2.utils.sparse_helpers
+=============================
 
 .. automodule:: lumopt2.utils.sparse_helpers
    :no-members:

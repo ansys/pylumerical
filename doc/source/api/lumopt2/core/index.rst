@@ -1,29 +1,29 @@
-Core
-====
+lumopt2.core
+============
 
-The core module manages FDTD sessions, project setup, configuration, and the main optimization loop.
-It provides the central orchestration layer that ties together parametrization, figures of merit,
-and optimizers into a complete inverse design workflow.
+The core module contains classes to orchestrate the optimization processm, utilizing other modules as the input.
 
 .. grid:: 2 2 3 3
-
-    .. grid-item-card:: core.fdtd_session
-        :link: fdtd_session
-        :link-type: doc
-
-        FDTD session management, simulation status, and error handling.
 
     .. grid-item-card:: core.optimization
         :link: optimization
         :link-type: doc
 
-        The main optimization loop and result container.
+        Classes for overall optimization workflow and results, using the project, optimizer, and visualizer.
 
     .. grid-item-card:: core.project
         :link: project
         :link-type: doc
 
-        Project setup linking parametrization, FOM, and FDTD session.
+        Main project classes to set up the optimization problem including parameters, FoMs, and resources to run the project on.
+
+    .. grid-item-card:: core.fdtd_session
+        :link: fdtd_session
+        :link-type: doc
+
+        Classes to interact with a FDTD session.
+
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: core.project_config
         :link: project_config

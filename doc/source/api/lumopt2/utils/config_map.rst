@@ -1,5 +1,5 @@
-utils.config_map
-================
+lumopt2.utils.config_map
+========================
 
 .. automodule:: lumopt2.utils.config_map
    :no-members:

@@ -1,5 +1,5 @@
-utils.file_logger
-=================
+lumopt2.utils.file_logger
+=========================
 
 .. automodule:: lumopt2.utils.file_logger
    :no-members:

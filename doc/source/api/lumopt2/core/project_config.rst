@@ -1,5 +1,5 @@
-core.project_config
-===================
+lumopt2.core.project_config
+===========================
 
 .. automodule:: lumopt2.core.project_config
    :no-members:

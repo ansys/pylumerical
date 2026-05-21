@@ -1,5 +1,5 @@
-optimizer.base_optimizer
-========================
+lumopt2.optimizer.base_optimizer
+================================
 
 .. automodule:: lumopt2.optimizer.base_optimizer
    :no-members:

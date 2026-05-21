@@ -1,5 +1,5 @@
-Optimizer
-=========
+lumopt2.optimizer
+=================
 
 The optimizer module provides optimization algorithms that drive the inverse design loop.
 

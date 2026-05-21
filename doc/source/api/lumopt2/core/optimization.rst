@@ -1,5 +1,5 @@
-core.optimization
-=================
+lumopt2.core.optimization
+=========================
 
 .. automodule:: lumopt2.core.optimization
    :no-members:

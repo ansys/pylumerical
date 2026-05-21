@@ -1,5 +1,5 @@
-Utilities
-=========
+lumopt2.utils
+=============
 
 The utilities module provides helper functions and classes for logging, configuration mapping,
 finite-difference gradient validation, job execution, sparse matrix operations, and visualization.
@@ -24,6 +24,8 @@ finite-difference gradient validation, job execution, sparse matrix operations, 
 
         Live matplotlib visualization callback.
 
+.. grid:: 2 2 3 3
+
     .. grid-item-card:: utils.panels
         :link: panels
         :link-type: doc
@@ -42,6 +44,8 @@ finite-difference gradient validation, job execution, sparse matrix operations, 
 
         Finite difference gradient utilities.
 
+.. grid:: 2 2 3 3
+
     .. grid-item-card:: utils.common
         :link: common
         :link-type: doc
@@ -59,6 +63,8 @@ finite-difference gradient validation, job execution, sparse matrix operations, 
         :link-type: doc
 
         Sparse-dense index conversion functions.
+
+.. grid:: 2 2 3 3
 
     .. grid-item-card:: utils.profiler
         :link: profiler

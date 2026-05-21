@@ -1,5 +1,5 @@
-utils.panels
-============
+lumopt2.utils.panels
+=====================
 
 .. automodule:: lumopt2.utils.panels
    :no-members:

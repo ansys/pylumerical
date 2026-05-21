@@ -36,3 +36,5 @@ lumslurm
 matplotlib
 Pandoc
 Quarto
+TE
+TM

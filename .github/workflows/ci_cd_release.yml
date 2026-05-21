@@ -5,8 +5,9 @@ on:
       - "v*.*.*"
 
 env:
-  LIBRARY_NAME: 'ansys-lumerical-core' # Note that this is duplicated in the build-test-package job
-  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com' # Note that this is duplicated in the build-test-package job
+  MAIN_PYTHON_VERSION: '3.14'
+  LIBRARY_NAME: 'ansys-lumerical-core'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need
@@ -42,6 +43,7 @@ jobs:
       library-name: 'ansys-lumerical-core'
       documentation-cname: 'lumerical.docs.pyansys.com'
       skip-doc-build-if-closed: false
+      main-python-version: '3.14'
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}

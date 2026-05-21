@@ -1,7 +1,7 @@
 lumopt2.core
 ============
 
-The core module contains classes to orchestrate the optimization processm, utilizing other modules as the input.
+The core module contains classes to orchestrate the optimization process, utilizing other modules as the input.
 
 .. grid:: 2 2 3 3
 

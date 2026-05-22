@@ -34,7 +34,7 @@ The core module contains classes to orchestrate the optimization process, utiliz
 .. toctree::
    :hidden:
 
-   fdtd_session
    optimization
    project
+   fdtd_session
    project_config

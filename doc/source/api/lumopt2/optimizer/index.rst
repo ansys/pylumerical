@@ -18,7 +18,7 @@ The optimizer module provides optimization algorithms that drive the inverse des
         :link: scipy_optimizer
         :link-type: doc
 
-        Concrete optimizer using SciPy minimization algorithms.
+        Optimizer using Scipy algorithms.
 
 .. toctree::
    :hidden:

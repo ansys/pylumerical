@@ -47,16 +47,42 @@ Then, upgrade pip to the latest version, and install PyLumerical with the packag
 
 .. tip::
     Using a virtual environment isn't a requirement, but it's a best practice for Python development.
+    PyLumerical is compatible with various Python IDEs including VS Code, Jupyter Notebook, and Cursor. After installation, you can use your preferred editor to start using PyLumerical.
 
 Requirements
 -------------
 
-You must have an Ansys Lumerical GUI license to use PyLumerical. For more information, please visit the `licensing page <https://optics.ansys.com/hc/en-us/articles/360033862333-Lumerical-product-components-and-licensing-overview>`_ on the Ansys Optics website.
-In addition, you must also have Lumerical |supported_lum_release| or later installed on your computer. Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` logic automatically locates the Lumerical installation path and configures interop. If bundled ``lumopt2`` is available, PyLumerical enables ``import lumopt2`` and ``import ansys.lumerical.core.lumopt2`` without exposing all modules from ``<LUMERICAL_HOME>/api/python``.
-If autodiscovery fails, set ``LUMERICAL_HOME`` before import and start a new Python session.
-For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
-Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
+You must have an Ansys Lumerical GUI license along with Lumerical |supported_lum_release| or later on your computer to use PyLumerical. For more information, please visit the `licensing page <https://optics.ansys.com/hc/en-us/articles/360033862333-Lumerical-product-components-and-licensing-overview>`_ on the Ansys Optics website.
 
+Upon importing PyLumerical, the :doc:`autodiscovery <../api/autodiscovery>` logic automatically locates the Lumerical installation path and configures interop.
+If autodiscovery fails, set the ``LUMERICAL_HOME`` environment variable before import and start a new Python session.
+
+To use the Lumerical photonic inverse design module lumopt2, you must have Ansys Lumerical FDTD™ version 2026 R1.2 or later installed on your computer. The autodiscovery logic automatically locates the lumopt2 module if it is available.
+
+Importing modules
+------------------
+
+To use PyLumerical for simulation automation:
+
+.. code-block:: python
+
+   import ansys.lumerical.core as lumapi
+
+.. tip::
+
+   When imported this way, you can directly use your scripts written with the legacy lumapi Python module.
+
+To use the lumopt2 inverse design module:
+
+.. code-block:: python
+
+   import ansys.lumerical.core.lumopt2 as lmpt
+
+.. warning::
+   Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
+
+.. tip::
+   For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
 
 .. Turn off vale here due to captizalization issues being wrongly flagged by vale.
 
@@ -64,15 +90,10 @@ Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
 
 My first PyLumerical project
 -----------------------------
-.. tip::
-    PyLumerical is compatible with various Python editors including VS Code and Jupyter Notebook. After installation, you can use your preferred editor to start using PyLumerical.
 
 .. vale on
 
-The code snippet below provides simple project of using PyLumerical and Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave.
-
-
-Matplotlib isn't automatically installed with PyLumerical, you need to install it separately in your environment using ``python -m pip install matplotlib``.
+The code snippet below provides a simple project of using PyLumerical and the Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave.
 
 .. code-block:: python
 
@@ -121,32 +142,40 @@ Further resources
       Reference for the PyLumerical API.
 
     .. grid-item-card:: Examples
-        :link: ../examples
-        :link-type: doc
+      :link: ../examples
+      :link-type: doc
 
-        Gallery of examples using PyLumerical.
+      Gallery of examples using PyLumerical.
 
-..
-    TODO: Revamp application examples below. Give a few recommended ones. Add link to example landing page above.
+.. grid:: 1 1 1 1
+
+   .. grid-item-card:: Photonic inverse design with lumopt2
+      :link: ../user_guide/photonic_inverse_design_with_lumopt2
+      :link-type: doc
+
+      Information on using lumopt2 for photonic inverse design.
 
 Recommended examples
 ----------------------
 
 Recommended examples to further build your understanding of PyLumerical and its capabilities.
 
-Ansys Lumerical FDTD™
-^^^^^^^^^^^^^^^^^^^^^^
+.. grid:: 2 2 3 3
 
-- `Nanowire example using FDTD`_
+   .. grid-item-card:: Basic FDTD simulation
+      :link: ../examples/Sessions_and_Objects/fdtd_example1_pythonic
+      :link-type: doc
 
-.. _Nanowire example using FDTD: https://optics.ansys.com/hc/en-us/articles/360034416574-FDTD-application-example
+      Run an FDTD simulation using PyLumerical and plot the electric field.
 
-Ansys Lumerical INTERCONNECT™
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   .. grid-item-card:: Basic MODE simulation
+      :link: ../examples/Single_Solver_Workflows/waveguide_FDE
+      :link-type: doc
 
-- `Monte Carlo analysis in INTERCONNECT`_
-- `Optical transceiver co-simulation in INTERCONNECT`_
+      Run a waveguide simulation in MODE.
 
-.. _Optical transceiver co-simulation in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034936773-Python-co-simulation-with-INTERCONNECT
-.. _Monte Carlo analysis in INTERCONNECT: https://optics.ansys.com/hc/en-us/articles/360034416594-INTERCONNECT-application-example
+   .. grid-item-card:: Basic INTERCONNECT simulation
+      :link: ../examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link-type: doc
 
+      Run an an INTERCONNECT simulation for a ring resonator.

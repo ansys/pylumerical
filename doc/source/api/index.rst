@@ -3,6 +3,13 @@ API reference
 
 The API reference provides an overview of classes and methods used in PyLumerical.
 
+.. vale off
+
+lumapi
+-------
+
+.. vale on
+
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: Interface classes
@@ -23,13 +30,20 @@ The API reference provides an overview of classes and methods used in PyLumerica
 
         Function to automatically discover Lumerical installation.
 
-.. grid:: 2 2 3 3
+.. vale off
 
-    .. grid-item-card:: LumOpt2
+lumopt2
+-------
+
+.. vale on
+
+.. grid:: 1 1 1 1
+
+    .. grid-item-card:: lumopt2
         :link: lumopt2/index
         :link-type: doc
 
-        Inverse design framework for photonic devices using adjoint-based optimization.
+        Inverse design module for photonic devices using the adjoint method.
 
 .. toctree::
     :hidden:

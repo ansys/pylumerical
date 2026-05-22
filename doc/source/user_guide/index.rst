@@ -6,6 +6,11 @@ Use Python to analyze data, automate complex workflows, optimizations, and produ
 
 This user guide provides important informational resources on key concepts of PyLumerical.
 
+Simulation automation
+----------------------
+
+The guides below discusses using lumapi to automate Lumerical simulations with Python.
+
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Session management
@@ -40,6 +45,19 @@ This user guide provides important informational resources on key concepts of Py
 
       Learn how to access simulation results and work with Lumerical datasets.
 
+Photonic inverse design
+------------------------
+
+The guide below discusses usage of lumopt2 for inverse design of photonic devices.
+
+.. grid:: 1 1 1 1
+
+   .. grid-item-card:: Photonic inverse design
+      :link: photonic_inverse_design_with_lumopt2
+      :link-type: doc
+
+      Learn how to use the lumopt2 module for photonic inverse design.
+
 .. toctree::
    :hidden:
    :maxdepth: 2
@@ -49,3 +67,4 @@ This user guide provides important informational resources on key concepts of Py
    working_with_simulation_objects
    passing_data
    accessing_simulation_results
+   photonic_inverse_design_with_lumopt2

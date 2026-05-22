@@ -1,23 +1,26 @@
 PyLumerical |version|
 ===================================
 
+**Useful links**: :doc:`Installation <getting_started/index>` \| `Source Repository <https://github.com/ansys/pylumerical>`_ \| `Issues <https://github.com/ansys/pylumerical/issues>`_
+
 PyLumerical is the Python automation library for Ansys Lumerical photonics simulation software. Use PyLumerical to seamlessly control Ansys Lumerical products including Ansys Lumerical FDTD™, Ansys Lumerical MODE™, Ansys Lumerical Multiphysics™, and Ansys Lumerical INTERCONNECT™ directly in Python.
 
 .. note::
 
-   The Lumerical inverse design libraries `lumopt` and `lumopt2`, and the high performance computing (HPC) scheduler automation library `lumslurm`,
-   are currently distributed with Lumerical products and are not included in the ``ansys-lumerical-core`` wheel.
+   Starting with Ansys Lumerical 2026 R1.2, the photonic inverse design module ``lumopt2`` is available through PyLumerical. See below for more information.
 
-   When a Lumerical installation with bundled ``lumopt2`` is found, importing PyLumerical automatically enables
-   ``import lumopt2`` and ``import ansys.lumerical.core.lumopt2`` without exposing unrelated modules from
-   ``<LUMERICAL_HOME>/api/python``.
+   If you have a compatible version of Lumerical installed, you can import lumopt2 through ``import ansys.lumerical.core.lumopt2``.
+
+.. note::
+
+   The Lumerical inverse design modules ``lumopt`` and ``lumopt2``, as well as the high performance computing (HPC) scheduler automation library ``lumslurm``, are distributed with Lumerical products and are not included in the ``ansys-lumerical-core`` wheel.
 
    The `Lumerical Python API <https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview>`_ is still provided with Lumerical products.
 
 Capabilities
 -------------------
 
-.. grid:: 1 3 3 3
+.. grid:: 1 2 2 2
    :gutter: 3
 
    .. grid-item-card:: Run Lumerical products directly in Python
@@ -35,6 +38,25 @@ Capabilities
          :click-parent:
 
          Show me how ➤
+
+   .. grid-item-card:: Easy to use inverse design module
+      :text-align: center
+      :padding: 3 3 4 4
+
+      Quickly set up and run photonic inverse design using the adjoint method with the lumopt2 module.
+
+      +++
+
+      .. button-ref:: user_guide/photonic_inverse_design_with_lumopt2
+         :ref-type: doc
+         :shadow:
+         :color: primary
+         :click-parent:
+
+         Get started ➤
+
+.. grid:: 1 2 2 2
+   :gutter: 3
 
    .. grid-item-card:: Seamlessly integrate existing automation
       :text-align: center
@@ -99,7 +121,7 @@ Documentation
       :fa:`code` API reference
       ^^^
 
-      Description of classes and methods of the PyLumerical module.
+      Description of classes and methods of PyLumerical.
 
 .. grid:: 2 2 2 2
 

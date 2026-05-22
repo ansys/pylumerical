@@ -6,3 +6,72 @@
 .highlight span.linenos {
     opacity: 0.4 !important;
 }
+
+/* === Flow diagram styling for lumopt2 navigation === */
+
+/* Chevron shared properties */
+.flow-chevron-up::after,
+.flow-chevron-right::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    background: var(--pst-color-border, var(--sd-color-secondary));
+}
+
+/* Vertical chevron (pointing up) */
+.flow-chevron-up {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.flow-chevron-up::after {
+    width: 36px;
+    height: 18px;
+    clip-path: polygon(50% 0%, 0% 100%, 20% 100%, 50% 35%, 80% 100%, 100% 100%);
+}
+
+/* Horizontal chevron (pointing right) */
+.flow-chevron-right {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.flow-chevron-right::after {
+    width: 18px;
+    height: 36px;
+    clip-path: polygon(100% 50%, 0% 0%, 0% 20%, 65% 50%, 0% 80%, 0% 100%);
+}
+
+/* Hub row: equal height columns, cards fill parent */
+.flow-hub-row .sd-row {
+    align-items: stretch;
+}
+
+.flow-hub-row .sd-col > .sd-card {
+    height: 100%;
+}
+
+/* Static cards: center content vertically */
+.flow-card-static {
+    pointer-events: none;
+}
+
+.flow-card-static .sd-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Container box for components section */
+.flow-box {
+    box-shadow: none;
+    background: transparent;
+}
+
+.flow-box > .sd-card-body > .sd-card-title {
+    text-align: center;
+    margin-bottom: 0.75rem;
+}

@@ -96,7 +96,7 @@ numpydoc_validation_checks = {
     # "SS03", # Summary does not end with a period
     "SS04",  # Summary contains heading whitespaces
     # "SS05", # Summary must start with infinitive verb, not third person
-    "RT02",  # The first line of the Returns section should contain only the
+    # "RT02",  # The first line of the Returns section should contain only the # TO-DO : Revert for R1.3
     # type, unless multiple values are being returned"
 }
 

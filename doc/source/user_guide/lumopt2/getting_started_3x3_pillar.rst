@@ -243,7 +243,7 @@ Finally, use the ``optimization.run()`` method to start the optimization.
 
 When the optimization starts, the console outputs the current progress, and a matplotlib window opens to visualize results for each iteration. A new folder is also created to store the optimization results with the name format ``lumopt2_project_<time_stamp>``.
 
-The optimization in this example is set to run for a maximum of 15 iterations. After each iteration, the plot updates and shows the current figure of merit value, as well as the L2 norm of the parameter gradient, calculated as :math:`\sqrt{\sum_i \frac{\partial \text{FoM}}{\partial \text{Param}_i}}`.
+The optimization in this example is set to run for a maximum of 15 iterations. After each iteration, the plot updates and shows the current figure of merit value, as well as the L2 norm of the parameter gradient, calculated as :math:`\sqrt{\sum_i (\frac{\partial \text{FoM}}{\partial \text{Param}_i})^2}`.
 
 The optimization could take around 15 minutes to run on a local GPU, but may vary depending on the resources you are using.
 

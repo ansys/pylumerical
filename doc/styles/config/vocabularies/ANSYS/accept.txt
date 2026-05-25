@@ -40,3 +40,8 @@ Quarto
 TE
 TM
 lumapi
+metalens[es]?
+namespace
+nm
+scipy
+SciPy

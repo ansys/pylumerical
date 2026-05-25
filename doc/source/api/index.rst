@@ -47,8 +47,14 @@ lumopt2
 
 .. toctree::
     :hidden:
+    :caption: Simulation Automation
 
     interface_class
     simobject_class
     autodiscovery
+
+.. toctree::
+    :hidden:
+    :caption: Photonic Inverse Design
+
     lumopt2/index

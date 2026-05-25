@@ -1,5 +1,5 @@
-lumopt2 - Lumerical photonic inverse design module
-==================================================
+lumopt2 Lumerical photonic inverse design module introduction
+==============================================================
 
 As photonic components become increasingly complex, traditional design cycles involving manually varying a small set of parameters become less effective in finding the optimal device design. While parameter sweeps and traditional optimization techniques allows for further exploration of the design space, the time required exponentially increases as the number of design parameters increase. Towards that end, specialized methods are required to anticipate strong candidates which allows for faster convergence towards a satisfactory design.
 

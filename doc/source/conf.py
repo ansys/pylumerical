@@ -61,6 +61,7 @@ extensions = [
     "sphinx_design",  # Needed for cards
     "sphinx.ext.extlinks",
     "nbsphinx",
+    "sphinx.ext.mathjax",
 ]
 
 # Intersphinx mapping

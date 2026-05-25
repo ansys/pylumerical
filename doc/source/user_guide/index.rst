@@ -61,10 +61,17 @@ The guide below discusses usage of lumopt2 for inverse design of photonic device
 .. toctree::
    :hidden:
    :maxdepth: 2
+   :caption: Simulation Automation
 
    session_management
    script_commands_as_methods
    working_with_simulation_objects
    passing_data
    accessing_simulation_results
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Photonic Inverse Design
+
    photonic_inverse_design_with_lumopt2

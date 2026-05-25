@@ -46,10 +46,10 @@ The optimization goal is to maximize the field intensity in the center region un
 
 The attached Lumerical FDTD project (.fsp) file contains the already set up base simulation, with a `simulation region <https://optics.ansys.com/hc/en-us/articles/360034382534-FDTD-solver-Simulation-Object>`__, `gaussian source <https://optics.ansys.com/hc/en-us/articles/360034382854-Plane-wave-and-beam-source-Simulation-object>`__, `cylinder geometries <https://optics.ansys.com/hc/en-us/articles/360034901513-Circle-Simulation-Object>`__, as well as `field region objects <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__ that are used in the figure of merit.
 
-This example omits the details in setting up the base simulation file, but you can do this by using the `FDTD GUI interface <https://optics.ansys.com/hc/en-us/articles/360033154434-FDTD-product-reference-manual>`__, via the `Lumerical Scripting Language <https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category>`__, via :doc:`PyLumerical <../index>`, or a combination thereof. You can pre-configure your simulation as done in this example or choose to set up the simulation along side your LumOpt2 optimization script.
+This example omits the details in setting up the base simulation file, but you can do this by using the `FDTD GUI interface <https://optics.ansys.com/hc/en-us/articles/360033154434-FDTD-product-reference-manual>`__, via the `Lumerical Scripting Language <https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category>`__, via :doc:`PyLumerical <../index>`, or a combination thereof. You can pre-configure your simulation as done in this example or choose to set up the simulation along side your lumopt2 optimization script.
 
 .. tip::
-    For LumOpt2 optimizations, specific objects, such as `field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__ or `ports <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__ are required for setting up the figure-of-merit.
+    For lumopt2 optimizations, specific objects, such as `field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__ or `ports <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__ are required for setting up the figure-of-merit.
 
 Importing libraries
 -------------------
@@ -225,7 +225,7 @@ The :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class takes in
 
 .. tip::
 
-    You can customize the visualizer to display different metrics. For more information, see :doc:`visualization article <visualizer>`.
+    You can customize the visualizer to display different metrics. For more information, see :doc:`callback article <callbacks>`.
 
 .. code-block:: python
     :lineno-start: 41

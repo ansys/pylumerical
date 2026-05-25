@@ -1,4 +1,4 @@
-Visualizer
+Callbacks
 ==========
 
 .. note::

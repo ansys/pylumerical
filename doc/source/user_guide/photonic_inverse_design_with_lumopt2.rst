@@ -142,20 +142,21 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
 
          Defining simulation results and objective functions.
 
-      .. grid-item-card:: Visualizer
-         :link: lumopt2/visualizer
+      .. grid-item-card:: Callbacks
+         :link: lumopt2/callbacks
          :link-type: doc
 
-         Configuring live visualization and logging.
+         Configuring callback functions for visualization and logging.
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
    lumopt2/getting_started_3x3_pillar
+   lumopt2/optimization_session
    lumopt2/base_simulation
    lumopt2/parametrization
    lumopt2/figure_of_merit
-   lumopt2/visualizer
-   lumopt2/optimization_session
+   lumopt2/callbacks
+
 

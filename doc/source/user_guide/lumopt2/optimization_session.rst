@@ -125,12 +125,9 @@ Further information, such as the requirements on simulation object, is in the ba
 
     .. grid-item::
 
-        .. button-link:: base_simulation.html
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` User guide - base simulation
+        .. card:: :octicon:`book` User guide - base simulation
+            :link: base_simulation
+            :link-type: doc
 
 Parametrization
 ~~~~~~~~~~~~~~~~
@@ -147,12 +144,9 @@ Further information for each parametrization strategy is in the parametrization 
 
     .. grid-item::
 
-        .. button-link:: parametrization.html
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` User guide - parametrization
+        .. card:: :octicon:`book` User guide - parametrization
+            :link: parametrization
+            :link-type: doc
 
 Figure of merit
 ~~~~~~~~~~~~~~~~
@@ -168,12 +162,9 @@ For further information on setting up the figure of merit from simulation result
 
     .. grid-item::
 
-        .. button-link:: figure_of_merit.html
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` User guide - figure of merit
+        .. card:: :octicon:`book` User guide - figure of merit
+            :link: figure_of_merit
+            :link-type: doc
 
 
 FDTD session
@@ -210,21 +201,15 @@ For further information on resource configuration and GPU simulation, please vis
 
     .. grid-item::
 
-        .. button-link:: https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` Lumerical KB - resource configuration
+        .. card:: :octicon:`book` Lumerical KB - resource configuration
+            :link: https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls
+            :link-type: url
 
     .. grid-item::
 
-        .. button-link:: https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` Lumerical KB - GPU simulation
+        .. card:: :octicon:`book` Lumerical KB - GPU simulation
+            :link: https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU
+            :link-type: url
 
 Optimizer
 -----------
@@ -254,12 +239,9 @@ For further information on configuring callbacks and on when they are triggered,
 
     .. grid-item::
 
-        .. button-link:: callbacks.html
-            :color: secondary
-            :shadow:
-            :align: center
-
-            :octicon:`book` User guide - callbacks
+        .. card:: :octicon:`book` User guide - callbacks
+            :link: callbacks
+            :link-type: doc
 
 Result configuration
 ---------------------

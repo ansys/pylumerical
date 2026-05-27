@@ -4,8 +4,8 @@ Parametrization
 Parametrization is the process of linking properties and geometry of the simulation to the optimization.
 
 Two parametrization approaches are available in lumopt2:
-- **Parametric optimization**: Maps arbitrary Lumerical object properties as optimization parameters.
-- **Closed curve optimization**: Uses special classes to define an optimizable polygon.
+- **Parametric optimization**: maps arbitrary Lumerical object properties as optimization parameters.
+- **Closed curve optimization**: uses special classes to define an closed polygon for parametrization.
 
 In both cases, you must first define the optimization region. within which the parameters are adjusted.
 
@@ -56,7 +56,7 @@ This effectively defines:
 Here, the Lumerical object properties are specified in the format ``object_name::property_name``. Typically, you can find the property using the GUI, or by using the `getnamed <https://optics.ansys.com/hc/en-us/articles/360034408574-getnamed-Script-command>`_ command either through Lumerical scripting or Python by calling ``print(fdtd.getnamed("my_object_name"))``.
 
 You can also define more complex parameter mapping, as any differentiable function of the parameter vector is supported.
-For example, define a parameterization such that :math:`p_2` is the difference between the radius of cylinder 1 and cylinder 0, and :math:`p_3` is the difference between the radius of cylinder 2 and cylinder 1.
+For example, define a parametrization such that :math:`p_2` is the difference between the radius of cylinder 1 and cylinder 0, and :math:`p_3` is the difference between the radius of cylinder 2 and cylinder 1.
 
 .. code:: python
 
@@ -68,7 +68,7 @@ For example, define a parameterization such that :math:`p_2` is the difference b
         "cyl2::radius": params[0] + params[1] + params[2]
     }
 
-You can also map parameters to a vector property of an object, such as the vertices of a polygon object. The autograd numpy library is used here to ensure that autograd can compute the jacobian of the parameter mapping function.
+You can also map parameters to a vector property of an object, such as the vertices of a polygon object. The autograd numpy library is used here to ensure that autograd can compute the Jacobian of the parameter mapping function.
 
 .. code:: python
 
@@ -128,7 +128,7 @@ In this case, the class assumes that each optimization parameter affects all geo
 Closed curve optimization
 --------------------------
 
-The closed curve optimization approach defines a closed bezier polygon using a series of paths, each of which can be linear or cubic.
+The closed curve optimization approach defines a closed Bézier polygon using a series of paths, each of which can be linear or cubic.
 This approach is generally useful for photonic integrated circuit applications, where the design is readily transformed into a polygon on a 2-D plane. As seen in the sections below, you can also enforce symmetry in the design by linking control points to each other.
 
 Closed curve base object
@@ -184,8 +184,8 @@ You can visualize the defined curve using :py:class:`ClosedCurve.plot() <lumopt2
    :alt: Visualization of the closed curve defined above, which forms an L-bend.
 
 
-Parametrizing closed curves
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Parametrize closed curves
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To parametrize the closed curve, you can use the :py:class:`~lumopt2.parametrization.closed_curve.Parametrize` class, which adds additional control points along a segment so they can vary during optimization.
 You specify a the start index of a segment based on the path you defined earlier for the base curve, the number control points, the bounds to apply to all new control points, and the degree of freedom for the new control points.
@@ -202,7 +202,7 @@ After defining the parametrization, finalize the parametrization using :py:class
 
 .. note::
 
-   In the example above, the ``movement`` argument is set to "normal", allowing the new control points to move normal to the curve. You can also set it to "x", "y", or "both" to specify the degree of freedom for the control points.
+   In the example above, the ``movement`` argument is set to "normal," allowing the new control points to move normal to the curve. You can also set it to "x," "y," or "both" to specify the degree of freedom for the control points.
 
 After defining the parametrized segments, you can also visualize the curve with the new control points using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>` function.
 

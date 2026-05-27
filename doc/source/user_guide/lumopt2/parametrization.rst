@@ -30,6 +30,8 @@ Parametric optimization
 The parametric optimization approach uses the :py:class:`lumopt2.parametrization.parametrization.Parametrization` class to link arbitrary Lumerical object properties as an optimization parameter.
 This approach is the most general way to parametrize a design in lumopt2, and is suitable for a wide range of applications.
 
+For a simple example of setting parametric optimization, see the :doc:`3x3 pillar example in the getting started section <getting_started_3x3_pillar>`.
+
 Defining parameter mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 

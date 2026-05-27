@@ -161,7 +161,7 @@ For this example, the figure-of-merit is for a single wavelength of 940nm.
     intensity_norm = lmpt.FieldResults(monitor_name='norm', metric='intensity', wavelengths = 940e-9)
 
 Then, utilize the :py:func:`~lumopt2.fom.fom.Fom` to define the figure of merit.
-This class takes in simulation result objects, such as the :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and a function that maps the results to a single figure-of-merit value.
+This class takes in simulation result objects, such as the :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and a function that maps the results to a single figure of merit value.
 
 Here, the example defines a custom function that maps the two field intensity results and calculates the norm.
 

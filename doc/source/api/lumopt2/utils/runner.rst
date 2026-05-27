@@ -15,4 +15,3 @@ Classes
    Job
    BaseRunner
    LocalRunner
-   SlurmRunner

@@ -11,12 +11,6 @@ The parametrization module contains classes and functions that defines how geome
 
         Parametrization based on arbitrary pre-existing Lumerical object properties.
 
-    .. grid-item-card:: parametrization.topology
-        :link: topology
-        :link-type: doc
-
-        Parametrization based on topology optimization with refractive index density pixels.
-
     .. grid-item-card:: parametrization.closed_curve
         :link: closed_curve
         :link-type: doc
@@ -47,7 +41,6 @@ The parametrization module contains classes and functions that defines how geome
    :hidden:
 
    parametrization
-   topology
    closed_curve
    combined_parametrization
    base_parametrization

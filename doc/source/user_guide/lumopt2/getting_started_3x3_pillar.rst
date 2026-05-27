@@ -84,7 +84,7 @@ Parametrization setup
 ----------------------
 
 Link each cylinder radius to the optimization using the :py:class:`~lumopt2.parametrization.parametrization.Parametrization`, which maps arbitrary pre-existing Lumerical object properties to parameters in the optimization problem.
-This class is the most general way to parametrize a design in lumopt2, and does not rely on geometry-specific operations like :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` or :py:class:`~lumopt2.parametrization.topology.Topology`.
+This class is the most general way to parametrize a design in lumopt2, and does not rely on geometry-specific operations like :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`.
 
 .. code-block:: python
     :lineno-start: 16

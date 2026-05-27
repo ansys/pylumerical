@@ -60,7 +60,6 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
       .. autosummary::
          :nosignatures:
 
-         ~lumopt2.parametrization.topology.Topology
          ~lumopt2.parametrization.parametrization.Parametrization
          ~lumopt2.parametrization.closed_curve.ClosedCurve
          ~lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment
@@ -106,7 +105,6 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          :nosignatures:
 
          ~lumopt2.utils.runner.LocalRunner
-         ~lumopt2.utils.runner.SlurmRunner
          ~lumopt2.utils.runner.Job
 
    .. tab-item:: Visualization

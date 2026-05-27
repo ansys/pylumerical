@@ -6,6 +6,8 @@ Use Python to analyze data, automate complex workflows, optimizations, and produ
 
 This user guide provides important informational resources on key concepts of PyLumerical.
 
+.. _simulation-automation:
+
 Simulation automation
 ----------------------
 

@@ -10,6 +10,9 @@ With only simple Python scripting, you can set up an optimization session based 
 Installation
 -------------
 
+Using with PyLumerical
+~~~~~~~~~~~~~~~~~~~~~~
+
 lumopt2 is provided as a part of the Lumerical FDTD installation. Therefore, you must have Lumerical FDTD installed to use lumopt2.
 PyLumerical is set up such that if there it detects a Lumerical installation with the module, you can directly import lumopt2.
 
@@ -56,6 +59,21 @@ Then, import the lumopt2 module and it is ready to use.
 
 .. tip::
    For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
+
+Using with the in-product script editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also use lumopt2 directly with the script editor in Lumerical products.
+
+To do so, simply open any Python script from the editor, and import the module directly and run the script.
+
+.. code-block:: python
+
+   import lumopt2 as lmpt
+
+.. note::
+
+   The import syntax between PyLumerical and the in-product script editor slightly differs, as the in-product script editor uses a bundled Python environment.
 
 Getting started
 ----------------
@@ -118,10 +136,10 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
       :columns: 12 12 5 5
       :class: flow-chevron-up
 
-.. card:: Optimization components
+.. card:: Project
    :class-card: flow-box
 
-   .. grid:: 2 2 4 4
+   .. grid:: 2 2 3 3
       :gutter: 5
 
       .. grid-item-card:: Base simulation
@@ -134,19 +152,13 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link: lumopt2/parametrization
          :link-type: doc
 
-         Parametric, closed curve, and topology approaches.
+         Parametric and closed curve approaches.
 
       .. grid-item-card:: Figure of merit
          :link: lumopt2/figure_of_merit
          :link-type: doc
 
          Defining simulation results and objective functions.
-
-      .. grid-item-card:: Callbacks
-         :link: lumopt2/callbacks
-         :link-type: doc
-
-         Configuring callback functions for visualization and logging.
 
 .. toctree::
    :hidden:

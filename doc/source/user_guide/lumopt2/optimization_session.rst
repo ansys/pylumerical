@@ -98,7 +98,8 @@ The overall workflow for running an inverse design problem is shown in the diagr
       :columns: 12 12 2 2
 
       .. card:: Run & Results
-         :class-card: flow-card-static
+         :link: #saving-results
+         :link-type: url
 
          ``Optimization.run()``
 
@@ -249,3 +250,19 @@ Result configuration
 In addition to the components above, you can also configure how the some optimization results are stored for the session.
 
 To do so, there are two main flags: :py:class:`Optimization.store_all_simulations <lumopt2.core.optimization.Optimization>`, which stores all simulations on disk, and :py:class:`Optimization.log_profiling_summary <lumopt2.core.optimization.Optimization>`, which toggles whether wall-clock profiling is a part of the standard log.
+
+Saving results
+---------------
+
+The :py:class:`Optimization.run() <lumopt2.core.optimization.Optimization>` method returns a tuple, where the first element is the best optimization parameter set, and the second element is the best figure of merit value.
+
+You can export the optimization results in your preferred method, or recreate an FDTD project file using the optimal parameters with the :py:class:`Project.save_project() <lumopt2.core.project.Project>` method for further processing and export for fabrication.
+
+.. code-block:: python
+
+   best_params, best_fom = result
+   project.save_project("L_bend_optimization_final.fsp",params=best_params)
+
+.. tip::
+
+    See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/360034901933-Importing-and-exporting-GDSII-files>`_ for more information on exporting a GDS file from the final project.

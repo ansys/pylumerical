@@ -78,7 +78,7 @@ To do so, simply open any Python script from the editor, and import the module d
 Getting started
 ----------------
 
-Follow these examples to quickly get started with lumopt2.
+Follow the example below to quick get started with basic functionalities of lumopt2.
 
 .. grid:: 2 2 3 3
 
@@ -87,6 +87,16 @@ Follow these examples to quickly get started with lumopt2.
         :link-type: doc
 
         Learn the basics of lumopt2 through a simple example for optimizing a 3x3 array of pillars.
+
+Follow these examples for more in-depth introductions catered to specific workflows.
+
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: L-Bend
+        :link: lumopt2/getting_started_l_bend
+        :link-type: doc
+
+        Learn about the workflow for photonic integrated circuits through an L-bend example.
 
 
 Usage guide
@@ -165,10 +175,13 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
    :maxdepth: 2
 
    lumopt2/getting_started_3x3_pillar
+   lumopt2/getting_started_l_bend
    lumopt2/optimization_session
    lumopt2/base_simulation
    lumopt2/parametrization
    lumopt2/figure_of_merit
    lumopt2/callbacks
+
+
 
 

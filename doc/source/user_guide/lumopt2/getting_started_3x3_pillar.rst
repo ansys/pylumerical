@@ -269,8 +269,12 @@ The final optimization plot is as follows.
 
 .. image:: ../../_static/images/lumopt2_3x3pillar/final_optimization_results.png
     :align: center
-    :scale: 75%
+    :width: 80%
     :alt: Optimization plot showing the figure of merit and gradient norm over the course of the optimization.
+
+.. tip::
+
+    You can also export the optimized design back to a Lumerical FDTD project file. To do so, use the :py:class:`Project.save_project() <lumopt2.core.project.Project>` method.
 
 Further resources
 -----------------
@@ -290,3 +294,30 @@ After completing this example, further explore lumopt2 using the following pages
         :link-type: doc
 
         Full API reference for lumopt2, including all available classes and functions.
+
+    .. grid-item-card:: L-Bend example
+        :link: getting_started_l_bend
+        :link-type: doc
+
+        Learn about the workflow for photonic integrated circuit through a more complex example with an L-bend.
+
+.. grid:: 1 2 2 2
+
+    .. grid-item::
+
+        .. button-link:: ../../_static/simulation_examples/lumopt2_3x3pillar/metalens_3x3.py
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Python Script (.py)
+
+
+    .. grid-item::
+
+        .. button-link:: ../../_static/simulation_examples/lumopt2_3x3pillar/metalens_3x3.fsp
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Simulation File (.fsp)

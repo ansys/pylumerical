@@ -1,9 +1,18 @@
 # PyLumerical Metalens (FDTD)
 #
 # This example automates design and simulation of a metalens using Ansys Lumerical FDTD.
-# A metalens is an array of pillars, also called unit cells or meta-atoms, that are arranged across a surface to create a macroscopic optical element. Each unit cell locally adjusts the phase of the light, and by arranging the unit cells across the surface, a global phase profile can be achieved. Typically, this phase profile is designed to act as a lens.
+# A metalens is an array of pillars, also called unit cells or meta-atoms, that are arranged across a surface
+# to create a macroscopic optical element.
+# Each unit cell locally adjusts the phase of the light, and by arranging the unit cells across the surface,
+# a global phase profile can be achieved. Typically, this phase profile is designed to act as a lens.
 #
-# In this example, we use Python to automate metalens design and simulation. We follow a standard approach of separately designing a target phase profile and a suitable library of unit cells under periodic boundary conditions. A target phase profile at a specific design wavelength must be provided; this can come from theory or an optimized phase profile from Zemax or another design process can be imported. The unit cell library is designed and simulated in Lumerical RCWA. Once the target phase profile and unit cell library are determined, we loop through each location on the phase profile and select the unit cell from the library that best matches the target phase at that location. The complete metalens is constructed in Lumerical FDTD using the Assembly Group object (https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects).
+# In this example, we use Python to automate metalens design and simulation.
+# We follow a standard approach of separately designing a target phase profile and a suitable library of unit cells under periodic boundary conditions.
+# A target phase profile at a specific design wavelength must be provided; this can come from theory or an optimized phase profile from Zemax
+# or another design process can be imported. The unit cell library is designed and simulated in Lumerical RCWA.
+# Once the target phase profile and unit cell library are determined, we loop through each location on the phase profile and select
+# the unit cell from the library that best matches the target phase at that location.
+# The complete metalens is constructed in Lumerical FDTD using the Assembly Group object (https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects).
 # Please note that simulating large metalenses may require significant RAM; please check memory requirements prior to running Step 3 for full FDTD simulation.
 #
 
@@ -77,28 +86,30 @@ zemax_coeffs = [-2.279343664281709e006, -3.943219031309796e006, 8.64852349163954
 # Here, R = X^2 + Y^2 is the radial coordinate
 
 
-def get_spherical_phase(X, Y, focal_length, wavelength):
-    # Specify a design wavelength and target focal length at that wavelength
-    phase = (2 * np.pi / wavelength) * (focal_length - np.sqrt(X**2 + Y**2 + focal_length**2))
+def get_spherical_phase(x, y, focal_length, wavelength):
+    """Specify a design wavelength and target focal length at that wavelength"""
+    phase = (2 * np.pi / wavelength) * (focal_length - np.sqrt(x**2 + y**2 + focal_length**2))
     phase = phase - np.amin(phase)  # remove constant offset
     phase = phase % (2 * np.pi)  # Take modulo 2pi
     return phase
 
 
-def get_Binary2_phase(X, Y, norm_radius, zemax_coeffs):
-    # Copy and paste Binary2 coefficients from Zemax; focusing behavior will be determined from those
+def get_binary2_phase(x, y, norm_radius, zemax_coeffs):
+    """Copy and paste Binary2 coefficients from Zemax; focusing behavior will be determined from those."""
     numterms = len(zemax_coeffs)
-    R = np.sqrt(X ^ 2 + Y ^ 2)
-    phase = R * 0
+    r = np.sqrt(x**2 + y**2)
+    phase = r * 0
     for n in range(0, numterms):
-        phase = phase + (zemax_coeffs(n) * (R / norm_radius) ** (2 * n))
+        phase = phase + (zemax_coeffs(n) * (r / norm_radius) ** (2 * n))
     phase = phase - np.amin(phase)  # remove constant offset
     phase = phase % (2 * np.pi)  # Take modulo 2pi
     return phase
 
 
 def circularize(phase_mask, assume_symmetry):  # Applies a circular mask to the phase.
-    # If assume_symmetry is True, then we shift the center of the circle to the corner.
+    """Applies a circular mask to the target phase array.
+    If assume_symmetry is True, then we shift the center of the circle to the corner.
+    """
     mask_width = phase_mask.shape[0]
     mask_height = phase_mask.shape[1]
     if assume_symmetry:
@@ -157,15 +168,17 @@ plt.pause(5)
 
 # Part 2: Create simple unit cell library.
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
-# Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths. It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools. To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa' and rebuild geometry on each run.
+# Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
+# It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools.
+# To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa' and rebuild geometry on each run.
 
 # +
 # create a single RCWA unit cell simulation
 
 
-def single_RCWA(session_name, shape, radius, period, height, pillar_material, substrate_material, wavelength, theta, phi):
+def single_rcwa(session_name, shape, radius, period, height, pillar_material, substrate_material, wavelength, theta, phi):
     """
-    Runs a single RCWA simulation for a single geometric structure and set of illumination conditions.
+    Run a single RCWA simulation for a single geometric structure and set of illumination conditions.
     session_name: the name of an existing, open Lumerical FDTD instance.
     Geometry params:
     shape: The cross-sectional shape of the pillar, either 'circle' or 'square'
@@ -237,7 +250,7 @@ def single_RCWA(session_name, shape, radius, period, height, pillar_material, su
     # Get m and n indices of 0th order
     m = np.where(gc["m"] == 0)[0]
     n = np.where(gc["n"] == 0)[0]
-    S0 = T_results[0, 0, n, m]
+    S0 = T_results[0, 0, 0, n, m]  # wavelength, theta, phi, order n, order m
     phase = np.angle(S0) + np.pi  # returned in radians in the range (-pi, pi]
     amp = np.abs(S0) ** 2
 
@@ -248,7 +261,7 @@ def single_RCWA(session_name, shape, radius, period, height, pillar_material, su
 # Test the above function - run a single rcwa simulation and print results
 
 with lumapi.FDTD(hide=False) as rcwa:
-    testphase, testamp = single_RCWA(rcwa, "square", 120e-9, period, height, pillar_material, substrate_material, target_wavelength, 0, 0)
+    testphase, testamp = single_rcwa(rcwa, "square", 120e-9, period, height, pillar_material, substrate_material, target_wavelength, 0, 0)
     print("Phase: " + str(testphase * 180 / np.pi) + " degrees")
     print("Amplitude: " + str(testamp))
 
@@ -267,7 +280,7 @@ amp_results = pillar_radius * 0
 with lumapi.FDTD(hide=False) as rcwa:
     for n in range(0, sweep_res):
         radius = pillar_radius[n]
-        phase_results[n], amp_results[n] = single_RCWA(
+        phase_results[n], amp_results[n] = single_rcwa(
             rcwa, "circle", radius, period, height, pillar_material, substrate_material, target_wavelength, 0, 0
         )
 
@@ -326,9 +339,11 @@ plt.pause(5)
 # Part 3: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.
 #
 # Note 1: set "pillar rendering detail" to 0 to speed up rendering in viewports.
-# The pillars will appear polygonal in the viewports but it does not change anything in the simulation, it is purely for speeding up rendering in the viewports of the UI. It will not allow a setting of larger than 0.5 (normally 1 is maximum).
+# The pillars will appear polygonal in the viewports but it does not change anything in the simulation,
+# it is purely for speeding up rendering in the viewports of the UI. It will not allow a setting of larger than 0.5 (normally 1 is maximum).
 #
-# Note 2: When using assembly group, structure is not displayed in the viewport if the number of objects exceeds 32000. An index monitor can be used to visualize structures. To hide the FDTD GUI entirely, enter the flag "hide = True".
+# Note 2: When using assembly group, structure is not displayed in the viewport if the number of objects exceeds 32000.
+# An index monitor can be used to visualize structures. To hide the FDTD GUI entirely, enter the flag "hide = True".
 
 # +
 # Set options

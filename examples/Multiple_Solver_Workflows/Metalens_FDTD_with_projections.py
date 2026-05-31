@@ -243,16 +243,16 @@ def single_rcwa(session_name, shape, radius, period, height, pillar_material, su
     # Retrieve results
     gc = session_name.getresult("RCWA", "grating_characterization")  # result is returned as Python dict
     if polarization == "S":
-        T_results = gc["Tss"]  # Result returned vs. theta/phi, orders n and m
+        amp_results = gc["Tss"]  # Result returned vs. theta/phi, orders n and m
     else:
-        T_results = gc["Tpp"]
+        amp_results = gc["Tpp"]
 
     # Get m and n indices of 0th order
     m = np.where(gc["m"] == 0)[0]
     n = np.where(gc["n"] == 0)[0]
-    S0 = T_results[0, 0, 0, n, m]  # wavelength, theta, phi, order n, order m
-    phase = np.angle(S0) + np.pi  # returned in radians in the range (-pi, pi]
-    amp = np.abs(S0) ** 2
+    s0 = amp_results[0, 0, 0, n, m]  # wavelength, theta, phi, order n, order m
+    phase = np.angle(s0) + np.pi  # returned in radians in the range (-pi, pi]
+    amp = np.abs(s0) ** 2
 
     return phase[0], amp[0]
 

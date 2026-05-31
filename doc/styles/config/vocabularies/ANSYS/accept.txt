@@ -14,6 +14,7 @@ Ansys Lumerical INTERCONNECT™
 Ansys Lumerical CML Compiler™
 FDTD
 MODE
+RCWA
 Multiphysics
 INTERCONNECT
 CML Compiler
@@ -34,3 +35,6 @@ lumslurm
 matplotlib
 Pandoc
 Quarto
+Ex
+Ey
+Ez

@@ -52,6 +52,12 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       This example runs RCWA simulations to create a unit cell library and constructs a full metalens in FDTD.
       The full metalens is simulated using symmetric boundary conditions in FDTD. A top-down monitor collects the
       fields after the structures and far-field calculations are used to plot the focusing behavior.
+      
+   .. grid-item-card:: Basic INTERCONNECT simulation - Ring Resonator
+      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link-type: doc
+
+      This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
 .. toctree::
    :hidden:
@@ -62,3 +68,4 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE
    examples/Multiple_Solver_Workflows/Metalens_FDTD_with_projections
+   examples/Single_Solver_Workflows/ring_resonator_interconnect

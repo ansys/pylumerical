@@ -18,7 +18,7 @@ The PyLumerical methods and the Lumerical script commands share the same name, a
 
 For more information on the Lumerical Scripting Language, please see:
 
-* `Lumerical Scripting Learning Track on Ansys Innovation Courses (AIC) <https://courses.ansys.com/index.php/courses/ansys-lumerical-scripting/>`__
+* `Lumerical Scripting Learning Track on Ansys Innovation Courses (AIC) <https://innovationspace.ansys.com/product/ansys-lumerical-scripting/>`__
 
 * `Lumerical Scripting Language - Alphabetical list <https://optics.ansys.com/hc/en-us/articles/360034923553>`__
 

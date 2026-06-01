@@ -121,6 +121,11 @@ plt.figure()
 plt.contourf(X, Y, np.transpose(E_mag))
 plt.show()
 
-# -
-
+# %% [markdown]
+# Below is the output image:
 #
+# .. image:: images/waveguide_FDE_output.png
+#    :align: center
+#    :width: 600px
+#    :alt: Waveguide FDE Mode Profile Output
+

@@ -20,7 +20,7 @@ import numpy as np
 
 import ansys.lumerical.core as lumapi
 
-# Part 1: Set up structures and simulation objects
+# ## Part 1: Set up structures and simulation objects
 
 # +
 # Set hide = True to hide the Lumerical GUI.
@@ -90,7 +90,7 @@ mesh_props = OrderedDict(
 )
 mode.addmesh(properties=mesh_props)
 
-# Part 2: Calculate the supported modes of the waveguide.
+# ## Part 2: Calculate the supported modes of the waveguide
 # The analysis_props are equivalent to the settings in the Eigensolver Analysis window in the GUI.
 
 mode.setanalysis("wavelength", wavelength)
@@ -109,9 +109,9 @@ Efield = mode.getresult("FDE::data::" + selected_mode, "E")
 
 # Plot in Lumerical GUI
 mode.visualize((Efield))
-# %% [markdown]
-# <img src="images/waveguide_mode_visualizer.png" width="600">
 # -
+
+# <img src="images/waveguide_mode_visualizer.png" width="600">
 
 # +
 # Plot in Python - requires matplotlib
@@ -124,7 +124,7 @@ X, Y = np.meshgrid(x, y)  # Create meshgrid for plotting
 plt.figure()
 plt.contourf(X, Y, np.transpose(E_mag))
 plt.show()
+# -
 
-# %% [markdown]
 # <img src="images/waveguide_mode_matplotlib.png" width="600">
 

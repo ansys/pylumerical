@@ -13,10 +13,11 @@
 # In this example, we use the built-in sweep tool in Lumerical, but the parameter sweeps could also be set up from Python.
 # We then run the sweeps and plot the results.
 #
-# ## Prerequisites: Valid FDTD license is required.
+# Prerequisites: Valid FDTD license is required.
 
 # Perform required imports
 
+# +
 from collections import OrderedDict
 import itertools
 
@@ -25,10 +26,10 @@ import numpy as np
 
 import ansys.lumerical.core as lumapi
 
-#
-# ### Part 1: Set up structures and simulation objects
+# -
 
-# 
+# ## Part 1: Set up structures and simulation objects
+
 # <img src="images/simulation_screenshot.png" width="600">
 
 # +
@@ -125,11 +126,11 @@ with lumapi.FDTD(filename, hide=False) as fdtd:
     plt.show(block=False)
     plt.pause(2)
 
-#
-# ### Part 2: Set up and run sweeps to extract resonant frequencies and plot the bandstructure
+# -
 
-# %% [markdown]
 # <img src="images/single_spectrum.png" width="600">
+
+# ## Part 2: Set up and run sweeps to extract resonant frequencies and plot the bandstructure
 
 # +
 # Normalization factor for SI units; see note above.
@@ -215,5 +216,4 @@ plt.ylabel("Resonant Frequency f (Hz*a/c)")
 plt.show(block=False)
 plt.pause(10)
 
-# %% [markdown]
 # <img src="images/bandstructure.png" width="600">

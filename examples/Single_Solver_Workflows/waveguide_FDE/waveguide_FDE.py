@@ -109,7 +109,11 @@ Efield = mode.getresult("FDE::data::" + selected_mode, "E")
 
 # Plot in Lumerical GUI
 mode.visualize((Efield))
+# %% [markdown]
+# <img src="images/waveguide_mode_visualizer.png" width="600">
+# -
 
+# +
 # Plot in Python - requires matplotlib
 # Note that Lumerical uses an unstructured mesh, so the spacing between points may be non-constant.
 # Therefore, it is preferable to collect x, y data from the monitor and plot using contourf.
@@ -122,10 +126,5 @@ plt.contourf(X, Y, np.transpose(E_mag))
 plt.show()
 
 # %% [markdown]
-# Below is the output image:
-#
-# .. image:: images/waveguide_FDE_output.png
-#    :align: center
-#    :width: 600px
-#    :alt: Waveguide FDE Mode Profile Output
+# <img src="images/waveguide_mode_matplotlib.png" width="600">
 

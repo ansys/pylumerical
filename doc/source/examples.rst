@@ -31,13 +31,13 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Basic MODE simulation - FDE Waveguide
-      :link: examples/Single_Solver_Workflows/waveguide_FDE
+      :link: examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
       :link-type: doc
 
       This example demonstrates how to set up a basic MODE simulation to calculate the supported modes of a waveguide.
 
    .. grid-item-card:: Using Structure and Analysis Groups - Photonic Crystal Bandstructure
-      :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure
+      :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
       :link-type: doc
 
       This example uses built-in Lumerical Structure and Analysis Groups to calculate the resonant frequencies of photonic
@@ -49,5 +49,5 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Sessions_and_Objects/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf
    examples/Sessions_and_Objects/fdtd_example1_pythonic
-   examples/Single_Solver_Workflows/photonic_crystal_bandstructure
-   examples/Single_Solver_Workflows/waveguide_FDE
+   examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
+   examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE

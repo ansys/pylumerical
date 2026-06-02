@@ -44,7 +44,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       crystals using FDTD. Lumerical's built-in sweep tool is used to calculate the full bandstructure.
 
    .. grid-item-card:: Basic INTERCONNECT simulation - Ring Resonator
-      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
       :link-type: doc
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
@@ -57,4 +57,4 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Sessions_and_Objects/fdtd_example1_pythonic
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
-   examples/Single_Solver_Workflows/ring_resonator_interconnect
+   examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect

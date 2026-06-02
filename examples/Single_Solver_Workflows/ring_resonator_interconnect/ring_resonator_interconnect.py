@@ -69,3 +69,5 @@ with lumapi.INTERCONNECT() as intc:  # Open INTERCONNECT
     plt.xlabel("Wavelength (um)")
     plt.ylabel("Transmission")
     plt.show()
+
+# <img src="images/transmission_figure.png" width="600">

@@ -3,12 +3,12 @@ Parametrization
 
 Parametrization is the process of linking properties and geometry of the simulation to the optimization.
 
-Two parametrization approaches are available in lumopt2:
+The lumopt2 module supports parametric optimization in two ways:
 
-- **Parametric optimization**: maps optimization parameters to arbitrary Lumerical object properties.
-- **Closed curve optimization**: maps optimization parameters to a special class that defines a closed polygon.
+- **Parametrization object**: maps optimization parameters to arbitrary Lumerical object properties.
+- **Closed curve object**: maps optimization parameters to a special class that defines a closed polygon.
 
-In both cases, you must first define the optimization region. Within this region, the parameters are adjusted.
+Regardless of the parametrization type, you must first define the optimization region. Within this region, the parameters are adjusted.
 
 Optimization region
 --------------------
@@ -29,13 +29,18 @@ If you do not specify the grid resolution, the optimization region is set up wit
 Parametric optimization
 ------------------------
 
-The parametric optimization approach uses the :py:class:`lumopt2.parametrization.parametrization.Parametrization` class to map optimization parameters to arbitrary Lumerical object properties.
+You can conduct parametric optimization using either the general-purpose :py:class:`~lumopt2.parametrization.parametrization.Parametrization`, or the specialized :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class, which is designed for photonic integrated circuit applications.
+
+Parametrization class
+~~~~~~~~~~~~~~~~~~~~~
+
+The :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class maps optimization parameters to arbitrary Lumerical object properties.
 This approach is the most general way to parametrize a design in lumopt2, and is suitable for a wide range of applications.
 
 For a simple example of setting parametric optimization, see the :doc:`3x3 pillar example in the getting started section <getting_started_3x3_pillar>`.
 
 Defining parameter mapping
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To use the parametric optimization approach, you must define a function that takes a parameter vector as input, and outputs a dictionary where the keys are the names of Lumerical object properties, and the values are elements in the parameter vector.
 
@@ -86,7 +91,7 @@ You can also map parameters to a vector property of an object, such as the verti
       }
 
 Bounds and initial values
-~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The parameter mapping function and the optimization region is passed along with the bounds for each parameter and an optional vector of initial values to the :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class.
 
@@ -107,7 +112,7 @@ The following example illustrates the definition of bounds and initial values fo
    )
 
 Functions not differentiable by autograd
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You can also define parameter mapping functions that autograd cannot track. In this case, you can set the ``use_jac`` property of the :py:class:`~lumopt2.parametrization.parametrization.Parametrization` object to False.
 In this case, the class assumes that each optimization parameter affects all geometic objects in the optimization region, which may lead to less efficient gradient calculations.
@@ -130,14 +135,15 @@ In this case, the class assumes that each optimization parameter affects all geo
    )
 
 
-Closed curve optimization
---------------------------
+Closed curve class
+~~~~~~~~~~~~~~~~~~
 
-The closed curve optimization approach defines a closed Bézier polygon using a series of paths, each of which can be linear or cubic.
+The :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class defines a special type of parametric optimization that defines a closed Bézier polygon using a series of paths, each of which can be linear or cubic.
 This approach is generally useful for photonic integrated circuit applications, where the design is readily transformed into a polygon on a 2-D plane. As seen in the sections below, you can also enforce symmetry in the design by linking control points to each other.
 
 Closed curve base object
-~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
+
 To set up a closed curve optimization, you must first define the base geometry object using :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`.
 
 The :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class ingests a list of control points, index, and thickness information to define a waveguide-like structure.
@@ -190,7 +196,7 @@ You can visualize the defined curve using :py:class:`ClosedCurve.plot() <lumopt2
 
 
 Parametrize closed curves
-~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To parametrize the closed curve, you can use the :py:class:`~lumopt2.parametrization.closed_curve.Parametrize` class, which adds additional control points along a segment so they can vary during optimization.
 You specify the start index of a segment based on the path you defined earlier for the base curve, the number of control points, the bounds to apply to all new control points, and the degree of freedom for the new control points.
@@ -227,7 +233,7 @@ After defining the parametrized segments, you can also visualize the curve with 
 As seen in the visualization above, new vertices are added to the curve, and the original vertices numbers are shifted to account for the new vertices. The variable vertices are vertices V3, V4, V9, and V10.
 
 Symmetric parametrization
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sometimes, it is desirable to enforce symmetry in the design, such that certain control points move in relation to each other during optimization.
 

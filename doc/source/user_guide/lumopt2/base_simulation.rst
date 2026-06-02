@@ -6,6 +6,10 @@ In lumopt2, you can define the base simulation using an existing Lumerical FDTD 
 
 The base simulation typically contains the necessary geometry, sources, and monitors to run the optimization, including specialized objects to collect supported simulation results for the formulation of the figures of merit.
 
+.. note::
+
+   The :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` geometries, which are specialized objects used for photonic integrated circuti applications, are not set up in the base simulation. Instead, they are setup using Python. See the :doc:`parametrization <parametrization>` article for further information.
+
 You don't need to set up the optimization region in the base simulation, as this is separately defined in Python and passed into the parametrization.
 
 Passing base simulation

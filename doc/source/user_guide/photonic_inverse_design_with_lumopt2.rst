@@ -115,7 +115,7 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link: lumopt2/optimization_session
          :link-type: doc
 
-         Combining components into a Project and Optimization workflow — optimizer, runner, and execution configuration.
+         Combining components into a Project and Optimization workflow, including the optimizer and callbacks.
 
    .. grid-item::
       :columns: 12 12 1 1
@@ -162,7 +162,7 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link: lumopt2/parametrization
          :link-type: doc
 
-         Parametric and closed curve approaches.
+         General parametrization and closed curve approaches.
 
       .. grid-item-card:: Figure of merit
          :link: lumopt2/figure_of_merit

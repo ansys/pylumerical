@@ -127,4 +127,3 @@ plt.show()
 # -
 
 # <img src="images/waveguide_mode_matplotlib.png" width="600">
-

@@ -182,6 +182,7 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
    lumopt2/figure_of_merit
    lumopt2/callbacks
 
+..
 
 
 

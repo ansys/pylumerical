@@ -266,3 +266,5 @@ You can export the optimization results in your preferred method, or recreate an
 .. tip::
 
     See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/360034901933-Importing-and-exporting-GDSII-files>`_ for more information on exporting a GDS file from the final project.
+
+..

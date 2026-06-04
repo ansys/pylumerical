@@ -63,3 +63,4 @@ These result classes requires input of specific Lumerical simulation objects:
 - :py:class:`~lumopt2.fom.simulation_results.PortResults`: Extracts transmission data from a port, and requires its data from a `FDTD port object <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__ object.
 
 
+..

@@ -285,3 +285,4 @@ The diagram below shows how the control points maps to each other in terms of mo
    :width: 40%
    :alt: Visualization of the closed curve defined above, which forms an L-bend, with additional control points added for optimization.
 
+..

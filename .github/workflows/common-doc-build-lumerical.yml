@@ -1,0 +1,195 @@
+name: Common Doc Build with Lumerical
+
+on:
+  workflow_call:
+    inputs:
+      documentation-cname:
+        description: "Documentation CNAME"
+        required: true
+        type: string
+      skip-doc-build-if-closed:
+        description: "Skip doc build if PR is closed"
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      TOKEN:
+        required: true
+      PYANSYS_CI_BOT_TOKEN:
+        required: true
+      LICENSE_SERVER:
+        required: true
+
+# Disable all default permissions at workflow level for security (least privilege principle)
+# Individual jobs will explicitly request only the permissions they need
+permissions: {}
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  doc-style:
+    name: "Doc style"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required to checkout repository
+    steps:
+      - uses: ansys/actions/doc-style@v10.2.12
+        with:
+          token: ${{ secrets.TOKEN }}
+
+  doc-build:
+    name: "Doc build"
+    if: ${{ !(inputs.skip-doc-build-if-closed && github.event.action == 'closed') }}
+    runs-on: ubuntu-latest
+    needs: doc-style
+    permissions:
+      contents: read # Required to checkout repository
+    env:
+      DOCUMENTATION_CNAME: ${{ inputs.documentation-cname }}
+      BUILD_PYLUMERICAL_CHEATSHEET: "TRUE"
+      BUILD_PYLUMERICAL_EXAMPLES: "TRUE"
+      QUARTO_VERSION: "1.10.3"
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_2"
+      DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: "lumerical-unified-docs"
+    steps:
+      - name: "Checkout PyLumerical"
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: "Login to GitHub container registry"
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+
+      - name: "Pull Lumerical Unified Container"
+        env:
+          DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+        run: |
+          docker pull ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Prepare ownership for container user (lumerical)"
+        env:
+          LUMERICAL_UID: 1000
+          LUMERICAL_GID: 1000
+        run: |
+          echo "ORIG_UID=$(id -u)" >> $GITHUB_ENV
+          echo "ORIG_GID=$(id -g)" >> $GITHUB_ENV
+          sudo chown -R "$LUMERICAL_UID:$LUMERICAL_GID" .
+
+      - name: "Run Lumerical Unified Container"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          DOCKER_IMAGE_LUMERICAL_UNIFIED: ${{ env.DOCKER_IMAGE_LUMERICAL_UNIFIED }}
+          LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
+        run: |
+          docker run \
+            --detach -it \
+            --network="host" \
+            --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
+            --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
+            --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
+            ${DOCKER_IMAGE_LUMERICAL_UNIFIED}
+
+      - name: "Install system documentation dependencies (root)"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          QUARTO_VERSION: ${{ env.QUARTO_VERSION }}
+        run: |
+          docker exec --user root \
+            --env QUARTO_VERSION="${QUARTO_VERSION}" \
+            ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} bash -c '
+              set -euo pipefail
+              dnf install -y --setopt=install_weak_deps=False dnf-plugins-core epel-release
+              dnf config-manager --set-enabled powertools
+              dnf install -y --setopt=install_weak_deps=False \
+                pandoc \
+                poppler-utils \
+                texlive-collection-latexrecommended \
+                texlive-fncychap texlive-wrapfig \
+                texlive-capt-of texlive-framed \
+                texlive-upquote texlive-needspace \
+                texlive-tabulary texlive-titlesec \
+                latexmk \
+                make
+              curl -fsSLO "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
+              dnf install -y "./quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
+              rm -f "./quarto-${QUARTO_VERSION}-linux-x86_64.rpm"
+              quarto --version
+            '
+
+      - name: "Install TinyTeX (lumerical user)"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+          docker exec \
+            --workdir /home/lumerical \
+            ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} bash --login -c '
+              set -euo pipefail
+              quarto install tinytex --no-prompt --log-level warning
+              ls -la "$HOME/bin" || true
+            '
+
+      - name: "Install project and build documentation"
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          DOCUMENTATION_CNAME: ${{ env.DOCUMENTATION_CNAME }}
+          BUILD_PYLUMERICAL_CHEATSHEET: ${{ env.BUILD_PYLUMERICAL_CHEATSHEET }}
+          BUILD_PYLUMERICAL_EXAMPLES: ${{ env.BUILD_PYLUMERICAL_EXAMPLES }}
+        run: |
+          docker exec \
+            --workdir /home/lumerical/pylumerical \
+            --env DOCUMENTATION_CNAME="${DOCUMENTATION_CNAME}" \
+            --env BUILD_PYLUMERICAL_CHEATSHEET="${BUILD_PYLUMERICAL_CHEATSHEET}" \
+            --env BUILD_PYLUMERICAL_EXAMPLES="${BUILD_PYLUMERICAL_EXAMPLES}" \
+            ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} bash --login -c '
+              set -euo pipefail
+              . /envfile
+              export PATH="${LUMERICAL_DIR}/bin:${LUMERICAL_DIR}/python/bin:$HOME/bin:$PATH"
+              python -m pip install --upgrade pip
+              python -m pip install -e .[doc]
+              make -C doc html
+              make -C doc pdf || echo "PDF build did not complete; continuing."
+              make -C doc linkcheck
+            '
+
+      - name: "Upload HTML documentation artifact"
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: documentation-html
+          path: doc/_build/html
+          retention-days: 7
+          if-no-files-found: error
+
+      - name: "Upload PDF documentation artifact"
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: documentation-pdf
+          path: doc/_build/latex/*.pdf
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: "Restore original ownership"
+        if: always()
+        env:
+          ORIG_UID: ${{ env.ORIG_UID }}
+          ORIG_GID: ${{ env.ORIG_GID }}
+        run: |
+          if [[ -z "$ORIG_UID" || -z "$ORIG_GID" || ! "$ORIG_UID" =~ ^[0-9]+$ || ! "$ORIG_GID" =~ ^[0-9]+$ ]]; then
+            echo "Skipping chown: ORIG_UID ('$ORIG_UID') or ORIG_GID ('$ORIG_GID') invalid."
+          else
+            sudo chown -R "$ORIG_UID:$ORIG_GID" .
+          fi
+
+      - name: "Stop lumerical services"
+        if: always()
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+        run: |
+          docker stop ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker logs ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}
+          docker rm ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}

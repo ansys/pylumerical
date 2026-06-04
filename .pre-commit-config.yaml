@@ -1,7 +1,8 @@
 
 exclude: |
     (?x)(
-        ^tests/assets/
+        ^tests/assets/|
+        ^doc/source/_static/
     )
 
 repos:

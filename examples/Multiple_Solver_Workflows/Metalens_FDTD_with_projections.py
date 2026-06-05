@@ -108,7 +108,7 @@ def get_binary2_phase(x, y, norm_radius, zemax_coeffs):
 
 def circularize(phase_mask, assume_symmetry):  # Applies a circular mask to the phase.
     """Apply a circular mask to the target phase array.
-    
+
     If assume_symmetry is True, then we shift the center of the circle to the corner.
     """
     mask_width = phase_mask.shape[0]

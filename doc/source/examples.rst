@@ -8,13 +8,13 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Session management
-      :link: examples/Sessions_and_Objects/basic_session_management
+      :link: examples/Sessions_and_Objects/basic_session_management/basic_session_management
       :link-type: doc
 
       This example demonstrates how to initialize a local Lumerical session using PyLumerical.
 
    .. grid-item-card:: Basic FDTD simulation - Lumerical style commands
-      :link: examples/Sessions_and_Objects/fdtd_example1_lsf
+      :link: examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
       :link-type: doc
 
       This example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.
@@ -22,7 +22,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
 
    .. grid-item-card:: Basic FDTD simulation - Python style commands
-      :link: examples/Sessions_and_Objects/fdtd_example1_pythonic
+      :link: examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
       :link-type: doc
 
       This example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.
@@ -52,9 +52,9 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. toctree::
    :hidden:
 
-   examples/Sessions_and_Objects/basic_session_management
-   examples/Sessions_and_Objects/fdtd_example1_lsf
-   examples/Sessions_and_Objects/fdtd_example1_pythonic
+   examples/Sessions_and_Objects/basic_session_management/basic_session_management
+   examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
+   examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect

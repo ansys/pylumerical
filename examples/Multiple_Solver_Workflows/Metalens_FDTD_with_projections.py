@@ -1,4 +1,4 @@
-# PyLumerical Metalens (FDTD)
+# # PyLumerical Metalens (FDTD)
 #
 # This example automates design and simulation of a metalens using Ansys Lumerical FDTD.
 # A metalens is an array of pillars, also called unit cells or meta-atoms, that are arranged across a surface

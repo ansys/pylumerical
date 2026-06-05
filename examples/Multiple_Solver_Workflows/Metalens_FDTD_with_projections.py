@@ -87,7 +87,7 @@ zemax_coeffs = [-2.279343664281709e006, -3.943219031309796e006, 8.64852349163954
 
 
 def get_spherical_phase(x, y, focal_length, wavelength):
-    """Specify a design wavelength and target focal length at that wavelength"""
+    """Specify a design wavelength and target focal length at that wavelength."""
     phase = (2 * np.pi / wavelength) * (focal_length - np.sqrt(x**2 + y**2 + focal_length**2))
     phase = phase - np.amin(phase)  # remove constant offset
     phase = phase % (2 * np.pi)  # Take modulo 2pi
@@ -107,7 +107,8 @@ def get_binary2_phase(x, y, norm_radius, zemax_coeffs):
 
 
 def circularize(phase_mask, assume_symmetry):  # Applies a circular mask to the phase.
-    """Applies a circular mask to the target phase array.
+    """Apply a circular mask to the target phase array.
+    
     If assume_symmetry is True, then we shift the center of the circle to the corner.
     """
     mask_width = phase_mask.shape[0]
@@ -179,7 +180,8 @@ plt.pause(5)
 def single_rcwa(session_name, shape, radius, period, height, pillar_material, substrate_material, wavelength, theta, phi):
     """
     Run a single RCWA simulation for a single geometric structure and set of illumination conditions.
-    session_name: the name of an existing, open Lumerical FDTD instance.
+
+    session_name: the name of an existing, open Lumerical FDTD instance
     Geometry params:
     shape: The cross-sectional shape of the pillar, either 'circle' or 'square'
     radius: For circular pillar, the radius. For square pillars, the total pillar width is 2*radius
@@ -496,7 +498,7 @@ with lumapi.FDTD(hide=False) as fdtd:
 use_GPU = False
 
 with lumapi.FDTD(full_lens_filename, hide=True) as fdtd:
-    if use_GPU == True:
+    if use_GPU:
         memory_check = fdtd.runsystemcheck("FDTD", "GPU")
         max_memory = memory_check["Approximate_GPU_Memory_Requirements"]["Maximum_Bytes"] * 1e-9  # convert to Gb
         min_memory = memory_check["Approximate_GPU_Memory_Requirements"]["Minimum_Bytes"] * 1e-9  # convert to Gb
@@ -525,7 +527,7 @@ with lumapi.FDTD(full_lens_filename, hide=True) as fdtd:
 # -
 
 with lumapi.FDTD(full_lens_filename, hide=False) as fdtd:
-    if use_GPU == True:
+    if use_GPU:
         print("Running on GPU, starting now.")
         fdtd.run("FDTD", "GPU", "PyLum GPU")
         fdtd.save(full_lens_filename)

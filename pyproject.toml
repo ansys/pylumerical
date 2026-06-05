@@ -32,6 +32,9 @@ classifiers = [
 dependencies = [
     "ansys-api-lumerical",
     "numpy>=1.26",
+    "autograd>=1.6",
+    "scipy>=1.10",
+    "matplotlib>=3.10",
 ]
 
 [project.optional-dependencies]
@@ -49,9 +52,6 @@ doc = [
     "jupytext==1.19.3",
     "ipykernel==7.2.0"
 ]
-examples = [
-    "matplotlib==3.10.9",
-]
 
 [tool.flit.module]
 name = "ansys.lumerical.core"
@@ -59,7 +59,7 @@ name = "ansys.lumerical.core"
 [tool.ruff]
 line-length = 150
 fix = true
-extend-exclude = ["tests/assets", "*.rst"]
+extend-exclude = ["tests/assets", "*.rst", "doc/source/_static"]
 
 [tool.ruff.format]
 quote-style = "double"

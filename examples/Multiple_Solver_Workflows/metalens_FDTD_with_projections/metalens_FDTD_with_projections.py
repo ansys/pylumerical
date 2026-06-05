@@ -18,6 +18,9 @@
 
 # Part 0: Perform required imports and specify design parameters.
 # Units are meters unless otherwise specified.
+# -
+
+# <img src="images/metalens_assembly.png" width="600">
 
 # +
 # Import required modules
@@ -167,6 +170,8 @@ plt.pause(5)
 
 # -
 
+# <img src="images/target_phase_mask.png" width="600">
+
 # Part 2: Create simple unit cell library.
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
 # Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
@@ -266,6 +271,9 @@ with lumapi.FDTD(hide=False) as rcwa:
     testphase, testamp = single_rcwa(rcwa, "square", 120e-9, period, height, pillar_material, substrate_material, target_wavelength, 0, 0)
     print("Phase: " + str(testphase * 180 / np.pi) + " degrees")
     print("Amplitude: " + str(testamp))
+# -
+
+# <img src="images/unit_cell_screenshot.png" width="600">
 
 # +
 # Now run a sweep over a range of pillar widths
@@ -308,6 +316,8 @@ plt.pause(5)
 
 # -
 
+# <img src="images/unit_cell_phase_amp.png" width="600">
+
 # Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.
 
 # +
@@ -337,6 +347,7 @@ plt.show(block=False)
 plt.pause(5)
 # -
 
+# <img src="images/radius_map.png" width="600">
 
 # Part 3: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.
 #
@@ -523,9 +534,11 @@ with lumapi.FDTD(full_lens_filename, hide=True) as fdtd:
     fdtd.setresource("FDTD", gpuRes, "name", "PyLum GPU")
     fdtd.save(full_lens_filename)
 
-
 # -
 
+# <img src="images/metalens_full_run.png" width="600">
+
+# +
 with lumapi.FDTD(full_lens_filename, hide=False) as fdtd:
     if use_GPU:
         print("Running on GPU, starting now.")
@@ -570,6 +583,7 @@ with lumapi.FDTD(full_lens_filename, hide=True) as fdtd:
     plt.pause(5)
 # -
 
+# <img src="images/monitor_output.png" width="600">
 
 # +
 # Plot far-field projections out to the focal point
@@ -598,6 +612,9 @@ plt.ylabel("E field intensity")
 plt.title("Projected Field Intensity (a.u.), slice along z")
 plt.show(block=False)
 plt.pause(5)
+# -
+
+# <img src="images/projected_field.png" width="600">
 
 # +
 # Now, plot a cross-sectional image of the xz plane
@@ -626,3 +643,5 @@ plt.title("Projected Field Intensity (a.u.), x-z image")
 plt.show(block=False)
 plt.pause(5)
 # -
+
+# <img src="images/projected_field_image.png" width="600">

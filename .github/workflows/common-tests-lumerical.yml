@@ -24,7 +24,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads
     env:
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_1'
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_2'
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 
@@ -34,7 +34,7 @@ jobs:
           persist-credentials: false
 
       - name: "Login to GitHub container registry"
-        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -109,7 +109,7 @@ jobs:
           retention-days: 7
 
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@57e3a136b779b570ffcdbf80b3bdc90e7fab3de2 # v6.0.0
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         with:
           files: .cov/xml
 

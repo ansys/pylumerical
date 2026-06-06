@@ -18,7 +18,6 @@
 
 # Part 0: Perform required imports and specify design parameters.
 # Units are meters unless otherwise specified.
-# -
 
 # <img src="images/metalens_assembly.png" width="600">
 

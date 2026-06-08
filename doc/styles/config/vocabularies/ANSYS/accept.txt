@@ -25,9 +25,12 @@ sudo
 docstring
 docstrings
 IPython
-photonic
+[Pp]hotonic
 photonics
 lumopt
+lumopt2
+parametrization[s]?
+fom
 lumslurm
 [Jj]upytext
 [Aa]utodiscovery
@@ -36,3 +39,11 @@ Pandoc
 Quarto
 TE
 TM
+lumapi
+metalens[es]?
+namespace
+nm
+scipy
+SciPy
+callback[s]
+autograd

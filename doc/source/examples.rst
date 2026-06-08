@@ -65,6 +65,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Sessions_and_Objects/basic_session_management/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
    examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
+   examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect

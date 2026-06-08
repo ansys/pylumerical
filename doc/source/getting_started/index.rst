@@ -163,19 +163,19 @@ Recommended examples to further build your understanding of PyLumerical and its 
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Basic FDTD simulation
-      :link: ../examples/Sessions_and_Objects/fdtd_example1_pythonic
+      :link: ../examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
       :link-type: doc
 
       Run an FDTD simulation using PyLumerical and plot the electric field.
 
    .. grid-item-card:: Basic MODE simulation
-      :link: ../examples/Single_Solver_Workflows/waveguide_FDE
+      :link: ../examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
       :link-type: doc
 
       Run a waveguide simulation in MODE.
 
    .. grid-item-card:: Basic INTERCONNECT simulation
-      :link: ../examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link: ../examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
       :link-type: doc
 
       Run an an INTERCONNECT simulation for a ring resonator.

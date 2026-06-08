@@ -72,3 +72,5 @@ fdtd.visualize(E)
 
 fdtd.print("Example complete. Hit space bar to close.")
 fdtd.pause(60)
+
+# <img src="images/example1_lsf_screenshot.png" width="600">

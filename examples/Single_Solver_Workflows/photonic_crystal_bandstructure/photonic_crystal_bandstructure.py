@@ -28,7 +28,9 @@ import ansys.lumerical.core as lumapi
 
 # -
 
-# Part 1: Set up structures and simulation objects
+# ## Part 1: Set up structures and simulation objects
+
+# <img src="images/simulation_screenshot.png" width="600">
 
 # +
 # Define parameters
@@ -126,7 +128,9 @@ with lumapi.FDTD(filename, hide=False) as fdtd:
 
 # -
 
-# Part 2: Set up and run sweeps to extract resonant frequencies and plot the bandstructure
+# <img src="images/single_spectrum.png" width="600">
+
+# ## Part 2: Set up and run sweeps to extract resonant frequencies and plot the bandstructure
 
 # +
 # Normalization factor for SI units; see note above.
@@ -211,3 +215,5 @@ plt.xlabel("k (Gamma-X-M-R-Gamma")
 plt.ylabel("Resonant Frequency f (Hz*a/c)")
 plt.show(block=False)
 plt.pause(10)
+
+# <img src="images/bandstructure.png" width="600">

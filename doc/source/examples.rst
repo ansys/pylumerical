@@ -8,13 +8,13 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Session management
-      :link: examples/Sessions_and_Objects/basic_session_management
+      :link: examples/Sessions_and_Objects/basic_session_management/basic_session_management
       :link-type: doc
 
       This example demonstrates how to initialize a local Lumerical session using PyLumerical.
 
    .. grid-item-card:: Basic FDTD simulation - Lumerical style commands
-      :link: examples/Sessions_and_Objects/fdtd_example1_lsf
+      :link: examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
       :link-type: doc
 
       This example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.
@@ -22,7 +22,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
 
    .. grid-item-card:: Basic FDTD simulation - Python style commands
-      :link: examples/Sessions_and_Objects/fdtd_example1_pythonic
+      :link: examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
       :link-type: doc
 
       This example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.
@@ -31,13 +31,13 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. grid:: 2 2 3 3
 
    .. grid-item-card:: Basic MODE simulation - FDE Waveguide
-      :link: examples/Single_Solver_Workflows/waveguide_FDE
+      :link: examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
       :link-type: doc
 
       This example demonstrates how to set up a basic MODE simulation to calculate the supported modes of a waveguide.
 
    .. grid-item-card:: Using Structure and Analysis Groups - Photonic Crystal Bandstructure
-      :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure
+      :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
       :link-type: doc
 
       This example uses built-in Lumerical Structure and Analysis Groups to calculate the resonant frequencies of photonic
@@ -54,7 +54,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       fields after the structures and far-field calculations are used to plot the focusing behavior.
 
    .. grid-item-card:: Basic INTERCONNECT simulation - Ring Resonator
-      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect
+      :link: examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
       :link-type: doc
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
@@ -62,10 +62,9 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 .. toctree::
    :hidden:
 
-   examples/Sessions_and_Objects/basic_session_management
-   examples/Sessions_and_Objects/fdtd_example1_lsf
-   examples/Sessions_and_Objects/fdtd_example1_pythonic
-   examples/Single_Solver_Workflows/photonic_crystal_bandstructure
-   examples/Single_Solver_Workflows/waveguide_FDE
-   examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
-   examples/Single_Solver_Workflows/ring_resonator_interconnect
+   examples/Sessions_and_Objects/basic_session_management/basic_session_management
+   examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
+   examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
+   examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
+   examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
+   examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect

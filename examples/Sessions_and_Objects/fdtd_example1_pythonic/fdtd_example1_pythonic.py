@@ -67,3 +67,5 @@ with lumapi.FDTD() as fdtd:
 
     print("Example complete. Press Enter to close.")
     input()
+
+# <img src="images/example1_pythonic_screenshot.png" width="600">

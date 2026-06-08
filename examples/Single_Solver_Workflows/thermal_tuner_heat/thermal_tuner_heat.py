@@ -78,3 +78,5 @@ with lumapi.DEVICE() as device:
     plt.xlabel("x (um)")
     plt.ylabel("y (um)")
     plt.show()
+
+# <img src="images/temperature_profile.png" width="600">

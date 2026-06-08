@@ -79,7 +79,7 @@ select = [
 ignore = []
 
 [tool.ruff.lint.per-file-ignores]
-"examples/*" = ["D100", "E402", "E501", "N806", "N816"]
+"examples/*" = ["D100", "E402", "N806", "N816"]
 "__init__.py" = ["F401"]
 "doc/source/conf.py" = ["N806"]
 

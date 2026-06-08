@@ -7,13 +7,16 @@
 # a global phase profile can be achieved. Typically, this phase profile is designed to act as a lens.
 #
 # In this example, we use Python to automate metalens design and simulation.
-# We follow a standard approach of separately designing a target phase profile and a suitable library of unit cells under periodic boundary conditions.
+# We follow a standard approach of separately designing a target phase profile and a suitable library of unit cells 
+# under periodic boundary conditions.
 # A target phase profile at a specific design wavelength must be provided; this can come from theory or an optimized phase profile from Zemax
 # or another design process can be imported. The unit cell library is designed and simulated in Lumerical RCWA.
 # Once the target phase profile and unit cell library are determined, we loop through each location on the phase profile and select
 # the unit cell from the library that best matches the target phase at that location.
-# The complete metalens is constructed in Lumerical FDTD using the Assembly Group object (https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects).
-# Please note that simulating large metalenses may require significant RAM; please check memory requirements prior to running Step 3 for full FDTD simulation.
+# The complete metalens is constructed in Lumerical FDTD using the Assembly Group object 
+# (https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects).
+# Please note that simulating large metalenses may require significant RAM; please check memory requirements prior to running 
+# Step 3 for full FDTD simulation.
 #
 
 # Part 0: Perform required imports and specify design parameters.
@@ -175,7 +178,8 @@ plt.pause(5)
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
 # Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
 # It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools.
-# To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa' and rebuild geometry on each run.
+# To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa' 
+# and rebuild geometry on each run.
 
 # +
 # create a single RCWA unit cell simulation
@@ -373,7 +377,8 @@ full_lens_filename = "FDTD_metalens_target_" + str(target_wavelength / nm) + "nm
 
 with lumapi.FDTD(hide=False) as fdtd:
     # Substrate rectangle
-    fdtd.addrect(name="substrate", material=substrate_material, x_span=3 * lens_radius, y_span=3 * lens_radius, z_max=0, z_min=-2 * target_wavelength)
+    fdtd.addrect(name="substrate", 
+                 material=substrate_material, x_span=3 * lens_radius, y_span=3 * lens_radius, z_max=0, z_min=-2 * target_wavelength)
 
     # Metalens pillars - utilizes assembly group
     # Faster, more efficient, less memory required

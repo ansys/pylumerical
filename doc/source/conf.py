@@ -45,7 +45,7 @@ html_theme_options = {
     "ansys_sphinx_theme_autoapi": {
         "project": "PyLumerical",
     },
-    "announcement": "<style>.bd-header-announcement{background-color:#66B366;}The photonic inverse design module lumopt2 is available starting in this release.</style>" # noqa: E501
+    "announcement": '<style>.bd-header-announcement{background-color:#66B366;}</style><b style="color:black;">The photonic inverse design module <code style="color:black;">lumopt2</code> is available starting in this release.</b>',  # noqa: E501
 }
 # Conditionally add cheatsheet if enabled
 if build_cheatsheet:

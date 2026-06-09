@@ -28,9 +28,9 @@ The :doc:`L-bend example <getting_started_l_bend>` provides an example of settin
 
 For further information on setting up the base simulation, see the following resources:
 
- - `FDTD Product Reference Manual <https://optics.ansys.com/hc/en-us/articles/360033154434-FDTD-product-reference-manual>`__
- - `Lumerical scripting language index <https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category>`__
- - `Simulation automation section of the user guide <simulation-automation>`__
+- `FDTD Product Reference Manual <https://optics.ansys.com/hc/en-us/articles/360033154434-FDTD-product-reference-manual>`__
+- `Lumerical scripting language index <https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category>`__
+- :ref:`Simulation automation section of the user guide <simulation-automation>`
 
 Passing base simulation
 -----------------------

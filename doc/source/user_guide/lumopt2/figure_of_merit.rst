@@ -65,7 +65,7 @@ This function must take in all simulation results you wish to use as a concatena
 If your result is a vector, for example, if you examining a metric over multiple wavelengths, you must first transform it into a scalar value.
 
 During optimization, the gradient of the custom figure of merit function is computed via automatic differentiation. Therefore, ensure that operations in your function are compatible with autograd.
-For a list of compatible operations, see the `autograd documentation <https://github.com/HIPS/autograd/blob/master/docs/tutorial.md#supported-and-unsupported-parts-of-numpyscipy>`__.
+For a list of compatible operations, see the "supported and unsupported parts" section in the `autograd documentation <https://github.com/HIPS/autograd/blob/master/docs/tutorial.md>`__.
 
 The example below illustrates how to define a custom figure of merit function for a focus region with multiple field region monitors.
 

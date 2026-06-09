@@ -8,7 +8,7 @@ This makes it especially valuable for complex photonic designs, where brute-forc
 The Ansys Lumerical solution for photonic inverse design, lumopt2, is named after the Python module of the same name included in the Ansys Lumerical installation.
 The ``lumopt2`` module provides a simple and intuitive Python interface for configuring and running inverse design optimizations with Ansys Lumerical FDTD.
 
-In just a few steps, you can define an optimization session with your custom parameterization and figure of merit, run the optimization, and analyze the results.
+In just a few steps, you can define an optimization session with your custom parametrization and figure of merit, run the optimization, and analyze the results.
 
 Installation
 -------------

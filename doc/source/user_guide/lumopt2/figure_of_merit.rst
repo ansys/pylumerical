@@ -1,7 +1,7 @@
 Figure of merit
 ===============
 
-The figure of merit is the performance metric that will be optimized for the device.
+The figure of merit is the performance metric to be optimized for the device.
 It is flexible to account for multiple competing metrics that can be combined through a user-defined function, which is in turn constructed from the simulation results obtained in the FDTD simulations.
 
 After it you define a figure of merit for the optimization, it is passed into the project class to be used in the optimization.
@@ -45,10 +45,10 @@ You can also define a port result object for multiple wavelengths, using a list 
 Defining a figure of merit
 --------------------------
 
-Once the you create the simulation results, you must then define a figure of merit using the :py:func:`~lumopt2.fom.fom.Fom`, which is used as the target for optimization.
+After you define simulation results relevant for the optimization, use :py:func:`~lumopt2.fom.fom.Fom` to combine them to form a function that will be optimized.
 
-This function takes in simulation result objects, and applies either a pre-defined or custom functions to formulate the figure of merit.
-Without defining your own function for the figure of merit, the default functions are to use the mean for field results, and P-norm for port results.
+This function takes in simulation result objects, and applies either a pre-defined or a custom function to formulate the figure of merit, outputting a scalar value.
+If you don't define your own function for the figure of merit, the default functions are the mean for field results, and P-norm for port results.
 
 You can provide multiple simulation results as a list to the function. In this case, the default function takes the mean of all field results, or the P-norm of the concatenated port results. When you provide a list, all results must be of the same type.
 
@@ -59,10 +59,13 @@ You can provide multiple simulation results as a list to the function. In this c
 
    fom = lmpt.Fom(my_simulation_results)
 
-To define a custom function for the figure of merit, you can pass in a callable to the ``fct`` field of the :py:func:`~lumopt2.fom.fom.Fom` function.
+To define a custom function for the figure of merit, you can pass a callable to the ``fct`` field of the :py:func:`~lumopt2.fom.fom.Fom` function.
 
 This function must take in all simulation results you wish to use as a concatenated autograd array, and outputs a single real-valued scalar value as the figure of merit output.
-The function must be differentiable via autograd.
+If your result is a vector, for example, if you examining a metric over multiple wavelengths, you must first transform it into a scalar value.
+
+During optimization, the gradient of the custom figure of merit function is computed via automatic differentiation. Therefore, ensure that operations in your function are compatible with autograd.
+For a list of compatible operations, see the `autograd documentation <https://github.com/HIPS/autograd/blob/master/docs/tutorial.md#supported-and-unsupported-parts-of-numpyscipy>`__.
 
 The example below illustrates how to define a custom figure of merit function for a focus region with multiple field region monitors.
 
@@ -75,7 +78,7 @@ The example below illustrates how to define a custom figure of merit function fo
 
    fom = lmpt.Fom([intensity_focus, intensity_norm], fct = custom_fct)
 
-The example below illustrates a weighted sum custom figure of merit for multiple port results.
+The example below illustrates a weighted sum custom figure of merit for multiple port results for different channels.
 
 .. code:: python
 
@@ -99,52 +102,65 @@ The example below illustrates a weighted sum custom figure of merit for multiple
 Multiple simulation configuration
 ---------------------------------
 
-In some cases, it is important to formulate the overall figure of merit based on variations of the same base simulation, for example, multiple wavelengths for the source.
+In some cases, it is important to formulate the overall figure of merit based on variations of the same base simulation, for example, multiple polarization or sources.
 
 In this case, lumopt2 provides the option to define multiple simulation configurations via the :py:class:`~lumopt2.core.project_config.ProjectConfig` class and the ``config`` argument in simulation results.
-You can then combine the result from each simulation configuration into a single figure of merit using the same approach as discussed above.
+During the optimization, each simulation configuration is ran, and you can combine the result from the different configurations into a single figure of merit using the same approach as discussed above.
 
-To create a new project configuration, initialize the :py:class:`~lumopt2.core.project_config.ProjectConfig` with a configurator. The configurator is a a callable function or a path to a Lumerical script file that modifies the base simulation.
+To create a new project configuration, initialize the :py:class:`~lumopt2.core.project_config.ProjectConfig` with a configurator.
+The configurator is a a callable function or a path to a Lumerical script file that modifies the base simulation.
 
-For example, you can define the base simulation in ``base_simulation.lsf``, set up the source to be single wavelength, but set up multiple monitors for different wavelengths.
+For example, the settings below shows a case for an S- and P-polarized source with different field region monitors.
 
-.. code::
-
-   ... #Setup code
-
-   wavelength = 650e-9; # Set to operate at a wavelength of 650 nm in the base simulation
-
-   meshsize = 35e-9;
-   setglobalsource('center wavelength',wavelength);
-   setglobalsource('wavelength span', 0);
-   setglobalsource("optimize for short pulse",false);
-
-   ...
-   addfieldregion;
-   set('name','fom_red');
-   ...
-
-   addfieldregion;
-   set('name','fom_blue');
-
-Then, you can define a configuration script that modifies the wavelength of the source in ``blue_config.lsf``.
+First, you can define the base simulation in ``base_simulation.lsf`` and set up the monitors.
 
 .. code::
 
-   wl_blue = 450e-9;
-   setglobalsource('center wavelength',wl_blue);
+   #Setup code
+
+   ...
+
+   addfieldregion;
+   set('name','fom_s');
+   set('x', x1);
+   set('y', y1);
+
+   ...
+
+   addfieldregion;
+   set('name', 'fom_p');
+   set('x', x2);
+   set('y', y2);
+
+Then, you can define a configuration script adds an S-polarized source in ``s1_config.lsf``.
+
+.. code::
+
+   addgaussian;
+   set("polarization definition", "S");
+   ...
+
+You can then create a separate script that adds a P-polarized source in ``s2_config.lsf``.
+
+.. code::
+
+   addgaussian;
+   set("polarization definition", "P");
+   ...
 
 When setting up the inverse design project, you can do the following to define the project configuration and use them with the simulation results, and define the figure of merit based on the results of different configurations.
 
 .. code:: python
 
-   config_blue = lmpt.ProjectConfig(configurator=configfile_blue, filename_suffix='blue')
-   int_blue   = lmpt.FieldResults('fom_blue',   metric='intensity', wavelengths=450e-9, config=config_blue)
+   config_S = lmpt.ProjectConfig(configurator='path/to/s1_config.lsf', filename_suffix='S')
+   config_P = lmpt.ProjectConfig(configurator='path/to/s2_config.lsf', filename_suffix='P')
+   int_S   = lmpt.FieldResults('fom_S',   metric='intensity', wavelengths=1550e-9, config=config_S)
+   int_P   = lmpt.FieldResults('fom_P',   metric='intensity', wavelengths=1550e-9, config=config_P)
 
    def custom_fct(x):
       return (x[0] + x[1]) / 2
 
-   fom = lmpt.Fom([int_red, int_green1], fct=custom_fct)
+   fom = lmpt.Fom([int_S, int_P], fct=custom_fct)
 
 The base setup script is still used when defining the project, but the configuration scripts are automatically applied for the optimization problem when it is run.
 

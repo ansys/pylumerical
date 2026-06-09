@@ -295,8 +295,6 @@ You can export the optimization results in your preferred method, or recreate an
 
     See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/1500006203341>`_ for more information on exporting a GDS file from the final project.
 
-..
-
 .. toctree::
    :hidden:
    :maxdepth: 2

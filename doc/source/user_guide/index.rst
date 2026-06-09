@@ -54,7 +54,7 @@ The guide below discusses usage of lumopt2 for inverse design of photonic device
 
 .. grid:: 1 1 1 1
 
-   .. grid-item-card:: Photonic inverse design
+   .. grid-item-card:: Introduction to photonic inverse design with lumopt2
       :link: photonic_inverse_design_with_lumopt2
       :link-type: doc
 
@@ -73,7 +73,17 @@ The guide below discusses usage of lumopt2 for inverse design of photonic device
 
 .. toctree::
    :hidden:
-   :maxdepth: 2
-   :caption: Photonic Inverse Design
+   :maxdepth: 3
+   :caption: Introduction to photonic inverse design
 
    photonic_inverse_design_with_lumopt2
+   Getting started example: Simple metalens <lumopt2/getting_started_simple_metalens>
+   Getting started example: L-Bend <lumopt2/getting_started_l_bend>
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+   :caption: Photonic inverse design usage guide
+
+   lumopt2/optimization_session

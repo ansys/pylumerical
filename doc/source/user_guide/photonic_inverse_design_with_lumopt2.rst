@@ -1,5 +1,5 @@
-lumopt2 module for photonic inverse design
-==========================================
+Introduction to photonic inverse design with lumopt2
+====================================================
 
 Inverse design is a computational design approach in which the desired functionality of a component or system is specified first, and optimization algorithms are then used to determine the structure or parameters that best produce that response.
 Unlike traditional design workflows, which rely on iteratively adjusting a limited set of parameters and evaluating candidate geometries, inverse design enables systematic exploration of much larger design spaces.
@@ -171,20 +171,6 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link-type: doc
 
          Define the objective function based on specific simulation results.
-
-.. toctree::
-   :hidden:
-   :maxdepth: 3
-
-   Getting started example: Simple metalens <lumopt2/getting_started_simple_metalens>
-   Getting started example: L-Bend <lumopt2/getting_started_l_bend>
-
-.. toctree::
-   :hidden:
-   :maxdepth: 3
-
-   lumopt2/optimization_session
-
 ..
 
 

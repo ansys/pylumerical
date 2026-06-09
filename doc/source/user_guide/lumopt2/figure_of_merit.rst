@@ -19,6 +19,7 @@ The lumopt2 module supports the following types of monitors, relating to differe
    The only metrics currently supported in ``lumopt2`` are intensity for :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and transmission of a mode through a waveguide for :py:class:`~lumopt2.fom.simulation_results.PortResults`.
 
 To define a field result object, you need to specify the name of the field region object, the metric to extract, and the wavelength to evaluate the results at.
+
 .. code:: python
 
    # Create a field result object for a wavelength of 940 nm

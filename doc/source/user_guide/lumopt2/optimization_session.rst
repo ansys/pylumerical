@@ -215,6 +215,8 @@ For further information on resource configuration and GPU simulation, please vis
             :link: https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU
             :link-type: url
 
+.. _optimization-session-optimizers:
+
 Optimizer
 -----------
 

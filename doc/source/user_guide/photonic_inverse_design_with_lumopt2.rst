@@ -84,7 +84,7 @@ Follow the example below to quick get started with basic functionalities of lumo
 
 .. grid:: 2 2 3 3
 
-    .. grid-item-card:: 3x3 array of pillars
+    .. grid-item-card:: Simple metalens
         :link: lumopt2/getting_started_simple_metalens
         :link-type: doc
 

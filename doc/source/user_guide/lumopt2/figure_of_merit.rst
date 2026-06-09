@@ -99,6 +99,7 @@ The example below illustrates a weighted sum custom figure of merit for multiple
 
    fom = lmpt.Fom([trans_ch1, trans_ch2, trans_ch3, trans_ch4], fct=custom_fct)
 
+.. _multi-sim-config:
 
 Multiple simulation configuration
 ---------------------------------
@@ -111,7 +112,87 @@ During the optimization, each simulation configuration is ran, and you can combi
 To create a new project configuration, initialize the :py:class:`~lumopt2.core.project_config.ProjectConfig` with a configurator.
 The configurator is a a callable function or a path to a Lumerical script file that modifies the base simulation.
 
-For example, the settings below shows a case for an S- and P-polarized source with different field region monitors.
+
+Example - multi-wavelength for field region
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This example demonstrates how to use multiple configuration files to define a multi-wavelength figure of merit for field region monitors, which can be useful for color router applications.
+
+First, set up the base simulation in ``base_simulation.lsf`` and set up the monitors.
+
+.. code::
+
+   #Setup code
+
+   ...
+
+   addgaussian; # Add the source object
+
+   ...
+
+   setglobalsource('wavelength span', 0); # Define source settings that will persist for all configurations
+   setglobalsource("optimize for short pulse",false);
+
+   ...
+
+   addfieldregion;
+   set('name','fom_red');
+
+   ...
+
+   addfieldregion;
+   set('name','fom_blue');
+
+Then, you can define a configuration script that modifies the wavelength of the source for red and blue wavelengths with ``red_config.lsf`` and ``blue_config.lsf``.
+
+.. code::
+
+   # red_config.lsf
+
+   wl_red = 650e-9;
+   setglobalsource('center wavelength',wl_red);
+
+.. code::
+
+   # blue_config.lsf
+
+   wl_blue = 450e-9;
+   setglobalsource('center wavelength',wl_blue);
+
+When setting up the inverse design project, you can do the following to define the project configuration and use them with the simulation results, and define the figure of merit based on the results of different configurations.
+
+.. code:: python
+
+   config_red = lmpt.ProjectConfig(configurator=configfile_red, filename_suffix='red')
+   config_blue = lmpt.ProjectConfig(configurator=configfile_blue, filename_suffix='blue')
+
+   int_red   = lmpt.FieldResults('fom_red',   metric='intensity', wavelengths=650e-9, config=config_red)
+   int_blue   = lmpt.FieldResults('fom_blue',   metric='intensity', wavelengths=450e-9, config=config_blue)
+
+   def custom_fct(x):
+      return (x[0] + x[1]) / 2
+
+   fom = lmpt.Fom([int_red, int_blue], fct=custom_fct)
+
+Then, set up the project as normal.
+
+.. code:: python
+
+   # Configurator scripts included in fom
+
+   project = lmpt.Project(setup = "base_simulation.lsf",
+                       fdtd_session = fdtd_session,
+                       parametrization = parametrization,
+                       fom = fom)
+
+.. vale off
+
+Example - S-and P polarization sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. vale on
+
+This example demonstrates using multiple configurations for S- and P-polarized sources.
 
 First, you can define the base simulation in ``base_simulation.lsf`` and set up the monitors.
 
@@ -173,5 +254,3 @@ The base setup script is still used when defining the project, but the configura
                        fdtd_session = fdtd_session,
                        parametrization = parametrization,
                        fom = fom)
-
-..

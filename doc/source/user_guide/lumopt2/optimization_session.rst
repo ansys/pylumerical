@@ -168,6 +168,7 @@ For further information on setting up the figure of merit from simulation result
             :link: figure_of_merit
             :link-type: doc
 
+.. _optimization-fdtd-session:
 
 FDTD session
 ~~~~~~~~~~~~~
@@ -180,6 +181,8 @@ The GUI window is disabled by default, you can define a session with the GUI ena
 .. code:: python
 
    fdtd_session = lmpt.FdtdSession(show_fdtd_cad = True)
+
+.. _optimization-runner:
 
 Runner
 ~~~~~~

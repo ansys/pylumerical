@@ -1,28 +1,33 @@
 Figure of merit
 ===============
 
-The figure of merit is the formulation of the optimization goal.
-In lumopt2, figure of merits derive from simulation results, which in turn derives from monitors in the base simulation.
-After it you define a figure of merit for the optimization, it is passed into the project class.
+The figure of merit is the performance metric that will be optimized for the device.
+It is flexible to account for multiple competing metrics that can be combined through a user-defined function, which is in turn constructed from the simulation results obtained in the FDTD simulations.
+
+After it you define a figure of merit for the optimization, it is passed into the project class to be used in the optimization.
 
 Simulation results
 ------------------
 
-The lumopt2 module supports two types of simulation results, :py:class:`~lumopt2.fom.simulation_results.PortResults` and :py:class:`~lumopt2.fom.simulation_results.FieldResults`.
+The lumopt2 module supports the following types of monitors, relating to different simulation results:
 
-The :py:class:`~lumopt2.fom.simulation_results.FieldResults` class extracts the intensity of fields from a `field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__.
+- `Field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__: Required by the :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and typically used to optimize field values at specific positions.
+- `FDTD port object <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__: Required by the :py:class:`~lumopt2.fom.simulation_results.PortResults`, and typically used to optimize metric in waveguide simulations.
+
+.. note::
+
+   The only metrics currently supported in ``lumopt2`` are intensity for :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and transmission of a mode through a waveguide for :py:class:`~lumopt2.fom.simulation_results.PortResults`.
 
 To define a field result object, you need to specify the name of the field region object, the metric to extract, and the wavelength to evaluate the results at.
-
-.. warning::
-
-   The field region object only accepts a single wavelength.
-
 .. code:: python
 
    # Create a field result object for a wavelength of 940 nm
 
    intensity = lmpt.FieldResults(monitor_name='field_result', metric='intensity', wavelengths = 940e-9)
+
+.. warning::
+
+   The field region object only accepts a single wavelength. However, you can create a multi-wavelength figure of merit via multiple simulation configurations.
 
 The :py:class:`~lumopt2.fom.simulation_results.PortResults` class extracts transmission data from a `FDTD port object <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__.
 This class is typically used for for photonic integrated circuit applications.

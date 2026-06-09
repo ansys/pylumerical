@@ -21,7 +21,7 @@ This example demonstrates using lumopt2 to optimize an L-bend waveguide coupler.
 
 This example uses the closed curve parametrization approach, typically used for photonic integrated circuit applications, and demonstrates the use of callbacks to customize the visualization.
 
-For a more basic example demonstrating lumopt2 workflow, see the :doc:`3x3 pillar example <getting_started_3x3_pillar>`.
+For a more basic example demonstrating lumopt2 workflow, see the :doc:`3x3 pillar example <getting_started_simple_metalens>`.
 
 The Python script associated with this example is attached to the article.
 

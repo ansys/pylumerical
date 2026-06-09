@@ -19,7 +19,7 @@
 
             :octicon:`download` Download Simulation File (.fsp)
 
-Getting started with lumopt2: 3x3 array of pillars
+Getting started with lumopt2: simple metalens
 ==================================================
 
 This article discusses the usage of the lumopt2 inverse design module in Lumerical FDTD for a basic parametric optimization.

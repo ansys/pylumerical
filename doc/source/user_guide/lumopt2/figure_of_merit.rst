@@ -71,12 +71,12 @@ This function takes in simulation result objects of the same type, and applies e
 Default functions
 ~~~~~~~~~~~~~~~~~
 
-If you don't define your own function for the figure of merit, the default function is to use the intensity directly for field results, and the P-norm for port results.
+If you don't define your own function for the figure of merit, the default function is to use the intensity directly for field results, and the :py:func:`P-norm <lumopt2.utils.common.PNorm>` for port results.
 
-In general, the P-norm function uses the following formula
+In general, the :py:func:`~lumopt2.utils.common.PNorm` function uses the following formula
 
 
-:math:`FOM=\text{mean}(w\cdot|target|^p)-(\text{mean}(w\cdot|T(\lambda)-target|^p))^{1/p}`
+:math:`FOM=\text{mean}(w\cdot|target|^p)^{1/p}-(\text{mean}(w\cdot|T(\lambda)-target|^p))^{1/p}`
 
 
 where :math:`T` is a wavelength-dependent transmission, :math:`w` is a wavelength-dependent weight, :math:`target` is the target value for the metric, and :math:`p` is the order of the P-norm.

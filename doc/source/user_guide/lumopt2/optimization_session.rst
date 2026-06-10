@@ -6,6 +6,10 @@ Its key input is the optimization :py:class:`~lumopt2.core.project.Project`, whi
 
 This article describes the overall optimization workflow in ``lumopt2`` through the optimization session, and includes links to detailed guides for each of the component.
 
+.. note::
+
+   For installation and getting started information, see the :doc:`introduction <../photonic_inverse_design_with_lumopt2>` article.
+
 Overview
 --------
 
@@ -303,3 +307,12 @@ You can export the optimization results in your preferred method, or recreate an
    Project: Parametrization <parametrization>
    Project: Figure of merit <figure_of_merit>
    Callbacks <callbacks>
+
+Diagnostics
+-----------
+
+The ``lumopt2`` module also includes a set of functions for gradients that are useful for diagnostics:
+
+- :py:func:`~lumopt2.utils.fd_grad.finite_difference_gradient`: Computes the finite difference gradient for a figure of merit.
+- :py:func:`~lumopt2.utils.fd_grad.validate_gradient`: Validates the adjoint gradient by comparing it to a finite difference gradient for given parameter indices.
+- :py:func:`~lumopt2.utils.fd_grad.fd_sweep_perturbation`: Conducts a finite difference convergence test for a range of perturbation values and plots the results.

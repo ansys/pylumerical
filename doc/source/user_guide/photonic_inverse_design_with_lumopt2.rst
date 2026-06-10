@@ -59,10 +59,9 @@ Then, import the lumopt2 module and it is ready to use.
    import ansys.lumerical.core.lumopt2 as lmpt
 
 .. warning::
-   Manual ``sys.path`` overrides for ``lumopt2`` are unsupported. The ``lumopt2`` module bundled with Ansys Lumerical products silently takes precedence over those added to ``sys.path``.
 
-.. tip::
-   To ensure that the correct bundled modules are imported, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2``.
+   - To ensure correct functionality, only import ``lumopt2`` through ``ansys.lumerical.core``.
+   - Manual ``sys.path`` overrides for ``lumopt2`` are unsupported. The ``lumopt2`` module bundled with Ansys Lumerical products silently takes precedence over those added to ``sys.path``.
 
 Using the in-product script editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,15 +93,15 @@ Follow these examples for more in-depth introductions catered to specific workfl
 
 .. grid:: 2 2 3 3
 
-    .. grid-item-card:: L-Bend
+    .. grid-item-card:: L-bend
         :link: lumopt2/getting_started_l_bend
         :link-type: doc
 
         Learn how to optimize components for integrated photonic circuits through a simple L-bend example.
 
 
-Usage guide
------------
+Workflow
+--------
 
 The diagram below illustrates the general workflow for using lumopt2. For further information, click on the corresponding card.
 

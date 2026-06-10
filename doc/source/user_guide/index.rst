@@ -50,7 +50,7 @@ The guides below discusses using lumapi to automate Lumerical simulations with P
 Photonic inverse design
 ------------------------
 
-The guide below discusses usage of lumopt2 for inverse design of photonic devices.
+The article below discusses usage of lumopt2 for inverse design of photonic devices, along with a few getting started examples.
 
 .. grid:: 1 1 1 1
 
@@ -58,7 +58,31 @@ The guide below discusses usage of lumopt2 for inverse design of photonic device
       :link: photonic_inverse_design_with_lumopt2
       :link-type: doc
 
-      Learn how to use the lumopt2 module for photonic inverse design.
+      Learn how to install and use the lumopt2 module for photonic inverse design.
+
+.. grid:: 1 2 2 2
+
+   .. grid-item-card:: Getting started with lumopt2: Simple metalens example
+      :link: lumopt2/getting_started_simple_metalens
+      :link-type: doc
+
+      Get a quick introduction to using lumopt2 through a simple metalens optimization example.
+
+   .. grid-item-card:: Getting started with lumopt2: L-bend example
+      :link: lumopt2/getting_started_l_bend
+      :link-type: doc
+
+      Learn how to optimize components for integrated photonic circuits through a simple L-bend example.
+
+Start with the article below to learn the details of ``lumopt2``.
+
+.. grid:: 1 1 1 1
+
+   .. grid-item-card:: Optimization session
+      :link: lumopt2/optimization_session
+      :link-type: doc
+
+      Learn about the optimization session, which is the core of the photonic inverse design workflow with ``lumopt2``.
 
 .. toctree::
    :hidden:
@@ -74,16 +98,9 @@ The guide below discusses usage of lumopt2 for inverse design of photonic device
 .. toctree::
    :hidden:
    :maxdepth: 3
-   :caption: Introduction to photonic inverse design
+   :caption: Photonic inverse design
 
    photonic_inverse_design_with_lumopt2
-   Getting started example: Simple metalens <lumopt2/getting_started_simple_metalens>
-   Getting started example: L-Bend <lumopt2/getting_started_l_bend>
-
-
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Photonic inverse design usage guide
-
+   Getting started: Simple metalens example <lumopt2/getting_started_simple_metalens>
+   Getting started: L-Bend example <lumopt2/getting_started_l_bend>
    lumopt2/optimization_session

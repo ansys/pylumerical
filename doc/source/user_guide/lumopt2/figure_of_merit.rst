@@ -49,9 +49,14 @@ Defining a figure of merit
 After you define simulation results relevant for the optimization, use :py:func:`~lumopt2.fom.fom.Fom` to combine them to form a function that will be optimized.
 
 This function takes in simulation result objects, and applies either a pre-defined or a custom function to formulate the figure of merit, outputting a scalar value.
-If you don't define your own function for the figure of merit, the default functions are the mean for field results, and P-norm for port results.
 
-You can provide multiple simulation results as a list to the function. In this case, the default function takes the mean of all field results, or the P-norm of the concatenated port results. When you provide a list, all results must be of the same type.
+Default functions
+~~~~~~~~~~~~~~~~~
+
+If you don't define your own function for the figure of merit, the default function is to use the sum of :math:`|E|^2` for field region results, and the P-norm for port results.
+The P-norm function is defined using :py:func:`~lumopt2.utils.common.PNorm` with a target value of 1 and an order of 1, reducing to :math:`1-\text{mean}(|T(\lambda)-1|)`.
+
+You can also provide multiple simulation results as a list to the function. In this case, the default function takes the mean of all field results, or the P-norm of the concatenated port results. When you provide a list, all results must be of the same type.
 
 .. code:: python
 
@@ -59,6 +64,9 @@ You can provide multiple simulation results as a list to the function. In this c
    # The simulation results are previous defined using PortResult or FieldResults class
 
    fom = lmpt.Fom(my_simulation_results)
+
+Custom functions
+~~~~~~~~~~~~~~~~
 
 To define a custom function for the figure of merit, you can pass a callable to the ``fct`` field of the :py:func:`~lumopt2.fom.fom.Fom` function.
 
@@ -114,7 +122,7 @@ The configurator is a a callable function or a path to a Lumerical script file t
 
 
 Example - multi-wavelength for field region
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This example demonstrates how to use multiple configuration files to define a multi-wavelength figure of merit for field region monitors, which can be useful for color router applications.
 
@@ -188,7 +196,7 @@ Then, set up the project as normal.
 .. vale off
 
 Example - S-and P polarization sources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. vale on
 

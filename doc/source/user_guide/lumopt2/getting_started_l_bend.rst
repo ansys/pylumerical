@@ -165,7 +165,7 @@ In this example, we aim to maximize the transmission for the full O-band using a
 Project configuration
 ---------------------
 
-The definition of the base geometry, parametrization, and figure of merit are passed to the :py:class:`lumopt2.core.project.Project`` class.
+The definition of the base geometry, parametrization, and figure of merit are passed to the :py:class:`lumopt2.core.project.Project` class.
 You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
 
 .. code-block:: python

@@ -50,7 +50,7 @@ The guides below discusses using lumapi to automate Lumerical simulations with P
 Photonic inverse design
 ------------------------
 
-The article below discusses usage of lumopt2 for inverse design of photonic devices, along with a few getting started examples.
+The article below discusses usage of ``lumopt2`` for inverse design of photonic devices, along with a few getting started examples.
 
 .. grid:: 1 1 1 1
 
@@ -58,17 +58,17 @@ The article below discusses usage of lumopt2 for inverse design of photonic devi
       :link: photonic_inverse_design_with_lumopt2
       :link-type: doc
 
-      Learn how to install and use the lumopt2 module for photonic inverse design.
+      Learn how to install and use the ``lumopt2`` module for photonic inverse design.
 
 .. grid:: 1 2 2 2
 
-   .. grid-item-card:: Getting started with lumopt2: Simple metalens example
+   .. grid-item-card:: Getting started: Simple metalens example
       :link: lumopt2/getting_started_simple_metalens
       :link-type: doc
 
-      Get a quick introduction to using lumopt2 through a simple metalens optimization example.
+      Get a quick introduction to using ``lumopt2`` through a simple metalens optimization example.
 
-   .. grid-item-card:: Getting started with lumopt2: L-bend example
+   .. grid-item-card:: Getting started: L-bend example
       :link: lumopt2/getting_started_l_bend
       :link-type: doc
 
@@ -101,6 +101,6 @@ Start with the article below to learn the details of ``lumopt2``.
    :caption: Photonic inverse design
 
    photonic_inverse_design_with_lumopt2
-   Getting started: Simple metalens example <lumopt2/getting_started_simple_metalens>
-   Getting started: L-Bend example <lumopt2/getting_started_l_bend>
-   lumopt2/optimization_session
+   Getting started with lumopt2: simple metalens example <lumopt2/getting_started_simple_metalens>
+   Getting started with lumopt2: L-bend example <lumopt2/getting_started_l_bend>
+   Optimization session in lumopt2 <lumopt2/optimization_session>

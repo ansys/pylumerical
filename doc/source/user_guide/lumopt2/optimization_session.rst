@@ -1,5 +1,5 @@
-Optimization session
-====================
+Optimization session in lumopt2
+===============================
 
 The optimization session is the main interface for setting up and running a ``lumopt2`` optimization.
 Its key input is the optimization :py:class:`~lumopt2.core.project.Project`, which defines the base simulation, parameterization, and figure of merit. You can also use the session inputs to choose the optimizer and specify what data is reported during and after the optimization.
@@ -236,12 +236,12 @@ You can use the following code to set up a basic optimizer with default settings
 
 By default, the optimizer uses the gradient-based L-BFGS-B method. This method is well-suited for inverse design because of its excellent memory efficiency for high-dimensional problems, ability to naturally handle bounds, efficient usage of gradient information, and quick convergence for smooth objective functions.
 
-In addition to the default, you can also choose from any of the optimization algorithm available in the `scipy.optimize.minimize` function. For any gradient-free methods, ``lumopt2`` automatically skips the adjoint simulation step.
+In addition to the default option, you can choose any optimization algorithm supported by the `scipy.optimize.minimize` function. For any gradient-free methods, ``lumopt2`` automatically skips the adjoint simulation step.
 
 .. tip::
 
-   Certain optimizer parameters, such as ``ftol``, ``gtol``, and ``max_fval``, are exposed directly in the :py:class:`~lumopt2.optimizer.scipy_optimizer` class, which are passed onto the underlying optimizer if they are applicable.
-   You can additional options ont in the default argument list using the ``options`` argument.
+   Some optimizer parameters, such as ``ftol``, ``gtol``, and ``max_fval``, are exposed directly in the :py:class:`~lumopt2.optimizer.scipy_optimizer` class and passed to the underlying optimizer when supported.
+   The ``options`` dictionary enables you to pass any other parameters to the selected optimizer.
 
 Callbacks
 ----------
@@ -268,7 +268,7 @@ Additional configurations
 There are two additional useful flags in the :py:class:`~lumopt2.core.optimization.Optimization` class configuration:
 
 - ``Optimization.store_all_simulations``: stores all simulations on disk
-- ``Optimization.log_profiling_summary``: toggles whether wall-clock profiling is a part of the standard log
+- ``Optimization.log_profiling_summary``: controls whether wall-clock profiling is a part of the standard log
 
 .. _optimization-session-run:
 
@@ -303,9 +303,9 @@ You can export the optimization results in your preferred method, or recreate an
    :hidden:
    :maxdepth: 2
 
-   Project: Base simulation <base_simulation>
-   Project: Parametrization <parametrization>
-   Project: Figure of merit <figure_of_merit>
+   Project: base simulation <base_simulation>
+   Project: parametrization <parametrization>
+   Project: figure of merit <figure_of_merit>
    Callbacks <callbacks>
 
 Diagnostics

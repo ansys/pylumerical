@@ -7,7 +7,11 @@ In lumopt2, you can define the base simulation using an existing Lumerical FDTD 
 Setting up the base simulation
 ------------------------------
 
-The base simulation contains sources, monitors, and geometries necessary for the optimization. You don't need to set up the optimization region in the base simulation, as this is separately defined in Python and passed into the parametrization.
+The base simulation contains sources, monitors, and geometries necessary for the optimization.
+
+.. note::
+
+   You don't need to set up the optimization region in the base simulation, as this is separately defined in Python and passed into the parametrization.
 
 To run optimization using ``lumopt2``, the base simulation needs specific objects to capture the simulation results for the figure of merit. See the :doc:`figure of merit article <figure_of_merit>` for more details.
 

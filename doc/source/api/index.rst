@@ -43,7 +43,7 @@ lumopt2
         :link: lumopt2/index
         :link-type: doc
 
-        Inverse design module for photonic devices using the adjoint method.
+        Inverse design module for photonic devices.
 
 .. toctree::
     :hidden:

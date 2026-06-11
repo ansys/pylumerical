@@ -1,9 +1,14 @@
-Setting up the optimization session
-====================================
+Optimization session in lumopt2
+===============================
 
-The optimization session is the main interface to run inverse design problems. It combines critical components include the base simulation, parametrization, figure of merit, and visualizer settings.
+The optimization session is the main interface for setting up and running a ``lumopt2`` optimization.
+Its key input is the optimization :py:class:`~lumopt2.core.project.Project`, which defines the base simulation, parameterization, and figure of merit. You can also use the session inputs to choose the optimizer and specify what data is reported during and after the optimization.
 
-This article describes the overall optimization workflow in lumopt2 through the optimization session, and includes links to detailed guides for each of the component.
+This article describes the overall optimization workflow in ``lumopt2`` through the optimization session, and includes links to detailed guides for each of the component.
+
+.. note::
+
+   For installation and getting started information, see the :doc:`introduction <../photonic_inverse_design_with_lumopt2>` article.
 
 Overview
 --------
@@ -70,10 +75,10 @@ The overall workflow for running an inverse design problem is shown in the diagr
          :link: #callbacks
          :link-type: url
 
-         ``lumopt2.GraphicalVisualizer``
+         ``lumopt2.GraphicalVisualizer`` ``lumopt2.FileLogger``
 
-      .. card:: Result configuration
-         :link: #result-configuration
+      .. card:: Additional configurations
+         :link: #additional-configurations
          :link-type: url
 
          ``Optimization.store_all_simulations`` ``Optimization.log_profiling_summary``
@@ -98,7 +103,7 @@ The overall workflow for running an inverse design problem is shown in the diagr
       :columns: 12 12 2 2
 
       .. card:: Run & Results
-         :link: #saving-results
+         :link: #running-the-optimization
          :link-type: url
 
          ``Optimization.run()``
@@ -106,13 +111,13 @@ The overall workflow for running an inverse design problem is shown in the diagr
 Project
 --------
 
-The project object, :py:class:`lumopt2.core.project.Project`, defines the optimization problem by combining the following elements:
+The project object, :py:class:`~lumopt2.core.project.Project`, defines the optimization problem by combining the following elements:
 
-- **Base simulation** (``Project.setup``): the simulation file to run the optimization in.
-- **Parametrization** (``Project.parametrization``): how geometric parameters are translated into parameters for optimization.
-- **Figure of merit** (``Project.fom``): the objective function to evaluate for the optimization.
-- **FDTD session** (``Project.fdtd_session``): a handler for the session running Ansys Lumerical FDTD™
-- **Runner** (``Project.runner``): a handler to set up the computational resources for running the optimization.
+- **Base simulation** (``Project.setup``): configures the simulation objects, such as sources and monitors, required to run the FDTD simulations.
+- **Parametrization** (``Project.parametrization``): defines the optimization parameters in terms of how they modify the simulated structure.
+- **Figure of merit** (``Project.fom``): defines the objective function to evaluate for the optimization.
+- **FDTD session** (``Project.fdtd_session``): manages the session running FDTD simulations.
+- **Runner** (``Project.runner``): sets up the computational resources for running the optimization.
 
 Base simulation
 ~~~~~~~~~~~~~~~~
@@ -135,9 +140,10 @@ Parametrization
 
 The parametrization defines how geometric parameters in the simulation maps to optimization parameters in lumopt2.
 
-The lumopt2 module currently supports three different types of parametrization strategies:
-- Parametric optimization: maps arbitrary Lumerical object properties as parameters, created through :py:class:`lumopt2.parametrization.parametrization.Parametrization`.
-- Closed curve optimization: defines a closed curve using Bezier control points, typically used for photonic integrated circuit applications, created through :py:class:`lumopt2.parametrization.closed_curve.ClosedCurve`.
+The lumopt2 module currently supports two different types of parametrization strategies:
+
+- Parametric optimization (:py:class:`~lumopt2.parametrization.parametrization.Parametrization`): maps arbitrary Lumerical object properties as parameters.
+- Closed curve optimization (:py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`): defines a closed curve formed by linear and cubic segments, typically used for photonic integrated circuit applications..
 
 Further information for each parametrization strategy is in the parametrization article.
 
@@ -153,8 +159,7 @@ Figure of merit
 ~~~~~~~~~~~~~~~~
 
 The figure of merit defines the objective function that the optimization evaluates at each iteration.
-You can define a figure of merit based on simulation results from specific simulation objects, using the :py:func:`lumopt2.fom.fom.Fom` function.
-
+You can define a figure of merit based on simulation results from specific simulation objects, using the :py:func:`~lumopt2.fom.fom.Fom` function.
 lumopt2 supports field intensity results from `field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__ objects, and results from `port <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__ objects.
 
 For further information on setting up the figure of merit from simulation results, see the figure of merit article.
@@ -167,27 +172,29 @@ For further information on setting up the figure of merit from simulation result
             :link: figure_of_merit
             :link-type: doc
 
+.. _optimization-fdtd-session:
 
 FDTD session
 ~~~~~~~~~~~~~
 
 The FDTD session is a handler class that defines a connection to the Ansys Lumerical FDTD™ software.
 
-The session created using :py:class:`lumopt2.core.fdtd_session.FdtdSession`, and automatically handled by the lumopt2 module. You only need to configure whether to show the FDTD GUI during the optimization process.
-
+The session created using :py:class:`~lumopt2.core.fdtd_session.FdtdSession` is automatically handled by the lumopt2 module.
 The GUI window is disabled by default, you can define a session with the GUI enabled using the following code.
 
 .. code:: python
 
    fdtd_session = lmpt.FdtdSession(show_fdtd_cad = True)
 
+.. _optimization-runner:
+
 Runner
 ~~~~~~
 
 The runner is responsible for managing the computational resources for running the optimization.
 
-lumopt2 currently supports local runners for CPU and GPU optimization, defined through :py:class:`lumopt2.utils.runner.LocalRunner`.
-This runner uses the first GPU or CPU resource set up in FDTD, depending on the definition.
+lumopt2 currently supports local runners for CPU and GPU optimization, defined through :py:class:`~lumopt2.utils.runner.LocalRunner`.
+The runner uses the first GPU or CPU resource enabled in the FDTD resource manager list, depending on the specified type.
 
 To set up a local runner, use the following code.
 
@@ -212,12 +219,14 @@ For further information on resource configuration and GPU simulation, please vis
             :link: https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU
             :link-type: url
 
+.. _optimization-session-optimizers:
+
 Optimizer
 -----------
 
 The optimizer defines the optimization algorithm for solving the inverse design problem.
 
-In lumopt2, you can define an optimizer using the built-in :py:class:`lumopt2.optimizer.scipy_optimizer` class. This class takes
+In lumopt2, you can define an optimizer using the built-in :py:class:`~lumopt2.optimizer.scipy_optimizer` class.
 
 You can use the following code to set up a basic optimizer with default settings.
 
@@ -225,14 +234,23 @@ You can use the following code to set up a basic optimizer with default settings
 
    optimizer = lmpt.ScipyOptimizer()
 
+By default, the optimizer uses the gradient-based L-BFGS-B method. This method is well-suited for inverse design because of its excellent memory efficiency for high-dimensional problems, ability to naturally handle bounds, efficient usage of gradient information, and quick convergence for smooth objective functions.
+
+In addition to the default option, you can choose any optimization algorithm supported by the `scipy.optimize.minimize` function. For any gradient-free methods, ``lumopt2`` automatically skips the adjoint simulation step.
+
+.. tip::
+
+   Some optimizer parameters, such as ``ftol``, ``gtol``, and ``max_fval``, are exposed directly in the :py:class:`~lumopt2.optimizer.scipy_optimizer` class and passed to the underlying optimizer when supported.
+   The ``options`` dictionary enables you to pass any other parameters to the selected optimizer.
+
 Callbacks
 ----------
 
 Callbacks are functions that are executed at specific points during the optimization process. You can use callbacks for logging and visualization during the optimization.
 
-lumopt2 includes a built-in graphical visualizer class, :py:class:`lumopt2.utils.visualizer.GraphicalVisualizer`, which you can further customize with panels to plot results from specific monitors.
+``lumopt2`` includes a built-in graphical visualizer class, :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer`, which you can further customize with panels to plot results from specific monitors.
 
-You can also set up logging using classes including :py:class:`lumopt2.utils.file_logger.FileLogger` or :py:class:`lumopt2.utils.file_logger.JSONLogger`.
+You can also set up logging using classes including :py:class:`~lumopt2.utils.file_logger.FileLogger`.
 
 For further information on configuring callbacks and on when they are triggered, see the callbacks article.
 
@@ -244,15 +262,29 @@ For further information on configuring callbacks and on when they are triggered,
             :link: callbacks
             :link-type: doc
 
-Result configuration
----------------------
+Additional configurations
+-------------------------
 
-In addition to the components above, you can also configure how the some optimization results are stored for the session.
+There are two additional useful flags in the :py:class:`~lumopt2.core.optimization.Optimization` class configuration:
 
-To do so, there are two main flags: :py:class:`Optimization.store_all_simulations <lumopt2.core.optimization.Optimization>`, which stores all simulations on disk, and :py:class:`Optimization.log_profiling_summary <lumopt2.core.optimization.Optimization>`, which toggles whether wall-clock profiling is a part of the standard log.
+- ``Optimization.store_all_simulations``: stores all simulations on disk
+- ``Optimization.log_profiling_summary``: controls whether wall-clock profiling is a part of the standard log
 
-Saving results
----------------
+.. _optimization-session-run:
+
+Running the optimization
+------------------------
+
+After configuring the optimization session, run the optimization using
+
+.. code:: python
+
+   Optimization.run()
+
+.. _optimization-session-results:
+
+Optimization results
+--------------------
 
 The :py:class:`Optimization.run() <lumopt2.core.optimization.Optimization>` method returns a tuple, where the first element is the best optimization parameter set, and the second element is the best figure of merit value.
 
@@ -265,4 +297,22 @@ You can export the optimization results in your preferred method, or recreate an
 
 .. tip::
 
-    See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/360034901933-Importing-and-exporting-GDSII-files>`_ for more information on exporting a GDS file from the final project.
+    See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/1500006203341>`_ for more information on exporting a GDS file from the final project.
+
+.. toctree::
+   :hidden:
+   :maxdepth: 2
+
+   Project: base simulation <base_simulation>
+   Project: parametrization <parametrization>
+   Project: figure of merit <figure_of_merit>
+   Callbacks <callbacks>
+
+Diagnostics
+-----------
+
+The ``lumopt2`` module also includes a set of functions for gradients that are useful for diagnostics:
+
+- :py:func:`~lumopt2.utils.fd_grad.finite_difference_gradient`: Computes the finite difference gradient for a figure of merit.
+- :py:func:`~lumopt2.utils.fd_grad.validate_gradient`: Validates the adjoint gradient by comparing it to a finite difference gradient for given parameter indices.
+- :py:func:`~lumopt2.utils.fd_grad.fd_sweep_perturbation`: Conducts a finite difference convergence test for a range of perturbation values and plots the results.

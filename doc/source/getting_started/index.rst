@@ -70,19 +70,18 @@ To use PyLumerical for simulation automation:
 
 .. tip::
 
-   When imported this way, you can directly use your scripts written with the legacy lumapi Python module.
+   When imported this way, you can directly use your scripts written with the legacy ``lumapi`` Python module.
 
-To use the lumopt2 inverse design module:
+To use the ``lumopt2`` inverse design module, use the code below. For further information, see the :doc:`lumopt2 introduction page <../user_guide/photonic_inverse_design_with_lumopt2>`.
 
 .. code-block:: python
 
    import ansys.lumerical.core.lumopt2 as lmpt
 
 .. warning::
-   Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
 
-.. tip::
-   For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
+   - To ensure correct functionality, only import ``lumopt2`` through ``ansys.lumerical.core``.
+   - Manual ``sys.path`` overrides for ``lumopt2`` are unsupported. The ``lumopt2`` module bundled with Ansys Lumerical products silently takes precedence over those added to ``sys.path``.
 
 .. Turn off vale here due to captizalization issues being wrongly flagged by vale.
 
@@ -153,7 +152,7 @@ Further resources
       :link: ../user_guide/photonic_inverse_design_with_lumopt2
       :link-type: doc
 
-      Information on using lumopt2 for photonic inverse design.
+      Introduction to using lumopt2 for photonic inverse design.
 
 Recommended examples
 ----------------------

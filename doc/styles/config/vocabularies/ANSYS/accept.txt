@@ -14,6 +14,7 @@ Ansys Lumerical INTERCONNECT™
 Ansys Lumerical CML Compiler™
 FDTD
 MODE
+RCWA
 Multiphysics
 INTERCONNECT
 CML Compiler
@@ -39,6 +40,9 @@ Pandoc
 Quarto
 TE
 TM
+Ex
+Ey
+Ez
 lumapi
 metalens[es]?
 namespace

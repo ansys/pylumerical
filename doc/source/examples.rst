@@ -51,6 +51,16 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       
 .. grid:: 2 2 3 3
 
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Metalens (RCWA / FDTD)
+      :link: examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
+      :link-type: doc
+
+      This example runs RCWA simulations to create a unit cell library and constructs a full metalens in FDTD.
+      The full metalens is simulated using symmetric boundary conditions in FDTD. A top-down monitor collects the
+      fields after the structures and far-field calculations are used to plot the focusing behavior.
+
    .. grid-item-card:: Basic INTERCONNECT simulation - Ring Resonator
       :link: examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
       :link-type: doc
@@ -63,6 +73,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Sessions_and_Objects/basic_session_management/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
    examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
+   examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat

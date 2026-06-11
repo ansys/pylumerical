@@ -1,22 +1,26 @@
-lumopt2 Lumerical photonic inverse design module introduction
-==============================================================
+Introduction to photonic inverse design with lumopt2
+====================================================
 
-As photonic components become increasingly complex, traditional design cycles involving manually varying a small set of parameters become less effective in finding the optimal device design. While parameter sweeps and traditional optimization techniques allows for further exploration of the design space, the time required exponentially increases as the number of design parameters increase. Towards that end, specialized methods are required to anticipate strong candidates which allows for faster convergence towards a satisfactory design.
+Inverse design is a computational design approach in which the desired functionality of a component or system is specified first, and optimization algorithms are then used to determine the structure or parameters that best produce that response.
+Unlike traditional design workflows, which rely on iteratively adjusting a limited set of parameters and evaluating candidate geometries, inverse design enables systematic exploration of much larger design spaces.
+This makes it especially valuable for complex photonic designs, where brute-force parameter sweeps become increasingly costly and less effective as the number of parameters grows.
 
-The Lumerical photonic inverse design module is a Python module included within Lumerical FDTD is built for efficient optimization of photonic components. Leveraging the adjoint method, you can calculate the gradient with respect to all parameters with only two FDTD simulations, enabling you to quickly adjust your design to achieve specified figures of merit.
+The Ansys Lumerical solution for photonic inverse design, lumopt2, is named after the Python module of the same name included in the Ansys Lumerical installation.
+The ``lumopt2`` module provides a simple and intuitive Python interface for configuring and running inverse design optimizations with Ansys Lumerical FDTD.
 
-With only simple Python scripting, you can set up an optimization session based on an FDTD simulation, map simulation parameters to optimization parameters, and run the inverse design with a variety of resources.
+In just a few steps, you can define an optimization session with your custom parametrization and figure of merit, run the optimization, and analyze the results.
 
 Installation
 -------------
 
-Using with PyLumerical
-~~~~~~~~~~~~~~~~~~~~~~
+The ``lumopt2`` module is included with the Ansys Lumerical products and requires an existing Ansys Lumerical installation.
 
-lumopt2 is provided as a part of the Lumerical FDTD installation. Therefore, you must have Lumerical FDTD installed to use lumopt2.
-PyLumerical is set up such that if there it detects a Lumerical installation with the module, you can directly import lumopt2.
+Using PyLumerical
+~~~~~~~~~~~~~~~~~
 
-To use lumopt2, first create a Python virtual environment and install PyLumerical.
+PyLumerical is set up such that if there it detects a Lumerical installation with the module, you can directly import ``lumopt2``.
+
+To use ``lumopt2``, first create a Python virtual environment and install PyLumerical.
 
 .. tab-set::
 
@@ -55,17 +59,14 @@ Then, import the lumopt2 module and it is ready to use.
    import ansys.lumerical.core.lumopt2 as lmpt
 
 .. warning::
-   Manual ``sys.path`` overrides for ``lumopt2`` are unsupported.
 
-.. tip::
-   For consistent module binding, import ``ansys.lumerical.core`` before importing ``lumapi`` or ``lumopt2`` directly.
+   - To ensure correct functionality, only import ``lumopt2`` through ``ansys.lumerical.core``.
+   - Manual ``sys.path`` overrides for ``lumopt2`` are unsupported. The ``lumopt2`` module bundled with Ansys Lumerical products silently takes precedence over those added to ``sys.path``.
 
-Using with the in-product script editor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using the in-product script editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also use lumopt2 directly with the script editor in Lumerical products.
-
-To do so, simply open any Python script from the editor, and import the module directly and run the script.
+You can also use ``lumopt2`` in Python scripts run from the Script Editor in Lumerical products. Import the module with a single line:
 
 .. code-block:: python
 
@@ -82,27 +83,27 @@ Follow the example below to quick get started with basic functionalities of lumo
 
 .. grid:: 2 2 3 3
 
-    .. grid-item-card:: 3x3 array of pillars
-        :link: lumopt2/getting_started_3x3_pillar
+    .. grid-item-card:: Simple metalens
+        :link: lumopt2/getting_started_simple_metalens
         :link-type: doc
 
-        Learn the basics of lumopt2 through a simple example for optimizing a 3x3 array of pillars.
+        Learn the basics of lumopt2 through a simple example of a metalens optimization.
 
 Follow these examples for more in-depth introductions catered to specific workflows.
 
 .. grid:: 2 2 3 3
 
-    .. grid-item-card:: L-Bend
+    .. grid-item-card:: L-bend
         :link: lumopt2/getting_started_l_bend
         :link-type: doc
 
-        Learn about the workflow for photonic integrated circuits through an L-bend example.
+        Learn how to optimize components for integrated photonic circuits through a simple L-bend example.
 
 
-Usage guide
------------
+Workflow
+--------
 
-The diagram below illustrates the general workflow for using lumopt2. For further information on the critical components, click on the corresponding card.
+The diagram below illustrates the general workflow for using lumopt2. For further information, click on the corresponding card.
 
 .. grid:: 5 5 5 5
    :gutter: 0
@@ -115,7 +116,7 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link: lumopt2/optimization_session
          :link-type: doc
 
-         Combining components into a Project and Optimization workflow, including the optimizer and callbacks.
+         Configure your optimization using your project definition, along with additional optimizer and callback settings.
 
    .. grid-item::
       :columns: 12 12 1 1
@@ -125,9 +126,8 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
       :columns: 12 12 2 2
 
       .. card:: Run optimization
-         :class-card: flow-card-static
-
-         ``Optimization.run()``
+         :link: optimization-session-run
+         :link-type: ref
 
    .. grid-item::
       :columns: 12 12 1 1
@@ -137,7 +137,8 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
       :columns: 12 12 3 3
 
       .. card:: Optimization results
-         :class-card: flow-card-static
+         :link: optimization-session-results
+         :link-type: ref
 
 .. grid:: 1 1 2 2
    :gutter: 0
@@ -156,32 +157,20 @@ The diagram below illustrates the general workflow for using lumopt2. For furthe
          :link: lumopt2/base_simulation
          :link-type: doc
 
-         Setting up the FDTD simulation for optimization.
+         Define the base FDTD simulation for optimization.
 
       .. grid-item-card:: Parametrization
          :link: lumopt2/parametrization
          :link-type: doc
 
-         General parametrization and closed curve approaches.
+         Define the map between optimization and structure parameters.
 
       .. grid-item-card:: Figure of merit
          :link: lumopt2/figure_of_merit
          :link-type: doc
 
-         Defining simulation results and objective functions.
-
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-
-   lumopt2/getting_started_3x3_pillar
-   lumopt2/getting_started_l_bend
-   lumopt2/optimization_session
-   lumopt2/base_simulation
-   lumopt2/parametrization
-   lumopt2/figure_of_merit
-   lumopt2/callbacks
-
+         Define the objective function based on specific simulation results.
+..
 
 
 

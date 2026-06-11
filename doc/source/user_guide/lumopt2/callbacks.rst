@@ -136,3 +136,5 @@ The following methods are available to override, listed in the order they are ca
 - ``on_function_eval(self, project, eval_num, params, fom_value, gradient=None, **kwargs)``: called after every figure of merit evaluation. This can fire multiple times per iteration.
 - ``on_iteration_end(self, project, iteration, params, fom_value, gradient=None, **kwargs)``: called after each iteration completes.
 - ``on_optimization_end(self, success, final_fom, final_params, num_iterations, **kwargs)``: called once when the optimization finishes. This is always called, even if the run is interrupted.
+
+..

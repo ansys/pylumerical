@@ -19,25 +19,25 @@
 
             :octicon:`download` Download Simulation File (.fsp)
 
-Getting started with lumopt2: 3x3 array of pillars
+Getting started with lumopt2: simple metalens
 ==================================================
 
 This article discusses the usage of the lumopt2 inverse design module in Lumerical FDTD for a basic parametric optimization.
 
-Using a basic 3x3 array of pillars, this example highlights key functionalities of the lumopt2 module and walks you through the steps necessary to create and run a simple optimization.
+Using a basic metalens formed by a 3x3 array of pillars, this example highlights key functionalities of the lumopt2 module and walks you through the steps necessary to create and run a simple optimization.
 The simulation file and script associated with this example can be downloaded using the download buttons above.
 
-Prior to working through the example, please ensure that lumopt2 is successfully set up and importable as seen from the :doc:`getting started <../photonic_inverse_design_with_lumopt2>` page.
+Prior to working through the example, please ensure that lumopt2 is successfully set up and importable as seen from the :doc:`introduction <../photonic_inverse_design_with_lumopt2>` page.
 
 Base simulation file
 --------------------
-The base simulation file consists of an array of 9 silicon cylinders, arranged in a 3x3 array, embedded in an SiO2 substrate. Each cylinder has a fixed length, but the radius can vary within set bounds for optimization. This structure mimics a simple metalens arrangements with cylindrical meta-atoms.
+The base simulation file consists of an array of 9 silicon cylinders, arranged in a 3x3 array, embedded in an silicon oxide substrate. Each cylinder has a fixed height, but the radius can vary within set bounds for optimization. This structure mimics a simple metalens arrangements with cylindrical meta-atoms.
 
 .. image:: ../../_static/images/lumopt2_3x3pillar/pillar_schematic.png
     :align: center
     :alt: Schematic of the 3x3 pillar structure
 
-The optimization goal is to maximize the field intensity in the center region under a gaussian source excitation, normalized to the intensity of the entire area where the incoming ray would hit. This mimics the intention of focusing the ray on a given region.
+A Gaussian source illuminates the metalens from above. The optimization aims to maximize the field intensity in a central region of a plane below the metalens, normalized by the intensity across the full plane within the simulation region. This drives the metalens to focus the beam onto the target region.
 
 .. image:: ../../_static/images/lumopt2_3x3pillar/sim_setup.png
     :align: center
@@ -83,8 +83,12 @@ This defines a box with 1 micron side length in the x and y-diirections, and a h
 Parametrization setup
 ----------------------
 
-Link each cylinder radius to the optimization using the :py:class:`~lumopt2.parametrization.parametrization.Parametrization`, which maps arbitrary pre-existing Lumerical object properties to parameters in the optimization problem.
+Link each cylinder radius to the optimization using the :py:class:`~lumopt2.parametrization.parametrization.Parametrization`, which maps arbitrary parameters in the optimization problem to properties of pre-existing Lumerical objects.
 This class is the most general way to parametrize a design in lumopt2, and does not rely on geometry-specific operations like :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`.
+
+.. tip::
+
+    For an example of setting up a parametric optimization using the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`, see the :doc:`L-bend example <getting_started_l_bend>`.
 
 .. code-block:: python
     :lineno-start: 16
@@ -92,37 +96,36 @@ This class is the most general way to parametrize a design in lumopt2, and does 
     num_cyl = 3*3
     bounds = [(0.05e-6, 0.1e-6)]*num_cyl
     def param_func(params):
-        return OrderedDict({f'cyl{idx}::radius': value for idx, value in enumerate(params)})
+        return {f'cyl{idx}::radius': value for idx, value in enumerate(params)}
     parametrization = lmpt.Parametrization(func=param_func, bounds=bounds, optimization_region=optimization_region)
 
 Define the bounds for each cylinder.
+Here the bounds variable defines the lower and upper bound for each pillar individually. For simplicity, the same bounds are used for all pillars, by defining the tuple ``(lower_bound, upper_bound)`` and repeating it in a list for the total number of pillars.
 
 .. code-block:: python
     :lineno-start: 17
 
     bounds = [(0.05e-6, 0.1e-6)]*num_cyl
 
-The bounds variable defines the lower and upper bound for each pillar individually. For each pillar, a tuple of ``(lower_bound, upper_bound)`` is provided, and the list repeats for the total number of pillars.
-
-The :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class takes in a function, ``param_func`` that maps between Lumerical object properties to optimization parameters.
-The function needs to map a parameter vector to a dictionary, such that the keys correspond to the object properties in the Lumerical simulation, and the values correspond an element in the parameter array.
+The :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class takes in a function, ``param_func`` that maps between the optimization parameters and the Lumerical object properties.
+The function needs to map a parameter array to a dictionary, such that the keys correspond to the object properties in the Lumerical simulation, and the values are calculated from elements in the parameter array.
 The mapping function is as follows.
 
 .. code-block:: python
     :lineno-start: 18
 
     def param_func(params):
-        return OrderedDict({f'cyl{idx}::radius': value for idx, value in enumerate(params)})
+        return {f'cyl{idx}::radius': value for idx, value in enumerate(params)}
 
-For this problem, the function generates an ordered dictionary by enumerating through the input parameter vector.
+For this problem, the function generates a dictionary by enumerating through the input parameter array.
 The keys are in the format of ``cyl{idx}::radius``, where the field prior to ``::``, such as ``cyl0``, ``cyl1``, corresponds to the Lumerical object names as set up in the simulation file, and the field after ``::`` corresponds to the name of the object property.
 If you set up objects in a group, the format is ``group_name::object_name::property_name``.
 
 .. tip::
 
-    You can often find object property name strings by opening their property window in the Lumerical GUI.
+    You can check the list of property names for an object with the `getnamed <https://optics.ansys.com/hc/en-us/articles/360034408574-getnamed-Script-command>`__ command, or through the GUI.
 
-Finally, create the parametrization class by passing in the function that generates the map, the bounds, and the optimization region from earlier.
+Finally, create the ``parametrization`` class by passing in the function that generates the map, the bounds, and the optimization region from earlier.
 
 .. code-block:: python
     :lineno-start: 18
@@ -132,6 +135,8 @@ Finally, create the parametrization class by passing in the function that genera
 
 Figure of merit setup
 ---------------------
+
+As explained before, the target of this optimization example is to maximize the ratio of the field intensity at a "focus" region compared to a normalization region.
 
 .. code-block:: python
     :lineno-start: 26
@@ -143,16 +148,7 @@ Figure of merit setup
         return result_list[0]/result_list[1]
     fom = lmpt.Fom([intensity_focus, intensity_norm], fct = custom_fct)
 
-The target for minimization in this example problem is the ratio of the field intensity at a "focus" region compared to a normalization region. This mimics the intention of focusing the incoming light to a specific point in a metalens.
-
-Here, the code defines the two components using the :py:class:`~lumopt2.fom.simulation_results.FieldResults` class, which takes in the name of a field region object, acting as a monitor, the result to extract, ``intensity``, and the wavelength to extract the field at.
-For this example, the figure-of-merit is for a single wavelength of 940nm.
-
-.. TO-DO: Validate accuracy of tip below.
-
-.. tip::
-
-    The field region object only accepts a single wavelength.
+Here, the code defines the two simulation results using the :py:class:`~lumopt2.fom.simulation_results.FieldResults` class, which takes in the name of a field region object, ``focus`` or ``norm``, the result to extract, ``intensity``, and the wavelength to extract the field at, which is 940nm.
 
 .. code-block:: python
     :lineno-start: 27
@@ -160,10 +156,8 @@ For this example, the figure-of-merit is for a single wavelength of 940nm.
     intensity_focus = lmpt.FieldResults(monitor_name='focus', metric='intensity', wavelengths = 940e-9)
     intensity_norm = lmpt.FieldResults(monitor_name='norm', metric='intensity', wavelengths = 940e-9)
 
-Then, utilize the :py:func:`~lumopt2.fom.fom.Fom` to define the figure of merit.
-This class takes in simulation result objects, such as the :py:class:`~lumopt2.fom.simulation_results.FieldResults`, and a function that maps the results to a single figure of merit value.
-
-Here, the example defines a custom function that maps the two field intensity results and calculates the norm.
+Next, the two simulation results must be combined into a single figure of merit value, which is accomplished through a custom function.
+The function assumes a list of numbers as input, which are the simulation results ``intensity_focus`` and ``intensity_norm`` in this case.
 
 .. code-block:: python
     :lineno-start: 29
@@ -171,18 +165,22 @@ Here, the example defines a custom function that maps the two field intensity re
     def custom_fct(result_list):
         return result_list[0]/result_list[1]
 
-Finally, create the figure of merit class, with the first argument as the list of results, and the second argument as the function defined earlier to convert the results to a minimization target.
+Finally, create the figure of merit using :py:func:`~lumopt2.fom.fom.Fom`, with the first argument as the list of results, and the second argument as the function defined earlier to convert the results to an optimization target.
 
 .. code-block:: python
     :lineno-start: 31
 
     fom = lmpt.Fom([intensity_focus, intensity_norm], fct = custom_fct)
 
+.. note::
+
+    The field region object only accepts a single wavelength, but you can use :ref:`multiple configurations <multi-sim-config>` for multiple wavelengths. The :py:class:`~lumopt2.fom.simulation_results.PortResults` class does support multiple wavelengths directly. See the :doc:`L-bend example <getting_started_l_bend>` for more details.
 
 Project setup
 -------------
 
-Now that the base simulation, parametrization, and figure of merit are defined, set up the overall optimization project using the :py:class:`~lumopt2.core.project.Project` class.
+Now that the base simulation, parametrization, and figure of merit are defined, combine them all in an optimization project using the :py:class:`~lumopt2.core.project.Project` class.
+In addition, the :py:class:`~lumopt2.core.project.Project` class can also be used to specify how the FDTD simulations are run via the ``fdtd_session`` and ``runner`` parameters.
 
 .. code-block:: python
     :lineno-start: 34
@@ -190,9 +188,8 @@ Now that the base simulation, parametrization, and figure of merit are defined, 
     project = lmpt.Project(setup = os.path.join(cwd_path, 'metalens_3x3.fsp'), parametrization = parametrization, fom = fom,
                        fdtd_session = lmpt.FdtdSession(show_fdtd_cad = False), runner = lmpt.LocalRunner(resource = 'GPU'))
 
-The :py:class:`~lumopt2.core.project.Project` class takes in the setup instructions for the optimization problem, including the base simulation, parametrization, and figure of merit and combines it with the instructions for executing the optimization problem, including the FDTD session and the resource to run the optimization on.
-Here, the base simulation is set up via the pre-existing .fsp file, and the parametrization and figure of merit are set up as seen from previous sections. A basic FDTD session is set up using :py:class:`~lumopt2.core.fdtd_session.FdtdSession`, and a simple local runner on GPU is set up using :py:class:`~lumopt2.utils.runner.LocalRunner`.
-This local runner uses the first defined GPU resource in the FDTD simulation file.
+Here, the base simulation is set up via the pre-existing .fsp file, and the parametrization and figure of merit are set up as seen from previous sections. The FDTD session defined by :py:class:`~lumopt2.core.fdtd_session.FdtdSession` specifies that the FDTD GUI will remain hidden to avoid FDTD windows popping up during the optimization.
+Finally, the local runner defined by :py:class:`~lumopt2.utils.runner.LocalRunner` specifies that the first GPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__ will be used.
 
 .. tip::
 
@@ -201,7 +198,7 @@ This local runner uses the first defined GPU resource in the FDTD simulation fil
 Validate and run optimization
 -----------------------------
 
-After setting up all the optimization components, run ``project.visualize_fom(params=params)`` to validate that the set up is valid, and computes the figure of merit for the initial design.
+After setting up all the optimization components, run ``project.visualize_fom(params=params)`` to validate that the set up is valid, and compute the figure of merit for the initial design.
 
 At this point, the console launches FDTD, and displays the value of the figure of merit.
 
@@ -220,12 +217,9 @@ In the FDTD window that opens, you can confirm that the simulation region is in 
     :scale: 75%
     :alt: FDTD simulation window showing the optimization region and monitors.
 
-After this validation, the optimization object is set up using the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class, which uses the scipy library for the optimization algorithm, the :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` class, which is a basic visualizer that captures key results during optimization, and the project from earlier.
-The :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class takes in the optimization bounds, the maximum number of iterations, and the tolerance for convergence.
-
-.. tip::
-
-    You can customize the visualizer to display different metrics. For more information, see :doc:`callback article <callbacks>`.
+After this validation, the optimization object is set up using the :py:class:`~lumopt2.core.project.Project` class from earlier, the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class for defining the optimization algorithm, and the :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` class for configuring the data displayed during optimization.
+The :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class takes in the optimization bounds, the maximum number of iterations, and the tolerance for convergence. These are passed to the default recommended optimizer in the `scipy <https://scipy.org/>`__ python library, which is L-BFGS-B.
+For further discussions on optimizers, see the :ref:`optimizer section of the optimization session article <optimization-session-optimizers>`.
 
 .. code-block:: python
     :lineno-start: 41
@@ -245,7 +239,9 @@ When the optimization starts, the console outputs the current progress, and a ma
 
 The optimization in this example is set to run for a maximum of 15 iterations. After each iteration, the plot updates and shows the current figure of merit value, as well as the L2 norm of the parameter gradient, calculated as :math:`\sqrt{\sum_i (\frac{\partial \text{FoM}}{\partial \text{Param}_i})^2}`.
 
-The optimization could take around 15 minutes to run on a local GPU, but may vary depending on the resources you are using.
+.. tip::
+
+    You can customize the visualizer to display different metrics. For more information, see :doc:`callback article <callbacks>`.
 
 Results
 --------
@@ -321,3 +317,5 @@ After completing this example, further explore lumopt2 using the following pages
             :align: center
 
             :octicon:`download` Download Simulation File (.fsp)
+
+..

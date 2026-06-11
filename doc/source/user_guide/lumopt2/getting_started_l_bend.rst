@@ -16,22 +16,20 @@ This example demonstrates using lumopt2 to optimize an L-bend waveguide coupler.
 
 .. image:: ../../_static/images/l_bend/l_bend_project_setup.png
    :align: center
-   :width: 75%
+   :width: 45%
    :alt: L-bend project schematic
 
-This example uses the closed curve parametrization approach, typically used for photonic integrated circuit applications, and demonstrates the use of callbacks to customize the visualization.
+This example uses the closed curve parametrization approach, typically used for photonic integrated circuit applications, and demonstrates the use of a Python callable function for setup, and callbacks to customize the visualization.
 
-For a more basic example demonstrating lumopt2 workflow, see the :doc:`3x3 pillar example <getting_started_3x3_pillar>`.
+For a more basic example demonstrating lumopt2 workflow, see the :doc:`simple metalens example <getting_started_simple_metalens>`.
 
 The Python script associated with this example is attached to the article.
 
 Base geometry
 -------------
 
-In this example, the base simulation is partially set up using a Python function, which defines the ports, source settings, and monitor settings. This function is called later during the project setup.
-
-The script also sets up the geometry for the input and output waveguides.
-The main geometry of the bend is set up in Python using the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`.
+In this example, the base simulation is set up using a Python function, which defines the simulation region, optical ports, source settings, and monitor settings. This function is passed later to the project setup.
+The function also sets up the geometry of the fixed input and output straight waveguides; however, the actual bend geometry to be optimized is defined by the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class, as explained later.
 
 .. code-block:: python
     :lineno-start: 35
@@ -61,24 +59,13 @@ The main geometry of the bend is set up in Python using the :py:class:`~lumopt2.
         fdtd.setglobalmonitor("use wavelength spacing", True)
         fdtd.setnamed("FDTD::ports","override global monitor settings",False)
 
-Prior to setting up the closed curve class, which defines the L-bend geometry, set up the optimization region.
-Essentially, lumopt2 sets up the geometry using a set of 2-D points, which then gets extruded in the z-direction to form the waveguide.
+For the L-bend geometry, first construct a closed path as a list of :py:class:`~lumopt2.parametrization.closed_curve.Segment` class instances.
+Each :py:class:`~lumopt2.parametrization.closed_curve.Segment` object is described by the (x, y) coordinates of the start point and the type of segment (``linear`` for straight lines and ``cubic`` for a cubic polynomial).
+The end point of each is segment is assumed to be the start point of the next; in the special case of the last segment in the list, the end point is the start of the first one.
+The segments are connected ensuring both continuity of the curve and its first derivative to obtain a smooth 2D curve.
 
 .. code-block:: python
-    :lineno-start: 63
-
-    optimization_region = lmpt.Box(x_min=fdtd_min_x, x_max=fdtd_max_x,
-                               y_min=fdtd_min_y, y_max=fdtd_max_y,
-                               z_min=-wg_height/2.0, z_max=wg_height/2.0,
-                               mesh_size=mesh_size)
-
-To set up the parametrization for the L-bend, first define a list of segments for the closed curve using :py:class:`~lumopt2.parametrization.closed_curve.Segment`.
-These points are the starting points of each segment, with the end point being the next element in the list.
-
-The closed curve is formed by connecting the control points using a either linear or cubic smooth curves.
-
-.. code-block:: python
-    :lineno-start: 76
+    :lineno-start: 68
 
     path = [ (lmpt.Segment([ fdtd_min_x,              wg_width/2],             'linear')),  # Segment 1
          (lmpt.Segment([-wg_width/2-bend_radius,  wg_width/2],             'cubic')),   # Segment 2 (outer sidewall, parametric)
@@ -90,18 +77,24 @@ The closed curve is formed by connecting the control points using a either linea
          (lmpt.Segment([ fdtd_min_x,             -wg_width/2],             'linear')),  # Segment 8
        ]
 
-.. note::
 
-    The final point of the array loops back to the first point.
+After defining the path, pass it to the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class to create the object, passing in along with other variables including the refractive index and thickness.
+The optimization region must be passed to the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class as well since it is an input for the ``Parametrization`` class later on.
 
-After defining the segments, pass the list to :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` to create the object, passing in other variables including index and thickness.
+
 
 .. code-block:: python
-    :lineno-start: 87
+    :lineno-start: 81
 
+    optimization_region = lmpt.Box(x_min=fdtd_min_x, x_max=fdtd_max_x,
+                               y_min=fdtd_min_y, y_max=fdtd_max_y,
+                               z_min=-wg_height/2.0, z_max=wg_height/2.0,
+                               mesh_size=mesh_size)
+
+    # Create base geometry using ClosedCurve
     closed_curve = lmpt.ClosedCurve(path, optimization_region=optimization_region, index=n_wg, z_min=-wg_height/2.0, z_max= wg_height/2.0)
 
-At this point, the geometry is set up as a fixed L-bend, and you can visualize using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>` to ensure that the shape is as expected.
+At this point, the geometry is set up as a fixed L-bend, and you can visualize it using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>` to ensure that the shape is as expected.
 
 .. code-block:: python
     :lineno-start: 88
@@ -117,10 +110,11 @@ Parametrization
 ---------------
 
 For parametrization of the L-bend, you can use the :py:class:`~lumopt2.parametrization.closed_curve.Parametrize` class, which allows you to directly select the segment index to parametrize.
-In this class, also specify the bounds and the direction of movement. Here the ``"normal"`` movement option restricts movement to the normal of the curve.
+
+When creating this class, you specify a segment to parametrize, and a number of added vertices, which are allowed to move. In addition, you also specify the bounds and the direction of movement. Here the ``"normal"`` movement option restricts movement to the normal of the curve.
 
 .. code-block:: python
-    :lineno-start: 91
+    :lineno-start: 90
 
     ## CLOSED CURVE - PARAMETRIZATION ##
     num_pts_per_curve = 2                      # Number of control points to optimize for each of the two curved segments
@@ -136,14 +130,14 @@ In this class, also specify the bounds and the direction of movement. Here the `
 After entering the settings, use the :py:class:`ClosedCurve.make_segments_parametric <lumopt2.parametrization.closed_curve.ClosedCurve>` to finalize the parametric segments.
 
 .. code-block:: python
-    :lineno-start: 100
+    :lineno-start: 99
 
     closed_curve.make_segments_parametric(segments_to_parametrize)
 
 After parametrization, you can see the added vertices using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>`.
 
 .. code-block:: python
-    :lineno-start: 102
+    :lineno-start: 101
 
     closed_curve.plot() # Visualize the base geometry
 
@@ -160,10 +154,10 @@ Figure of merit
 ---------------
 
 For this example, the figure of merit is set up using the :py:class:`~lumopt2.fom.simulation_results.PortResults` class, which takes in the name of a port object, metric, and target wavelengths.
-In this example, we aim to maximize the transmission for the full O-band using a P-norm.
+In this example, we aim to maximize the transmission for the full O-band using a second order P-norm using :py:func:`~lumopt2.utils.common.PNorm`, with a target transmission of 1, which calculates the figure of merit based on :math:`1-\sqrt{\text{mean}((|T(\lambda)|-1)^2)}`.
 
 .. code-block:: python
-    :lineno-start: 110
+    :lineno-start: 109
 
     port_out = lmpt.PortResults('port_out', metric='transmission', wavelengths=wavelengths)
     l_bend_fom = lmpt.Fom(port_out, fct=lmpt.PNorm(p=2,target=1.0))
@@ -171,18 +165,19 @@ In this example, we aim to maximize the transmission for the full O-band using a
 Project configuration
 ---------------------
 
-To set up, the project, first configure the FDTD session and the project, which includes the base simulation defined above, the closed curve parametrization, the figure of merit, and the FDTD session.
+The definition of the base geometry, parametrization, and figure of merit are passed to the :py:class:`lumopt2.core.project.Project` class.
+You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
 
 .. code-block:: python
-    :lineno-start: 119
+    :lineno-start: 118
 
     project = lmpt.Project(setup=generate_base_sim, parametrization=closed_curve, fom=l_bend_fom, fdtd_session=fdtd_session)
 
-Here, you can open the project to ensure the set up is correct by calling :py:class:`Project.visualize_fom() <lumopt2.core.project.Project>`.
+At this point, you can open the project to ensure the set up is correct by calling :py:class:`Project.visualize_fom() <lumopt2.core.project.Project>`.
 The initial figure of merit value is also printed in the terminal.
 
 .. code-block:: python
-    :lineno-start: 120
+    :lineno-start: 119
 
     project.visualize_fom()
 
@@ -191,42 +186,35 @@ The initial figure of merit value is also printed in the terminal.
    :alt: L-bend initial project
 
 Optimizer
-~~~~~~~~~
+---------
 
-For this example, the optimization is ran with the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class.
-However, instead of the default optimization settings, the optimization is run with a gradient-free optimization using the Nelder-Mead method.
-
-In the case of a gradient-free algorithm, such as Nelder-Mead or Powell, lumopt2 automatically skips the adjoint simulation step. The iteration is set to 40 for this example.
+For this example, the optimization is ran with the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class with the default L-BFGS-B method and a maximum of 10 iterations.
 
 .. code-block:: python
-    :lineno-start: 124
+    :lineno-start: 123
 
-    optimizer = lmpt.ScipyOptimizer(method='Nelder-Mead', max_iter=40)
-
-.. tip::
-
-    Optimizer arguments ``gtol`` and ``ftol`` set when initializing :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` are only passed onto the underlying optimizer if they are applicable.
-    You can pass any additional options not in the default argument list to the optimizer using the ``options`` argument in :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer`.
+    optimizer = lmpt.ScipyOptimizer(method='L-BFGS-B', max_iter=10)
 
 Visualization and logging
-~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------
 
-To aid visualization and logging for this optimization, this example uses the built in callback functions to plot the geometry, the figure of merit, and a monitor result for each iteration of the optimization.
+To aid visualization and logging for this optimization, this example uses the built-in callback functions to plot the geometry, the figure of merit, the gradient norm, and a monitor result for each iteration of the optimization.
 
 The visualizer is initialized using the :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` class, with specific panels for each subplot.
 
 .. code-block:: python
-    :lineno-start: 129
+    :lineno-start: 128
 
     visualizer = lmpt.GraphicalVisualizer(
-        figsize=(14, 6),
-        layout=(1, 3),
+        figsize=(7, 7),
+        layout=(2, 2),
         panels=[ lmpt.FomPanel(),
-                 lmpt.GeometryPanel(),
-                 lmpt.MonitorPanel( monitor_name='FDTD::ports::port_out',
+                lmpt.GradientNormPanel(),
+                lmpt.GeometryPanel(),
+                lmpt.MonitorPanel( monitor_name='FDTD::ports::port_out',
                                     result_name='T',
                                     operation='abs',
-                               title='Output transmission',
+                            title='Output transmission',
             ),
         ],
     )
@@ -242,30 +230,30 @@ After specifying the visualizer, pass it as a callback function to the optimizat
         callbacks=[visualizer, lmpt.FileLogger()],
     )
 
-Run, results, and export
-------------------------
+Results
+--------
 
-The simulation is run by calling the :py:class:`optimization.run() <lumopt2.core.optimization.Optimization>` method. For this example, it could take up to 20 minutes.
+The simulation is run by calling the :py:class:`optimization.run() <lumopt2.core.optimization.Optimization>` method, with all previous settings combined into the ``Optimization`` project.
 
 The final visualizer output is shown below.
 
 .. image:: ../../_static/images/l_bend/l_bend_final_visualizer.png
    :align: center
-   :width: 100%
+   :width: 55%
    :alt: L-bend final visualizer output
 
 After the simulation completes, export the final simulation file using the :py:class:`Project.save_project() <lumopt2.core.project.Project>` method.
 In this example, the final project file is saved as ``L_bend_optimization_final.fsp`` in the optimization directory. This project file can then be used for further analysis or exporting for fabrication.
-
-.. tip::
-
-    See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/360034901933-Importing-and-exporting-GDSII-files>`_ for more information on exporting a GDS file from the final project.
 
 .. code-block:: python
     :lineno-start: 153
 
     best_params, best_fom = result
     project.save_project("L_bend_optimization_final.fsp",params=best_params)
+
+.. tip::
+
+    See the Lumerical Knowledge Base article `Importing and exporting GDSII files <https://optics.ansys.com/hc/en-us/articles/360034901933-Importing-and-exporting-GDSII-files>`_ for more information on exporting a GDS file from the final project.
 
 Further resources
 -----------------
@@ -296,3 +284,5 @@ After completing this example, further explore lumopt2 using the following pages
             :align: center
 
             :octicon:`download` Download Python Script (.py)
+
+..

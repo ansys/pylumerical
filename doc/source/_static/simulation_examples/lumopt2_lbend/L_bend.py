@@ -57,14 +57,6 @@ def generate_base_sim(fdtd):
     fdtd.setglobalmonitor("use wavelength spacing", True)
     fdtd.setnamed("FDTD::ports","override global monitor settings",False)
 
-## OPTIMIZATION REGION ##
-
-# Define the optimization region for the L-bend. Inside this region, the geometry can change during optimization. The FDTD simulation will be set up to cover this region with appropriate boundary conditions and ports.
-optimization_region = lmpt.Box(x_min=fdtd_min_x, x_max=fdtd_max_x,
-                               y_min=fdtd_min_y, y_max=fdtd_max_y,
-                               z_min=-wg_height/2.0, z_max=wg_height/2.0,
-                               mesh_size=mesh_size)
-
 ## CLOSED CURVE - BASE GEOMETRY ##
 
 # L-bend curve definition
@@ -83,10 +75,17 @@ path = [ (lmpt.Segment([ fdtd_min_x,              wg_width/2],             'line
          (lmpt.Segment([ fdtd_min_x,             -wg_width/2],             'linear')),  # Segment 8
        ]
 
+## OPTIMIZATION REGION ##
+
+# Define the optimization region for the L-bend. Inside this region, the geometry can change during optimization. The FDTD simulation will be set up to cover this region with appropriate boundary conditions and ports.
+optimization_region = lmpt.Box(x_min=fdtd_min_x, x_max=fdtd_max_x,
+                               y_min=fdtd_min_y, y_max=fdtd_max_y,
+                               z_min=-wg_height/2.0, z_max=wg_height/2.0,
+                               mesh_size=mesh_size)
+
 # Create base geometry using ClosedCurve
 closed_curve = lmpt.ClosedCurve(path, optimization_region=optimization_region, index=n_wg, z_min=-wg_height/2.0, z_max= wg_height/2.0)
 closed_curve.plot() # Visualize the base geometry
-
 
 ## CLOSED CURVE - PARAMETRIZATION ##
 num_pts_per_curve = 2                      # Number of control points to optimize for each of the two curved segments
@@ -121,15 +120,16 @@ project.visualize_fom()
 
 # Use Nelder-Mead optimizer (gradient-free).  With only 4 parameters the
 # simplex method converges quickly and avoids the cost of an adjoint sweep.
-optimizer = lmpt.ScipyOptimizer(method='Nelder-Mead', max_iter=40)
+optimizer = lmpt.ScipyOptimizer(method='L-BFGS-B', max_iter=10)
 
 # Create a graphical visualizer callback for real-time plotting
 # Compose the figure from a FOM trace, the live geometry, and a transmission
 # spectrum at the output port.
 visualizer = lmpt.GraphicalVisualizer(
-    figsize=(14, 6),
-    layout=(1, 3),
+    figsize=(7, 7),
+    layout=(2, 2),
     panels=[ lmpt.FomPanel(),
+             lmpt.GradientNormPanel(),
              lmpt.GeometryPanel(),
              lmpt.MonitorPanel( monitor_name='FDTD::ports::port_out',
                                 result_name='T',

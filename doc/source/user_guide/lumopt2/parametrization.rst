@@ -37,7 +37,7 @@ Parametrization class
 The :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class maps optimization parameters to arbitrary Lumerical object properties.
 This approach is the most general way to parametrize a design in lumopt2, and is suitable for a wide range of applications.
 
-For a simple example of setting parametric optimization, see the :doc:`3x3 pillar example in the getting started section <getting_started_3x3_pillar>`.
+For a simple example of setting parametric optimization, see the :doc:`3x3 pillar example in the getting started section <getting_started_simple_metalens>`.
 
 Defining parameter mapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -285,3 +285,8 @@ The diagram below shows how the control points maps to each other in terms of mo
    :width: 40%
    :alt: Visualization of the closed curve defined above, which forms an L-bend, with additional control points added for optimization.
 
+Combined parametrization
+-------------------------
+
+If you have multiple parametrizations with the same optimization region, you can combine them into a single joint parametrization object using :py:class:`~lumopt2.parametrization.combined_parametrization.CombinedParametrization`, which takes in a list of parametrization objects.
+In this case, the parameter vectors are automatically concatenated between the different inputs.

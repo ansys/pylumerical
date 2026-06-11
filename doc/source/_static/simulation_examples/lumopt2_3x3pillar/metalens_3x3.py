@@ -1,4 +1,3 @@
-from collections import OrderedDict
 import os
 
 import numpy as np
@@ -18,7 +17,7 @@ bounds = [(0.05e-6, 0.1e-6)] * num_cyl
 
 
 def param_func(params):
-    return OrderedDict({f"cyl{idx}::radius": value for idx, value in enumerate(params)})
+    return {f"cyl{idx}::radius": value for idx, value in enumerate(params)}
 
 
 parametrization = lmpt.Parametrization(func=param_func, bounds=bounds, optimization_region=optimization_region)

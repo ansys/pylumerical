@@ -42,7 +42,7 @@ _INSTALL_NOT_FOUND_MESSAGE = (
     "or call InteropPaths.setLumericalInstallPath() to configure the path manually."
 )
 
-__version__ = "0.1.dev0"
+__version__ = "0.4.dev0"
 """Lumerical API version."""
 
 

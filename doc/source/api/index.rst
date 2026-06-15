@@ -3,6 +3,13 @@ API reference
 
 The API reference provides an overview of classes and methods used in PyLumerical.
 
+.. vale off
+
+lumapi
+-------
+
+.. vale on
+
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: Interface classes
@@ -23,9 +30,31 @@ The API reference provides an overview of classes and methods used in PyLumerica
 
         Function to automatically discover Lumerical installation.
 
+.. vale off
+
+lumopt2
+-------
+
+.. vale on
+
+.. grid:: 1 1 1 1
+
+    .. grid-item-card:: lumopt2
+        :link: lumopt2/index
+        :link-type: doc
+
+        Inverse design module for photonic devices.
+
 .. toctree::
     :hidden:
+    :caption: Simulation Automation
 
     interface_class
     simobject_class
     autodiscovery
+
+.. toctree::
+    :hidden:
+    :caption: Photonic Inverse Design
+
+    lumopt2/index

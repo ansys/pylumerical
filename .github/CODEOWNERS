@@ -1,1 +1,12 @@
 * @dylanm-ansys @lukequeenan-ansys @gregbaethge
+
+/.github/ @dylanm-ansys @lukequeenan-ansys
+
+# Documentation
+/doc/ @adan-wang-2 @dylanm-ansys @lukequeenan-ansys @gregbaethge
+
+# Application examples
+/examples/ @adan-wang-2 @annawirthsingh-ansys @dylanm-ansys @lukequeenan-ansys @gregbaethge
+
+# Testing and QA
+/tests/ @mghetie-ansys @dylanm-ansys @lukequeenan-ansys

@@ -26,27 +26,31 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 
 dependencies = [
     "ansys-api-lumerical",
     "numpy>=1.26",
+    "autograd>=1.6",
+    "scipy>=1.10",
+    "matplotlib>=3.10",
 ]
 
 [project.optional-dependencies]
 tests = [
-    "pytest==9.0.0",
-    "pytest-cov==7.0.0",
+    "pytest==9.0.3",
+    "pytest-cov==7.1.0",
 ]
 doc = [
-    "ansys-sphinx-theme[autoapi]==1.6.3",
+    "ansys-sphinx-theme[autoapi]==1.8.2",
     "numpydoc==1.10.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
-    "sphinx_design==0.6.1",
-]
-examples = [
-    "matplotlib==3.10.7",
+    "sphinx_design==0.7.0",
+    "nbsphinx==0.9.8",
+    "jupytext==1.19.3",
+    "ipykernel==7.2.0"
 ]
 
 [tool.flit.module]
@@ -55,7 +59,7 @@ name = "ansys.lumerical.core"
 [tool.ruff]
 line-length = 150
 fix = true
-extend-exclude = ["tests/assets", "*.rst"]
+extend-exclude = ["tests/assets", "*.rst", "doc/source/_static"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -75,7 +79,7 @@ select = [
 ignore = []
 
 [tool.ruff.lint.per-file-ignores]
-"examples/*" = ["D100", "E402"]
+"examples/*" = ["D100", "E402", "N806", "N816"]
 "__init__.py" = ["F401"]
 "doc/source/conf.py" = ["N806"]
 
@@ -112,13 +116,18 @@ title_format = "`{version} <https://github.com/ansys/pylumerical/releases/tag/v{
 issue_format = "`#{issue} <https://github.com/ansys/pylumerical/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
 directory = "added"
 name = "Added"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "dependencies"
-name = "Dependencies"
+directory = "fixed"
+name = "Fixed"
 showcontent = true
 
 [[tool.towncrier.type]]
@@ -127,8 +136,8 @@ name = "Documentation"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "fixed"
-name = "Fixed"
+directory = "dependencies"
+name = "Dependencies"
 showcontent = true
 
 [[tool.towncrier.type]]

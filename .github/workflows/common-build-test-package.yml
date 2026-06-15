@@ -16,6 +16,11 @@ on:
         required: false
         type: boolean
         default: false
+      main-python-version:
+        description: 'Main Python version'
+        required: false
+        type: string
+        default: '3.14'
     secrets:
       PYANSYS_CI_BOT_TOKEN:
         required: true
@@ -25,7 +30,8 @@ on:
         required: true
 
 env:
-  MAIN_PYTHON_VERSION: '3.13'
+  MAIN_PYTHON_VERSION: ${{ inputs.main-python-version }}
+  DOCUMENTATION_CNAME: ${{ inputs.documentation-cname }}
 
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need
@@ -43,35 +49,22 @@ jobs:
       contents: read # Required to checkout repository
     steps:
       - name: "Run code style checks"
-        uses: ansys/actions/code-style@v10
+        uses: ansys/actions/code-style@v10.3.2
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
-
-  doc-style:
-    name: "Doc style"
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read # Required to checkout repository
-    steps:
-      - uses: ansys/actions/doc-style@v10
-        with:
-          token: ${{ secrets.TOKEN }}
 
   doc-build:
-    name: "Doc build"
-    if: ${{ !(inputs.skip-doc-build-if-closed && github.event.action == 'closed') }}
-    runs-on: ubuntu-latest
-    needs: doc-style
     permissions:
-      contents: read # Required to checkout repository
-    steps:
-      - uses: ansys/actions/doc-build@v10
-        with:
-          skip-install: true
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          use-python-cache: false
-          needs-quarto: true
+      contents: read # Required by reusable workflow to checkout repository
+    uses: ./.github/workflows/common-doc-build-lumerical.yml
+    with:
+      documentation-cname: ${{ inputs.documentation-cname }}
+      skip-doc-build-if-closed: ${{ inputs.skip-doc-build-if-closed }}
+    secrets:
+      TOKEN: ${{ secrets.TOKEN }}
+      PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+      LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
 
   wheelhouse:
     name: "Wheelhouse / ${{ matrix.os }} / ${{ matrix.python }}"
@@ -84,9 +77,9 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'windows-latest']
-        python: ['3.10', '3.11', '3.12', '3.13']
+        python: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
-      - uses: ansys/actions/build-wheelhouse@v10
+      - uses: ansys/actions/build-wheelhouse@v10.3.2
         with:
           library-name: ${{ inputs.library-name }}
           operating-system: ${{ matrix.os }}
@@ -112,7 +105,7 @@ jobs:
       id-token: write # Required for trusted publisher
     steps:
       - name: Build library source and wheel artifacts
-        uses: ansys/actions/build-library@v10
+        uses: ansys/actions/build-library@v10.3.2
         with:
           library-name: ${{ inputs.library-name }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}

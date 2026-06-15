@@ -14,6 +14,7 @@ Ansys Lumerical INTERCONNECT™
 Ansys Lumerical CML Compiler™
 FDTD
 MODE
+RCWA
 Multiphysics
 INTERCONNECT
 CML Compiler
@@ -25,8 +26,28 @@ sudo
 docstring
 docstrings
 IPython
-photonic
+[Pp]hotonic
 photonics
 lumopt
+lumopt2
+parametrization[s]?
+fom
 lumslurm
+[Jj]upytext
 [Aa]utodiscovery
+matplotlib
+Pandoc
+Quarto
+TE
+TM
+Ex
+Ey
+Ez
+lumapi
+metalens[es]?
+namespace
+nm
+scipy
+SciPy
+callback[s]
+autograd

@@ -3,5 +3,15 @@
 *.pyc
 _build/
 doc/source/api/_autosummary
+doc/source/api/**/_autosummary
+
 # Visual studio Code
 .vscode
+
+# macOS
+.DS_Store
+
+# Quarto extension
+doc/source/cheat_sheet/_extensions
+.DS_Store
+/doc/source/cheat_sheet/_static

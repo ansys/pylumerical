@@ -1,4 +1,4 @@
-# Copyright (C) 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2025 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -22,6 +22,7 @@
 
 """Autodiscover the Lumerical installation directory."""
 
+import os
 from pathlib import Path
 import platform
 import re
@@ -30,6 +31,29 @@ __min_supported_lum_release__ = {"year": 22, "release": 1}
 """
 Supports Lumerical 2022R1 release and later.
 """
+
+
+def get_lumerical_api_python_path(lumerical_install_dir):
+    """Get the Python API directory for a Lumerical installation.
+
+    Parameters
+    ----------
+    lumerical_install_dir : str or Path or None
+        Path to the Lumerical installation directory.
+
+    Returns
+    -------
+    str or None
+        Absolute path to ``api/python`` if it exists, otherwise ``None``.
+    """
+    if lumerical_install_dir is None:
+        return None
+
+    api_python_dir = Path(lumerical_install_dir, "api", "python")
+    if api_python_dir.is_dir():
+        return str(api_python_dir.resolve())
+
+    return None
 
 
 def locate_lumerical_install():
@@ -52,6 +76,7 @@ def locate_lumerical_install():
 
     Notes
     -----
+        - Checks the LUMERICAL_HOME environment variable first. If set and valid, uses it.
         - On Windows, the function first searches the registry, then searches under "C:\\Program Files\\Lumerical\\" and
           "C:\\Program Files\\Ansys Inc\\Lumerical".
         - On Linux, the function searches under "/opt/lumerical/" and "~/Ansys/ansys_inc/Lumerical".
@@ -63,21 +88,37 @@ def locate_lumerical_install():
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 2: Provide a custom installation path before importing the module.
+        Example 2: Set the environment variable before importing the module.
+
+        >>> import os
+        >>> os.environ["LUMERICAL_HOME"] = r"C:\Program Files\Lumerical\v252\"
+        >>> import ansys.lumerical.core as lumapi
+        >>> # use lumapi ...
+
+        Example 3: Provide a custom installation path before importing the module.
 
         >>> import ansys.api.lumerical.lumapi
         >>> ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> import ansys.lumerical.core as lumapi
         >>> # use lumapi ...
 
-        Example 3: Provide a custom installation path after importing the module.
+        Example 4: Provide a custom installation path after importing the module.
 
-        >>> import ansys.lumerical.core as lumapi
-        Warning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.
+        If autodiscovery fails to find an installation, a :class:`UserWarning` is emitted
+        (text: "Lumerical installation not found. Set the LUMERICAL_HOME environment
+        variable or call InteropPaths.setLumericalInstallPath() to configure the path
+        manually.").
+
+        >>> import ansys.lumerical.core as lumapi  # doctest: +SKIP
         >>> lumapi.InteropPaths.setLumericalInstallPath(r"C:\Program Files\Lumerical\v252\")
         >>> # use lumapi ...
     """
     lumerical_install_dir = None
+
+    # Check for environment variable first
+    env_install_dir = os.environ.get("LUMERICAL_HOME")
+    if env_install_dir and Path(env_install_dir).exists():
+        return env_install_dir
 
     if platform.system() == "Windows":
         try:

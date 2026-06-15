@@ -1,4 +1,4 @@
-# Copyright (C) 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2025 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -22,20 +22,158 @@
 
 """Set up the imports for PyLumerical."""
 
+import importlib.abc
+import importlib.util
+import os
+from pathlib import Path
+import sys
+import warnings
+
 import ansys.api.lumerical
+import ansys.api.lumerical.lumapi as _ansys_lumapi_module
 
 # Make common names from lumapi available in the top-level namespace
 from ansys.api.lumerical.lumapi import DEVICE, FDTD, INTERCONNECT, MODE, InteropPaths, SimObject, SimObjectId, SimObjectResults
 
 from . import autodiscovery
 
-__version__ = "0.1.dev0"
+_INSTALL_NOT_FOUND_MESSAGE = (
+    "Lumerical installation not found. Set the LUMERICAL_HOME environment variable "
+    "or call InteropPaths.setLumericalInstallPath() to configure the path manually."
+)
+
+__version__ = "0.4.dev0"
 """Lumerical API version."""
 
-if len(ansys.api.lumerical.lumapi.InteropPaths.LUMERICALINSTALLDIR) == 0:
-    install_dir = autodiscovery.locate_lumerical_install()
+
+def _normalize_path(path):
+    """Normalize a path for robust comparisons."""
+    normalized_path = str(Path(path).resolve())
+    if sys.platform.startswith("win"):
+        return normalized_path.casefold()
+    return normalized_path
+
+
+def _resolve_lumerical_install_dir():
+    """Resolve and configure the Lumerical installation directory."""
+    install_dir = _ansys_lumapi_module.InteropPaths.LUMERICALINSTALLDIR
+    if len(install_dir) == 0:
+        install_dir = autodiscovery.locate_lumerical_install()
+        if install_dir is not None:
+            _ansys_lumapi_module.InteropPaths.setLumericalInstallPath(install_dir)
+        else:
+            # stacklevel=3 attributes the warning to the module body that calls
+            # _bootstrap_lumerical_environment() at import time, instead of this helper.
+            warnings.warn(_INSTALL_NOT_FOUND_MESSAGE, stacklevel=3)
+    return install_dir
+
+
+def _get_bundled_lumopt2_package_dir(lumerical_install_dir):
+    """Get bundled ``lumopt2`` package path from a Lumerical installation."""
+    api_python_path = autodiscovery.get_lumerical_api_python_path(lumerical_install_dir)
+    if api_python_path is None:
+        return None
+
+    lumopt2_package_dir = Path(api_python_path, "lumopt2")
+    if lumopt2_package_dir.is_dir() and Path(lumopt2_package_dir, "__init__.py").is_file():
+        return str(lumopt2_package_dir.resolve())
+
+    return None
+
+
+def _validate_lumopt2_origin(bundled_lumopt2_package_dir):
+    """Ensure a preloaded ``lumopt2`` module comes from bundled package path."""
+    existing_lumopt2_module = sys.modules.get("lumopt2")
+    if existing_lumopt2_module is None:
+        return
+
+    existing_path = getattr(existing_lumopt2_module, "__file__", None)
+    if existing_path is None:
+        return
+
+    # Compare with a trailing separator on the bundled directory so that sibling
+    # directories sharing a prefix (e.g. ``.../lumopt2_backup``) are rejected.
+    normalized_existing_path = _normalize_path(existing_path)
+    normalized_bundled_prefix = _normalize_path(bundled_lumopt2_package_dir) + os.sep
+    if not normalized_existing_path.startswith(normalized_bundled_prefix):
+        raise RuntimeError(
+            "A different 'lumopt2' module is already loaded "
+            f"({existing_path}). PyLumerical requires the bundled module under {bundled_lumopt2_package_dir}. "
+            "Remove custom lumopt2 path overrides and import ansys.lumerical.core first."
+        )
+
+
+def _bind_lumapi_alias():
+    """Ensure top-level ``lumapi`` resolves to ``ansys.api.lumerical.lumapi``."""
+    existing_lumapi_module = sys.modules.get("lumapi")
+    if existing_lumapi_module is None:
+        sys.modules["lumapi"] = _ansys_lumapi_module
+        return
+
+    if existing_lumapi_module is not _ansys_lumapi_module:
+        existing_path = getattr(existing_lumapi_module, "__file__", "<unknown>")
+        expected_path = getattr(_ansys_lumapi_module, "__file__", "<unknown>")
+        raise RuntimeError(
+            "A different 'lumapi' module is already loaded "
+            f"({existing_path}). PyLumerical requires {expected_path}. "
+            "Import ansys.lumerical.core before importing lumapi or lumopt2."
+        )
+
+
+class _BundledLumopt2Finder(importlib.abc.MetaPathFinder):
+    """Resolve the top-level ``lumopt2`` package to the bundled Lumerical location.
+
+    Only the top-level ``lumopt2`` package is handled here. The returned spec sets
+    ``submodule_search_locations`` to the bundled package directory, so Python's
+    standard :class:`importlib.machinery.PathFinder` loads any ``lumopt2.*`` submodule
+    from that same directory. This keeps the finder minimal and follows the usual
+    Python contract of returning ``None`` for names the finder does not own.
+    """
+
+    def __init__(self, bundled_lumopt2_package_dir):
+        self._bundled_lumopt2_package_dir = Path(bundled_lumopt2_package_dir).resolve()
+        self._bundled_api_python_dir = self._bundled_lumopt2_package_dir.parent
+
+    def find_spec(self, fullname, path, target=None):
+        """Return a spec for ``lumopt2`` only; defer submodules to the next finder."""
+        if fullname != "lumopt2":
+            return None
+
+        init_file = Path(self._bundled_lumopt2_package_dir, "__init__.py")
+        if not init_file.is_file():
+            raise ModuleNotFoundError(
+                f"Bundled 'lumopt2' package was not found under {self._bundled_api_python_dir}. This Lumerical installation may not include lumopt2."
+            )
+
+        return importlib.util.spec_from_file_location(
+            fullname,
+            str(init_file),
+            submodule_search_locations=[str(self._bundled_lumopt2_package_dir)],
+        )
+
+
+def _install_bundled_lumopt2_finder(bundled_lumopt2_package_dir):
+    """Register a finder that exposes bundled ``lumopt2`` only."""
+    normalized_bundled_path = _normalize_path(bundled_lumopt2_package_dir)
+    for index, finder in enumerate(sys.meta_path):
+        if isinstance(finder, _BundledLumopt2Finder):
+            existing_bundled_path = _normalize_path(str(finder._bundled_lumopt2_package_dir))
+            if existing_bundled_path == normalized_bundled_path:
+                return
+            sys.meta_path.pop(index)
+            break
+    sys.meta_path.insert(0, _BundledLumopt2Finder(bundled_lumopt2_package_dir))
+
+
+def _bootstrap_lumerical_environment():
+    """Bootstrap Lumerical interop paths and module aliases."""
+    install_dir = _resolve_lumerical_install_dir()
     if install_dir is not None:
-        ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(install_dir)
-    else:
-        print("Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.")
-    del install_dir  # remove the local variable to exclude from the namespace
+        bundled_lumopt2_package_dir = _get_bundled_lumopt2_package_dir(install_dir)
+        if bundled_lumopt2_package_dir is not None:
+            _validate_lumopt2_origin(bundled_lumopt2_package_dir)
+            _install_bundled_lumopt2_finder(bundled_lumopt2_package_dir)
+    _bind_lumapi_alias()
+
+
+_bootstrap_lumerical_environment()

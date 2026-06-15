@@ -4,9 +4,9 @@ on:
     types: [opened, reopened, synchronize, edited, labeled, closed]
 
 env:
-  MAIN_PYTHON_VERSION: '3.13'
-  LIBRARY_NAME: 'ansys-lumerical-core' # Note that this is duplicated in the build-test-package job
-  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com' # Note that this is duplicated in the build-test-package job
+  MAIN_PYTHON_VERSION: '3.14'
+  LIBRARY_NAME: 'ansys-lumerical-core'
+  DOCUMENTATION_CNAME: 'lumerical.docs.pyansys.com'
 
 # Disable all default permissions at workflow level for security (least privilege principle)
 # Individual jobs will explicitly request only the permissions they need
@@ -22,7 +22,7 @@ jobs:
     name: "Actions Security"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-actions-security@v10
+      - uses: ansys/actions/check-actions-security@v10.3.2
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,27 +36,13 @@ jobs:
       contents: read
     steps:
       - name: PyAnsys Vulnerability check (on PR)
-        uses: ansys/actions/check-vulnerabilities@v10
+        uses: ansys/actions/check-vulnerabilities@v10.3.2
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
           dev-mode: ${{ github.ref != 'refs/heads/main' }}
           upload-reports: true
-
-  update-changelog:
-    name: "Update CHANGELOG (on release)"
-    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # Required to push changelog updates
-      pull-requests: write # Required to update PRs
-    steps:
-      - uses: ansys/actions/doc-deploy-changelog@v10
-        with:
-          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
 
   labeler:
     name: "Labels"
@@ -66,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: "Checkout project"
-       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+       uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
        with:
         persist-credentials: false
      - name: "Sync labels"
@@ -76,7 +62,7 @@ jobs:
      - name: "Label pull-request"
        # HACK: skip if contributor does not have write permissions (forks)
        if: github.event.pull_request.head.repo.full_name == github.repository
-       uses: actions/labeler@634933edcd8ababfe52f92936142cc22ac488b1b # v6.0.1
+       uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213 # v6.1.0
        with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -88,7 +74,7 @@ jobs:
       pull-requests: write # Required to update PRs
     runs-on: ubuntu-latest
     steps:
-    - uses: ansys/actions/doc-changelog@v10
+    - uses: ansys/actions/doc-changelog@v10.3.2
       with:
         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
         use-conventional-commits: true
@@ -100,7 +86,7 @@ jobs:
     name: "Run commit style checks"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-pr-title@v10
+      - uses: ansys/actions/check-pr-title@v10.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -116,6 +102,7 @@ jobs:
       library-name: 'ansys-lumerical-core'
       documentation-cname: 'lumerical.docs.pyansys.com'
       skip-doc-build-if-closed: ${{ github.event.action == 'closed' }}
+      main-python-version: '3.14'
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}
@@ -128,8 +115,9 @@ jobs:
     if: always() && (needs.build-test-package.result == 'success' || needs.build-test-package.result == 'skipped')
     permissions:
       contents: write # Required to deploy PR documentation
+      pull-requests: write # Needed to add comments to the PR when cleaning pull directory
     steps:
-      - uses: ansys/actions/doc-deploy-pr@v10
+      - uses: ansys/actions/doc-deploy-pr@v10.3.2
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}

@@ -2,8 +2,11 @@
 
 from datetime import datetime
 import os
+import pathlib
+import shutil
 
 from ansys_sphinx_theme import get_version_match
+from docutils import nodes
 
 from ansys.lumerical.core import __version__
 from ansys.lumerical.core.autodiscovery import __min_supported_lum_release__
@@ -16,6 +19,10 @@ release = version = __version__
 supported_lum_release = f"20{__min_supported_lum_release__['year']} R{__min_supported_lum_release__['release']}"
 cname = os.getenv("DOCUMENTATION_CNAME", "")
 switcher_version = get_version_match(__version__)
+
+# Build configuration environment variable flags
+build_cheatsheet = os.getenv("BUILD_PYLUMERICAL_CHEATSHEET", "").lower() == "true"
+build_examples = os.getenv("BUILD_PYLUMERICAL_EXAMPLES", "").lower() == "true"
 
 # Select desired logo, theme, and declare the html title
 html_theme = "ansys_sphinx_theme"
@@ -38,7 +45,11 @@ html_theme_options = {
     "ansys_sphinx_theme_autoapi": {
         "project": "PyLumerical",
     },
+    "announcement": '<style>.bd-header-announcement{background-color:#66B366;}</style><b style="color:black;">The photonic inverse design module <code style="color:black;">lumopt2</code> is available in Ansys Lumerical 2026 R1.2 or later. For more information, see the User Guide.</b>',  # noqa: E501
 }
+# Conditionally add cheatsheet if enabled
+if build_cheatsheet:
+    html_theme_options["cheatsheet"] = {"file": "cheat_sheet/pylumerical_cheat_sheet.qmd", "title": "PyLumerical Cheat Sheet"}
 
 # Sphinx extensions
 extensions = [
@@ -49,6 +60,8 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",  # Needed for cards
     "sphinx.ext.extlinks",
+    "nbsphinx",
+    "sphinx.ext.mathjax",
 ]
 
 # Intersphinx mapping
@@ -84,7 +97,7 @@ numpydoc_validation_checks = {
     # "SS03", # Summary does not end with a period
     "SS04",  # Summary contains heading whitespaces
     # "SS05", # Summary must start with infinitive verb, not third person
-    "RT02",  # The first line of the Returns section should contain only the
+    # "RT02",  # The first line of the Returns section should contain only the # TO-DO : Revert for R1.3
     # type, unless multiple values are being returned"
 }
 
@@ -92,21 +105,109 @@ numpydoc_validation_checks = {
 copybutton_prompt_text = r">>> ?|\.\.\. ?"
 copybutton_prompt_is_regexp = True
 
+# Ignore files for build
+
+exclude_patterns = ["conf.py", "examples/README.rst", "_static/simulation_examples"]
+
 
 # Skipping members
 def autodoc_skip_member_custom(app, what, name, obj, skip, options):
     """Skip members that are not intended to be in documentation."""
+    # Skip members inherited from built-in types (e.g. int.real, int.imag on IntEnum subclasses)
+    if hasattr(obj, "__objclass__") and obj.__objclass__.__module__ == "builtins":
+        return True
     return True if obj.__doc__ is None else None  # need to return none if exclude is false otherwise it will interfere with other skip functions
 
 
-# RST prolog for substitution of custom variables
+# nbsphinx configurations
+# Use a 2-element [converter_string, kwargs] form so the value is fully pickleable (no callable).
+# The language_info header is injected into .py files during copy_examples_to_source_dir so that
+# jupytext can populate the pygments_lexer metadata needed for syntax highlighting.
+nbsphinx_execute = "never"
+nbsphinx_custom_formats = {".py": ["jupytext.reads", {"fmt": ""}]}
+
+# Conditionally configure nbsphinx_prolog if examples are enabled
+if build_examples:
+    nbsphinx_prolog = """
+.. grid:: 1 2 2 2
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{ipynb_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Jupyter Notebook (.ipynb)
+
+
+    .. grid-item::
+
+        .. button-link:: {base_path}/{py_file_path}
+            :color: secondary
+            :shadow:
+            :align: center
+
+            :octicon:`download` Download Python script (.py)
+
+----
+""".format(
+        base_path=f"https://{cname}/version/{get_version_match(version)}",
+        py_file_path="{{ env.docname }}.py",
+        ipynb_file_path="{{ env.docname }}.ipynb",
+    )
+else:
+    nbsphinx_prolog = ""
+
+# Define auxiliary functions needed for examples
+
+
+def copy_examples_to_source_dir(app):
+    """Copy examples to source directory for nbsphinx."""
+    source_dir = pathlib.Path(app.srcdir)
+
+    shutil.copytree(source_dir.parent.parent / "examples", source_dir / "examples", dirs_exist_ok=True)
+
+
+def add_nb_yaml_header(app):
+    """Prepend jupytext language_info YAML header to .py examples for nbsphinx syntax highlighting."""
+    header = "# ---\n# jupyter:\n#   language_info:\n#     name: python\n#     pygments_lexer: ipython3\n# ---\n\n"
+    source_dir = pathlib.Path(app.srcdir)
+    for py_file in (source_dir / "examples").rglob("*.py"):
+        py_file.write_text(header + py_file.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def remove_examples_from_source_dir(app, exception):
+    """Remove examples from source directory after build."""
+    source_dir = pathlib.Path(app.srcdir)
+    shutil.rmtree(source_dir / "examples")
+
+
+def remove_doctree_and_autosummary(app, exception):
+    """Remove the .doctrees directory and autosummary stubs after each builder.
+
+    This ensures a clean environment for the next builder and prevents current toctree
+    state from causing toc.not_included warnings in subsequent builders.
+    """
+    shutil.rmtree(app.doctreedir, ignore_errors=True)
+    autosummary_dir = pathlib.Path(app.srcdir) / "api" / "_autosummary"
+    shutil.rmtree(autosummary_dir, ignore_errors=True)
+
+
+def copy_examples_to_output_dir(app, exception):
+    """Copy examples to output directory."""
+    source_dir = pathlib.Path(app.srcdir)
+    build_dir = pathlib.Path(app.outdir)
+
+    shutil.copytree(source_dir.parent.parent / "examples", build_dir / "examples", dirs_exist_ok=True)
+
 
 rst_prolog = ""
-
 rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}"""
 
 # static path
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -122,6 +223,9 @@ linkcheck_ignore = [
     "https://github.com/ansys/pylumerical/*",
     "https://pypi.org/project/ansys-lumerical-core",
     r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
+    # Ignore example download links for .ipynb and .py files, these links do not work until a version is published
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.ipynb",
+    rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.py",
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not
@@ -131,10 +235,49 @@ if switcher_version != "dev":
 
 
 # Define extlinks
-
 extlinks = {"examples_url": (f"{html_theme_options['github_url']}/blob/main/examples/%s", "%s")}
+
+
+# Define setup function
+# Add line numbers to all code blocks
+def _add_linenos(app, doctree):
+    """Add line numbers to all literal_block nodes in the doctree."""
+    source_path = pathlib.Path(doctree["source"])
+    relative_source = source_path.relative_to(pathlib.Path(app.srcdir))
+    is_examples_page = relative_source.parts[0] == "examples"
+
+    if is_examples_page:
+        next_start_line = 1
+        for node in doctree.traverse(nodes.literal_block):
+            node_classes = node.get("classes", [])
+            is_prompt_block = "prompt" in node_classes  # This ensures code block don't randomly skip a line (from prompt blocks)
+            if is_prompt_block:
+                node["linenos"] = False
+                continue
+
+            node["linenos"] = True
+
+            highlight_args = dict(node.get("highlight_args", {}))
+            highlight_args["linenostart"] = next_start_line
+            node["highlight_args"] = highlight_args
+
+            block_text = node.astext()
+            block_line_count = len(block_text.splitlines())
+            next_start_line += block_line_count
+    else:
+        for node in doctree.traverse(nodes.literal_block):
+            node["linenos"] = True
 
 
 def setup(app):
     """Sphinx setup function."""
+    # Conditionally register example-related handlers if examples are enabled
+    if build_examples:
+        app.connect("builder-inited", copy_examples_to_source_dir)
+        app.connect("builder-inited", add_nb_yaml_header)
+        app.connect("build-finished", remove_examples_from_source_dir)
+        app.connect("build-finished", copy_examples_to_output_dir)
+
+    app.connect("doctree-read", _add_linenos)
     app.connect("autodoc-skip-member", autodoc_skip_member_custom)
+    app.connect("build-finished", remove_doctree_and_autosummary, priority=600)  # Needed to avoid orphan stub page problems in CI

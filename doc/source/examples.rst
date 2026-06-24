@@ -3,7 +3,12 @@ Examples
 
 You can use the examples below to get started with PyLumerical and learn its basic functionalities.
 
-For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_guide/index>`.
+For discussion of PyLumerical concepts, see the :doc:`User guide <user_guide/index>`.
+
+Simulation automation
+----------------------
+
+These examples demonstrates basic simulation automation using PyLumerical for various Lumerical products.
 
 .. grid:: 2 2 3 3
 
@@ -59,8 +64,23 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
+Photonic inverse design
+------------------------
+
+These examples focuses on the use of the ``lumopt2`` module for photonic inverse design.
+
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Y-branch
+      :link: examples/lumopt2/y_branch/pylumerical_y_branch
+      :link-type: doc
+
+      This example demonstrates the use of ``lumopt2`` for the inverse design of a Y-branch.
+      It utilizes a custom function to enforce symmetric parametrization, and exports the final design to a GDSII file.
+
 .. toctree::
    :hidden:
+   :caption: Simulation automation
 
    examples/Sessions_and_Objects/basic_session_management/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
@@ -69,3 +89,9 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
+
+.. toctree::
+   :hidden:
+   :caption: Photonic inverse design
+
+   examples/lumopt2/y_branch/pylumerical_y_branch

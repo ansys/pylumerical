@@ -260,7 +260,7 @@ def single_rcwa(session_name, shape, radius, period, height, pillar_material, su
     # Get m and n indices of 0th order
     m = np.where(gc["m"] == 0)[0]
     n = np.where(gc["n"] == 0)[0]
-    s0 = amp_results[0, 0, 0, n, m]  # wavelength, theta, phi, order n, order m
+    s0 = amp_results[0, 0, n, m]  # wavelength, theta/phi, order n, order m
     phase = np.angle(s0) + np.pi  # returned in radians in the range (-pi, pi]
     amp = np.abs(s0) ** 2
 
@@ -648,3 +648,92 @@ plt.pause(5)
 # -
 
 # <img src="images/projected_field_image.png" width="600">
+
+# Final step: Export to GDS
+#
+# The metalens mapping comes from radius_array.
+# This script uses gdsaddcircle for circular pillars and gdsaddrect for square pillars.
+# For arbitrary shapes, create a library using getcontours or polystencil script commands.
+
+
+# +
+def write_metalens_gds(fdtd, filename, radius_array, xx_array, yy_array, shape="circle"):
+    """
+    Write a GDS file for a metalens using Lumerical's GDS writing script commands.
+    We use 4-fold symmetry for efficient writing.
+    First, a library of unique unit cells is created.
+    Then, these unit cells are placed by referencing the library.
+    This is a more efficient way to create a GDS file than writing each pillar as a separate object.
+
+    Parameters
+    ----------
+    fdtd: The Lumerical FDTD session object.
+    filename (str): The name of the output GDS file.
+    radius_array (array-like): Array of radii (or square half-lengths) for the metalens elements.
+    xx_array (array-like): Array of x-coordinates for the metalens elements.
+    yy_array (array-like): Array of y-coordinates for the metalens elements.
+    shape (str): The shape of the metalens elements, either "circle" or "square". Default is "circle".
+    """
+    # Keep track of time
+    start_time = fdtd.now()
+    print("Beginning to write GDS file.")
+
+    f = fdtd.gdsopen(filename)  # Open a new GDS file for writing
+
+    layer = 1  # Layer where all the cells are defined
+    # Create a unique cell for each pillar
+    rad_unique = np.unique(radius_array)
+    for rad in rad_unique:
+        cellname = f"pillar_{rad}"
+        fdtd.gdsbegincell(f, cellname)
+        if shape == "circle":
+            fdtd.gdsaddcircle(f, layer, 0.0, 0.0, rad)
+        if shape == "square":
+            fdtd.gdsaddrect(f, layer, 0.0, 0.0, 2 * rad, 2 * rad)
+        fdtd.gdsendcell(f)
+
+    # Now, create the layer where the design actually lives
+    nb = len(radius_array)
+    cellname = "pillars"
+    fdtd.gdsbegincell(f, cellname)
+    layer = 2
+    for n in range(nb):
+        for m in range(nb):
+            rad = radius_array[n, m]
+            # If zero -> do not add a pillar
+            if rad > 0:
+                cell_refname = f"pillar_{rad}"
+                fdtd.gdsaddref(f, cell_refname, xx_array[n, m], yy_array[n, m])
+    fdtd.gdsendcell(f)
+
+    # If not using 4-fold symmetry, we can stop here.
+    # If we are using symmetry, then we need to copy and rotate back to a full circle.
+    if assume_symmetry:
+        # Create a new cell for the full circle
+        cellname = "top"
+        fdtd.gdsbegincell(f, cellname)
+        layer = 2
+        # Add the original quarter circle
+        fdtd.gdsaddref(f, "pillars", 0e-6, 0e-6, 0)
+        # Add the other three quadrants by rotating and mirroring
+        fdtd.gdsaddref(f, "pillars", 0e-6, 0e-6, 90)
+        fdtd.gdsaddref(f, "pillars", 0e-6, 0e-6, 180)
+        fdtd.gdsaddref(f, "pillars", 0e-6, 0e-6, 270)
+        fdtd.gdsendcell(f)
+
+    # Important - close the file when done
+    fdtd.gdsclose(f)
+    end_time = fdtd.now()
+    print(f"GDS file {filename} written in {(end_time - start_time) / 1000 / 60 * 60} seconds.")
+
+
+# -
+
+# +
+# Write the GDS file
+
+with lumapi.FDTD(full_lens_filename, hide=True) as fdtd:
+    write_metalens_gds(fdtd, "FDTD_metalens_target_" + str(target_wavelength / nm) + "nm.gds", radius_array, xx, yy, shape=shape)
+# -
+
+# <img src="images/generated_gds.png" width="600">

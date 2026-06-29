@@ -87,6 +87,8 @@ jobs:
 
   tests:
     needs: wheelhouse
+    # Needs the private Lumerical container and license server; skip on forks.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       id-token: write # Required for trusted publisher
       contents: write # Required by reusable workflow for write operations
@@ -98,6 +100,8 @@ jobs:
   package:
     name: Package library
     needs: [tests, doc-build]
+    # Attestation needs OIDC/write access; skip on forks.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
       attestations: write # Required to create attestations

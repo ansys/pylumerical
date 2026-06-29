@@ -97,9 +97,6 @@ jobs:
 
   build-test-package:
     name: "Build, Test, and Package"
-    needs: changelog-fragment
-    # Still run fork-safe checks when changelog-fragment is skipped on forks.
-    if: always() && (needs.changelog-fragment.result == 'success' || needs.changelog-fragment.result == 'skipped')
     permissions:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads and reusable workflow

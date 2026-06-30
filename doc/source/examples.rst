@@ -59,6 +59,14 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Color Router
+      :link: examples/lumopt2/color_router/color_router_pylumerical
+      :link-type: doc
+
+      This example demonstrates a multi-configuration lumopt2 workflow with a simple color router design.
+
 .. toctree::
    :hidden:
 
@@ -69,3 +77,4 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
+   examples/lumopt2/color_router/color_router_pylumerical

@@ -421,8 +421,8 @@ project.save_project("y_branch_final.fsp", params=best_params)
 
 project_dir = Path(project.fom.config_map.project_folder).resolve()
 
-with lumapi.FDTD(project=project_dir / "y_branch_final.fsp", hide=True) as fdtd:
-    f = fdtd.gdsopen(project_dir / "y_branch_final.gds")
+with lumapi.FDTD(project=str(project_dir / "y_branch_final.fsp"), hide=True) as fdtd:
+    f = fdtd.gdsopen(str(project_dir / "y_branch_final.gds"))
     fdtd.gdsbegincell(f, "y_branch")
     # Material is set to the index as it was created as an "<Object defined dielectric>"
     fdtd.gdsaddstencil(f, "1:1", {"material": "3.5", "partialname": "optimization_polygon", "z": 0})

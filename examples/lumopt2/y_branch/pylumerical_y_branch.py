@@ -14,10 +14,13 @@
 import math
 from pathlib import Path
 
+from matplotlib import pyplot as plt
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 import ansys.lumerical.core.lumopt2 as lmpt
+
+plt.ion()
 
 # ## Material, simulation, geometry
 
@@ -163,10 +166,12 @@ y_branch_curve = lmpt.ClosedCurve(path, z_min=-wg_height / 2, z_max=wg_height / 
 # -
 
 # + [markdown]
-# You can uncomment and use the method below to quickly check the geometry
+# Check the geometry of the curve.
+# The code will continue to run after this if the whole script is ran.
 # -
 # +
-# y_branch_curve.plot()
+y_branch_curve.plot()
+plt.pause(0.1)
 # -
 
 # ## Figure of merit
@@ -301,11 +306,13 @@ y_branch_curve.set_parametrization_function(
 )
 
 # + [markdown]
-# You can uncomment and use the method below to check the geometry again after applying parametrization
+# Check the geometry again after applying parametrization.
+# The code will continue to run after this if the whole script is ran.
 # -
 
 # +
-# y_branch_curve.plot()
+y_branch_curve.plot()
+plt.pause(0.1)
 # -
 
 # ## Optimization session setup

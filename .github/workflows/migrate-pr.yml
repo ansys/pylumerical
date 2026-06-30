@@ -21,8 +21,8 @@ jobs:
       (contains(github.event.comment.body, '@pyansys-ci-bot migrate') ||
       contains(github.event.comment.body, '@pyansys-ci-bot sync'))
     permissions:
-      contents: write
-      pull-requests: write
+      contents: write # Required to push migration branches to the main repository
+      pull-requests: write # Required to create pull requests, add comments, and manage reactions
     steps:
       - name: "Migrate fork PR"
         uses: ansys/actions/hk-migrate-fork-pr@a5b0351dc277d68c2dc1beca2d2674c7dfa4fc55 # v10.3.3

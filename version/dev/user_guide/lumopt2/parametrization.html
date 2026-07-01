@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Parametrization &#8212; PyLumerical</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=cc3a2b58" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f245db63"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/lumopt2/parametrization';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://lumerical.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Figure of merit" href="figure_of_merit.html" />
+    <link rel="prev" title="Base simulation" href="base_simulation.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.dev0" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Optics" />
+  <link rel="canonical" href="https://lumerical.docs.pyansys.com/version/stable/user_guide/lumopt2/parametrization.html" />
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><style>.bd-header-announcement{background-color:#66B366;}</style><b style="color:black;">The photonic inverse design module <code style="color:black;">lumopt2</code> is available in Ansys Lumerical 2026 R1.2 or later. For more information, see the User Guide.</b></div>
+</aside>
+
+  
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyLumerical - Home"/>
+    <img src="../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyLumerical - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    
+<!--
+  Announcement Version Loader
+  Dynamically loads the announcement.html content into the announcement_msg div.
+-->
+<div id="announcement_msg" aria-live="polite"></div>
+<script>
+  // Fetch and inject the announcement HTML content
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status} Announcement.html file not found, Please ignore this, if you are in dev/stable documentation`);
+      }
+      return response.text();
+    })
+    .then((text) => {
+      var msgDiv = document.getElementById("announcement_msg");
+      if (msgDiv) {
+        msgDiv.innerHTML = text;
+      }
+    })
+    .catch((error) => {
+      // Log only unexpected fetch errors
+      if (!(error.message && error.message.startsWith("HTTP error: 404"))) {
+        console.error(`Fetch problem: ${error.message} Announcement.html could not be loaded.`);
+      }
+    });
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation Automation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../session_management.html">Session management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../script_commands_as_methods.html">Script commands as methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../working_with_simulation_objects.html">Working with simulation objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../passing_data.html">Passing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accessing_simulation_results.html">Accessing simulation results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../photonic_inverse_design_with_lumopt2.html">Introduction to photonic inverse design with lumopt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_simple_metalens.html">Getting started with lumopt2: simple metalens example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_l_bend.html">Getting started with lumopt2: L-bend example</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="optimization_session.html">Optimization session in lumopt2</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="base_simulation.html">Project: base simulation</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Project: parametrization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="figure_of_merit.html">Project: figure of merit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="callbacks.html">Callbacks</a></li>
+</ul>
+</details></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../index.html" class="nav-link">User guide</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="optimization_session.html" class="nav-link">Optimization session in lumopt2</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Parametrization</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="parametrization">
+<h1>Parametrization<a class="headerlink" href="#parametrization" title="Link to this heading">#</a></h1>
+<p>Parametrization is the process of linking properties and geometry of the simulation to the optimization.</p>
+<p>The lumopt2 module supports parametric optimization in two ways:</p>
+<ul class="simple">
+<li><p><strong>Parametrization object</strong>: maps optimization parameters to arbitrary Lumerical object properties.</p></li>
+<li><p><strong>Closed curve object</strong>: maps optimization parameters to a special class that defines a closed polygon.</p></li>
+</ul>
+<p>Regardless of the parametrization type, you must first define the optimization region. Within this region, the parameters are adjusted.</p>
+<section id="optimization-region">
+<h2>Optimization region<a class="headerlink" href="#optimization-region" title="Link to this heading">#</a></h2>
+<p>The optimization region defines the bounds within which the geometry of the simulations is varied during optimization. You must ensure that all permutations of the geometry variation stays within the optimization region you define.</p>
+<p>To define an optimization region, use the <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.utils.common.Box.html#lumopt2.utils.common.Box" title="lumopt2.utils.common.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> class, which takes either the center and span, or min and max values in each dimension.
+In the definition, you can additionally specify the grid resolution in each dimension using the <code class="docutils literal notranslate"><span class="pre">dx,</span> <span class="pre">dy,</span> <span class="pre">dz</span></code> arguments.
+If you do not specify the grid resolution, the optimization region is set up with a default resolution determined by the <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034901833-Mesh-override-Simulation-Object">mesh override simulation object</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1"># Define an optimization region centered at the origin with a span of 1 micron in each</span>
+<span class="linenos">2</span><span class="c1"># direction and a mesh size of 25 nm</span>
+<span class="linenos">3</span><span class="n">optimization_region</span> <span class="o">=</span> <span class="n">lmpt</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span class="n">x_span</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">y_span</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">z_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">z_max</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
+<span class="linenos">4</span>                              <span class="n">dx</span> <span class="o">=</span> <span class="mf">0.025e-6</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="mf">0.025e-6</span><span class="p">,</span> <span class="n">dz</span> <span class="o">=</span> <span class="mf">0.025e-6</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="parametric-optimization">
+<h2>Parametric optimization<a class="headerlink" href="#parametric-optimization" title="Link to this heading">#</a></h2>
+<p>You can conduct parametric optimization using either the general-purpose <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.html#lumopt2.parametrization.parametrization.Parametrization" title="lumopt2.parametrization.parametrization.Parametrization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parametrization</span></code></a>, or the specialized <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve</span></code></a> class, which is designed for photonic integrated circuit applications.</p>
+<section id="parametrization-class">
+<h3>Parametrization class<a class="headerlink" href="#parametrization-class" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.html#lumopt2.parametrization.parametrization.Parametrization" title="lumopt2.parametrization.parametrization.Parametrization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parametrization</span></code></a> class maps optimization parameters to arbitrary Lumerical object properties.
+This approach is the most general way to parametrize a design in lumopt2, and is suitable for a wide range of applications.</p>
+<p>For a simple example of setting parametric optimization, see the <a class="reference internal" href="getting_started_simple_metalens.html"><span class="doc">3x3 pillar example in the getting started section</span></a>.</p>
+<section id="defining-parameter-mapping">
+<h4>Defining parameter mapping<a class="headerlink" href="#defining-parameter-mapping" title="Link to this heading">#</a></h4>
+<p>To use the parametric optimization approach, you must define a function that takes a parameter vector as input, and outputs a dictionary where the keys are the names of Lumerical object properties, and the values are elements in the parameter vector.</p>
+<p>For example, to define a parametrization that links the radius of different cylinders in the simulation, use the following code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">my_parametrization</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="linenos">2</span><span class="w">   </span><span class="sd">&#39;&#39;&#39;Map 3 parameters to cylinder radii&#39;&#39;&#39;</span>
+<span class="linenos">3</span>   <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">4</span>      <span class="s2">&quot;cyl0::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="linenos">5</span>      <span class="s2">&quot;cyl1::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="linenos">6</span>      <span class="s2">&quot;cyl2::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="linenos">7</span>   <span class="p">}</span>
+</pre></div>
+</div>
+<p>This effectively defines:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p_0\)</span>: radius of cylinder 0</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_1\)</span>: radius of cylinder 1</p></li>
+<li><p><span class="math notranslate nohighlight">\(p_2\)</span>: radius of cylinder 2</p></li>
+</ul>
+<p>Here, the Lumerical object properties are specified in the format <code class="docutils literal notranslate"><span class="pre">object_name::property_name</span></code>, or the more general <code class="docutils literal notranslate"><span class="pre">group_name::object_name::property_name</span></code>.
+Typically, you can find the property using the GUI, or by using the <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034408574-getnamed-Script-command">getnamed</a> command either through Lumerical scripting or Python by calling <code class="docutils literal notranslate"><span class="pre">fdtd.getnamed(&quot;my_object_name&quot;)</span></code>.</p>
+<p>You can also define more complex parameter mapping, as any differentiable function of the parameter vector is supported.
+For example, define a parametrization such that <span class="math notranslate nohighlight">\(p_1\)</span> is the difference between the radius of cylinder 1 and cylinder 0, and <span class="math notranslate nohighlight">\(p_2\)</span> is the difference between the radius of cylinder 2 and cylinder 1.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">my_parametrization</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="linenos">2</span><span class="w">   </span><span class="sd">&#39;&#39;&#39;Map 3 parameters to cylinder radii&#39;&#39;&#39;</span>
+<span class="linenos">3</span>   <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">4</span>      <span class="s2">&quot;cyl0::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="linenos">5</span>      <span class="s2">&quot;cyl1::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="linenos">6</span>      <span class="s2">&quot;cyl2::radius&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="linenos">7</span>   <span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also map parameters to a vector property of an object, such as the vertices of a polygon object. The autograd numpy library is used here to ensure that autograd can compute the Jacobian of the parameter mapping function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">def</span><span class="w"> </span><span class="nf">polygon_parametrization</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="linenos">2</span>   <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">3</span>      <span class="sa">f</span><span class="s2">&quot;poly</span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">::vertices&quot;</span><span class="p">:</span> <span class="n">anp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="n">value</span><span class="p">],</span> <span class="p">[</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+<span class="linenos">4</span>                                          <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">value</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<span class="linenos">5</span>      <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">)}</span>
+<span class="linenos">6</span>
+<span class="linenos">7</span>   <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="bounds-and-initial-values">
+<h4>Bounds and initial values<a class="headerlink" href="#bounds-and-initial-values" title="Link to this heading">#</a></h4>
+<p>The parameter mapping function and the optimization region is passed along with the bounds for each parameter and an optional vector of initial values to the <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.html#lumopt2.parametrization.parametrization.Parametrization" title="lumopt2.parametrization.parametrization.Parametrization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parametrization</span></code></a> class.</p>
+<p>The bounds are passed as a list of tuples with the same length of the parameter vector, each element containing the lower and upper bound for each parameter. The initial values are passed as a list of values with the same length of the parameter vector.</p>
+<p>The following example illustrates the definition of bounds and initial values for the 3-cylinder example above.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the initial values are not provided, the optimization starts from the middle of the bounds by default.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">parametrization</span> <span class="o">=</span> <span class="n">lmpt</span><span class="o">.</span><span class="n">Parametrization</span><span class="p">(</span>
+<span class="linenos">2</span>   <span class="n">func</span><span class="o">=</span><span class="n">mixed_parametrization</span><span class="p">,</span>
+<span class="linenos">3</span>   <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="mf">50e-9</span><span class="p">,</span> <span class="mf">200e-9</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+<span class="linenos">4</span>   <span class="n">initial_params</span><span class="o">=</span><span class="p">[</span><span class="mf">100e-9</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="linenos">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="functions-not-differentiable-by-autograd">
+<h4>Functions not differentiable by autograd<a class="headerlink" href="#functions-not-differentiable-by-autograd" title="Link to this heading">#</a></h4>
+<p>You can also define parameter mapping functions that autograd cannot track. In this case, you can set the <code class="docutils literal notranslate"><span class="pre">use_jac</span></code> property of the <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.html#lumopt2.parametrization.parametrization.Parametrization" title="lumopt2.parametrization.parametrization.Parametrization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parametrization</span></code></a> object to False.
+In this case, the class assumes that each optimization parameter affects all geometic objects in the optimization region, which may lead to less efficient gradient calculations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">def</span><span class="w"> </span><span class="nf">nondiff_func_parametrization</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="linenos"> 2</span><span class="w">   </span><span class="sd">&#39;&#39;&#39;Map 5 parameters to cylinder radii using non-differentiable functions&#39;&#39;&#39;</span>
+<span class="linenos"> 3</span>   <span class="k">return</span> <span class="p">{</span>
+<span class="linenos"> 4</span>      <span class="s2">&quot;cyl0::radius&quot;</span><span class="p">:</span> <span class="n">nondiff_func1</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+<span class="linenos"> 5</span>      <span class="s2">&quot;cyl1::radius&quot;</span><span class="p">:</span> <span class="n">nondiff_func2</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+<span class="linenos"> 6</span>      <span class="s2">&quot;cyl2::radius&quot;</span><span class="p">:</span> <span class="n">nondiff_func3</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="linenos"> 7</span>   <span class="p">}</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="n">parametrization</span> <span class="o">=</span> <span class="n">lmpt</span><span class="o">.</span><span class="n">Parametrization</span><span class="p">(</span>
+<span class="linenos">10</span>   <span class="n">func</span><span class="o">=</span><span class="n">nondiff_func_parametrization</span><span class="p">,</span>
+<span class="linenos">11</span>   <span class="n">bounds</span><span class="o">=</span><span class="p">[(</span><span class="mf">50e-9</span><span class="p">,</span> <span class="mf">200e-9</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">12</span>   <span class="n">initial_params</span><span class="o">=</span><span class="p">[</span><span class="mf">200e-9</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span>
+<span class="linenos">13</span>   <span class="n">use_jac</span><span class="o">=</span><span class="kc">False</span>
+<span class="linenos">14</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="closed-curve-class">
+<h3>Closed curve class<a class="headerlink" href="#closed-curve-class" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve</span></code></a> class defines a special type of parametric optimization that defines a closed Bézier polygon using a series of paths, each of which can be linear or cubic.
+This approach is generally useful for photonic integrated circuit applications, where the design is readily transformed into a polygon on a 2-D plane. As seen in the sections below, you can also enforce symmetry in the design by linking control points to each other.</p>
+<section id="closed-curve-base-object">
+<h4>Closed curve base object<a class="headerlink" href="#closed-curve-base-object" title="Link to this heading">#</a></h4>
+<p>To set up a closed curve optimization, you must first define the base geometry object using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve</span></code></a>.</p>
+<p>The <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve</span></code></a> class ingests a list of control points, index, and thickness information to define a waveguide-like structure.
+When you set up the base geometry object, specify only the control points necessary for the geometry. Additional control points for optimization are added later in the process.</p>
+<p>To specify the control point, use a list of <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.html#lumopt2.parametrization.closed_curve.Segment" title="lumopt2.parametrization.closed_curve.Segment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Segment</span></code></a>. Each element in the list corresponds to a control point in the curve, and definitions within the <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.html#lumopt2.parametrization.closed_curve.Segment" title="lumopt2.parametrization.closed_curve.Segment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Segment</span></code></a> element specifies the location of the segment and how it connects to the next segment.</p>
+<p>For example, the following code defines a simple L-bend within an FDTD simulation region, with a width of 500nm and bend radius of 1 micron.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">bend_radius</span>     <span class="o">=</span> <span class="mf">1.0e-6</span>
+<span class="linenos"> 2</span><span class="n">bend_start</span>      <span class="o">=</span> <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">bend_radius</span>
+<span class="linenos"> 3</span><span class="n">dist_to_wall</span>    <span class="o">=</span> <span class="mf">0.4e-6</span>                        <span class="c1"># Distance from wall to start of the bend (lead waveguides)</span>
+<span class="linenos"> 4</span><span class="n">fdtd_min_x</span>      <span class="o">=-</span><span class="p">(</span><span class="n">bend_start</span> <span class="o">+</span> <span class="n">dist_to_wall</span><span class="p">)</span>
+<span class="linenos"> 5</span><span class="n">fdtd_max_x</span>      <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">wg_width</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">fdtd_min_y</span>      <span class="o">=-</span><span class="mi">2</span><span class="o">*</span><span class="n">wg_width</span>
+<span class="linenos"> 8</span><span class="n">fdtd_max_y</span>      <span class="o">=</span> <span class="n">bend_start</span> <span class="o">+</span> <span class="n">dist_to_wall</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="n">path</span> <span class="o">=</span> <span class="p">[</span> <span class="n">Segment</span><span class="p">([</span> <span class="n">fdtd_min_x</span><span class="p">,</span>              <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>             <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 1 - linear</span>
+<span class="linenos">11</span>      <span class="n">Segment</span><span class="p">([</span><span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">bend_radius</span><span class="p">,</span>  <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>             <span class="s1">&#39;cubic&#39;</span><span class="p">),</span>   <span class="c1"># Segment 2 - cubic</span>
+<span class="linenos">12</span>      <span class="n">Segment</span><span class="p">([</span><span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>              <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">bend_radius</span><span class="p">],</span> <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 3 - linear</span>
+<span class="linenos">13</span>      <span class="n">Segment</span><span class="p">([</span><span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>              <span class="n">fdtd_max_y</span><span class="p">],</span>             <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 4 - linear</span>
+<span class="linenos">14</span>      <span class="n">Segment</span><span class="p">([</span> <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>              <span class="n">fdtd_max_y</span><span class="p">],</span>             <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 5 - linear</span>
+<span class="linenos">15</span>      <span class="n">Segment</span><span class="p">([</span> <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>              <span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="n">bend_radius</span><span class="p">],</span> <span class="s1">&#39;cubic&#39;</span><span class="p">),</span>   <span class="c1"># Segment 6 - linear</span>
+<span class="linenos">16</span>      <span class="n">Segment</span><span class="p">([</span><span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="o">-</span><span class="n">bend_radius</span><span class="p">,</span> <span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>             <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 7 - linear</span>
+<span class="linenos">17</span>      <span class="n">Segment</span><span class="p">([</span> <span class="n">fdtd_min_x</span><span class="p">,</span>             <span class="o">-</span><span class="n">wg_width</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>             <span class="s1">&#39;linear&#39;</span><span class="p">),</span>  <span class="c1"># Segment 8 - cubic</span>
+<span class="linenos">18</span>    <span class="p">]</span>
+</pre></div>
+</div>
+<p>After defining the segments, set up the closed curve object by passing in the list of segments along with the optimization region, the waveguide index and the thickness of the waveguide.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">n_wg</span> <span class="o">=</span> <span class="mf">3.5</span> <span class="c1"># Silicon waveguide</span>
+<span class="linenos">2</span><span class="n">wg_height</span> <span class="o">=</span> <span class="mf">0.22e-6</span> <span class="c1"># 220nm height</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="n">closed_curve</span> <span class="o">=</span> <span class="n">lmpt</span><span class="o">.</span><span class="n">ClosedCurve</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">optimization_region</span><span class="o">=</span><span class="n">optimization_region</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">n_wg</span><span class="p">,</span> <span class="n">z_min</span><span class="o">=-</span><span class="n">wg_height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">z_max</span><span class="o">=</span> <span class="n">wg_height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can visualize the defined curve using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve.plot()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">closed_curve</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../_images/bezier_visualization_l_bend_without_parametrization.png"><img alt="Visualization of the closed curve defined above, which forms an L-bend." class="align-center" src="../../_images/bezier_visualization_l_bend_without_parametrization.png" style="width: 40%;" />
+</a>
+</section>
+<section id="parametrize-closed-curves">
+<h4>Parametrize closed curves<a class="headerlink" href="#parametrize-closed-curves" title="Link to this heading">#</a></h4>
+<p>To parametrize the closed curve, you can use the <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.html#lumopt2.parametrization.closed_curve.Parametrize" title="lumopt2.parametrization.closed_curve.Parametrize"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parametrize</span></code></a> class, which adds additional control points along a segment so they can vary during optimization.
+You specify the start index of a segment based on the path you defined earlier for the base curve, the number of control points, the bounds to apply to all new control points, and the degree of freedom for the new control points.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The vertex index for the closed curve is 1-based.</p>
+</div>
+<p>After defining the parametrization, finalize the parametrization using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve.make_segments_parametric()</span></code></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">num_pts_per_curve</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">2</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">200e-9</span><span class="p">,</span> <span class="mf">400e-9</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">segments_to_parametrize</span> <span class="o">=</span> <span class="p">[</span><span class="n">lmpt</span><span class="o">.</span><span class="n">Parametrize</span><span class="p">(</span><span class="n">segment_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_added_vertices</span><span class="o">=</span><span class="n">num_pts_per_curve</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>  <span class="c1"># Outer sidewall</span>
+<span class="linenos">4</span>                           <span class="n">lmpt</span><span class="o">.</span><span class="n">Parametrize</span><span class="p">(</span><span class="n">segment_index</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">num_added_vertices</span><span class="o">=</span><span class="n">num_pts_per_curve</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">)]</span>  <span class="c1"># Inner sidewall</span>
+<span class="linenos">5</span><span class="n">closed_curve</span><span class="o">.</span><span class="n">make_segments_parametric</span><span class="p">(</span><span class="n">segments_to_parametrize</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the example above, the <code class="docutils literal notranslate"><span class="pre">movement</span></code> argument is set to “normal,” allowing the new control points to move normal to the curve. You can also set it to “x,” “y,” or “both” to specify the degree of freedom for the control points.</p>
+</div>
+<p>After defining the parametrized segments, you can also visualize the curve with the new control points using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve.plot()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">closed_curve</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../_images/bezier_visualization_l_bend_with_parametrization.png"><img alt="Visualization of the closed curve defined above, which forms an L-bend, with additional control points added for optimization." class="align-center" src="../../_images/bezier_visualization_l_bend_with_parametrization.png" style="width: 40%;" />
+</a>
+<p>As seen in the visualization above, new vertices are added to the curve, and the original vertices numbers are shifted to account for the new vertices. The variable vertices are vertices V3, V4, V9, and V10.</p>
+</section>
+<section id="symmetric-parametrization">
+<h4>Symmetric parametrization<a class="headerlink" href="#symmetric-parametrization" title="Link to this heading">#</a></h4>
+<p>Sometimes, it is desirable to enforce symmetry in the design, such that certain control points move in relation to each other during optimization.</p>
+<p>In this case, you must define a custom parametrization function that maps vertices to the same parameters using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve" title="lumopt2.parametrization.closed_curve.ClosedCurve"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClosedCurve.set_parametrization_function()</span></code></a>.</p>
+<p>The custom parametrization function must directly act on a parameter array and link vertex numbers to the parameters, and return how each vertex of interest should move.
+To achieve this, you can first manually split the segment into a desired number of control points using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.EqualSplit.html#lumopt2.parametrization.closed_curve.EqualSplit" title="lumopt2.parametrization.closed_curve.EqualSplit"><code class="xref py py-class docutils literal notranslate"><span class="pre">lumopt2.parametrization.closed_curve.EqualSplit</span></code></a>, and create vertex parameters using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.html#lumopt2.parametrization.closed_curve.ParamVertex" title="lumopt2.parametrization.closed_curve.ParamVertex"><code class="xref py py-class docutils literal notranslate"><span class="pre">lumopt2.parametrization.closed_curve.ParamVertex</span></code></a>.</p>
+<p>For example, the following code defines a custom parametrization function that enforces symmetry for the control points on the L-bend example above for a <span class="math notranslate nohighlight">\(y=-x\)</span> symmetry, by effectively mapping the movement of specific control points to the same parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">num_pts_per_curve</span> <span class="o">=</span> <span class="mi">2</span>                                  <span class="c1"># Control vertices per curved segment</span>
+<span class="linenos"> 2</span><span class="n">num_free_per_curve</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_pts_per_curve</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>      <span class="c1"># Symmetry halves the DOF (rounded up so an odd middle vertex still counts once)</span>
+<span class="linenos"> 3</span><span class="n">num_params</span>         <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_free_per_curve</span>            <span class="c1"># Two segments x free DOF per segment</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="c1"># Subdivide the segments</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="n">split_result</span> <span class="o">=</span> <span class="n">closed_curve</span><span class="o">.</span><span class="n">split_segments</span><span class="p">([</span>
+<span class="linenos"> 8</span><span class="n">lmpt</span><span class="o">.</span><span class="n">EqualSplit</span><span class="p">(</span><span class="n">segment_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">num_added_vertices</span><span class="o">=</span><span class="n">num_pts_per_curve</span><span class="p">),</span>  <span class="c1"># Outer sidewall</span>
+<span class="linenos"> 9</span><span class="n">lmpt</span><span class="o">.</span><span class="n">EqualSplit</span><span class="p">(</span><span class="n">segment_index</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">num_added_vertices</span><span class="o">=</span><span class="n">num_pts_per_curve</span><span class="p">),</span>  <span class="c1"># Inner sidewall</span>
+<span class="linenos">10</span><span class="p">])</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">vertices_seg2</span> <span class="o">=</span> <span class="n">split_result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="linenos">13</span><span class="n">vertices_seg6</span> <span class="o">=</span> <span class="n">split_result</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+<span class="linenos">14</span>
+<span class="linenos">15</span><span class="c1"># Define custom parametrization function</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="k">def</span><span class="w"> </span><span class="nf">symmetric_parametrization</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+<span class="linenos">18</span>   <span class="k">return</span> <span class="p">[</span> <span class="n">lmpt</span><span class="o">.</span><span class="n">ParamVertex</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
+<span class="linenos">19</span>            <span class="n">lmpt</span><span class="o">.</span><span class="n">ParamVertex</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">value</span><span class="o">=-</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
+<span class="linenos">20</span>            <span class="n">lmpt</span><span class="o">.</span><span class="n">ParamVertex</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
+<span class="linenos">21</span>            <span class="n">lmpt</span><span class="o">.</span><span class="n">ParamVertex</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=-</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">movement</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
+<span class="linenos">22</span>         <span class="p">]</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span>   <span class="c1"># Define bounds and set custom parametrization function</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">200e-9</span><span class="p">,</span> <span class="mf">400e-9</span><span class="p">)</span>
+<span class="linenos">27</span><span class="n">closed_curve</span><span class="o">.</span><span class="n">set_parametrization_function</span><span class="p">(</span>
+<span class="linenos">28</span>   <span class="n">func</span><span class="o">=</span><span class="n">symmetric_parametrization</span><span class="p">,</span>
+<span class="linenos">29</span>   <span class="n">n_params</span><span class="o">=</span><span class="n">num_params</span><span class="p">,</span>
+<span class="linenos">30</span>   <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span>
+<span class="linenos">31</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The diagram below shows how the control points maps to each other in terms of movement.</p>
+<a class="reference internal image-reference" href="../../_images/bezier_symmetrical_parametrization.png"><img alt="Visualization of the closed curve defined above, which forms an L-bend, with additional control points added for optimization." class="align-center" src="../../_images/bezier_symmetrical_parametrization.png" style="width: 40%;" />
+</a>
+</section>
+</section>
+</section>
+<section id="combined-parametrization">
+<h2>Combined parametrization<a class="headerlink" href="#combined-parametrization" title="Link to this heading">#</a></h2>
+<p>If you have multiple parametrizations with the same optimization region, you can combine them into a single joint parametrization object using <a class="reference internal" href="../../api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization" title="lumopt2.parametrization.combined_parametrization.CombinedParametrization"><code class="xref py py-class docutils literal notranslate"><span class="pre">CombinedParametrization</span></code></a>, which takes in a list of parametrization objects.
+In this case, the parameter vectors are automatically concatenated between the different inputs.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-region">Optimization region</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-optimization">Parametric optimization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrization-class">Parametrization class</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#defining-parameter-mapping">Defining parameter mapping</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-and-initial-values">Bounds and initial values</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-not-differentiable-by-autograd">Functions not differentiable by autograd</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-curve-class">Closed curve class</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#closed-curve-base-object">Closed curve base object</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrize-closed-curves">Parametrize closed curves</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#symmetric-parametrization">Symmetric parametrization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-parametrization">Combined parametrization</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/user_guide/lumopt2/parametrization.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<!--
+  Theme Version Footer
+  Displays the Sphinx theme version and the last updated date.
+  Accessibility and semantic improvements included.
+-->
+<footer class="theme-version" aria-label="Theme version and last update">
+  <span>
+    
+      Built with the
+      <a href="https://sphinxdocs.ansys.com/version/stable/index.html" target="_blank" rel="noopener noreferrer">
+        Ansys Sphinx Theme
+      </a>
+      1.8.2.
+    
+  </span>
+  <br />
+  <span>Last updated on <time id="ast_build_date"></time></span>
+</footer>
+<script>
+  // Set the last updated date in a readable format
+  (function() {
+    var options = { day: "numeric", month: "long", year: "numeric" };
+    var ast_lastModifiedDate = new Date(document.lastModified);
+    var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+    var dateElem = document.getElementById("ast_build_date");
+    if (dateElem) {
+      dateElem.textContent = ast_build_date;
+    }
+  })();
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

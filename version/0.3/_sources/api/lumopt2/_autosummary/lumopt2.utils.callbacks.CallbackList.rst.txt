@@ -1,0 +1,37 @@
+﻿CallbackList
+============
+
+.. currentmodule:: lumopt2.utils.callbacks
+
+.. autoclass:: CallbackList
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      CallbackList.on_function_eval
+      
+      
+      CallbackList.on_iteration_end
+      
+      
+      CallbackList.on_iteration_start
+      
+      
+      CallbackList.on_optimization_end
+      
+      
+      CallbackList.on_optimization_start
+      
+   
+   
+
+   
+   
+   

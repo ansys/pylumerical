@@ -1,0 +1,6 @@
+update\_properties\_in\_cad
+===========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.update_properties_in_cad

@@ -1,0 +1,6 @@
+get\_adjoint\_fields
+====================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.get_adjoint_fields

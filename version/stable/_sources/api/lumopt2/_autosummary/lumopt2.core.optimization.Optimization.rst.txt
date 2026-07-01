@@ -1,0 +1,33 @@
+﻿Optimization
+============
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoclass:: Optimization
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Optimization.get_history
+      
+      
+      Optimization.get_optimization_type
+      
+      
+      Optimization.prepare_optimization
+      
+      
+      Optimization.run
+      
+   
+   
+
+   
+   
+   

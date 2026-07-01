@@ -1,0 +1,6 @@
+lock\_grid
+==========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.lock_grid

@@ -1,0 +1,6 @@
+﻿make\_params\_key
+=================
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autofunction:: make_params_key

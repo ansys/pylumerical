@@ -1,0 +1,6 @@
+on\_iteration\_end
+==================
+
+.. currentmodule:: lumopt2.utils.callbacks
+
+.. automethod:: CallbackList.on_iteration_end

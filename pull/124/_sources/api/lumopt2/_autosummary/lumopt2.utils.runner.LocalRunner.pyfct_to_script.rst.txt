@@ -1,0 +1,6 @@
+pyfct\_to\_script
+=================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.pyfct_to_script

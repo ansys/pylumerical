@@ -599,7 +599,7 @@ You can use the <a class="reference external" href="https://optics.ansys.com/hc/
 <p>PyLumerical retrieves datasets as dictionaries, with keys associated with various <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets#toc_3">attributes and parameters</a>.</p>
 <p>Dictionaries converted from datasets have a special metadata key <code class="docutils literal notranslate"><span class="pre">Lumerical_dataset</span></code> which contains identifier values, this key preserves their structure when performing a roundtrip back to the Lumerical environment.
 When passing a dictionary from Python to Lumerical, PyLumerical converts it into a generic structure, unless it has the metadata element.</p>
-<p>Attributes and parameters are both stored as <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. Parameters are 1-D arrays that acts as a list of parameters.
+<p>Attributes and parameters are both stored as <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>. Parameters are 1-D arrays that acts as a list of parameters.
 For attributes, the dimension of the array depends on the type of dataset, the type of data, and the number of parameters.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -650,7 +650,7 @@ An extra attribute for the grid connectivity array,
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You can remove singleton dimensions with the <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034405674">pinch</a> command in Lumerical or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.squeeze.html#numpy.squeeze" title="(in NumPy v2.4)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.squeeze()</span></code></a> in numpy.</p>
+<p>You can remove singleton dimensions with the <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034405674">pinch</a> command in Lumerical or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.squeeze.html#numpy.squeeze" title="(in NumPy v2.5)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.squeeze()</span></code></a> in numpy.</p>
 </div>
 <p><strong>Example</strong></p>
 <p>The following example uses an example file ‘fdtd_file.fsp’ created using the following script.</p>
@@ -735,7 +735,7 @@ An extra attribute for the grid connectivity array,
 <section id="accessing-raw-data">
 <h2>Accessing raw data<a class="headerlink" href="#accessing-raw-data" title="Link to this heading">#</a></h2>
 <p>Raw data from monitors are results in their raw, matrix form. You can also pass these results to the Python workspace using the <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034409834">getdata</a> command.</p>
-<p>PyLumerical retrieves raw data from Lumerical products as <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> objects.</p>
+<p>PyLumerical retrieves raw data from Lumerical products as <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> objects.</p>
 <p>The length to each dimension of the returned array depends on whether the raw data was originally an attribute or parameter.
 These dimensions follow the dimensions for attributes and parameters described in the “Accessing dataset” section.</p>
 <p><strong>Example</strong></p>

@@ -617,7 +617,7 @@
 <h1>compute_dPgeom<a class="headerlink" href="#compute-dpgeom" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.parametrization.parametrization.Parametrization.compute_dPgeom">
-<span class="sig-prename descclassname"><span class="pre">Parametrization.</span></span><span class="sig-name descname"><span class="pre">compute_dPgeom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.parametrization.parametrization.Parametrization.compute_dPgeom" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Parametrization.</span></span><span class="sig-name descname"><span class="pre">compute_dPgeom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.parametrization.parametrization.Parametrization.compute_dPgeom" title="Link to this definition">#</a></dt>
 <dd><p>Compute the perturbation array for  calculating d_Eps, i.e., 
 how much (<cite>dP</cite>) should each Lumerical sim geometric property (‘P’) 
 be perturbed for finite-difference gradient calculations given the 
@@ -625,13 +625,13 @@ optimization params (‘p’) and their perturbations (‘dp’).</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter values (‘p’) at which to compute dPgeom.</p>
+<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter values (‘p’) at which to compute dPgeom.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></dt><dd><p>1D Array of perturbation values for each sim geometry property.</p>
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></dt><dd><p>1D Array of perturbation values for each sim geometry property.</p>
 </dd>
 </dl>
 </dd>

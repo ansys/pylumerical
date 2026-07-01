@@ -638,13 +638,13 @@ amplify I/O for long runs.</p>
 </dd>
 <dt><strong>eval_num</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>1-indexed evaluation number.</p>
 </dd>
-<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter vector for this evaluation; copied before storing
+<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter vector for this evaluation; copied before storing
 so subsequent in-place mutations by the caller do not corrupt
 the history.</p>
 </dd>
 <dt><strong>fom_value</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a></span></dt><dd><p>FOM value produced by this evaluation.</p>
 </dd>
-<dt><strong>gradient</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Gradient (if available); not stored in the JSON output.</p>
+<dt><strong>gradient</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Gradient (if available); not stored in the JSON output.</p>
 </dd>
 <dt><strong>**kwargs</strong></dt><dd><p>Additional information.  Recognised keys are <code class="docutils literal notranslate"><span class="pre">elapsed_time</span></code>
 (wall-clock seconds for this eval, default <code class="docutils literal notranslate"><span class="pre">0.0</span></code>) and

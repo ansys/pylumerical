@@ -617,7 +617,7 @@
 <h1>compute_params_to_lumerical_jacobian<a class="headerlink" href="#compute-params-to-lumerical-jacobian" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.parametrization.parametrization.Parametrization.compute_params_to_lumerical_jacobian">
-<span class="sig-prename descclassname"><span class="pre">Parametrization.</span></span><span class="sig-name descname"><span class="pre">compute_params_to_lumerical_jacobian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.parametrization.parametrization.Parametrization.compute_params_to_lumerical_jacobian" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">Parametrization.</span></span><span class="sig-name descname"><span class="pre">compute_params_to_lumerical_jacobian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.parametrization.parametrization.Parametrization.compute_params_to_lumerical_jacobian" title="Link to this definition">#</a></dt>
 <dd><p>Compute the Jacobian matrix dP[i]/dp[j] of the parametrization function using 
 automatic differentiation.</p>
 <p>The Jacobian J[i,j] represents the derivative of the 
@@ -627,13 +627,13 @@ optimization parameter p[j]. This uses autograd for exact derivatives
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter values at which to compute Jacobian.</p>
+<dt><strong>params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></span></dt><dd><p>Parameter values at which to compute Jacobian.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.4)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></dt><dd><p>Jacobian matrix of shape (n_outputs, n_params) where n_outputs is the
+<dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a></dt><dd><p>Jacobian matrix of shape (n_outputs, n_params) where n_outputs is the
 total number of scalar property values returned by the parametrization.</p>
 </dd>
 </dl>

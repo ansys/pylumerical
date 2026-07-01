@@ -36,12 +36,20 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
       This example demonstrates how to set up a basic MODE simulation to calculate the supported modes of a waveguide.
 
+   .. grid-item-card:: Basic HEAT simulation - Thermal Waveguide Tuner
+      :link: examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
+      :link-type: doc
+
+      This example demonstrates how to set up and run a simple HEAT simulation to calculate the temperature profile for a thermal waveguide tuner. 
+
    .. grid-item-card:: Using Structure and Analysis Groups - Photonic Crystal Bandstructure
       :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
       :link-type: doc
 
       This example uses built-in Lumerical Structure and Analysis Groups to calculate the resonant frequencies of photonic
       crystals using FDTD. Lumerical's built-in sweep tool is used to calculate the full bandstructure.
+      
+.. grid:: 2 2 3 3
 
 .. grid:: 2 2 3 3
 
@@ -68,4 +76,5 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
    examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
+   examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect

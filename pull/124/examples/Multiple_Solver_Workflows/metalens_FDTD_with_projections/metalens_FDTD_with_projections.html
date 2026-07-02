@@ -612,7 +612,7 @@
 profile and unit cell library are determined, we loop through each location on the phase profile and select the unit cell from the library that best matches the target phase at that location. The complete metalens is constructed in Lumerical FDTD using the Assembly Group object (<a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects">https://optics.ansys.com/hc/en-us/articles/23889799301523-Assembly-Groups-Simulation-Objects</a>). Please note that simulating large metalenses may require significant RAM; please check memory requirements prior to running
 Step 3 for full FDTD simulation.</p>
 <p>Part 0: Perform required imports and specify design parameters. Units are meters unless otherwise specified.</p>
-<p><img alt="6d525342f62940aa879a58e48cada775" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
+<p><img alt="2591a765f11b41d88b8fa70757e6e051" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -789,7 +789,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="0a0f76ca3ee1488cbf120dceed7fa9e1" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
+<p><img alt="76fa25e9e4ab45e198d26bc696aa0c5c" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
 <p>Part 2: Create simple unit cell library. Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired. Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths. It is also possible to set up sweeps using Lumerical’s built-in Optimizations and Sweeps tools. To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named ‘rcwa’ and rebuild geometry on each
 run.</p>
 <div class="nbinput nblast docutils container">
@@ -895,7 +895,7 @@ run.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="f7b3730442334d889b4aa3a28e285730" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
+<p><img alt="2d85ab88f9f044dcbce472c4859759c9" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -945,7 +945,7 @@ run.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="61e8ce8221de44c79bd56e87a51dc30c" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
+<p><img alt="e573f6c66fd749ec850813d8ef2a86b4" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
 <p>Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -983,7 +983,7 @@ run.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="d66508b8f53342aeaf7bc7b1d3907299" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
+<p><img alt="fa0184c4054d45c9b225ce0dc73b97a0" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
 <p>Part 3: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.</p>
 <p>Note 1: set “pillar rendering detail” to 0 to speed up rendering in viewports. The pillars will appear polygonal in the viewports but it does not change anything in the simulation, it is purely for speeding up rendering in the viewports of the UI. It will not allow a setting of larger than 0.5 (normally 1 is maximum).</p>
 <p>Note 2: When using assembly group, structure is not displayed in the viewport if the number of objects exceeds 32000. An index monitor can be used to visualize structures. To hide the FDTD GUI entirely, enter the flag “hide = True”.</p>
@@ -1180,7 +1180,7 @@ run.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="2ddf7750a2fc4dbcb06a09ee2f8d5e6d" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
+<p><img alt="a48ff927006e4baabf8a94446e186cb0" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1234,7 +1234,7 @@ run.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="c3393b24fa9744f69cbe78decd5dbb64" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
+<p><img alt="3c070ff91c2b496bb455df0912813dcd" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1273,7 +1273,7 @@ run.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="7a098324fb744c4d87fb59a92173991a" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
+<p><img alt="544f3c53e68447e9a9824b93702239b7" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1311,7 +1311,7 @@ run.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="bee2ae31df2144c5ae7e471ad178122d" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
+<p><img alt="0ea409734a4047c9975a8b5549b863b0" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
 </section>
 
 

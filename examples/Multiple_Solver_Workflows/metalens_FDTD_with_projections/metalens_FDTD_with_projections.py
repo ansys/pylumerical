@@ -227,9 +227,11 @@ def single_rcwa(session_name, shape, radius, period, height, pillar_material, su
         session_name.addrect(name="pillar", material=pillar_material, x=0, x_span=2 * radius, y=0, y_span=2 * radius, z_min=0, z_max=height)
     n_pillar = session_name.getindex(pillar_material, c / wavelength)
 
-    # Set up session_name simulation object - general properties
+    # Set up RCWA simulation object - general properties
     session_name.addrcwa(x=0, y=0, x_span=period, y_span=period, z_min=-0.5 * Lmax / n_sub, z_max=0.5 * Lmax / n_pillar + height)
     session_name.setnamed("RCWA", "report grating characterization", True)
+    # Theta and phi can be either grouped together or separately reported in the results; set this explicitly to ensure consistent array indexing
+    session_name.setnamed("RCWA", "return theta and phi as separate parameters when possible", False)
 
     # Set the RCWA interface positions. The interface positions are set from the minimum and maximum z positions of the pillar object.
     # For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object
@@ -294,7 +296,7 @@ with lumapi.FDTD(hide=False) as rcwa:
     for n in range(0, sweep_res):
         radius = pillar_radius[n]
         phase_results[n], amp_results[n] = single_rcwa(
-            rcwa, "circle", radius, period, height, pillar_material, substrate_material, target_wavelength, 0, 0
+            rcwa, shape, radius, period, height, pillar_material, substrate_material, target_wavelength, 0, 0
         )
 
     # Unwrap and shift phase so smallest pillar is at 0 phase shift

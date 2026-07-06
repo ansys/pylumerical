@@ -655,7 +655,7 @@ plt.pause(5)
 #
 # The metalens mapping comes from radius_array.
 # This script uses gdsaddcircle for circular pillars and gdsaddrect for square pillars.
-# For arbitrary shapes, create a library using getcontour (https://optics.ansys.com/hc/en-us/articles/360045175973-getcontour-Script-command) 
+# For arbitrary shapes, create a library using getcontour (https://optics.ansys.com/hc/en-us/articles/360045175973-getcontour-Script-command)
 # or polystencil (https://optics.ansys.com/hc/en-us/articles/4401965734291-polystencil-Script-command) script commands.
 
 

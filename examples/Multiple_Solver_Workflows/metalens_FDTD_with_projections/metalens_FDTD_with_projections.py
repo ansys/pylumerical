@@ -676,6 +676,7 @@ def write_metalens_gds(fdtd, filename, radius_array, xx_array, yy_array, shape="
     yy_array (array-like): Array of y-coordinates for the metalens elements.
     shape (str): The shape of the metalens elements, either "circle" or "square". Default is "circle".
     """
+    
     # Keep track of time
     start_time = fdtd.now()
     print("Beginning to write GDS file.")

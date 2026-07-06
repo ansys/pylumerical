@@ -662,6 +662,7 @@ plt.pause(5)
 def write_metalens_gds(fdtd, filename, radius_array, xx_array, yy_array, shape="circle"):
     """
     Write a GDS file for a metalens using Lumerical's GDS writing script commands.
+
     We use 4-fold symmetry for efficient writing.
     First, a library of unique unit cells is created.
     Then, these unit cells are placed by referencing the library.

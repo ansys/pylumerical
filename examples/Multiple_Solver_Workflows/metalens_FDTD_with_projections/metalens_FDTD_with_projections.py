@@ -19,7 +19,7 @@
 # Step 3 for full FDTD simulation.
 #
 
-# Part 0: Perform required imports and specify design parameters.
+# ## Part 0: Perform required imports and specify design parameters.
 # Units are meters unless otherwise specified.
 
 # <img src="images/metalens_assembly.png" width="600">
@@ -84,7 +84,7 @@ zemax_coeffs = [-2.279343664281709e006, -3.943219031309796e006, 8.64852349163954
 
 # -
 
-# Part 1: Create target phase mask
+# ## Part 1: Create target phase mask
 
 # +
 # Define functions to generate target phase
@@ -174,7 +174,7 @@ plt.pause(5)
 
 # <img src="images/target_phase_mask.png" width="600">
 
-# Part 2: Create simple unit cell library.
+# ##Part 2: Create simple unit cell library.
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
 # Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
 # It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools.
@@ -323,7 +323,7 @@ plt.pause(5)
 
 # <img src="images/unit_cell_phase_amp.png" width="600">
 
-# Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.
+# ## Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.
 
 # +
 # Phase vs. radius table to use for mapping
@@ -354,7 +354,7 @@ plt.pause(5)
 
 # <img src="images/radius_map.png" width="600">
 
-# Part 3: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.
+# ## Part 4: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.
 #
 # Note 1: set "pillar rendering detail" to 0 to speed up rendering in viewports.
 # The pillars will appear polygonal in the viewports but it does not change anything in the simulation,
@@ -651,11 +651,12 @@ plt.pause(5)
 
 # <img src="images/projected_field_image.png" width="600">
 
-# Final step: Export to GDS
+# ## Part 5: Export to GDS
 #
 # The metalens mapping comes from radius_array.
 # This script uses gdsaddcircle for circular pillars and gdsaddrect for square pillars.
-# For arbitrary shapes, create a library using getcontours or polystencil script commands.
+# For arbitrary shapes, create a library using getcontour (https://optics.ansys.com/hc/en-us/articles/360045175973-getcontour-Script-command) 
+# or polystencil (https://optics.ansys.com/hc/en-us/articles/4401965734291-polystencil-Script-command) script commands.
 
 
 # +

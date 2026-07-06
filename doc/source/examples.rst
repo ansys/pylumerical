@@ -51,8 +51,6 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
 
 .. grid:: 2 2 3 3
 
-.. grid:: 2 2 3 3
-
    .. grid-item-card:: Metalens (RCWA / FDTD)
       :link: examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
       :link-type: doc

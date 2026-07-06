@@ -15,12 +15,13 @@ import math
 from pathlib import Path
 
 from matplotlib import pyplot as plt
+
+plt.ion()
+
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 import ansys.lumerical.core.lumopt2 as lmpt
-
-plt.ion()
 
 # ## Material, simulation, geometry
 

@@ -11,17 +11,21 @@
 
 # ## Imports
 
+# +
 from collections import OrderedDict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import math
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Dict, Optional
 
 import autograd.numpy as anp
-from lumopt2.utils.panels import MonitorPanel, PanelState
+from lumopt2.utils.callbacks import BaseCallback
+from lumopt2.utils.panels import MonitorPanel, Panel, PanelState
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 import ansys.lumerical.core.lumopt2 as lmpt
+
+# -
 
 # ## Definitions
 
@@ -63,7 +67,6 @@ class MetalensCis:
         field_zmin=None,
         field_zmax=None,
         fdtd_zmin=None,
-        symmetry=False,
         sub_index=None,
         sub_material=None,
     ):
@@ -93,8 +96,6 @@ class MetalensCis:
         self.mesh_dz = mesh_dz
         self.pva_level = pva_level
         self.fdtd_zmin = fdtd_zmin
-
-        self.symmetry = symmetry
 
     def generate_base_sim(self, fdtd):
         """Build the base FDTD simulation.
@@ -134,12 +135,8 @@ class MetalensCis:
             fdtd_zmin = -self.sub_depth - 0.5e-6
         else:
             fdtd_zmin = self.fdtd_zmin
-        if self.symmetry:
-            xmin_bc = "Anti-Symmetric"
-            ymin_bc = "Symmetric"
-        else:
-            xmin_bc = "PML"
-            ymin_bc = "PML"
+        xmin_bc = "PML"
+        ymin_bc = "PML"
 
         fdtd.addfdtd(
             {
@@ -273,7 +270,7 @@ class MetalensCis:
             }
         )
 
-        ## SETUP Monitors for power density at the bottom of the pixel
+        ## SETUP MONITORS FOR POWER DENSITY AT THE BOTTOM OF THE PIXEL
 
         fdtd.adddftmonitor(
             {"name": "P_norm", "monitor type": "2D Z-normal", "x": 0, "x span": self.pixel_size, "y": 0, "y span": self.pixel_size, "z": field_zmin}
@@ -357,6 +354,20 @@ class MetalensCis:
             }
         )
 
+        ## SETUP INDEX MONITOR TO MONITOR GEOMETRY EVOLUTION
+
+        fdtd.addindex(
+            {
+                "name": "geometry_evolution",
+                "monitor type": "2D Z-normal",
+                "x": 0,
+                "x span": fdtd_xspan,
+                "y": 0,
+                "y span": fdtd_yspan,
+                "z": self.focal_length + 0.5 * self.meta_height,
+            }
+        )
+
         ## SETUP SUBSTRATE
         if self.sub_index is None:  # Material name must have been provided
             if self.sub_material is None:
@@ -396,15 +407,6 @@ class MetalensCis:
             else:
                 raise ValueError("meta_material and meta_index were not provided")
 
-        # group_name = 'metasurface'
-        # fdtd.addgroup({'name': group_name})
-
-        if self.symmetry:
-            num_cyl_x = math.floor((self.meta_size / 2 - self.meta_pitch / 2) / self.meta_pitch) + 1
-            num_cyl_y = math.floor((self.meta_size / 2 - self.meta_pitch / 2) / self.meta_pitch) + 1
-            ix_origin = 0
-            iy_origin = 0
-        else:
             num_cyl_x_pos = math.floor((self.meta_size / 2 - self.meta_pitch / 2) / self.meta_pitch)
             num_cyl_y_pos = math.floor((self.meta_size / 2 - self.meta_pitch / 2) / self.meta_pitch)
             num_cyl_x = 2 * num_cyl_x_pos + 1
@@ -428,7 +430,6 @@ class MetalensCis:
                 )
                 if meta_material == "<Object defined dielectric>":
                     fdtd.set("index", self.meta_index)
-                # fdtd.addtogroup(group_name)
 
         fdtd.redrawon()
 
@@ -452,7 +453,15 @@ class MetalensCis:
 
 
 # ### Visualization utility classes
-# These classes help to define the custom visualizer during optimization.
+# These classes help to define custom visualizers during optimization.
+#
+# For this example, we will plot the usual FoM and gradient evolution, geometry evolution, field intensity distribution at the pixel,
+# as well as ratios of each quadrant's transmission ratio to the total transmission (ignoring any reflected power). These visualizers enables you
+# to see how the optimization is progressing in terms of key optimization and device metrics. To handle the different configurations, and the
+# post-processing necessary for the quadrant ratios, custom callbacks and panels are defined.
+#
+#
+# The first class defines a custom panel that loads a specific configuration before rendering, building on top of a default monitor panel.
 
 
 # +
@@ -493,6 +502,136 @@ class ConfigMonitorPanel(MonitorPanel):
             self._render_error(ax, str(exc))
         finally:
             fdtd_session._loaded_state = saved_loaded_state
+
+
+# -
+
+# + [markdown]
+# This class defines a custom callback that collects the transmission
+# ratios for each quadrant at each iteration and stores them as a
+# dictionary for visualization.
+# -
+
+
+# +
+@dataclass
+class PQRatioCollectorCallback(BaseCallback):
+    """Compute and store P_Qx/P_Norm transmission ratios for every quadrant at each iteration using monitors in simulation.
+
+    Each config entry is a dict with keys ``'name'`` (str) and
+    ``'config_key'`` (ProjectConfig). ``history[name]`` is a list of
+    ``(n_quadrants,)`` arrays, one element appended per iteration.
+    """
+
+    configs: list  # list of {"name": str, "config_key": Any}
+    norm_monitor: str
+    quadrant_monitors: tuple
+    history: Dict[str, list] = field(default_factory=dict, init=False)  # History is plotted each iteration in panels
+
+    def __post_init__(self) -> None:
+        """Initialize per-configuration ratio history storage."""
+        # The history is a dict with different config names as keys. The value is a list of np.arrays that contains ratios for each quadrant.
+        self.history = {cfg["name"]: [] for cfg in self.configs}
+
+    def on_iteration_end(
+        self,
+        project,
+        iteration: int,
+        params: np.ndarray,
+        fom_value: float,
+        gradient: Optional[np.ndarray] = None,
+        **kwargs,
+    ) -> None:
+        """Override ``on_iteration_end`` from parent class to collect quadrant ratios.
+
+        Fetch transmission ratios for all configs and quadrants. If the fetch fails, fills with NaN.
+        """
+        fdtd_session = project.fdtd_session
+        saved_state = fdtd_session._loaded_state
+
+        for cfg in self.configs:
+            try:
+                project.load_forward_results(config_key=cfg["config_key"])
+                ratios = self._compute_ratios(fdtd_session)
+            except Exception:
+                ratios = np.full(len(self.quadrant_monitors), float("nan"))
+            self.history[cfg["name"]].append(ratios)
+
+        fdtd_session._loaded_state = saved_state
+
+    def _compute_ratios(self, fdtd_session) -> np.ndarray:
+        """Return array of shape ``(num_quadrants,)`` with ``Qx/Norm`` ratios.
+
+        If something goes wrong, return nan.
+        """
+        n_q = len(self.quadrant_monitors)
+        try:
+            # Use the transmission Lumerical script function to get the power for each quadrant and normalize
+            fdtd = fdtd_session.fdtd
+            T_norm = float(fdtd.transmission(self.norm_monitor))
+            ratios = np.full(n_q, float("nan"))
+            for i, q_mon in enumerate(self.quadrant_monitors):
+                ratios[i] = float(fdtd.transmission(q_mon)) / T_norm
+            return ratios
+        except Exception:
+            return np.full(n_q, float("nan"))
+
+
+# -
+
+# + [markdown]
+# This class defines another custom panel that uses results from the collector to plot the transmission ratios for each quadrant.
+# -
+
+
+# +
+@dataclass
+class PQRatioPanel(Panel):
+    """
+    Panel that plots P_Qx/P_Norm for all four quadrants of one config.
+
+    Relies on the callback collector to collect the data first.
+    """
+
+    # kw_only=True lets these required fields follow Panel's optional title field.
+    collector: PQRatioCollectorCallback = field(kw_only=True)
+    config_name: str = field(kw_only=True)
+    line_styles: list = field(kw_only=True)
+    title: str = field(kw_only=True)
+    ylabel: str = field(kw_only=True)
+
+    def setup(self, ax, fig, project) -> None:
+        """Initialize labels, title, and grid for the ratio panel."""
+        ax.set_title(self.title)
+        ax.set_xlabel("Iteration")
+        ax.set_ylabel(self.ylabel)
+        ax.grid(True, alpha=0.3)
+
+    def update(self, ax, fig, project, state: PanelState) -> None:
+        """Render the latest per-iteration quadrant ratios for one config."""
+        raw = self.collector.history.get(self.config_name, [])
+        if not raw:
+            ax.clear()
+            ax.text(
+                0.5,
+                0.5,
+                f"No history for config '{self.config_name}'.",
+                ha="center",
+                va="center",
+                transform=ax.transAxes,
+                fontsize=8,
+                color="red",
+                wrap=True,
+            )
+            return
+        ax.clear()
+        for i, style in enumerate(self.line_styles):
+            ax.plot(state.iterations[: len(raw)], [r[i] for r in raw], markersize=4, **style)
+        ax.set_title(self.title)
+        ax.set_xlabel("Iteration")
+        ax.set_ylabel(self.ylabel)
+        ax.legend(fontsize=8)
+        ax.grid(True, alpha=0.3)
 
 
 # -
@@ -616,7 +755,6 @@ meta_sim = MetalensCis(
     field_zmin=field_zmin,
     field_zmax=field_zmax,
     fdtd_zmin=fdtd_zmin,
-    symmetry=False,
 )
 num_cyl_x, num_cyl_y = meta_sim.generate_base_sim(lumapi.FDTD(hide=True))
 print(f"Number of cylinders: {num_cyl_x} x {num_cyl_y}")
@@ -807,11 +945,30 @@ project.visualize_geometry(params=params)  # Visualize the setup
 optimizer = lmpt.ScipyOptimizer(method="L-BFGS-B", bounds=bounds, gtol=1e-20)
 
 # ## Callbacks
-# We set up two visualizers to monitor the optimization progress.
-# The first visualizer contains FoM and gradient information, with the second one showing the field intensity distribution for each wavelength.
+# We set up visualizers to monitor the optimization progress.
+#
+# Visualizer 1: contains FoM and gradient information.
 
 # +
 fom_and_gradient_visualizer = lmpt.GraphicalVisualizer()
+# -
+# + [markdown]
+# Visualizer 2: Use the index monitor to visualize geometry evolution during optimization.
+# -
+# +
+geometry_visualizer = lmpt.GraphicalVisualizer(
+    panels=[lmpt.MonitorPanel(monitor_name="geometry_evolution", result_name="index.index_x", operation="real", title="Geometry Evolution")],
+    figsize=(5, 5),
+    layout=(1, 1),
+    filename_prefix="geometry_evolution",
+)
+# -
+
+# + [markdown]
+# Visualizer 3: contains the field intensity distribution for each wavelength for the whole pixel area.
+# -
+
+# +
 field_visualizer = lmpt.GraphicalVisualizer(
     panels=[
         ConfigMonitorPanel(
@@ -840,7 +997,78 @@ field_visualizer = lmpt.GraphicalVisualizer(
     layout=(1, 3),
     filename_prefix="field_configs",
 )
-callbacks = [fom_and_gradient_visualizer, field_visualizer]
+# -
+
+# + [markdown]
+# Visualizer 4: contains the ratio of power in each quadrant in the pixel for each incident wavelength.
+# This requires first initializing the custom callback defined earlier to collect the data each iteration and pre-process them.
+# -
+# +
+# First create the callback class, which has a method to collect the transmission each iteration and store them.
+# This callback collects from each of the three configurations and
+# monitors for the four quadrants, then calculates the ratio of each
+# quadrant to the total power in the pixel.
+pq_ratio_collector = PQRatioCollectorCallback(
+    configs=[
+        {"name": "red (650 nm)", "config_key": config_red},
+        {"name": "green (520 nm)", "config_key": config_green},
+        {"name": "blue (450 nm)", "config_key": config_blue},
+    ],
+    norm_monitor="P_norm",
+    quadrant_monitors=("P_Q1", "P_Q2", "P_Q3", "P_Q4"),
+)
+
+# Define line styles for each quadrant to be used in the visualizer.
+_quadrant_styles = [
+    {"color": "tab:blue", "linestyle": "-", "marker": "D", "label": "Q1 (top-right)"},
+    {"color": "tab:green", "linestyle": "-", "marker": "D", "label": "Q2 (top-left)"},
+    {"color": "tab:red", "linestyle": "-", "marker": "D", "label": "Q3 (bot-left)"},
+    {"color": "tab:green", "linestyle": ":", "marker": "D", "label": "Q4 (bot-right)"},
+]
+
+# Plot the ratio of power in each quadrant for each configuration.
+pq_ratio_visualizer = lmpt.GraphicalVisualizer(
+    panels=[
+        PQRatioPanel(
+            collector=pq_ratio_collector,
+            config_name="red (650 nm)",
+            line_styles=_quadrant_styles,
+            title="Quadrant transmission - Red (650 nm)",
+            ylabel="P_Qx / P_Norm",
+        ),
+        PQRatioPanel(
+            collector=pq_ratio_collector,
+            config_name="green (520 nm)",
+            line_styles=_quadrant_styles,
+            title="Quadrant transmission - Green (520 nm)",
+            ylabel="P_Qx / P_Norm",
+        ),
+        PQRatioPanel(
+            collector=pq_ratio_collector,
+            config_name="blue (450 nm)",
+            line_styles=_quadrant_styles,
+            title="Quadrant transmission - Blue (450 nm)",
+            ylabel="P_Qx / P_Norm",
+        ),
+    ],
+    figsize=(15, 5),
+    layout=(1, 3),
+    filename_prefix="pq_ratio_configs",
+)
+# -
+
+# + [markdown]
+# Finally, combine all the callbacks into a list to be used in the optimization.
+# -
+
+# +
+callbacks = [
+    pq_ratio_collector,
+    fom_and_gradient_visualizer,
+    field_visualizer,
+    geometry_visualizer,
+    pq_ratio_visualizer,
+]
 # -
 
 # + [markdown]
@@ -852,6 +1080,7 @@ callbacks = [fom_and_gradient_visualizer, field_visualizer]
 # ## Run optimization
 
 # Define optimization session
+# Warning: Store_all_simulations=True does not work with the current ConfigMonitorPanel custom class.
 optimization = lmpt.Optimization(project, optimizer, callbacks, store_all_simulations=False)
 # Run the optimization
 result = optimization.run(initial_params=params)
@@ -866,7 +1095,9 @@ project.save_project("color_router_final.fsp", params=best_params)
 
 # + [markdown]
 # Result for the structure after 97 iterations is shown below, at which point the tolerance was reached.
-# The final field distribution is also shown below. Compared to the initial results, each wavelength is more focused in their designated areas.
 # <img src="images/final_plot.png" width="80%">
+# -
+# + [markdown]
+# The final field distribution is also shown below. Compared to the initial results, each wavelength is more focused in their designated areas.
 # <img src="images/final_fields.png" width="80%">
 # -

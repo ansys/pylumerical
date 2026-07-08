@@ -12,18 +12,19 @@
 # ## Imports
 
 # +
+
 from collections import OrderedDict
 from dataclasses import dataclass, field
 import math
 from typing import Any, ClassVar, Dict, Optional
 
+import ansys.lumerical.core as lumapi  # isort: skip
+import ansys.lumerical.core.lumopt2 as lmpt  # isort: skip
+
 import autograd.numpy as anp
 from lumopt2.utils.callbacks import BaseCallback
 from lumopt2.utils.panels import MonitorPanel, Panel, PanelState
 import numpy as np
-
-import ansys.lumerical.core as lumapi
-import ansys.lumerical.core.lumopt2 as lmpt
 
 # -
 
@@ -469,8 +470,8 @@ class MetalensCis:
 class ConfigMonitorPanel(MonitorPanel):
     """MonitorPanel that loads a specific ProjectConfig before rendering.
 
-    Loads config_key's forward simulation, renders, then restores the
-    previous session loaded-state so subsequent panels are unaffected.
+    Loads config_key's forward simulation, renders, then invalidates the
+    session loaded-state so subsequent callers always do a real reload.
     """
 
     config_key: Any = None
@@ -480,28 +481,24 @@ class ConfigMonitorPanel(MonitorPanel):
     requires_forward_results: ClassVar[bool] = False
 
     def update(self, ax, fig, project, state: PanelState) -> None:
-        """Load config_key's forward results, render, then restore session state.
+        """Load config_key's forward results, render, then invalidate session state.
 
         Overrides MonitorPanel.update to load the forward results for
-        self.config_key before rendering, then restores the FDTD session's
-        _loaded_state so subsequent panels are unaffected.
+        self.config_key before rendering, then invalidates the FDTD session's
+        _loaded_state so subsequent callers always perform a real reload.
         """
         fdtd_session = getattr(project, "fdtd_session", None)
         if fdtd_session is None:
             self._render_error(ax, "No FDTD session attached.")
             return
 
-        # Save the session's loaded-file pointer before touching it so that
-        # any subsequent panels see the same cached state as if this panel
-        # never ran.
-        saved_loaded_state = fdtd_session._loaded_state
         try:
             project.load_forward_results(config_key=self.config_key)
             self._render(ax, fig, fdtd_session)
         except Exception as exc:
             self._render_error(ax, str(exc))
         finally:
-            fdtd_session._loaded_state = saved_loaded_state
+            fdtd_session.invalidate_loaded_state()
 
 
 # -
@@ -547,7 +544,6 @@ class PQRatioCollectorCallback(BaseCallback):
         Fetch transmission ratios for all configs and quadrants. If the fetch fails, fills with NaN.
         """
         fdtd_session = project.fdtd_session
-        saved_state = fdtd_session._loaded_state
 
         for cfg in self.configs:
             try:
@@ -557,7 +553,7 @@ class PQRatioCollectorCallback(BaseCallback):
                 ratios = np.full(len(self.quadrant_monitors), float("nan"))
             self.history[cfg["name"]].append(ratios)
 
-        fdtd_session._loaded_state = saved_state
+        fdtd_session.invalidate_loaded_state()
 
     def _compute_ratios(self, fdtd_session) -> np.ndarray:
         """Return array of shape ``(num_quadrants,)`` with ``Qx/Norm`` ratios.
@@ -1020,10 +1016,10 @@ pq_ratio_collector = PQRatioCollectorCallback(
 
 # Define line styles for each quadrant to be used in the visualizer.
 _quadrant_styles = [
-    {"color": "tab:blue", "linestyle": "-", "marker": "D", "label": "Q1 (top-right)"},
-    {"color": "tab:green", "linestyle": "-", "marker": "D", "label": "Q2 (top-left)"},
-    {"color": "tab:red", "linestyle": "-", "marker": "D", "label": "Q3 (bot-left)"},
-    {"color": "tab:green", "linestyle": ":", "marker": "D", "label": "Q4 (bot-right)"},
+    {"color": "tab:blue", "linestyle": "-", "marker": "D", "label": "Blue quadrant"},
+    {"color": "tab:green", "linestyle": "-", "marker": "D", "label": "Green quadrant 1"},
+    {"color": "tab:red", "linestyle": "-", "marker": "D", "label": "Red quadrant"},
+    {"color": "tab:green", "linestyle": ":", "marker": "D", "label": "Green quadrant 2"},
 ]
 
 # Plot the ratio of power in each quadrant for each configuration.
@@ -1033,21 +1029,21 @@ pq_ratio_visualizer = lmpt.GraphicalVisualizer(
             collector=pq_ratio_collector,
             config_name="red (650 nm)",
             line_styles=_quadrant_styles,
-            title="Quadrant transmission - Red (650 nm)",
+            title="Transmission - Red light (650 nm)",
             ylabel="P_Qx / P_Norm",
         ),
         PQRatioPanel(
             collector=pq_ratio_collector,
             config_name="green (520 nm)",
             line_styles=_quadrant_styles,
-            title="Quadrant transmission - Green (520 nm)",
+            title="Transmission - Green light (520 nm)",
             ylabel="P_Qx / P_Norm",
         ),
         PQRatioPanel(
             collector=pq_ratio_collector,
             config_name="blue (450 nm)",
             line_styles=_quadrant_styles,
-            title="Quadrant transmission - Blue (450 nm)",
+            title="Transmission - Blue light (450 nm)",
             ylabel="P_Qx / P_Norm",
         ),
     ],
@@ -1086,7 +1082,7 @@ optimization = lmpt.Optimization(project, optimizer, callbacks, store_all_simula
 result = optimization.run(initial_params=params)
 
 # ## Results
-# Save the final results
+# Save the final results.
 
 # +
 best_params, best_fom = result
@@ -1095,9 +1091,19 @@ project.save_project("color_router_final.fsp", params=best_params)
 
 # + [markdown]
 # Result for the structure after 97 iterations is shown below, at which point the tolerance was reached.
+#
 # <img src="images/final_plot.png" width="80%">
-# -
-# + [markdown]
+#
+# The evolution of the transmission for each quadrant is shown below. As seen from the figure,
+# the transmission for the intended quadrant for each wavelength improves significantly throughout the optimization.
+#
+# <img src="images/final_quadrant_transmission.png" width="100%">
+#
 # The final field distribution is also shown below. Compared to the initial results, each wavelength is more focused in their designated areas.
-# <img src="images/final_fields.png" width="80%">
+#
+# <img src="images/final_fields.png" width="100%">
+#
+# The final geometry is shown below.
+#
+# <img src="images/final_geometry.png" width="40%">
 # -

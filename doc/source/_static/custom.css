@@ -7,6 +7,12 @@
     opacity: 0.4 !important;
 }
 
+/* Dropdown width */
+
+details.sd-dropdown {
+    width: 100% !important;
+}
+
 /* === Flow diagram styling for lumopt2 navigation === */
 
 /* Chevron shared properties */

@@ -94,108 +94,62 @@ My first PyLumerical project
 
 The code snippet below provides a simple project of using PyLumerical to drive a Lumerical FDTD simulation with an array of nanoholes on a gold film atop a glass substrate.
 
-.. code-block:: python
+.. rubric:: Step 1 - Import and simulation parameters
 
-   # Import modules
+Import PyLumerical and define various simulation parameters.
 
-   import numpy as np
-   import ansys.lumerical.core as lumapi
-   import matplotlib.pyplot as plt
-   from collections import OrderedDict
+.. dropdown:: Show parameter definition
+   :icon: gear
+   :chevron: right-down
 
-   # Define parameters
-
-   filename = "Nanohole_array.fsp"
-
-   # Parameters related to the patterned film
-   periodicity = 400e-9 # 400 nm periodic array
-   film_thickness = 100e-9
-   hole_radius = 100e-9 # radius of the nanoholes
-   nx = ny = 3 # Number of nanoholes
-
-   # Parameters for the substrate
-   substrate_thickness = 1e-6
-   substrate_span = 1.2e-6
-
-   # FDTD region and mesh
-   fdtd_z_span = 1e-6 # Ensure span is large enough to capture both T, R monitors
-   transmission_z = 0.4e-6 # z position of top "T" monitor
-   reflection_z = -0.2e-6 # z position of bottom "R" monitor
-   dx = 0.01e-6 # mesh override resolution
-
-   # Source and wavelengths
-   source_z = 0.3e-6 # position of source
-   wavelength_start = 0.4e-6
-   wavelength_stop = 0.7e-6
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Parameters ---
+      :end-before: # --- Parameters end ---
 
 
-   # Initialize session and build simulation objects. Set hide = True to hide the Lumerical GUI.
+.. rubric:: Step 2 - Build simulation
 
-   with lumapi.FDTD(hide = False) as fdtd:
+Set up the simulation, including the region, geometry, materials, source, and monitors.
 
-      # Add the substrate
-      fdtd.addrect(name = "substrate", x_span = substrate_span, y_span = substrate_span, z_max = 0, z_min = substrate_thickness, material = "SiO2 (Glass) - Palik")
+.. dropdown:: Show simulation setup
+   :icon: tools
+   :chevron: right-down
+   :open:
 
-      # Add the gold film
-      fdtd.addrect(name = "film", x_span = substrate_span, y_span = substrate_span, z_max = film_thickness, z_min = 0, material = "Au (Gold) - CRC")
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Simulation setup ---
+      :end-before: # --- Simulation setup end --
 
-      # Add the nanohole array in the gold layer
-      # For this, we use the built-in rectangular photonic crystal object from the library
-      pc_props = {"name":"nanoholes","material":"etch", "radius": hole_radius, "z": film_thickness/2, "z span": film_thickness,"nx": nx, "ny": ny, "ax": periodicity, "ay": periodicity }
-      fdtd.addobject("rect_pc")
-      fdtd.set(pc_props)
+.. rubric:: Step 3 - Run and plot results
 
-      # Set up the simulation region
-      fdtd_geometry_props = {"x": 0, "x span" : periodicity, "y": 0, "y span" : periodicity, "z": 0, "z span" : fdtd_z_span}
-      # Use symmetric boundary conditions in x and y and steep angle PML profile in z
-      fdtd_boundary_props = {"allow symmetry on all boundaries": 1, "x min bc" : "anti-symmetric", "x max bc": "anti-symmetric", "y min bc" : "symmetric", "y max bc": "symmetric", "z min bc": "PML", "z max bc": "PML", "pml profile": 3}
-      # Combine properties settings into one dictionary
-      fdtd_props = OrderedDict({**fdtd_geometry_props, **fdtd_boundary_props})
-      fdtd.addfdtd(properties = fdtd_props)
+Run the simulation and plot the transmission and reflection spectra.
 
-      # Add a mesh override region around the holes
-      fdtd.addmesh(dx = dx, dy = dx, dz = dx, based_on_a_structure = 1, structure = "circle")
+.. dropdown:: Show simulation run and plotting
+   :icon: graph
+   :chevron: right-down
 
-      # Add plane wave source
-      fdtd.addplane(injection_axis = "z-axis", direction = "backward", x_span = substrate_span, y_span = substrate_span, z = source_z)
-      fdtd.setglobalsource("wavelength start", wavelength_start)
-      fdtd.setglobalsource("wavelength stop", wavelength_stop)
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Run ---
+      :end-before: # --- Run end --
 
-      # Set up frequency domain monitors to measure R and T
-      # First, set global monitor properties
-      # Source limits will be used by default to define min/max wavelength
-      fdtd.setglobalmonitor("frequency points", 50)
-      # Now add the monitors
-      fdtd.adddftmonitor(name = "T_monitor", monitor_type = "2D Z-normal", x_span = substrate_span, y_span = substrate_span, z = transmission_z)
-      fdtd.adddftmonitor(name = "R_monitor", monitor_type = "2D Z-normal", x_span = substrate_span, y_span = substrate_span, z = reflection_z)
+The figure below shows the transmission and reflection spectrum of the array.
 
-      # zoom CAD view around simulation region
-      fdtd.select("FDTD")
-      fdtd.setview("extent")
+.. image:: ../_static/simulation_examples/getting_started_nanoholes/final_result.png
+   :alt: Transmission spectrum
+   :align: center
 
-      fdtd.save(filename)
-      print("File saved to folder as: " + filename)
 
-      # Open the file and run the simulation! Visualize the T/R spectrum.
+.. rubric:: Full script
 
-   with lumapi.FDTD(filename, hide = True) as fdtd:
-      print("Starting simulation now...")
-      fdtd.run()
-      print("Run completed.")
+.. dropdown:: Show full script for copy and paste
+   :icon: download
+   :chevron: right-down
 
-      # Retrieve results
-      T = fdtd.getresult("T_monitor","T") # Returns lumerical dataset T vs lambda/f
-      R = fdtd.getresult("R_monitor","T")
-
-      # Visualize using matplotlib
-      fig, ax = plt.subplots()
-      ax.plot(T['lambda']*1e9, T['T'], label="Transmission")
-      ax.plot(R['lambda']*1e9, -1*R['T'], label="Reflection") # light traveling along -z so T result is negative
-      ax.set_xlabel("Wavelength [nm]")
-      ax.set_ylabel("T/R")
-      ax.legend()
-      plt.show()
-
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
 
 
 Further resources

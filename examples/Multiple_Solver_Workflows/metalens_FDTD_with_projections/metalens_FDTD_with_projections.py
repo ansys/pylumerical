@@ -1,4 +1,4 @@
-# # PyLumerical Metalens (FDTD)
+# # Metalens with Far-Field Projections (FDTD/RCWA)
 #
 # This example automates design and simulation of a metalens using Ansys Lumerical FDTD.
 # A metalens is an array of pillars, also called unit cells or meta-atoms, that are arranged across a surface
@@ -174,8 +174,10 @@ plt.pause(5)
 
 # <img src="images/target_phase_mask.png" width="600">
 
-# ##Part 2: Create simple unit cell library.
+# ## Part 2: Create simple unit cell library.
+#
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
+# 
 # Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
 # It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools.
 # To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa'

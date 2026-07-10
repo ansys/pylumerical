@@ -177,7 +177,7 @@ plt.pause(5)
 # ## Part 2: Create simple unit cell library.
 #
 # Note 1: In this example, we use Lumerical RCWA for speed. However, it is also possible to use FDTD if desired.
-# 
+#
 # Note 2: We use a loop in Python to set up and run RCWA simulations for different pillar widths.
 # It is also possible to set up sweeps using Lumerical's built-in Optimizations and Sweeps tools.
 # To avoid continuously opening and closing instances of Lumerical, we initialize a single instance of Lumerical named 'rcwa'

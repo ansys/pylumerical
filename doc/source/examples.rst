@@ -55,7 +55,7 @@ For in-depth discussion of PyLumerical concepts, see the :doc:`User guide <user_
       :link: examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa
       :link-type: doc
 
-      This example simulates a simple diffraction grating using RCWA. 
+      This example simulates a simple diffraction grating using RCWA.
 
    .. grid-item-card:: Metalens (RCWA / FDTD)
       :link: examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections

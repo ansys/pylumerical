@@ -80,6 +80,7 @@ ignore = []
 
 [tool.ruff.lint.per-file-ignores]
 "examples/*" = ["D100", "E402", "N806", "N816"]
+"examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.py" = ["D103", "D205", "D401", "N802"]
 "__init__.py" = ["F401"]
 "doc/source/conf.py" = ["N806"]
 

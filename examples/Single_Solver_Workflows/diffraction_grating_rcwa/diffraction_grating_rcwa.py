@@ -71,9 +71,9 @@ sim_z_min = -z_buffer
 # The simulation file will be saved to the current working directory with the name specified in the "filename" variable above.
 
 
-def build_1D_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base):
+def build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base):
     """
-    Builds a 1D trapezoidal blazed grating structure on a substrate.
+    Build a 1D trapezoidal blazed grating structure on a substrate.
 
     Parameters
     ----------
@@ -88,6 +88,7 @@ def build_1D_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, n
     n_grat: Refractive index of the grating material
     n_base: Refractive index of the base material
     """
+
     fdtd.addstructuregroup({"name": "1D_grating"})
     # First add the base/substrate
     fdtd.addrect({"name": "base", "x": 0, "y": 0, "x span": base_x, "y span": base_y, "z min": -base_z, "z max": 0, "index": n_base})
@@ -118,7 +119,7 @@ def build_1D_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, n
 
 def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
     """
-    Sets up the RCWA simulation object geometry.
+    Set up the RCWA simulation object geometry.
     Note the RCWA interfaces are set according to the minimum and maximum z positions of the grating and base objects.
     Therefore, you must build the grating first and add the RCWA simulation object after the grating is built.
 
@@ -128,6 +129,7 @@ def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
     filename: File name to save to
     x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region
     """
+
     # Set up RCWA simulation object
     fdtd.addrcwa(
         {
@@ -155,7 +157,7 @@ def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
 
 # Build the grating and RCWA simulation objects
 with lumapi.FDTD(hide=False) as fdtd:
-    build_1D_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base)
+    build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base)
     print("Grating geometry saved to file: " + filename)
     x_shift = -0.25 * period_x  # Shift the RCWA simulation region by a quarter period to avoid the interface coinciding with the grating tooth edge
     build_rcwa(fdtd, filename, -0.5 * period_x + x_shift, 0.5 * period_x + x_shift, -0.5 * period_x, 0.5 * period_x, -2 * depth, 3 * depth)
@@ -182,7 +184,7 @@ num_phi = 3
 
 def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_min=0, theta_max=90, num_theta=1, phi_min=0, phi_max=180, num_phi=1):
     """
-    Runs the RCWA simulation and retrieves the grating characterization results.
+    Run the RCWA simulation and retrieves the grating characterization results.
 
     Parameters
     ----------
@@ -198,6 +200,7 @@ def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_m
     phi_max: Maximum azimuthal angle (phi)
     num_phi: Number of phi points
     """
+
     # First, return to layout
     fdtd.switchtolayout()
 
@@ -254,8 +257,8 @@ print("phi:", np.unique(gc["phi"]), "deg")
 # The following function helps to extract useful results from the grating_characterization object for plotting.
 
 
-def extract_T_values_gc(gc, order_n=0, order_m=0, angle_theta=0, angle_phi=0):
-    """Extracts T, R results versus wavelength for the specified order and angle for both S and P polarizations."""
+def extract_values_gc(gc, order_n=0, order_m=0, angle_theta=0, angle_phi=0):
+    """Extract T, R results versus wavelength for the specified order and angle for both S and P polarizations."""
     Tss = gc["Tss"]  # Result returned vs. wavelength, theta, phi, orders n and m
     Tpp = gc["Tpp"]
     Rss = gc["Rss"]
@@ -277,8 +280,8 @@ def extract_T_values_gc(gc, order_n=0, order_m=0, angle_theta=0, angle_phi=0):
     return plot_Tss, plot_Rss, plot_Tpp, plot_Rpp, wavelengths
 
 
-def extract_T_values_total_energy(total_energy, angle_theta=0, angle_phi=0):
-    """Extracts T, R results versus wavelength for the specified angle for both S and P polarizations."""
+def extract_values_total_energy(total_energy, angle_theta=0, angle_phi=0):
+    """Extract T, R results versus wavelength for the specified angle for both S and P polarizations."""
     Ts = total_energy["Ts"]  # Result returned vs. wavelength, theta, phi
     Tp = total_energy["Tp"]
     Rs = total_energy["Rs"]
@@ -309,6 +312,7 @@ fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharex=True, sharey=True)
 
 
 def order_style(order_n):
+    """Help plot diffraction orders with different colors."""
     if order_n == 0:
         return "black", "-"
     color_map = {
@@ -323,7 +327,7 @@ def order_style(order_n):
 
 
 for n in order_ns:
-    Tss, Rss, Tpp, Rpp, wavelengths = extract_T_values_gc(gc, order_n=n)
+    Tss, Rss, Tpp, Rpp, wavelengths = extract_values_gc(gc, order_n=n)
     color, style = order_style(n)
     axes[0].plot(wavelengths * 1e9, Tss, label=f"Tss n = {n}", color=color, linestyle=style)
     # axes[0].plot(wavelengths*1e9, Rss, label=f"Rss n = {n}", color=color, linestyle="--")
@@ -331,7 +335,7 @@ for n in order_ns:
     # axes[1].plot(wavelengths*1e9, Rpp, label=f"Rpp n = {n}", color=color, linestyle="--")
 
 # Retrieve overall T/R results at normal incidence
-total_Ts, total_Rs, total_Tp, total_Rp, wavelengths = extract_T_values_total_energy(total_energy)  # Total transmission for each polarization
+total_Ts, total_Rs, total_Tp, total_Rp, wavelengths = extract_values_total_energy(total_energy)  # Total transmission for each polarization
 axes[0].plot(wavelengths * 1e9, total_Ts, label="Total Ts", color="black", linewidth=4)
 # axes[0].plot(wavelengths*1e9, total_Rs, label="Total Rs", color="black", linestyle="--", linewidth=4)
 axes[1].plot(wavelengths * 1e9, total_Tp, label="Total Tp", color="black", linewidth=4)

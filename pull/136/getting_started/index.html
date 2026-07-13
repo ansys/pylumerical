@@ -658,6 +658,19 @@ If autodiscovery fails, set the <code class="docutils literal notranslate"><span
 <p>Import PyLumerical and define various simulation parameters.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-download" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"></path></svg></span><span class="sd-summary-text">Show imports</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span>
+<span class="linenos">2</span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="linenos">3</span>
+<span class="linenos">4</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="kn">import</span><span class="w"> </span><span class="nn">ansys.lumerical.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lumapi</span>
+<span class="linenos">7</span>
+</pre></div>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-gear" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8.2 8.2 0 0 1 .701.031C9.444.095 9.99.645 10.16 1.29l.288 1.107c.018.066.079.158.212.224.231.114.454.243.668.386.123.082.233.09.299.071l1.103-.303c.644-.176 1.392.021 1.82.63.27.385.506.792.704 1.218.315.675.111 1.422-.364 1.891l-.814.806c-.049.048-.098.147-.088.294.016.257.016.515 0 .772-.01.147.038.246.088.294l.814.806c.475.469.679 1.216.364 1.891a7.977 7.977 0 0 1-.704 1.217c-.428.61-1.176.807-1.82.63l-1.102-.302c-.067-.019-.177-.011-.3.071a5.909 5.909 0 0 1-.668.386c-.133.066-.194.158-.211.224l-.29 1.106c-.168.646-.715 1.196-1.458 1.26a8.006 8.006 0 0 1-1.402 0c-.743-.064-1.289-.614-1.458-1.26l-.289-1.106c-.018-.066-.079-.158-.212-.224a5.738 5.738 0 0 1-.668-.386c-.123-.082-.233-.09-.299-.071l-1.103.303c-.644.176-1.392-.021-1.82-.63a8.12 8.12 0 0 1-.704-1.218c-.315-.675-.111-1.422.363-1.891l.815-.806c.05-.048.098-.147.088-.294a6.214 6.214 0 0 1 0-.772c.01-.147-.038-.246-.088-.294l-.815-.806C.635 6.045.431 5.298.746 4.623a7.92 7.92 0 0 1 .704-1.217c.428-.61 1.176-.807 1.82-.63l1.102.302c.067.019.177.011.3-.071.214-.143.437-.272.668-.386.133-.066.194-.158.211-.224l.29-1.106C6.009.645 6.556.095 7.299.03 7.53.01 7.764 0 8 0Zm-.571 1.525c-.036.003-.108.036-.137.146l-.289 1.105c-.147.561-.549.967-.998 1.189-.173.086-.34.183-.5.29-.417.278-.97.423-1.529.27l-1.103-.303c-.109-.03-.175.016-.195.045-.22.312-.412.644-.573.99-.014.031-.021.11.059.19l.815.806c.411.406.562.957.53 1.456a4.709 4.709 0 0 0 0 .582c.032.499-.119 1.05-.53 1.456l-.815.806c-.081.08-.073.159-.059.19.162.346.353.677.573.989.02.03.085.076.195.046l1.102-.303c.56-.153 1.113-.008 1.53.27.161.107.328.204.501.29.447.222.85.629.997 1.189l.289 1.105c.029.109.101.143.137.146a6.6 6.6 0 0 0 1.142 0c.036-.003.108-.036.137-.146l.289-1.105c.147-.561.549-.967.998-1.189.173-.086.34-.183.5-.29.417-.278.97-.423 1.529-.27l1.103.303c.109.029.175-.016.195-.045.22-.313.411-.644.573-.99.014-.031.021-.11-.059-.19l-.815-.806c-.411-.406-.562-.957-.53-1.456a4.709 4.709 0 0 0 0-.582c-.032-.499.119-1.05.53-1.456l.815-.806c.081-.08.073-.159.059-.19a6.464 6.464 0 0 0-.573-.989c-.02-.03-.085-.076-.195-.046l-1.102.303c-.56.153-1.113.008-1.53-.27a4.44 4.44 0 0 0-.501-.29c-.447-.222-.85-.629-.997-1.189l-.289-1.105c-.029-.11-.101-.143-.137-.146a6.6 6.6 0 0 0-1.142 0ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM9.5 8a1.5 1.5 0 1 0-3.001.001A1.5 1.5 0 0 0 9.5 8Z"></path></svg></span><span class="sd-summary-text">Show parameter definition</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Define parameters</span>
 <span class="linenos"> 2</span>
@@ -773,33 +786,34 @@ If autodiscovery fails, set the <code class="docutils literal notranslate"><span
 <span class="linenos">80</span>
 <span class="linenos">81</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="linenos">82</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File saved to folder as: &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-<span class="linenos">83</span>
-<span class="linenos">84</span>    <span class="c1"># Open the file and run the simulation! Visualize the T/R spectrum.</span>
 </pre></div>
 </div>
 </div>
-</details><p class="rubric">Step 3 - Run and plot results</p>
+</details><p>The simulation file is saved in the current working directory - you can open it in the Lumerical GUI to check the simulation setup.</p>
+<img alt="Simulation setup" class="align-center" src="../_images/simulation_setup.png" />
+<p class="rubric">Step 3 - Run and plot results</p>
 <p>Run the simulation and plot the transmission and reflection spectra.</p>
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-graph" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 1.75V13.5h13.75a.75.75 0 0 1 0 1.5H.75a.75.75 0 0 1-.75-.75V1.75a.75.75 0 0 1 1.5 0Zm14.28 2.53-5.25 5.25a.75.75 0 0 1-1.06 0L7 7.06 4.28 9.78a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l3.25-3.25a.75.75 0 0 1 1.06 0L10 7.94l4.72-4.72a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"></path></svg></span><span class="sd-summary-text">Show simulation run and plotting</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
-<span class="linenos"> 2</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting simulation now...&quot;</span><span class="p">)</span>
-<span class="linenos"> 3</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="linenos"> 4</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run completed.&quot;</span><span class="p">)</span>
-<span class="linenos"> 5</span>
-<span class="linenos"> 6</span>    <span class="c1"># Retrieve results</span>
-<span class="linenos"> 7</span>    <span class="n">T</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>  <span class="c1"># Returns lumerical dataset T vs lambda/f</span>
-<span class="linenos"> 8</span>    <span class="n">R</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>
-<span class="linenos"> 9</span>
-<span class="linenos">10</span>    <span class="c1"># Visualize using matplotlib</span>
-<span class="linenos">11</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="linenos">12</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Transmission&quot;</span><span class="p">)</span>
-<span class="linenos">13</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reflection&quot;</span><span class="p">)</span>  <span class="c1"># light traveling along -z so T result is negative</span>
-<span class="linenos">14</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength [nm]&quot;</span><span class="p">)</span>
-<span class="linenos">15</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;T/R&quot;</span><span class="p">)</span>
-<span class="linenos">16</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="linenos">17</span>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1"># Open the file and run the simulation! Visualize the T/R spectrum.</span>
+<span class="linenos"> 2</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
+<span class="linenos"> 3</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting simulation now...&quot;</span><span class="p">)</span>
+<span class="linenos"> 4</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="linenos"> 5</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run completed.&quot;</span><span class="p">)</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="c1"># Retrieve results</span>
+<span class="linenos"> 8</span>    <span class="n">T</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>  <span class="c1"># Returns lumerical dataset T vs lambda/f</span>
+<span class="linenos"> 9</span>    <span class="n">R</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># Visualize using matplotlib</span>
+<span class="linenos">12</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="linenos">13</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Transmission&quot;</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reflection&quot;</span><span class="p">)</span>  <span class="c1"># light traveling along -z so T result is negative</span>
+<span class="linenos">15</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength [nm]&quot;</span><span class="p">)</span>
+<span class="linenos">16</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;T/R&quot;</span><span class="p">)</span>
+<span class="linenos">17</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="linenos">18</span>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -809,7 +823,7 @@ If autodiscovery fails, set the <code class="docutils literal notranslate"><span
 <details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
 <summary class="sd-summary-title sd-card-header">
 <span class="sd-summary-icon"><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-download" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"></path></svg></span><span class="sd-summary-text">Show full script for copy and paste</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># Import modules</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1"># --- Imports ---</span>
 <span class="linenos">  2</span>
 <span class="linenos">  3</span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="linenos">  4</span>
@@ -817,140 +831,141 @@ If autodiscovery fails, set the <code class="docutils literal notranslate"><span
 <span class="linenos">  6</span>
 <span class="linenos">  7</span><span class="kn">import</span><span class="w"> </span><span class="nn">ansys.lumerical.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lumapi</span>
 <span class="linenos">  8</span>
-<span class="linenos">  9</span><span class="c1"># --- Parameters ---</span>
-<span class="linenos"> 10</span><span class="c1"># Define parameters</span>
-<span class="linenos"> 11</span>
-<span class="linenos"> 12</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Nanohole_array.fsp&quot;</span>
+<span class="linenos">  9</span><span class="c1"># --- Imports end ---</span>
+<span class="linenos"> 10</span>
+<span class="linenos"> 11</span><span class="c1"># --- Parameters ---</span>
+<span class="linenos"> 12</span><span class="c1"># Define parameters</span>
 <span class="linenos"> 13</span>
-<span class="linenos"> 14</span><span class="c1"># Parameters related to the patterned film</span>
-<span class="linenos"> 15</span><span class="n">periodicity</span> <span class="o">=</span> <span class="mf">400e-9</span>  <span class="c1"># 400 nm periodic array</span>
-<span class="linenos"> 16</span><span class="n">film_thickness</span> <span class="o">=</span> <span class="mf">100e-9</span>
-<span class="linenos"> 17</span><span class="n">hole_radius</span> <span class="o">=</span> <span class="mf">100e-9</span>  <span class="c1"># radius of the nanoholes</span>
-<span class="linenos"> 18</span><span class="n">nx</span> <span class="o">=</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Number of nanoholes</span>
-<span class="linenos"> 19</span>
-<span class="linenos"> 20</span><span class="c1"># Parameters for the substrate</span>
-<span class="linenos"> 21</span><span class="n">substrate_thickness</span> <span class="o">=</span> <span class="mf">1e-6</span>
-<span class="linenos"> 22</span><span class="n">substrate_span</span> <span class="o">=</span> <span class="mf">1.2e-6</span>
-<span class="linenos"> 23</span>
-<span class="linenos"> 24</span><span class="c1"># FDTD region and mesh</span>
-<span class="linenos"> 25</span><span class="n">fdtd_z_span</span> <span class="o">=</span> <span class="mf">1e-6</span>  <span class="c1"># Ensure span is large enough to capture both T, R monitors</span>
-<span class="linenos"> 26</span><span class="n">transmission_z</span> <span class="o">=</span> <span class="mf">0.4e-6</span>  <span class="c1"># z position of top &quot;T&quot; monitor</span>
-<span class="linenos"> 27</span><span class="n">reflection_z</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2e-6</span>  <span class="c1"># z position of bottom &quot;R&quot; monitor</span>
-<span class="linenos"> 28</span><span class="n">dx</span> <span class="o">=</span> <span class="mf">0.01e-6</span>  <span class="c1"># mesh override resolution</span>
-<span class="linenos"> 29</span>
-<span class="linenos"> 30</span><span class="c1"># Source and wavelengths</span>
-<span class="linenos"> 31</span><span class="n">source_z</span> <span class="o">=</span> <span class="mf">0.3e-6</span>  <span class="c1"># position of source</span>
-<span class="linenos"> 32</span><span class="n">wavelength_start</span> <span class="o">=</span> <span class="mf">0.4e-6</span>
-<span class="linenos"> 33</span><span class="n">wavelength_stop</span> <span class="o">=</span> <span class="mf">0.7e-6</span>
-<span class="linenos"> 34</span><span class="c1"># --- Parameters end ---</span>
-<span class="linenos"> 35</span>
-<span class="linenos"> 36</span><span class="c1"># --- Simulation setup ---</span>
-<span class="linenos"> 37</span><span class="c1"># Initialize session and build simulation objects. Set hide = True to hide the Lumerical GUI.</span>
-<span class="linenos"> 38</span>
-<span class="linenos"> 39</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">hide</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
-<span class="linenos"> 40</span>    <span class="c1"># Add the substrate</span>
-<span class="linenos"> 41</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;substrate&quot;</span><span class="p">,</span> 
-<span class="linenos"> 42</span>                 <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos"> 43</span>                 <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos"> 44</span>                 <span class="n">z_max</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-<span class="linenos"> 45</span>                 <span class="n">z_min</span><span class="o">=</span><span class="n">substrate_thickness</span><span class="p">,</span> 
-<span class="linenos"> 46</span>                 <span class="n">material</span><span class="o">=</span><span class="s2">&quot;SiO2 (Glass) - Palik&quot;</span><span class="p">)</span>
-<span class="linenos"> 47</span>
-<span class="linenos"> 48</span>    <span class="c1"># Add the gold film</span>
-<span class="linenos"> 49</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;film&quot;</span><span class="p">,</span> 
-<span class="linenos"> 50</span>                 <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos"> 51</span>                 <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos"> 52</span>                 <span class="n">z_max</span><span class="o">=</span><span class="n">film_thickness</span><span class="p">,</span> 
-<span class="linenos"> 53</span>                 <span class="n">z_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
-<span class="linenos"> 54</span>                 <span class="n">material</span><span class="o">=</span><span class="s2">&quot;Au (Gold) - CRC&quot;</span><span class="p">)</span>
-<span class="linenos"> 55</span>
-<span class="linenos"> 56</span>    <span class="c1"># Add the nanohole array in the gold layer</span>
-<span class="linenos"> 57</span>    <span class="c1"># For this, we use the built-in rectangular photonic crystal object from the library</span>
-<span class="linenos"> 58</span>    <span class="n">pc_props</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos"> 59</span>        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nanoholes&quot;</span><span class="p">,</span>
-<span class="linenos"> 60</span>        <span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;etch&quot;</span><span class="p">,</span>
-<span class="linenos"> 61</span>        <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="n">hole_radius</span><span class="p">,</span>
-<span class="linenos"> 62</span>        <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">film_thickness</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
-<span class="linenos"> 63</span>        <span class="s2">&quot;z span&quot;</span><span class="p">:</span> <span class="n">film_thickness</span><span class="p">,</span>
-<span class="linenos"> 64</span>        <span class="s2">&quot;nx&quot;</span><span class="p">:</span> <span class="n">nx</span><span class="p">,</span>
-<span class="linenos"> 65</span>        <span class="s2">&quot;ny&quot;</span><span class="p">:</span> <span class="n">ny</span><span class="p">,</span>
-<span class="linenos"> 66</span>        <span class="s2">&quot;ax&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span>
-<span class="linenos"> 67</span>        <span class="s2">&quot;ay&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span>
-<span class="linenos"> 68</span>    <span class="p">}</span>
-<span class="linenos"> 69</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addobject</span><span class="p">(</span><span class="s2">&quot;rect_pc&quot;</span><span class="p">)</span>
-<span class="linenos"> 70</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">pc_props</span><span class="p">)</span>
-<span class="linenos"> 71</span>
-<span class="linenos"> 72</span>    <span class="c1"># Set up the simulation region</span>
-<span class="linenos"> 73</span>    <span class="n">fdtd_geometry_props</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;x span&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;y span&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;z span&quot;</span><span class="p">:</span> <span class="n">fdtd_z_span</span><span class="p">}</span>
-<span class="linenos"> 74</span>    <span class="c1"># Use symmetric boundary conditions in x and y and steep angle PML profile in z</span>
-<span class="linenos"> 75</span>    <span class="n">fdtd_boundary_props</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos"> 76</span>        <span class="s2">&quot;allow symmetry on all boundaries&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos"> 77</span>        <span class="s2">&quot;x min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;anti-symmetric&quot;</span><span class="p">,</span>
-<span class="linenos"> 78</span>        <span class="s2">&quot;x max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;anti-symmetric&quot;</span><span class="p">,</span>
-<span class="linenos"> 79</span>        <span class="s2">&quot;y min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;symmetric&quot;</span><span class="p">,</span>
-<span class="linenos"> 80</span>        <span class="s2">&quot;y max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;symmetric&quot;</span><span class="p">,</span>
-<span class="linenos"> 81</span>        <span class="s2">&quot;z min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;PML&quot;</span><span class="p">,</span>
-<span class="linenos"> 82</span>        <span class="s2">&quot;z max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;PML&quot;</span><span class="p">,</span>
-<span class="linenos"> 83</span>        <span class="s2">&quot;pml profile&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-<span class="linenos"> 84</span>    <span class="p">}</span>
-<span class="linenos"> 85</span>    <span class="c1"># Combine properties settings into one dictionary</span>
-<span class="linenos"> 86</span>    <span class="n">fdtd_props</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="o">**</span><span class="n">fdtd_geometry_props</span><span class="p">,</span> <span class="o">**</span><span class="n">fdtd_boundary_props</span><span class="p">})</span>
-<span class="linenos"> 87</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addfdtd</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="n">fdtd_props</span><span class="p">)</span>
-<span class="linenos"> 88</span>
-<span class="linenos"> 89</span>    <span class="c1"># Add a mesh override region around the holes</span>
-<span class="linenos"> 90</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addmesh</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">based_on_a_structure</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">structure</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
-<span class="linenos"> 91</span>
-<span class="linenos"> 92</span>    <span class="c1"># Add plane wave source</span>
-<span class="linenos"> 93</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addplane</span><span class="p">(</span><span class="n">injection_axis</span><span class="o">=</span><span class="s2">&quot;z-axis&quot;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;backward&quot;</span><span class="p">,</span> <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">source_z</span><span class="p">)</span>
-<span class="linenos"> 94</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalsource</span><span class="p">(</span><span class="s2">&quot;wavelength start&quot;</span><span class="p">,</span> <span class="n">wavelength_start</span><span class="p">)</span>
-<span class="linenos"> 95</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalsource</span><span class="p">(</span><span class="s2">&quot;wavelength stop&quot;</span><span class="p">,</span> <span class="n">wavelength_stop</span><span class="p">)</span>
-<span class="linenos"> 96</span>
-<span class="linenos"> 97</span>    <span class="c1"># Set up frequency domain monitors to measure R and T</span>
-<span class="linenos"> 98</span>    <span class="c1"># First, set global monitor properties</span>
-<span class="linenos"> 99</span>    <span class="c1"># Source limits will be used by default to define min/max wavelength</span>
-<span class="linenos">100</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalmonitor</span><span class="p">(</span><span class="s2">&quot;frequency points&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="linenos">101</span>    <span class="c1"># Now add the monitors</span>
-<span class="linenos">102</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> 
-<span class="linenos">103</span>                       <span class="n">monitor_type</span><span class="o">=</span><span class="s2">&quot;2D Z-normal&quot;</span><span class="p">,</span> 
-<span class="linenos">104</span>                       <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos">105</span>                       <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos">106</span>                       <span class="n">z</span><span class="o">=</span><span class="n">transmission_z</span><span class="p">)</span>
-<span class="linenos">107</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> 
-<span class="linenos">108</span>                       <span class="n">monitor_type</span><span class="o">=</span><span class="s2">&quot;2D Z-normal&quot;</span><span class="p">,</span> 
-<span class="linenos">109</span>                       <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos">110</span>                       <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
-<span class="linenos">111</span>                       <span class="n">z</span><span class="o">=</span><span class="n">reflection_z</span><span class="p">)</span>
-<span class="linenos">112</span>
-<span class="linenos">113</span>    <span class="c1"># zoom CAD view around simulation region</span>
-<span class="linenos">114</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;FDTD&quot;</span><span class="p">)</span>
-<span class="linenos">115</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setview</span><span class="p">(</span><span class="s2">&quot;extent&quot;</span><span class="p">)</span>
-<span class="linenos">116</span>
-<span class="linenos">117</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="linenos">118</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File saved to folder as: &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-<span class="linenos">119</span>
-<span class="linenos">120</span>    <span class="c1"># Open the file and run the simulation! Visualize the T/R spectrum.</span>
+<span class="linenos"> 14</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Nanohole_array.fsp&quot;</span>
+<span class="linenos"> 15</span>
+<span class="linenos"> 16</span><span class="c1"># Parameters related to the patterned film</span>
+<span class="linenos"> 17</span><span class="n">periodicity</span> <span class="o">=</span> <span class="mf">400e-9</span>  <span class="c1"># 400 nm periodic array</span>
+<span class="linenos"> 18</span><span class="n">film_thickness</span> <span class="o">=</span> <span class="mf">100e-9</span>
+<span class="linenos"> 19</span><span class="n">hole_radius</span> <span class="o">=</span> <span class="mf">100e-9</span>  <span class="c1"># radius of the nanoholes</span>
+<span class="linenos"> 20</span><span class="n">nx</span> <span class="o">=</span> <span class="n">ny</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Number of nanoholes</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span><span class="c1"># Parameters for the substrate</span>
+<span class="linenos"> 23</span><span class="n">substrate_thickness</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="linenos"> 24</span><span class="n">substrate_span</span> <span class="o">=</span> <span class="mf">1.2e-6</span>
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span><span class="c1"># FDTD region and mesh</span>
+<span class="linenos"> 27</span><span class="n">fdtd_z_span</span> <span class="o">=</span> <span class="mf">1e-6</span>  <span class="c1"># Ensure span is large enough to capture both T, R monitors</span>
+<span class="linenos"> 28</span><span class="n">transmission_z</span> <span class="o">=</span> <span class="mf">0.4e-6</span>  <span class="c1"># z position of top &quot;T&quot; monitor</span>
+<span class="linenos"> 29</span><span class="n">reflection_z</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2e-6</span>  <span class="c1"># z position of bottom &quot;R&quot; monitor</span>
+<span class="linenos"> 30</span><span class="n">dx</span> <span class="o">=</span> <span class="mf">0.01e-6</span>  <span class="c1"># mesh override resolution</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span><span class="c1"># Source and wavelengths</span>
+<span class="linenos"> 33</span><span class="n">source_z</span> <span class="o">=</span> <span class="mf">0.3e-6</span>  <span class="c1"># position of source</span>
+<span class="linenos"> 34</span><span class="n">wavelength_start</span> <span class="o">=</span> <span class="mf">0.4e-6</span>
+<span class="linenos"> 35</span><span class="n">wavelength_stop</span> <span class="o">=</span> <span class="mf">0.7e-6</span>
+<span class="linenos"> 36</span><span class="c1"># --- Parameters end ---</span>
+<span class="linenos"> 37</span>
+<span class="linenos"> 38</span><span class="c1"># --- Simulation setup ---</span>
+<span class="linenos"> 39</span><span class="c1"># Initialize session and build simulation objects. Set hide = True to hide the Lumerical GUI.</span>
+<span class="linenos"> 40</span>
+<span class="linenos"> 41</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">hide</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
+<span class="linenos"> 42</span>    <span class="c1"># Add the substrate</span>
+<span class="linenos"> 43</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;substrate&quot;</span><span class="p">,</span> 
+<span class="linenos"> 44</span>                 <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos"> 45</span>                 <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos"> 46</span>                 <span class="n">z_max</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+<span class="linenos"> 47</span>                 <span class="n">z_min</span><span class="o">=</span><span class="n">substrate_thickness</span><span class="p">,</span> 
+<span class="linenos"> 48</span>                 <span class="n">material</span><span class="o">=</span><span class="s2">&quot;SiO2 (Glass) - Palik&quot;</span><span class="p">)</span>
+<span class="linenos"> 49</span>
+<span class="linenos"> 50</span>    <span class="c1"># Add the gold film</span>
+<span class="linenos"> 51</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;film&quot;</span><span class="p">,</span> 
+<span class="linenos"> 52</span>                 <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos"> 53</span>                 <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos"> 54</span>                 <span class="n">z_max</span><span class="o">=</span><span class="n">film_thickness</span><span class="p">,</span> 
+<span class="linenos"> 55</span>                 <span class="n">z_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+<span class="linenos"> 56</span>                 <span class="n">material</span><span class="o">=</span><span class="s2">&quot;Au (Gold) - CRC&quot;</span><span class="p">)</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span>    <span class="c1"># Add the nanohole array in the gold layer</span>
+<span class="linenos"> 59</span>    <span class="c1"># For this, we use the built-in rectangular photonic crystal object from the library</span>
+<span class="linenos"> 60</span>    <span class="n">pc_props</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 61</span>        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nanoholes&quot;</span><span class="p">,</span>
+<span class="linenos"> 62</span>        <span class="s2">&quot;material&quot;</span><span class="p">:</span> <span class="s2">&quot;etch&quot;</span><span class="p">,</span>
+<span class="linenos"> 63</span>        <span class="s2">&quot;radius&quot;</span><span class="p">:</span> <span class="n">hole_radius</span><span class="p">,</span>
+<span class="linenos"> 64</span>        <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="n">film_thickness</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+<span class="linenos"> 65</span>        <span class="s2">&quot;z span&quot;</span><span class="p">:</span> <span class="n">film_thickness</span><span class="p">,</span>
+<span class="linenos"> 66</span>        <span class="s2">&quot;nx&quot;</span><span class="p">:</span> <span class="n">nx</span><span class="p">,</span>
+<span class="linenos"> 67</span>        <span class="s2">&quot;ny&quot;</span><span class="p">:</span> <span class="n">ny</span><span class="p">,</span>
+<span class="linenos"> 68</span>        <span class="s2">&quot;ax&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span>
+<span class="linenos"> 69</span>        <span class="s2">&quot;ay&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span>
+<span class="linenos"> 70</span>    <span class="p">}</span>
+<span class="linenos"> 71</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addobject</span><span class="p">(</span><span class="s2">&quot;rect_pc&quot;</span><span class="p">)</span>
+<span class="linenos"> 72</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">pc_props</span><span class="p">)</span>
+<span class="linenos"> 73</span>
+<span class="linenos"> 74</span>    <span class="c1"># Set up the simulation region</span>
+<span class="linenos"> 75</span>    <span class="n">fdtd_geometry_props</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;x span&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;y span&quot;</span><span class="p">:</span> <span class="n">periodicity</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;z span&quot;</span><span class="p">:</span> <span class="n">fdtd_z_span</span><span class="p">}</span>
+<span class="linenos"> 76</span>    <span class="c1"># Use symmetric boundary conditions in x and y and steep angle PML profile in z</span>
+<span class="linenos"> 77</span>    <span class="n">fdtd_boundary_props</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 78</span>        <span class="s2">&quot;allow symmetry on all boundaries&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos"> 79</span>        <span class="s2">&quot;x min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;anti-symmetric&quot;</span><span class="p">,</span>
+<span class="linenos"> 80</span>        <span class="s2">&quot;x max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;anti-symmetric&quot;</span><span class="p">,</span>
+<span class="linenos"> 81</span>        <span class="s2">&quot;y min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;symmetric&quot;</span><span class="p">,</span>
+<span class="linenos"> 82</span>        <span class="s2">&quot;y max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;symmetric&quot;</span><span class="p">,</span>
+<span class="linenos"> 83</span>        <span class="s2">&quot;z min bc&quot;</span><span class="p">:</span> <span class="s2">&quot;PML&quot;</span><span class="p">,</span>
+<span class="linenos"> 84</span>        <span class="s2">&quot;z max bc&quot;</span><span class="p">:</span> <span class="s2">&quot;PML&quot;</span><span class="p">,</span>
+<span class="linenos"> 85</span>        <span class="s2">&quot;pml profile&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="linenos"> 86</span>    <span class="p">}</span>
+<span class="linenos"> 87</span>    <span class="c1"># Combine properties settings into one dictionary</span>
+<span class="linenos"> 88</span>    <span class="n">fdtd_props</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="o">**</span><span class="n">fdtd_geometry_props</span><span class="p">,</span> <span class="o">**</span><span class="n">fdtd_boundary_props</span><span class="p">})</span>
+<span class="linenos"> 89</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addfdtd</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="n">fdtd_props</span><span class="p">)</span>
+<span class="linenos"> 90</span>
+<span class="linenos"> 91</span>    <span class="c1"># Add a mesh override region around the holes</span>
+<span class="linenos"> 92</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addmesh</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">based_on_a_structure</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">structure</span><span class="o">=</span><span class="s2">&quot;circle&quot;</span><span class="p">)</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span>    <span class="c1"># Add plane wave source</span>
+<span class="linenos"> 95</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addplane</span><span class="p">(</span><span class="n">injection_axis</span><span class="o">=</span><span class="s2">&quot;z-axis&quot;</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;backward&quot;</span><span class="p">,</span> <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">source_z</span><span class="p">)</span>
+<span class="linenos"> 96</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalsource</span><span class="p">(</span><span class="s2">&quot;wavelength start&quot;</span><span class="p">,</span> <span class="n">wavelength_start</span><span class="p">)</span>
+<span class="linenos"> 97</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalsource</span><span class="p">(</span><span class="s2">&quot;wavelength stop&quot;</span><span class="p">,</span> <span class="n">wavelength_stop</span><span class="p">)</span>
+<span class="linenos"> 98</span>
+<span class="linenos"> 99</span>    <span class="c1"># Set up frequency domain monitors to measure R and T</span>
+<span class="linenos">100</span>    <span class="c1"># First, set global monitor properties</span>
+<span class="linenos">101</span>    <span class="c1"># Source limits will be used by default to define min/max wavelength</span>
+<span class="linenos">102</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setglobalmonitor</span><span class="p">(</span><span class="s2">&quot;frequency points&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="linenos">103</span>    <span class="c1"># Now add the monitors</span>
+<span class="linenos">104</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> 
+<span class="linenos">105</span>                       <span class="n">monitor_type</span><span class="o">=</span><span class="s2">&quot;2D Z-normal&quot;</span><span class="p">,</span> 
+<span class="linenos">106</span>                       <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos">107</span>                       <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos">108</span>                       <span class="n">z</span><span class="o">=</span><span class="n">transmission_z</span><span class="p">)</span>
+<span class="linenos">109</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> 
+<span class="linenos">110</span>                       <span class="n">monitor_type</span><span class="o">=</span><span class="s2">&quot;2D Z-normal&quot;</span><span class="p">,</span> 
+<span class="linenos">111</span>                       <span class="n">x_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos">112</span>                       <span class="n">y_span</span><span class="o">=</span><span class="n">substrate_span</span><span class="p">,</span> 
+<span class="linenos">113</span>                       <span class="n">z</span><span class="o">=</span><span class="n">reflection_z</span><span class="p">)</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span>    <span class="c1"># zoom CAD view around simulation region</span>
+<span class="linenos">116</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;FDTD&quot;</span><span class="p">)</span>
+<span class="linenos">117</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setview</span><span class="p">(</span><span class="s2">&quot;extent&quot;</span><span class="p">)</span>
+<span class="linenos">118</span>
+<span class="linenos">119</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">120</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File saved to folder as: &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
 <span class="linenos">121</span><span class="c1"># --- Simulation setup end --</span>
 <span class="linenos">122</span>
 <span class="linenos">123</span>
 <span class="linenos">124</span><span class="c1"># --- Run ---</span>
-<span class="linenos">125</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
-<span class="linenos">126</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting simulation now...&quot;</span><span class="p">)</span>
-<span class="linenos">127</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="linenos">128</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run completed.&quot;</span><span class="p">)</span>
-<span class="linenos">129</span>
-<span class="linenos">130</span>    <span class="c1"># Retrieve results</span>
-<span class="linenos">131</span>    <span class="n">T</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>  <span class="c1"># Returns lumerical dataset T vs lambda/f</span>
-<span class="linenos">132</span>    <span class="n">R</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>
-<span class="linenos">133</span>
-<span class="linenos">134</span>    <span class="c1"># Visualize using matplotlib</span>
-<span class="linenos">135</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="linenos">136</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Transmission&quot;</span><span class="p">)</span>
-<span class="linenos">137</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reflection&quot;</span><span class="p">)</span>  <span class="c1"># light traveling along -z so T result is negative</span>
-<span class="linenos">138</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength [nm]&quot;</span><span class="p">)</span>
-<span class="linenos">139</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;T/R&quot;</span><span class="p">)</span>
-<span class="linenos">140</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="linenos">141</span>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="linenos">142</span><span class="c1"># --- Run end ---</span>
+<span class="linenos">125</span><span class="c1"># Open the file and run the simulation! Visualize the T/R spectrum.</span>
+<span class="linenos">126</span><span class="k">with</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">hide</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">fdtd</span><span class="p">:</span>
+<span class="linenos">127</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting simulation now...&quot;</span><span class="p">)</span>
+<span class="linenos">128</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="linenos">129</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Run completed.&quot;</span><span class="p">)</span>
+<span class="linenos">130</span>
+<span class="linenos">131</span>    <span class="c1"># Retrieve results</span>
+<span class="linenos">132</span>    <span class="n">T</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;T_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>  <span class="c1"># Returns lumerical dataset T vs lambda/f</span>
+<span class="linenos">133</span>    <span class="n">R</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">&quot;R_monitor&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">)</span>
+<span class="linenos">134</span>
+<span class="linenos">135</span>    <span class="c1"># Visualize using matplotlib</span>
+<span class="linenos">136</span>    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="linenos">137</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">T</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Transmission&quot;</span><span class="p">)</span>
+<span class="linenos">138</span>    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">R</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reflection&quot;</span><span class="p">)</span>  <span class="c1"># light traveling along -z so T result is negative</span>
+<span class="linenos">139</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Wavelength [nm]&quot;</span><span class="p">)</span>
+<span class="linenos">140</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;T/R&quot;</span><span class="p">)</span>
+<span class="linenos">141</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="linenos">142</span>    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="linenos">143</span><span class="c1"># --- Run end ---</span>
 </pre></div>
 </div>
 </div>

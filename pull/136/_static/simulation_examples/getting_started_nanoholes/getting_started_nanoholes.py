@@ -1,10 +1,12 @@
-# Import modules
+# --- Imports ---
 
 from collections import OrderedDict
 
 import matplotlib.pyplot as plt
 
 import ansys.lumerical.core as lumapi
+
+# --- Imports end ---
 
 # --- Parameters ---
 # Define parameters
@@ -116,12 +118,11 @@ with lumapi.FDTD(hide=False) as fdtd:
 
     fdtd.save(filename)
     print("File saved to folder as: " + filename)
-
-    # Open the file and run the simulation! Visualize the T/R spectrum.
 # --- Simulation setup end --
 
 
 # --- Run ---
+# Open the file and run the simulation! Visualize the T/R spectrum.
 with lumapi.FDTD(filename, hide=True) as fdtd:
     print("Starting simulation now...")
     fdtd.run()

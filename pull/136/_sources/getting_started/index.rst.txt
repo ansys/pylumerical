@@ -98,6 +98,15 @@ The code snippet below provides a simple project of using PyLumerical to drive a
 
 Import PyLumerical and define various simulation parameters.
 
+.. dropdown:: Show imports
+   :icon: download
+   :chevron: right-down
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Imports ---
+      :end-before: # --- Imports end ---
+
 .. dropdown:: Show parameter definition
    :icon: gear
    :chevron: right-down
@@ -121,6 +130,12 @@ Set up the simulation, including the region, geometry, materials, source, and mo
       :language: python
       :start-after: # --- Simulation setup ---
       :end-before: # --- Simulation setup end --
+
+The simulation file is saved in the current working directory - you can open it in the Lumerical GUI to check the simulation setup.
+
+.. image:: ../_static/simulation_examples/getting_started_nanoholes/simulation_setup.png
+   :alt: Simulation setup
+   :align: center
 
 .. rubric:: Step 3 - Run and plot results
 

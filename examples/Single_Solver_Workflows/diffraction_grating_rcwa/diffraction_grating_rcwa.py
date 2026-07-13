@@ -88,7 +88,6 @@ def build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, n
     n_grat: Refractive index of the grating material
     n_base: Refractive index of the base material
     """
-
     fdtd.addstructuregroup({"name": "1D_grating"})
     # First add the base/substrate
     fdtd.addrect({"name": "base", "x": 0, "y": 0, "x span": base_x, "y span": base_y, "z min": -base_z, "z max": 0, "index": n_base})
@@ -120,6 +119,7 @@ def build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, n
 def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
     """
     Set up the RCWA simulation object geometry.
+
     Note the RCWA interfaces are set according to the minimum and maximum z positions of the grating and base objects.
     Therefore, you must build the grating first and add the RCWA simulation object after the grating is built.
 
@@ -129,7 +129,6 @@ def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
     filename: File name to save to
     x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region
     """
-
     # Set up RCWA simulation object
     fdtd.addrcwa(
         {
@@ -200,7 +199,6 @@ def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_m
     phi_max: Maximum azimuthal angle (phi)
     num_phi: Number of phi points
     """
-
     # First, return to layout
     fdtd.switchtolayout()
 

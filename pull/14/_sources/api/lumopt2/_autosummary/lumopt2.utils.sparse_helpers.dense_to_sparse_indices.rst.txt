@@ -1,0 +1,6 @@
+﻿dense\_to\_sparse\_indices
+==========================
+
+.. currentmodule:: lumopt2.utils.sparse_helpers
+
+.. autofunction:: dense_to_sparse_indices

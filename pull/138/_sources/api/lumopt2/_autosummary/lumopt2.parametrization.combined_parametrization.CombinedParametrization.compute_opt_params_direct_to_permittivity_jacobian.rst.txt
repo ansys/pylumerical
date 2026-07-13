@@ -1,0 +1,6 @@
+compute\_opt\_params\_direct\_to\_permittivity\_jacobian
+========================================================
+
+.. currentmodule:: lumopt2.parametrization.combined_parametrization
+
+.. automethod:: CombinedParametrization.compute_opt_params_direct_to_permittivity_jacobian

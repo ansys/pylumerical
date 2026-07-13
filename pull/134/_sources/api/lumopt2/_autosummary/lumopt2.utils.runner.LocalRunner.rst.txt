@@ -1,0 +1,75 @@
+﻿LocalRunner
+===========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. autoclass:: LocalRunner
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      LocalRunner.add_job
+      
+      
+      LocalRunner.check_circular_dependencies
+      
+      
+      LocalRunner.clear
+      
+      
+      LocalRunner.clear_jobs
+      
+      
+      LocalRunner.get_job
+      
+      
+      LocalRunner.get_job_dependencies_ids
+      
+      
+      LocalRunner.get_job_result
+      
+      
+      LocalRunner.get_task_type
+      
+      
+      LocalRunner.print_job_statuses
+      
+      
+      LocalRunner.pyfct_to_script
+      
+      
+      LocalRunner.run
+      
+      
+      LocalRunner.run_dependencies
+      
+      
+      LocalRunner.run_jobs
+      
+      
+      LocalRunner.run_queue
+      
+      
+      LocalRunner.set_done
+      
+      
+      LocalRunner.set_fdtd_session
+      
+      
+      LocalRunner.set_job_result
+      
+      
+      LocalRunner.set_jobid
+      
+   
+   
+
+   
+   
+   

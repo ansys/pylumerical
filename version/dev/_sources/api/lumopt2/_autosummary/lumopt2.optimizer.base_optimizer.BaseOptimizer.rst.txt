@@ -1,0 +1,27 @@
+﻿BaseOptimizer
+=============
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. autoclass:: BaseOptimizer
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      BaseOptimizer.get_history
+      
+      
+      BaseOptimizer.optimize
+      
+   
+   
+
+   
+   
+   

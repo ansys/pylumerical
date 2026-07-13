@@ -1,0 +1,30 @@
+﻿FieldResults
+============
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. autoclass:: FieldResults
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      FieldResults.extract_wavelengths
+      
+      
+      FieldResults.get_field_intensity_results
+      
+      
+      FieldResults.get_results
+      
+   
+   
+
+   
+   
+   

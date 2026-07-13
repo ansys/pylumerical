@@ -1,0 +1,6 @@
+image\_kwargs
+=============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: MonitorPanel.image_kwargs

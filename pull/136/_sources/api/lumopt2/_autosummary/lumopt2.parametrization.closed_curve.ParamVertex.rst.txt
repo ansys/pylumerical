@@ -1,0 +1,26 @@
+﻿ParamVertex
+===========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: ParamVertex
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ParamVertex.delta_x
+      ParamVertex.delta_y
+      ParamVertex.movement
+      ParamVertex.value
+      ParamVertex.idx
+   
+   

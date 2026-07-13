@@ -1,0 +1,6 @@
+DIVERGED
+========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoattribute:: SimulationStatus.DIVERGED

@@ -1,0 +1,6 @@
+get\_num\_params
+================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurveCubicSegment.get_num_params

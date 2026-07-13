@@ -1,0 +1,6 @@
+reset
+=====
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.reset

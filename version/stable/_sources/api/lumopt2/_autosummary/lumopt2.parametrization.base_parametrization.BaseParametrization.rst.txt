@@ -1,0 +1,37 @@
+﻿BaseParametrization
+===================
+
+.. currentmodule:: lumopt2.parametrization.base_parametrization
+
+.. autoclass:: BaseParametrization
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      BaseParametrization.compute_gradient_from_fields
+      
+      
+      BaseParametrization.compute_opt_params_direct_to_permittivity_jacobian
+      
+      
+      BaseParametrization.create_optimization_structures
+      
+      
+      BaseParametrization.store_mesh_info
+      
+      
+      BaseParametrization.update_structure
+      
+   
+   
+
+   
+   
+   

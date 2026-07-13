@@ -1,0 +1,36 @@
+﻿GraphicalVisualizer
+===================
+
+.. currentmodule:: lumopt2.utils.graphical_visualizer
+
+.. autoclass:: GraphicalVisualizer
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      GraphicalVisualizer.on_function_eval
+      
+      
+      GraphicalVisualizer.on_iteration_end
+      
+      
+      GraphicalVisualizer.on_iteration_start
+      
+      
+      GraphicalVisualizer.on_optimization_end
+      
+      
+      GraphicalVisualizer.on_optimization_start
+      
+   
+   
+
+   
+   
+   

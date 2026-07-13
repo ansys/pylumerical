@@ -1,0 +1,6 @@
+initial\_params
+===============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.initial_params

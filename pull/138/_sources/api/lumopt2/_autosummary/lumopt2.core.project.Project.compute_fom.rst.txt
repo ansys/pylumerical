@@ -1,0 +1,6 @@
+compute\_fom
+============
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.compute_fom

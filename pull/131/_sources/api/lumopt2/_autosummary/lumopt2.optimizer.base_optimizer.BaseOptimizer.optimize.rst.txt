@@ -1,0 +1,6 @@
+optimize
+========
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. automethod:: BaseOptimizer.optimize

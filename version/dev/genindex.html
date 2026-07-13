@@ -1,0 +1,2067 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index &#8212; PyLumerical</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cc3a2b58" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="_static/documentation_options.js?v=59a9b892"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f245db63"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://lumerical.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.4.dev0" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Optics" />
+  <link rel="canonical" href="https://lumerical.docs.pyansys.com/version/stable/genindex.html" />
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><style>.bd-header-announcement{background-color:#66B366;}</style><b style="color:black;">The photonic inverse design module <code style="color:black;">lumopt2</code> is available in Ansys Lumerical 2026 R1.2 or later. For more information, see the User Guide.</b></div>
+</aside>
+
+  
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyLumerical - Home"/>
+    <img src="_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyLumerical - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="changelog.html">
+    Release notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+</div>
+
+    </header>
+  
+  
+    
+<!--
+  Announcement Version Loader
+  Dynamically loads the announcement.html content into the announcement_msg div.
+-->
+<div id="announcement_msg" aria-live="polite"></div>
+<script>
+  // Fetch and inject the announcement HTML content
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status} Announcement.html file not found, Please ignore this, if you are in dev/stable documentation`);
+      }
+      return response.text();
+    })
+    .then((text) => {
+      var msgDiv = document.getElementById("announcement_msg");
+      if (msgDiv) {
+        msgDiv.innerHTML = text;
+      }
+    })
+    .catch((error) => {
+      // Log only unexpected fetch errors
+      if (!(error.message && error.message.startsWith("HTTP error: 404"))) {
+        console.error(`Fetch problem: ${error.message} Announcement.html could not be loaded.`);
+      }
+    });
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="changelog.html">
+    Release notes
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Index</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
+ | <a href="#Y"><strong>Y</strong></a>
+ 
+</div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.add_field_monitors.html#lumopt2.core.fdtd_session.FdtdSession.add_field_monitors">add_field_monitors() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.add_index_monitors.html#lumopt2.core.fdtd_session.FdtdSession.add_index_monitors">add_index_monitors() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.add_job.html#lumopt2.utils.runner.BaseRunner.add_job">add_job() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.add_job.html#lumopt2.utils.runner.LocalRunner.add_job">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.add_nk_import_object.html#lumopt2.core.fdtd_session.FdtdSession.add_nk_import_object">add_nk_import_object() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project_config.ProjectConfig.apply.html#lumopt2.core.project_config.ProjectConfig.apply">apply() (lumopt2.core.project_config.ProjectConfig method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.aspect.html#lumopt2.utils.panels.GeometryPanel.aspect">aspect (lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.auto_log.html#lumopt2.utils.panels.GradientNormPanel.auto_log">auto_log (lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.AUTOSHUTOFF.html#lumopt2.core.fdtd_session.SimulationStatus.AUTOSHUTOFF">AUTOSHUTOFF (lumopt2.core.fdtd_session.SimulationStatus attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.axes_kwargs.html#lumopt2.utils.panels.MonitorPanel.axes_kwargs">axes_kwargs (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.html#lumopt2.utils.callbacks.BaseCallback">BaseCallback (class in lumopt2.utils.callbacks)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.html#lumopt2.fom.base_fom.BaseFom">BaseFom (class in lumopt2.fom.base_fom)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.BaseOptimizer.html#lumopt2.optimizer.base_optimizer.BaseOptimizer">BaseOptimizer (class in lumopt2.optimizer.base_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.html#lumopt2.parametrization.base_parametrization.BaseParametrization">BaseParametrization (class in lumopt2.parametrization.base_parametrization)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.BaseResults.html#lumopt2.fom.simulation_results.BaseResults">BaseResults (class in lumopt2.fom.simulation_results)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.html#lumopt2.utils.runner.BaseRunner">BaseRunner (class in lumopt2.utils.runner)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.bounds.html#lumopt2.parametrization.closed_curve.ClosedCurve.bounds">bounds (lumopt2.parametrization.closed_curve.ClosedCurve property)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.bounds.html#lumopt2.parametrization.closed_curve.Parametrize.bounds">(lumopt2.parametrization.closed_curve.Parametrize attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.bounds.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.bounds">(lumopt2.parametrization.combined_parametrization.CombinedParametrization property)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.bounds.html#lumopt2.parametrization.parametrization.Parametrization.bounds">(lumopt2.parametrization.parametrization.Parametrization property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.Box.html#lumopt2.utils.common.Box">Box (class in lumopt2.utils.common)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.d_eps_calculator.DEpsCalculator.calculate_dF_dPi.html#lumopt2.parametrization.d_eps_calculator.DEpsCalculator.calculate_dF_dPi">calculate_dF_dPi() (lumopt2.parametrization.d_eps_calculator.DEpsCalculator static method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.calculate_fom.html#lumopt2.fom.base_fom.BaseFom.calculate_fom">calculate_fom() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.calculate_fom.html#lumopt2.fom.field_fom.FieldFom.calculate_fom">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.calculate_fom.html#lumopt2.fom.port_fom.PortFom.calculate_fom">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.calculate_gradient_fields.html#lumopt2.fom.base_fom.BaseFom.calculate_gradient_fields">calculate_gradient_fields() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.calculate_gradient_fields.html#lumopt2.fom.field_fom.FieldFom.calculate_gradient_fields">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.calculate_gradient_fields.html#lumopt2.fom.port_fom.PortFom.calculate_gradient_fields">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.html#lumopt2.utils.callbacks.CallbackList">CallbackList (class in lumopt2.utils.callbacks)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.check_circular_dependencies.html#lumopt2.utils.runner.BaseRunner.check_circular_dependencies">check_circular_dependencies() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.check_circular_dependencies.html#lumopt2.utils.runner.LocalRunner.check_circular_dependencies">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.check_object_for_source.html#lumopt2.core.fdtd_session.FdtdSession.check_object_for_source">check_object_for_source() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.check_simulation_success.html#lumopt2.core.fdtd_session.FdtdSession.check_simulation_success">check_simulation_success() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.clear.html#lumopt2.utils.runner.BaseRunner.clear">clear() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.clear.html#lumopt2.utils.runner.LocalRunner.clear">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.clear_jobs.html#lumopt2.utils.runner.BaseRunner.clear_jobs">clear_jobs() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.clear_jobs.html#lumopt2.utils.runner.LocalRunner.clear_jobs">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.close.html#ansys.lumerical.core.DEVICE.close">close() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.close.html#ansys.lumerical.core.FDTD.close">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.close.html#ansys.lumerical.core.INTERCONNECT.close">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.close.html#ansys.lumerical.core.MODE.close">(ansys.lumerical.core.MODE method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.close.html#lumopt2.core.fdtd_session.FdtdSession.close">(lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.close.html#lumopt2.utils.file_logger.FileLogger.close">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.html#lumopt2.parametrization.closed_curve.ClosedCurve">ClosedCurve (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.html#lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment">ClosedCurveCubicSegment (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.html#lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment">ClosedCurveLinearSegment (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveSegment.html#lumopt2.parametrization.closed_curve.ClosedCurveSegment">ClosedCurveSegment (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.cmap.html#lumopt2.utils.panels.MonitorPanel.cmap">cmap (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.color.html#lumopt2.utils.panels.FomPanel.color">color (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.color.html#lumopt2.utils.panels.GradientNormPanel.color">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization">CombinedParametrization (class in lumopt2.parametrization.combined_parametrization)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.d_eps_calculator.DEpsCalculator.compute.html#lumopt2.parametrization.d_eps_calculator.DEpsCalculator.compute">compute() (lumopt2.parametrization.d_eps_calculator.DEpsCalculator method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.compute_dPgeom.html#lumopt2.parametrization.parametrization.Parametrization.compute_dPgeom">compute_dPgeom() (lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.compute_fom.html#lumopt2.core.project.Project.compute_fom">compute_fom() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.compute_gradient.html#lumopt2.core.project.Project.compute_gradient">compute_gradient() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.compute_gradient_from_fields.html#lumopt2.parametrization.base_parametrization.BaseParametrization.compute_gradient_from_fields">compute_gradient_from_fields() (lumopt2.parametrization.base_parametrization.BaseParametrization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.compute_gradient_from_fields.html#lumopt2.parametrization.closed_curve.ClosedCurve.compute_gradient_from_fields">(lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.compute_gradient_from_fields.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.compute_gradient_from_fields">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.compute_gradient_from_fields.html#lumopt2.parametrization.parametrization.Parametrization.compute_gradient_from_fields">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.compute_lumerical_to_permittivity_jacobian.html#lumopt2.parametrization.parametrization.Parametrization.compute_lumerical_to_permittivity_jacobian">compute_lumerical_to_permittivity_jacobian() (lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.compute_opt_params_direct_to_permittivity_jacobian.html#lumopt2.parametrization.base_parametrization.BaseParametrization.compute_opt_params_direct_to_permittivity_jacobian">compute_opt_params_direct_to_permittivity_jacobian() (lumopt2.parametrization.base_parametrization.BaseParametrization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.compute_opt_params_direct_to_permittivity_jacobian.html#lumopt2.parametrization.closed_curve.ClosedCurve.compute_opt_params_direct_to_permittivity_jacobian">(lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.compute_opt_params_direct_to_permittivity_jacobian.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.compute_opt_params_direct_to_permittivity_jacobian">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.compute_opt_params_direct_to_permittivity_jacobian.html#lumopt2.parametrization.parametrization.Parametrization.compute_opt_params_direct_to_permittivity_jacobian">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.compute_parametrization_jacobian.html#lumopt2.parametrization.closed_curve.ClosedCurve.compute_parametrization_jacobian">compute_parametrization_jacobian() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.compute_params_to_lumerical_jacobian.html#lumopt2.parametrization.closed_curve.ClosedCurve.compute_params_to_lumerical_jacobian">compute_params_to_lumerical_jacobian() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.compute_params_to_lumerical_jacobian.html#lumopt2.parametrization.parametrization.Parametrization.compute_params_to_lumerical_jacobian">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.compute_polygon_jacobian.html#lumopt2.parametrization.closed_curve.ClosedCurve.compute_polygon_jacobian">compute_polygon_jacobian() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.config_map.ConfigMap.html#lumopt2.utils.config_map.ConfigMap">ConfigMap (class in lumopt2.utils.config_map)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.create_optimization_structures.html#lumopt2.parametrization.base_parametrization.BaseParametrization.create_optimization_structures">create_optimization_structures() (lumopt2.parametrization.base_parametrization.BaseParametrization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.create_optimization_structures.html#lumopt2.parametrization.closed_curve.ClosedCurve.create_optimization_structures">(lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.create_optimization_structures.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.create_optimization_structures">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.create_optimization_structures.html#lumopt2.parametrization.parametrization.Parametrization.create_optimization_structures">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.create_project_folder.html#lumopt2.fom.base_fom.BaseFom.create_project_folder">create_project_folder() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.create_project_folder.html#lumopt2.fom.field_fom.FieldFom.create_project_folder">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.create_project_folder.html#lumopt2.fom.port_fom.PortFom.create_project_folder">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.current_fom.html#lumopt2.utils.panels.PanelState.current_fom">current_fom (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.current_params.html#lumopt2.utils.panels.PanelState.current_params">current_params (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.delta_x.html#lumopt2.parametrization.closed_curve.ParamVertex.delta_x">delta_x (lumopt2.parametrization.closed_curve.ParamVertex attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.delta_y.html#lumopt2.parametrization.closed_curve.ParamVertex.delta_y">delta_y (lumopt2.parametrization.closed_curve.ParamVertex attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.sparse_helpers.dense_to_sparse_indices.html#lumopt2.utils.sparse_helpers.dense_to_sparse_indices">dense_to_sparse_indices() (in module lumopt2.utils.sparse_helpers)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.d_eps_calculator.DEpsCalculator.html#lumopt2.parametrization.d_eps_calculator.DEpsCalculator">DEpsCalculator (class in lumopt2.parametrization.d_eps_calculator)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.html#ansys.lumerical.core.DEVICE">DEVICE (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.dipole_base_amplitude.html#lumopt2.fom.field_fom.FieldFom.dipole_base_amplitude">dipole_base_amplitude() (lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.disable.html#lumopt2.utils.profiler.Profiler.disable">disable() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.discretize_polygon.html#lumopt2.parametrization.closed_curve.ClosedCurve.discretize_polygon">discretize_polygon() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.DIVERGED.html#lumopt2.core.fdtd_session.SimulationStatus.DIVERGED">DIVERGED (lumopt2.core.fdtd_session.SimulationStatus attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.enable.html#lumopt2.utils.profiler.Profiler.enable">enable() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.EqualSplit.html#lumopt2.parametrization.closed_curve.EqualSplit">EqualSplit (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.eval.html#ansys.lumerical.core.DEVICE.eval">eval() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.eval.html#ansys.lumerical.core.FDTD.eval">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.eval.html#ansys.lumerical.core.INTERCONNECT.eval">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.eval.html#ansys.lumerical.core.MODE.eval">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.evaluate.html#lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.evaluate">evaluate() (lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.evaluate.html#lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.evaluate">(lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveSegment.evaluate.html#lumopt2.parametrization.closed_curve.ClosedCurveSegment.evaluate">(lumopt2.parametrization.closed_curve.ClosedCurveSegment method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.extract_fom.html#lumopt2.optimizer.base_optimizer.extract_fom">extract_fom() (in module lumopt2.optimizer.base_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.extract_fom_and_gradient.html#lumopt2.optimizer.base_optimizer.extract_fom_and_gradient">extract_fom_and_gradient() (in module lumopt2.optimizer.base_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.BaseResults.extract_wavelengths.html#lumopt2.fom.simulation_results.BaseResults.extract_wavelengths">extract_wavelengths() (lumopt2.fom.simulation_results.BaseResults method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.FieldResults.extract_wavelengths.html#lumopt2.fom.simulation_results.FieldResults.extract_wavelengths">(lumopt2.fom.simulation_results.FieldResults method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.PortResults.extract_wavelengths.html#lumopt2.fom.simulation_results.PortResults.extract_wavelengths">(lumopt2.fom.simulation_results.PortResults method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.fd_grad.fd_sweep_perturbation.html#lumopt2.utils.fd_grad.fd_sweep_perturbation">fd_sweep_perturbation() (in module lumopt2.utils.fd_grad)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.html#ansys.lumerical.core.FDTD">FDTD (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession">FdtdSession (class in lumopt2.core.fdtd_session)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.html#lumopt2.fom.field_fom.FieldFom">FieldFom (class in lumopt2.fom.field_fom)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.FieldResults.html#lumopt2.fom.simulation_results.FieldResults">FieldResults (class in lumopt2.fom.simulation_results)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.html#lumopt2.utils.file_logger.FileLogger">FileLogger (class in lumopt2.utils.file_logger)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.final_fom.html#lumopt2.core.optimization.OptimizationResult.final_fom">final_fom (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.find_segments_connecting.html#lumopt2.parametrization.closed_curve.ClosedCurve.find_segments_connecting">find_segments_connecting() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.fd_grad.finite_difference_gradient.html#lumopt2.utils.fd_grad.finite_difference_gradient">finite_difference_gradient() (in module lumopt2.utils.fd_grad)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.fom.Fom.html#lumopt2.fom.fom.Fom">Fom() (in module lumopt2.fom.fom)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.fom_values.html#lumopt2.utils.panels.PanelState.fom_values">fom_values (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.html#lumopt2.utils.panels.FomPanel">FomPanel (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.format_params_for_logging.html#lumopt2.utils.common.format_params_for_logging">format_params_for_logging() (in module lumopt2.utils.common)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.format_summary.html#lumopt2.utils.profiler.Profiler.format_summary">format_summary() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.frequency.html#lumopt2.utils.panels.MonitorPanel.frequency">frequency (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.from_bytes.html#lumopt2.core.fdtd_session.SimulationStatus.from_bytes">from_bytes() (lumopt2.core.fdtd_session.SimulationStatus class method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.FULL_TIME.html#lumopt2.core.fdtd_session.SimulationStatus.FULL_TIME">FULL_TIME (lumopt2.core.fdtd_session.SimulationStatus attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.generate.html#lumopt2.core.project.Project.generate">generate() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.html#lumopt2.utils.panels.GeometryPanel">GeometryPanel (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.get_active_sources.html#lumopt2.core.fdtd_session.FdtdSession.get_active_sources">get_active_sources() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.get_adjoint_fields.html#lumopt2.fom.base_fom.BaseFom.get_adjoint_fields">get_adjoint_fields() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.get_adjoint_fields.html#lumopt2.fom.field_fom.FieldFom.get_adjoint_fields">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.get_adjoint_fields.html#lumopt2.fom.port_fom.PortFom.get_adjoint_fields">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.get_bounding_box.html#lumopt2.parametrization.closed_curve.ClosedCurve.get_bounding_box">get_bounding_box() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.get_bounds.html#lumopt2.parametrization.closed_curve.ClosedCurve.get_bounds">get_bounds() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.get_bounds.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.get_bounds">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.get_bounds.html#lumopt2.parametrization.parametrization.Parametrization.get_bounds">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.get_control_points.html#lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.get_control_points">get_control_points() (lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.get_control_points.html#lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.get_control_points">(lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.get_dict_values_at_wavelengths.html#lumopt2.core.fdtd_session.FdtdSession.get_dict_values_at_wavelengths">get_dict_values_at_wavelengths() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.FieldResults.get_field_intensity_results.html#lumopt2.fom.simulation_results.FieldResults.get_field_intensity_results">get_field_intensity_results() (lumopt2.fom.simulation_results.FieldResults method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.get_fields_at_wavelengths.html#lumopt2.core.fdtd_session.FdtdSession.get_fields_at_wavelengths">get_fields_at_wavelengths() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.config_map.ConfigMap.get_filenames_in_order.html#lumopt2.utils.config_map.ConfigMap.get_filenames_in_order">get_filenames_in_order() (lumopt2.utils.config_map.ConfigMap method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.Optimization.get_history.html#lumopt2.core.optimization.Optimization.get_history">get_history() (lumopt2.core.optimization.Optimization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.BaseOptimizer.get_history.html#lumopt2.optimizer.base_optimizer.BaseOptimizer.get_history">(lumopt2.optimizer.base_optimizer.BaseOptimizer method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.get_history.html#lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.get_history">(lumopt2.optimizer.scipy_optimizer.ScipyOptimizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.get_initial_params.html#lumopt2.parametrization.closed_curve.ClosedCurve.get_initial_params">get_initial_params() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.get_initial_params.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.get_initial_params">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.get_initial_params.html#lumopt2.parametrization.parametrization.Parametrization.get_initial_params">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.get_jacobian.html#lumopt2.fom.base_fom.BaseFom.get_jacobian">get_jacobian() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.get_jacobian.html#lumopt2.fom.field_fom.FieldFom.get_jacobian">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.get_jacobian.html#lumopt2.fom.port_fom.PortFom.get_jacobian">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.get_job.html#lumopt2.utils.runner.BaseRunner.get_job">get_job() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.get_job.html#lumopt2.utils.runner.LocalRunner.get_job">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.get_job_dependencies_ids.html#lumopt2.utils.runner.BaseRunner.get_job_dependencies_ids">get_job_dependencies_ids() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.get_job_dependencies_ids.html#lumopt2.utils.runner.LocalRunner.get_job_dependencies_ids">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.get_job_result.html#lumopt2.utils.runner.BaseRunner.get_job_result">get_job_result() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.get_job_result.html#lumopt2.utils.runner.LocalRunner.get_job_result">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.autodiscovery.get_lumerical_api_python_path.html#ansys.lumerical.core.autodiscovery.get_lumerical_api_python_path">get_lumerical_api_python_path() (in module ansys.lumerical.core.autodiscovery)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.get_num_params.html#lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.get_num_params">get_num_params() (lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.get_num_params.html#lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.get_num_params">(lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveSegment.get_num_params.html#lumopt2.parametrization.closed_curve.ClosedCurveSegment.get_num_params">(lumopt2.parametrization.closed_curve.ClosedCurveSegment method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.Optimization.get_optimization_type.html#lumopt2.core.optimization.Optimization.get_optimization_type">get_optimization_type() (lumopt2.core.optimization.Optimization method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.get_result.html#lumopt2.core.fdtd_session.FdtdSession.get_result">get_result() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.get_result.html#lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.get_result">(lumopt2.optimizer.scipy_optimizer.ScipyOptimizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.FieldResults.get_results.html#lumopt2.fom.simulation_results.FieldResults.get_results">get_results() (lumopt2.fom.simulation_results.FieldResults method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.PortResults.get_results.html#lumopt2.fom.simulation_results.PortResults.get_results">(lumopt2.fom.simulation_results.PortResults method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.get_scaling_factor.html#lumopt2.fom.base_fom.BaseFom.get_scaling_factor">get_scaling_factor() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.get_scaling_factor.html#lumopt2.fom.field_fom.FieldFom.get_scaling_factor">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.get_scaling_factor.html#lumopt2.fom.port_fom.PortFom.get_scaling_factor">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.config_map.ConfigMap.get_sim_results.html#lumopt2.utils.config_map.ConfigMap.get_sim_results">get_sim_results() (lumopt2.utils.config_map.ConfigMap method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.get_simulation_status.html#lumopt2.core.fdtd_session.FdtdSession.get_simulation_status">get_simulation_status() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.get_stats.html#lumopt2.utils.profiler.Profiler.get_stats">get_stats() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.get_task_type.html#lumopt2.utils.runner.BaseRunner.get_task_type">get_task_type() (lumopt2.utils.runner.BaseRunner static method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.get_task_type.html#lumopt2.utils.runner.LocalRunner.get_task_type">(lumopt2.utils.runner.LocalRunner static method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.PortResults.get_transmission_results.html#lumopt2.fom.simulation_results.PortResults.get_transmission_results">get_transmission_results() (lumopt2.fom.simulation_results.PortResults method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.config_map.ConfigMap.get_values_in_order.html#lumopt2.utils.config_map.ConfigMap.get_values_in_order">get_values_in_order() (lumopt2.utils.config_map.ConfigMap method)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.getAllSelectedObjects.html#ansys.lumerical.core.DEVICE.getAllSelectedObjects">getAllSelectedObjects() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.getAllSelectedObjects.html#ansys.lumerical.core.FDTD.getAllSelectedObjects">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects.html#ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.getAllSelectedObjects.html#ansys.lumerical.core.MODE.getAllSelectedObjects">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.SimObject.getChildren.html#ansys.lumerical.core.SimObject.getChildren">getChildren() (ansys.lumerical.core.SimObject method)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.getObjectById.html#ansys.lumerical.core.DEVICE.getObjectById">getObjectById() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.getObjectById.html#ansys.lumerical.core.FDTD.getObjectById">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectById.html#ansys.lumerical.core.INTERCONNECT.getObjectById">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.getObjectById.html#ansys.lumerical.core.MODE.getObjectById">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.getObjectBySelection.html#ansys.lumerical.core.DEVICE.getObjectBySelection">getObjectBySelection() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.getObjectBySelection.html#ansys.lumerical.core.FDTD.getObjectBySelection">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectBySelection.html#ansys.lumerical.core.INTERCONNECT.getObjectBySelection">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.getObjectBySelection.html#ansys.lumerical.core.MODE.getObjectBySelection">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.SimObject.getParent.html#ansys.lumerical.core.SimObject.getParent">getParent() (ansys.lumerical.core.SimObject method)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.getv.html#ansys.lumerical.core.DEVICE.getv">getv() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.getv.html#ansys.lumerical.core.FDTD.getv">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.getv.html#ansys.lumerical.core.INTERCONNECT.getv">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.getv.html#ansys.lumerical.core.MODE.getv">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.d_eps_calculator.DEpsCalculator.grab_epsilon_material.html#lumopt2.parametrization.d_eps_calculator.DEpsCalculator.grab_epsilon_material">grab_epsilon_material() (lumopt2.parametrization.d_eps_calculator.DEpsCalculator static method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.gradient_norms.html#lumopt2.utils.panels.PanelState.gradient_norms">gradient_norms (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.html#lumopt2.utils.panels.GradientNormPanel">GradientNormPanel (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer">GraphicalVisualizer (class in lumopt2.utils.graphical_visualizer)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.has_gradient_data.html#lumopt2.utils.panels.PanelState.has_gradient_data">has_gradient_data (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.history.html#lumopt2.core.optimization.OptimizationResult.history">history (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.idx.html#lumopt2.parametrization.closed_curve.ParamVertex.idx">idx (lumopt2.parametrization.closed_curve.ParamVertex attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.image_kwargs.html#lumopt2.utils.panels.MonitorPanel.image_kwargs">image_kwargs (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.initial_fom.html#lumopt2.core.optimization.OptimizationResult.initial_fom">initial_fom (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.initial_params.html#lumopt2.utils.panels.PanelState.initial_params">initial_params (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.html#ansys.lumerical.core.INTERCONNECT">INTERCONNECT (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.invalidate_loaded_state.html#lumopt2.core.fdtd_session.FdtdSession.invalidate_loaded_state">invalidate_loaded_state() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.is_gradient_free.html#lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.is_gradient_free">is_gradient_free (lumopt2.optimizer.scipy_optimizer.ScipyOptimizer property)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.iteration.html#lumopt2.utils.panels.PanelState.iteration">iteration (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.iterations.html#lumopt2.utils.panels.PanelState.iterations">iterations (lumopt2.utils.panels.PanelState attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.Job.html#lumopt2.utils.runner.Job">Job (class in lumopt2.utils.runner)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.html#lumopt2.utils.file_logger.JSONLogger">JSONLogger (class in lumopt2.utils.file_logger)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.label.html#lumopt2.utils.panels.FomPanel.label">label (lumopt2.utils.panels.FomPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.LAYOUT_MODE.html#lumopt2.core.fdtd_session.SimulationStatus.LAYOUT_MODE">LAYOUT_MODE (lumopt2.core.fdtd_session.SimulationStatus attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.line_kwargs.html#lumopt2.utils.panels.MonitorPanel.line_kwargs">line_kwargs (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.linewidth.html#lumopt2.utils.panels.FomPanel.linewidth">linewidth (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.linewidth.html#lumopt2.utils.panels.GradientNormPanel.linewidth">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.load_base_simulation.html#lumopt2.core.fdtd_session.FdtdSession.load_base_simulation">load_base_simulation() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.load_forward_results.html#lumopt2.core.project.Project.load_forward_results">load_forward_results() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.load_if_needed.html#lumopt2.core.fdtd_session.FdtdSession.load_if_needed">load_if_needed() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.html#lumopt2.utils.runner.LocalRunner">LocalRunner (class in lumopt2.utils.runner)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.autodiscovery.locate_lumerical_install.html#ansys.lumerical.core.autodiscovery.locate_lumerical_install">locate_lumerical_install() (in module ansys.lumerical.core.autodiscovery)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.lock_grid.html#lumopt2.core.fdtd_session.FdtdSession.lock_grid">lock_grid() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.log_multiline.html#lumopt2.utils.common.log_multiline">log_multiline() (in module lumopt2.utils.common)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.log_summary.html#lumopt2.utils.profiler.Profiler.log_summary">log_summary() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.log_y.html#lumopt2.utils.panels.FomPanel.log_y">log_y (lumopt2.utils.panels.FomPanel attribute)</a>
+</li>
+      <li>
+    lumopt2.core.fdtd_session
+
+      <ul>
+        <li><a href="api/lumopt2/core/fdtd_session.html#module-lumopt2.core.fdtd_session">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.core.optimization
+
+      <ul>
+        <li><a href="api/lumopt2/core/optimization.html#module-lumopt2.core.optimization">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.core.project
+
+      <ul>
+        <li><a href="api/lumopt2/core/project.html#module-lumopt2.core.project">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.core.project_config
+
+      <ul>
+        <li><a href="api/lumopt2/core/project_config.html#module-lumopt2.core.project_config">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom
+
+      <ul>
+        <li><a href="api/lumopt2/fom/index.html#module-lumopt2.fom">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom.base_fom
+
+      <ul>
+        <li><a href="api/lumopt2/fom/base_fom.html#module-lumopt2.fom.base_fom">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom.field_fom
+
+      <ul>
+        <li><a href="api/lumopt2/fom/field_fom.html#module-lumopt2.fom.field_fom">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom.fom
+
+      <ul>
+        <li><a href="api/lumopt2/fom/fom.html#module-lumopt2.fom.fom">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom.port_fom
+
+      <ul>
+        <li><a href="api/lumopt2/fom/port_fom.html#module-lumopt2.fom.port_fom">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.fom.simulation_results
+
+      <ul>
+        <li><a href="api/lumopt2/fom/simulation_results.html#module-lumopt2.fom.simulation_results">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.optimizer
+
+      <ul>
+        <li><a href="api/lumopt2/optimizer/index.html#module-lumopt2.optimizer">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    lumopt2.optimizer.base_optimizer
+
+      <ul>
+        <li><a href="api/lumopt2/optimizer/base_optimizer.html#module-lumopt2.optimizer.base_optimizer">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.optimizer.scipy_optimizer
+
+      <ul>
+        <li><a href="api/lumopt2/optimizer/scipy_optimizer.html#module-lumopt2.optimizer.scipy_optimizer">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.parametrization.base_parametrization
+
+      <ul>
+        <li><a href="api/lumopt2/parametrization/base_parametrization.html#module-lumopt2.parametrization.base_parametrization">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.parametrization.closed_curve
+
+      <ul>
+        <li><a href="api/lumopt2/parametrization/closed_curve.html#module-lumopt2.parametrization.closed_curve">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.parametrization.combined_parametrization
+
+      <ul>
+        <li><a href="api/lumopt2/parametrization/combined_parametrization.html#module-lumopt2.parametrization.combined_parametrization">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.parametrization.d_eps_calculator
+
+      <ul>
+        <li><a href="api/lumopt2/parametrization/d_eps_calculator.html#module-lumopt2.parametrization.d_eps_calculator">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.parametrization.parametrization
+
+      <ul>
+        <li><a href="api/lumopt2/parametrization/parametrization.html#module-lumopt2.parametrization.parametrization">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.callbacks
+
+      <ul>
+        <li><a href="api/lumopt2/utils/callbacks.html#module-lumopt2.utils.callbacks">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.common
+
+      <ul>
+        <li><a href="api/lumopt2/utils/common.html#module-lumopt2.utils.common">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.config_map
+
+      <ul>
+        <li><a href="api/lumopt2/utils/config_map.html#module-lumopt2.utils.config_map">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.fd_grad
+
+      <ul>
+        <li><a href="api/lumopt2/utils/fd_grad.html#module-lumopt2.utils.fd_grad">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.file_logger
+
+      <ul>
+        <li><a href="api/lumopt2/utils/file_logger.html#module-lumopt2.utils.file_logger">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.graphical_visualizer
+
+      <ul>
+        <li><a href="api/lumopt2/utils/graphical_visualizer.html#module-lumopt2.utils.graphical_visualizer">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.panels
+
+      <ul>
+        <li><a href="api/lumopt2/utils/panels.html#module-lumopt2.utils.panels">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.profiler
+
+      <ul>
+        <li><a href="api/lumopt2/utils/profiler.html#module-lumopt2.utils.profiler">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.runner
+
+      <ul>
+        <li><a href="api/lumopt2/utils/runner.html#module-lumopt2.utils.runner">module</a>
+</li>
+      </ul></li>
+      <li>
+    lumopt2.utils.sparse_helpers
+
+      <ul>
+        <li><a href="api/lumopt2/utils/sparse_helpers.html#module-lumopt2.utils.sparse_helpers">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.make_params_key.html#lumopt2.utils.common.make_params_key">make_params_key() (in module lumopt2.utils.common)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.make_segments_parametric.html#lumopt2.parametrization.closed_curve.ClosedCurve.make_segments_parametric">make_segments_parametric() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.make_vertex_parametric.html#lumopt2.parametrization.closed_curve.ClosedCurve.make_vertex_parametric">make_vertex_parametric() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.mark_as_loaded.html#lumopt2.core.fdtd_session.FdtdSession.mark_as_loaded">mark_as_loaded() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.marker.html#lumopt2.utils.panels.FomPanel.marker">marker (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.marker.html#lumopt2.utils.panels.GradientNormPanel.marker">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.markersize.html#lumopt2.utils.panels.FomPanel.markersize">markersize (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.markersize.html#lumopt2.utils.panels.GradientNormPanel.markersize">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.measure.html#lumopt2.utils.profiler.Profiler.measure">measure() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.message.html#lumopt2.core.optimization.OptimizationResult.message">message (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.MODE.html#ansys.lumerical.core.MODE">MODE (class in ansys.lumerical.core)</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api/lumopt2/core/fdtd_session.html#module-lumopt2.core.fdtd_session">lumopt2.core.fdtd_session</a>
+</li>
+        <li><a href="api/lumopt2/core/optimization.html#module-lumopt2.core.optimization">lumopt2.core.optimization</a>
+</li>
+        <li><a href="api/lumopt2/core/project.html#module-lumopt2.core.project">lumopt2.core.project</a>
+</li>
+        <li><a href="api/lumopt2/core/project_config.html#module-lumopt2.core.project_config">lumopt2.core.project_config</a>
+</li>
+        <li><a href="api/lumopt2/fom/index.html#module-lumopt2.fom">lumopt2.fom</a>
+</li>
+        <li><a href="api/lumopt2/fom/base_fom.html#module-lumopt2.fom.base_fom">lumopt2.fom.base_fom</a>
+</li>
+        <li><a href="api/lumopt2/fom/field_fom.html#module-lumopt2.fom.field_fom">lumopt2.fom.field_fom</a>
+</li>
+        <li><a href="api/lumopt2/fom/fom.html#module-lumopt2.fom.fom">lumopt2.fom.fom</a>
+</li>
+        <li><a href="api/lumopt2/fom/port_fom.html#module-lumopt2.fom.port_fom">lumopt2.fom.port_fom</a>
+</li>
+        <li><a href="api/lumopt2/fom/simulation_results.html#module-lumopt2.fom.simulation_results">lumopt2.fom.simulation_results</a>
+</li>
+        <li><a href="api/lumopt2/optimizer/index.html#module-lumopt2.optimizer">lumopt2.optimizer</a>
+</li>
+        <li><a href="api/lumopt2/optimizer/base_optimizer.html#module-lumopt2.optimizer.base_optimizer">lumopt2.optimizer.base_optimizer</a>
+</li>
+        <li><a href="api/lumopt2/optimizer/scipy_optimizer.html#module-lumopt2.optimizer.scipy_optimizer">lumopt2.optimizer.scipy_optimizer</a>
+</li>
+        <li><a href="api/lumopt2/parametrization/base_parametrization.html#module-lumopt2.parametrization.base_parametrization">lumopt2.parametrization.base_parametrization</a>
+</li>
+        <li><a href="api/lumopt2/parametrization/closed_curve.html#module-lumopt2.parametrization.closed_curve">lumopt2.parametrization.closed_curve</a>
+</li>
+        <li><a href="api/lumopt2/parametrization/combined_parametrization.html#module-lumopt2.parametrization.combined_parametrization">lumopt2.parametrization.combined_parametrization</a>
+</li>
+        <li><a href="api/lumopt2/parametrization/d_eps_calculator.html#module-lumopt2.parametrization.d_eps_calculator">lumopt2.parametrization.d_eps_calculator</a>
+</li>
+        <li><a href="api/lumopt2/parametrization/parametrization.html#module-lumopt2.parametrization.parametrization">lumopt2.parametrization.parametrization</a>
+</li>
+        <li><a href="api/lumopt2/utils/callbacks.html#module-lumopt2.utils.callbacks">lumopt2.utils.callbacks</a>
+</li>
+        <li><a href="api/lumopt2/utils/common.html#module-lumopt2.utils.common">lumopt2.utils.common</a>
+</li>
+        <li><a href="api/lumopt2/utils/config_map.html#module-lumopt2.utils.config_map">lumopt2.utils.config_map</a>
+</li>
+        <li><a href="api/lumopt2/utils/fd_grad.html#module-lumopt2.utils.fd_grad">lumopt2.utils.fd_grad</a>
+</li>
+        <li><a href="api/lumopt2/utils/file_logger.html#module-lumopt2.utils.file_logger">lumopt2.utils.file_logger</a>
+</li>
+        <li><a href="api/lumopt2/utils/graphical_visualizer.html#module-lumopt2.utils.graphical_visualizer">lumopt2.utils.graphical_visualizer</a>
+</li>
+        <li><a href="api/lumopt2/utils/panels.html#module-lumopt2.utils.panels">lumopt2.utils.panels</a>
+</li>
+        <li><a href="api/lumopt2/utils/profiler.html#module-lumopt2.utils.profiler">lumopt2.utils.profiler</a>
+</li>
+        <li><a href="api/lumopt2/utils/runner.html#module-lumopt2.utils.runner">lumopt2.utils.runner</a>
+</li>
+        <li><a href="api/lumopt2/utils/sparse_helpers.html#module-lumopt2.utils.sparse_helpers">lumopt2.utils.sparse_helpers</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.monitor_name.html#lumopt2.utils.panels.MonitorPanel.monitor_name">monitor_name (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.html#lumopt2.utils.panels.MonitorPanel">MonitorPanel (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.movement.html#lumopt2.parametrization.closed_curve.Parametrize.movement">movement (lumopt2.parametrization.closed_curve.Parametrize attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.movement.html#lumopt2.parametrization.closed_curve.ParamVertex.movement">(lumopt2.parametrization.closed_curve.ParamVertex attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.EqualSplit.num_added_vertices.html#lumopt2.parametrization.closed_curve.EqualSplit.num_added_vertices">num_added_vertices (lumopt2.parametrization.closed_curve.EqualSplit attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.num_added_vertices.html#lumopt2.parametrization.closed_curve.Parametrize.num_added_vertices">(lumopt2.parametrization.closed_curve.Parametrize attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.num_iterations.html#lumopt2.core.optimization.OptimizationResult.num_iterations">num_iterations (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.on_function_eval.html#lumopt2.utils.callbacks.BaseCallback.on_function_eval">on_function_eval() (lumopt2.utils.callbacks.BaseCallback method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.on_function_eval.html#lumopt2.utils.callbacks.CallbackList.on_function_eval">(lumopt2.utils.callbacks.CallbackList method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.on_function_eval.html#lumopt2.utils.file_logger.FileLogger.on_function_eval">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.on_function_eval.html#lumopt2.utils.file_logger.JSONLogger.on_function_eval">(lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_function_eval.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_function_eval">(lumopt2.utils.graphical_visualizer.GraphicalVisualizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.on_iteration_end.html#lumopt2.utils.callbacks.BaseCallback.on_iteration_end">on_iteration_end() (lumopt2.utils.callbacks.BaseCallback method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.on_iteration_end.html#lumopt2.utils.callbacks.CallbackList.on_iteration_end">(lumopt2.utils.callbacks.CallbackList method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.on_iteration_end.html#lumopt2.utils.file_logger.FileLogger.on_iteration_end">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.on_iteration_end.html#lumopt2.utils.file_logger.JSONLogger.on_iteration_end">(lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_iteration_end.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_iteration_end">(lumopt2.utils.graphical_visualizer.GraphicalVisualizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.on_iteration_start.html#lumopt2.utils.callbacks.BaseCallback.on_iteration_start">on_iteration_start() (lumopt2.utils.callbacks.BaseCallback method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.on_iteration_start.html#lumopt2.utils.callbacks.CallbackList.on_iteration_start">(lumopt2.utils.callbacks.CallbackList method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.on_iteration_start.html#lumopt2.utils.file_logger.FileLogger.on_iteration_start">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.on_iteration_start.html#lumopt2.utils.file_logger.JSONLogger.on_iteration_start">(lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_iteration_start.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_iteration_start">(lumopt2.utils.graphical_visualizer.GraphicalVisualizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.on_optimization_end.html#lumopt2.utils.callbacks.BaseCallback.on_optimization_end">on_optimization_end() (lumopt2.utils.callbacks.BaseCallback method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.on_optimization_end.html#lumopt2.utils.callbacks.CallbackList.on_optimization_end">(lumopt2.utils.callbacks.CallbackList method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.on_optimization_end.html#lumopt2.utils.file_logger.FileLogger.on_optimization_end">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.on_optimization_end.html#lumopt2.utils.file_logger.JSONLogger.on_optimization_end">(lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_optimization_end.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_optimization_end">(lumopt2.utils.graphical_visualizer.GraphicalVisualizer method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.on_optimization_end.html#lumopt2.utils.panels.FomPanel.on_optimization_end">(lumopt2.utils.panels.FomPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.on_optimization_end.html#lumopt2.utils.panels.GeometryPanel.on_optimization_end">(lumopt2.utils.panels.GeometryPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.on_optimization_end.html#lumopt2.utils.panels.GradientNormPanel.on_optimization_end">(lumopt2.utils.panels.GradientNormPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.on_optimization_end.html#lumopt2.utils.panels.MonitorPanel.on_optimization_end">(lumopt2.utils.panels.MonitorPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.on_optimization_end.html#lumopt2.utils.panels.Panel.on_optimization_end">(lumopt2.utils.panels.Panel method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.BaseCallback.on_optimization_start.html#lumopt2.utils.callbacks.BaseCallback.on_optimization_start">on_optimization_start() (lumopt2.utils.callbacks.BaseCallback method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.callbacks.CallbackList.on_optimization_start.html#lumopt2.utils.callbacks.CallbackList.on_optimization_start">(lumopt2.utils.callbacks.CallbackList method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.FileLogger.on_optimization_start.html#lumopt2.utils.file_logger.FileLogger.on_optimization_start">(lumopt2.utils.file_logger.FileLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.on_optimization_start.html#lumopt2.utils.file_logger.JSONLogger.on_optimization_start">(lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_optimization_start.html#lumopt2.utils.graphical_visualizer.GraphicalVisualizer.on_optimization_start">(lumopt2.utils.graphical_visualizer.GraphicalVisualizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.operation.html#lumopt2.utils.panels.MonitorPanel.operation">operation (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.optimal_params.html#lumopt2.core.optimization.OptimizationResult.optimal_params">optimal_params (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.Optimization.html#lumopt2.core.optimization.Optimization">Optimization (class in lumopt2.core.optimization)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.html#lumopt2.core.optimization.OptimizationResult">OptimizationResult (class in lumopt2.core.optimization)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.BaseOptimizer.optimize.html#lumopt2.optimizer.base_optimizer.BaseOptimizer.optimize">optimize() (lumopt2.optimizer.base_optimizer.BaseOptimizer method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.optimize.html#lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.optimize">(lumopt2.optimizer.scipy_optimizer.ScipyOptimizer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.html#lumopt2.utils.panels.Panel">Panel (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.PanelState.html#lumopt2.utils.panels.PanelState">PanelState (class in lumopt2.utils.panels)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.ParameterScaler.html#lumopt2.optimizer.base_optimizer.ParameterScaler">ParameterScaler (class in lumopt2.optimizer.base_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.html#lumopt2.parametrization.parametrization.Parametrization">Parametrization (class in lumopt2.parametrization.parametrization)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.parametrization.html#lumopt2.utils.panels.GeometryPanel.parametrization">parametrization (lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.html#lumopt2.parametrization.closed_curve.Parametrize">Parametrize (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.html#lumopt2.parametrization.closed_curve.ParamVertex">ParamVertex (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.plot.html#lumopt2.parametrization.closed_curve.ClosedCurve.plot">plot() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.PNorm.html#lumopt2.utils.common.PNorm">PNorm() (in module lumopt2.utils.common)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.EqualSplit.polygon_pts_per_segment.html#lumopt2.parametrization.closed_curve.EqualSplit.polygon_pts_per_segment">polygon_pts_per_segment (lumopt2.parametrization.closed_curve.EqualSplit attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.polygon_pts_per_segment.html#lumopt2.parametrization.closed_curve.Parametrize.polygon_pts_per_segment">(lumopt2.parametrization.closed_curve.Parametrize attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.polygon_pts_per_segment.html#lumopt2.parametrization.closed_curve.Segment.polygon_pts_per_segment">(lumopt2.parametrization.closed_curve.Segment attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.html#lumopt2.fom.port_fom.PortFom">PortFom (class in lumopt2.fom.port_fom)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.simulation_results.PortResults.html#lumopt2.fom.simulation_results.PortResults">PortResults (class in lumopt2.fom.simulation_results)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.Optimization.prepare_optimization.html#lumopt2.core.optimization.Optimization.prepare_optimization">prepare_optimization() (lumopt2.core.optimization.Optimization method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.print_job_statuses.html#lumopt2.utils.runner.BaseRunner.print_job_statuses">print_job_statuses() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.print_job_statuses.html#lumopt2.utils.runner.LocalRunner.print_job_statuses">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.html#lumopt2.utils.profiler.Profiler">Profiler (class in lumopt2.utils.profiler)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.html#lumopt2.core.project.Project">Project (class in lumopt2.core.project)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project_config.ProjectConfig.html#lumopt2.core.project_config.ProjectConfig">ProjectConfig (class in lumopt2.core.project_config)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.DEVICE.putv.html#ansys.lumerical.core.DEVICE.putv">putv() (ansys.lumerical.core.DEVICE method)</a>
+
+      <ul>
+        <li><a href="api/_autosummary/ansys.lumerical.core.FDTD.putv.html#ansys.lumerical.core.FDTD.putv">(ansys.lumerical.core.FDTD method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.INTERCONNECT.putv.html#ansys.lumerical.core.INTERCONNECT.putv">(ansys.lumerical.core.INTERCONNECT method)</a>
+</li>
+        <li><a href="api/_autosummary/ansys.lumerical.core.MODE.putv.html#ansys.lumerical.core.MODE.putv">(ansys.lumerical.core.MODE method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.pyfct_to_script.html#lumopt2.utils.runner.BaseRunner.pyfct_to_script">pyfct_to_script() (lumopt2.utils.runner.BaseRunner static method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.pyfct_to_script.html#lumopt2.utils.runner.LocalRunner.pyfct_to_script">(lumopt2.utils.runner.LocalRunner static method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.d_eps_calculator.DEpsCalculator.remap_wavelengths.html#lumopt2.parametrization.d_eps_calculator.DEpsCalculator.remap_wavelengths">remap_wavelengths() (lumopt2.parametrization.d_eps_calculator.DEpsCalculator static method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.remove_objects_by_name.html#lumopt2.core.fdtd_session.FdtdSession.remove_objects_by_name">remove_objects_by_name() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.requires_forward_results.html#lumopt2.utils.panels.FomPanel.requires_forward_results">requires_forward_results (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.requires_forward_results.html#lumopt2.utils.panels.GeometryPanel.requires_forward_results">(lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.requires_forward_results.html#lumopt2.utils.panels.GradientNormPanel.requires_forward_results">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.requires_forward_results.html#lumopt2.utils.panels.MonitorPanel.requires_forward_results">(lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.requires_forward_results.html#lumopt2.utils.panels.Panel.requires_forward_results">(lumopt2.utils.panels.Panel attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.profiler.Profiler.reset.html#lumopt2.utils.profiler.Profiler.reset">reset() (lumopt2.utils.profiler.Profiler method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.resolve_project_folder.html#lumopt2.utils.common.resolve_project_folder">resolve_project_folder() (in module lumopt2.utils.common)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.result_name.html#lumopt2.utils.panels.MonitorPanel.result_name">result_name (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.Optimization.run.html#lumopt2.core.optimization.Optimization.run">run() (lumopt2.core.optimization.Optimization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.run.html#lumopt2.utils.runner.LocalRunner.run">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.run_adjoint.html#lumopt2.core.project.Project.run_adjoint">run_adjoint() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.run_dependencies.html#lumopt2.utils.runner.LocalRunner.run_dependencies">run_dependencies() (lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.run_forward.html#lumopt2.core.project.Project.run_forward">run_forward() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.run_jobs.html#lumopt2.utils.runner.LocalRunner.run_jobs">run_jobs() (lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.run_queue.html#lumopt2.utils.runner.LocalRunner.run_queue">run_queue() (lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.file_logger.JSONLogger.save_early_exit.html#lumopt2.utils.file_logger.JSONLogger.save_early_exit">save_early_exit() (lumopt2.utils.file_logger.JSONLogger method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.save_project.html#lumopt2.core.project.Project.save_project">save_project() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.ParameterScaler.scaled_bounds.html#lumopt2.optimizer.base_optimizer.ParameterScaler.scaled_bounds">scaled_bounds (lumopt2.optimizer.base_optimizer.ParameterScaler property)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.scipy_optimizer.ScipyOptimizer.html#lumopt2.optimizer.scipy_optimizer.ScipyOptimizer">ScipyOptimizer (class in lumopt2.optimizer.scipy_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.html#lumopt2.parametrization.closed_curve.Segment">Segment (class in lumopt2.parametrization.closed_curve)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.EqualSplit.segment_index.html#lumopt2.parametrization.closed_curve.EqualSplit.segment_index">segment_index (lumopt2.parametrization.closed_curve.EqualSplit attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Parametrize.segment_index.html#lumopt2.parametrization.closed_curve.Parametrize.segment_index">(lumopt2.parametrization.closed_curve.Parametrize attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.set_adj.html#lumopt2.core.project.Project.set_adj">set_adj() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.set_done.html#lumopt2.utils.runner.BaseRunner.set_done">set_done() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.set_done.html#lumopt2.utils.runner.LocalRunner.set_done">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.set_fdtd_session.html#lumopt2.utils.runner.BaseRunner.set_fdtd_session">set_fdtd_session() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.set_fdtd_session.html#lumopt2.utils.runner.LocalRunner.set_fdtd_session">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.config_map.ConfigMap.set_filename_iteration.html#lumopt2.utils.config_map.ConfigMap.set_filename_iteration">set_filename_iteration() (lumopt2.utils.config_map.ConfigMap method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.set_fwd.html#lumopt2.core.project.Project.set_fwd">set_fwd() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.set_job_result.html#lumopt2.utils.runner.BaseRunner.set_job_result">set_job_result() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.set_job_result.html#lumopt2.utils.runner.LocalRunner.set_job_result">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.BaseRunner.set_jobid.html#lumopt2.utils.runner.BaseRunner.set_jobid">set_jobid() (lumopt2.utils.runner.BaseRunner method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.runner.LocalRunner.set_jobid.html#lumopt2.utils.runner.LocalRunner.set_jobid">(lumopt2.utils.runner.LocalRunner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.set_mesh_refinement_region.html#lumopt2.core.fdtd_session.FdtdSession.set_mesh_refinement_region">set_mesh_refinement_region() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.set_parametric.html#lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment.set_parametric">set_parametric() (lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.set_parametric.html#lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment.set_parametric">(lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurveSegment.set_parametric.html#lumopt2.parametrization.closed_curve.ClosedCurveSegment.set_parametric">(lumopt2.parametrization.closed_curve.ClosedCurveSegment method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.set_parametrization_function.html#lumopt2.parametrization.closed_curve.ClosedCurve.set_parametrization_function">set_parametrization_function() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.set_project_name.html#lumopt2.fom.base_fom.BaseFom.set_project_name">set_project_name() (lumopt2.fom.base_fom.BaseFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.set_project_name.html#lumopt2.fom.field_fom.FieldFom.set_project_name">(lumopt2.fom.field_fom.FieldFom method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.set_project_name.html#lumopt2.fom.port_fom.PortFom.set_project_name">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.set_working_directory.html#lumopt2.core.fdtd_session.FdtdSession.set_working_directory">set_working_directory() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.setup.html#lumopt2.utils.panels.FomPanel.setup">setup() (lumopt2.utils.panels.FomPanel method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.setup.html#lumopt2.utils.panels.GeometryPanel.setup">(lumopt2.utils.panels.GeometryPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.setup.html#lumopt2.utils.panels.GradientNormPanel.setup">(lumopt2.utils.panels.GradientNormPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.setup.html#lumopt2.utils.panels.MonitorPanel.setup">(lumopt2.utils.panels.MonitorPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.setup.html#lumopt2.utils.panels.Panel.setup">(lumopt2.utils.panels.Panel method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.setup_adjoint_simulation.html#lumopt2.fom.field_fom.FieldFom.setup_adjoint_simulation">setup_adjoint_simulation() (lumopt2.fom.field_fom.FieldFom method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.setup_adjoint_simulation.html#lumopt2.fom.port_fom.PortFom.setup_adjoint_simulation">(lumopt2.fom.port_fom.PortFom method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.setup_base_simulation.html#lumopt2.core.project.Project.setup_base_simulation">setup_base_simulation() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.show_best.html#lumopt2.utils.panels.FomPanel.show_best">show_best (lumopt2.utils.panels.FomPanel attribute)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.SimObject.html#ansys.lumerical.core.SimObject">SimObject (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.SimObjectId.html#ansys.lumerical.core.SimObjectId">SimObjectId (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/_autosummary/ansys.lumerical.core.SimObjectResults.html#ansys.lumerical.core.SimObjectResults">SimObjectResults (class in ansys.lumerical.core)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationError.html#lumopt2.core.fdtd_session.SimulationError">SimulationError</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.SimulationStatus.html#lumopt2.core.fdtd_session.SimulationStatus">SimulationStatus (class in lumopt2.core.fdtd_session)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.sparse_helpers.sparse_to_dense_indices.html#lumopt2.utils.sparse_helpers.sparse_to_dense_indices">sparse_to_dense_indices() (in module lumopt2.utils.sparse_helpers)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.sparse_helpers.sparse_to_sparse.html#lumopt2.utils.sparse_helpers.sparse_to_sparse">sparse_to_sparse() (in module lumopt2.utils.sparse_helpers)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.split_segments.html#lumopt2.parametrization.closed_curve.ClosedCurve.split_segments">split_segments() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.start.html#lumopt2.parametrization.closed_curve.Segment.start">start (lumopt2.parametrization.closed_curve.Segment attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.store_mesh_info.html#lumopt2.parametrization.base_parametrization.BaseParametrization.store_mesh_info">store_mesh_info() (lumopt2.parametrization.base_parametrization.BaseParametrization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.store_mesh_info.html#lumopt2.parametrization.closed_curve.ClosedCurve.store_mesh_info">(lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.store_mesh_info.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.store_mesh_info">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.store_mesh_info.html#lumopt2.parametrization.parametrization.Parametrization.store_mesh_info">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.optimization.OptimizationResult.success.html#lumopt2.core.optimization.OptimizationResult.success">success (lumopt2.core.optimization.OptimizationResult attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.fom.base_fom.BaseFom.supports_concurrent_adjoint.html#lumopt2.fom.base_fom.BaseFom.supports_concurrent_adjoint">supports_concurrent_adjoint (lumopt2.fom.base_fom.BaseFom attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.field_fom.FieldFom.supports_concurrent_adjoint.html#lumopt2.fom.field_fom.FieldFom.supports_concurrent_adjoint">(lumopt2.fom.field_fom.FieldFom attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.fom.port_fom.PortFom.supports_concurrent_adjoint.html#lumopt2.fom.port_fom.PortFom.supports_concurrent_adjoint">(lumopt2.fom.port_fom.PortFom attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.title.html#lumopt2.utils.panels.FomPanel.title">title (lumopt2.utils.panels.FomPanel attribute)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.title.html#lumopt2.utils.panels.GeometryPanel.title">(lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.title.html#lumopt2.utils.panels.GradientNormPanel.title">(lumopt2.utils.panels.GradientNormPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.title.html#lumopt2.utils.panels.MonitorPanel.title">(lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.title.html#lumopt2.utils.panels.Panel.title">(lumopt2.utils.panels.Panel attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.ParameterScaler.to_physical.html#lumopt2.optimizer.base_optimizer.ParameterScaler.to_physical">to_physical() (lumopt2.optimizer.base_optimizer.ParameterScaler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.ParameterScaler.to_scaled.html#lumopt2.optimizer.base_optimizer.ParameterScaler.to_scaled">to_scaled() (lumopt2.optimizer.base_optimizer.ParameterScaler method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.Segment.type.html#lumopt2.parametrization.closed_curve.Segment.type">type (lumopt2.parametrization.closed_curve.Segment attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.FomPanel.update.html#lumopt2.utils.panels.FomPanel.update">update() (lumopt2.utils.panels.FomPanel method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.update.html#lumopt2.utils.panels.GeometryPanel.update">(lumopt2.utils.panels.GeometryPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GradientNormPanel.update.html#lumopt2.utils.panels.GradientNormPanel.update">(lumopt2.utils.panels.GradientNormPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.update.html#lumopt2.utils.panels.MonitorPanel.update">(lumopt2.utils.panels.MonitorPanel method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.Panel.update.html#lumopt2.utils.panels.Panel.update">(lumopt2.utils.panels.Panel method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.update_geometry.html#lumopt2.core.project.Project.update_geometry">update_geometry() (lumopt2.core.project.Project method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.update_polygon.html#lumopt2.core.fdtd_session.FdtdSession.update_polygon">update_polygon() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.update_polygon_vertices.html#lumopt2.core.fdtd_session.FdtdSession.update_polygon_vertices">update_polygon_vertices() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.update_properties_in_cad.html#lumopt2.core.fdtd_session.FdtdSession.update_properties_in_cad">update_properties_in_cad() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure.html#lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure">update_structure() (lumopt2.parametrization.base_parametrization.BaseParametrization method)</a>
+
+      <ul>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.update_structure.html#lumopt2.parametrization.closed_curve.ClosedCurve.update_structure">(lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.combined_parametrization.CombinedParametrization.update_structure.html#lumopt2.parametrization.combined_parametrization.CombinedParametrization.update_structure">(lumopt2.parametrization.combined_parametrization.CombinedParametrization method)</a>
+</li>
+        <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.parametrization.Parametrization.update_structure.html#lumopt2.parametrization.parametrization.Parametrization.update_structure">(lumopt2.parametrization.parametrization.Parametrization method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.optimizer.base_optimizer.validate_bounds.html#lumopt2.optimizer.base_optimizer.validate_bounds">validate_bounds() (in module lumopt2.optimizer.base_optimizer)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.fd_grad.validate_gradient.html#lumopt2.utils.fd_grad.validate_gradient">validate_gradient() (in module lumopt2.utils.fd_grad)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ParamVertex.value.html#lumopt2.parametrization.closed_curve.ParamVertex.value">value (lumopt2.parametrization.closed_curve.ParamVertex attribute)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.verify_base_simulation.html#lumopt2.core.fdtd_session.FdtdSession.verify_base_simulation">verify_base_simulation() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.common.Box.verify_box_inside.html#lumopt2.utils.common.Box.verify_box_inside">verify_box_inside() (lumopt2.utils.common.Box static method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.fdtd_session.FdtdSession.verify_uniform_mesh_size.html#lumopt2.core.fdtd_session.FdtdSession.verify_uniform_mesh_size">verify_uniform_mesh_size() (lumopt2.core.fdtd_session.FdtdSession method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.parametrization.closed_curve.ClosedCurve.visualize.html#lumopt2.parametrization.closed_curve.ClosedCurve.visualize">visualize() (lumopt2.parametrization.closed_curve.ClosedCurve method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.visualize_fom.html#lumopt2.core.project.Project.visualize_fom">visualize_fom() (lumopt2.core.project.Project method)</a>
+</li>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.core.project.Project.visualize_geometry.html#lumopt2.core.project.Project.visualize_geometry">visualize_geometry() (lumopt2.core.project.Project method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.MonitorPanel.wavelength.html#lumopt2.utils.panels.MonitorPanel.wavelength">wavelength (lumopt2.utils.panels.MonitorPanel attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.xlabel.html#lumopt2.utils.panels.GeometryPanel.xlabel">xlabel (lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Y">Y</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lumopt2/_autosummary/lumopt2.utils.panels.GeometryPanel.ylabel.html#lumopt2.utils.panels.GeometryPanel.ylabel">ylabel (lumopt2.utils.panels.GeometryPanel attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "_static/search.json";
+const ADVANCE_SEARCH_PATH = "search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026 Synopsys, Inc. and ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<!--
+  Theme Version Footer
+  Displays the Sphinx theme version and the last updated date.
+  Accessibility and semantic improvements included.
+-->
+<footer class="theme-version" aria-label="Theme version and last update">
+  <span>
+    
+      Built with the
+      <a href="https://sphinxdocs.ansys.com/version/stable/index.html" target="_blank" rel="noopener noreferrer">
+        Ansys Sphinx Theme
+      </a>
+      1.9.0.
+    
+  </span>
+  <br />
+  <span>Last updated on <time id="ast_build_date"></time></span>
+</footer>
+<script>
+  // Set the last updated date in a readable format
+  (function() {
+    var options = { day: "numeric", month: "long", year: "numeric" };
+    var ast_lastModifiedDate = new Date(document.lastModified);
+    var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+    var dateElem = document.getElementById("ast_build_date");
+    if (dateElem) {
+      dateElem.textContent = ast_build_date;
+    }
+  })();
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

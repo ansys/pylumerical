@@ -1,0 +1,6 @@
+optimize
+========
+
+.. currentmodule:: lumopt2.optimizer.scipy_optimizer
+
+.. automethod:: ScipyOptimizer.optimize

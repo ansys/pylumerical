@@ -1,0 +1,6 @@
+compute\_dPgeom
+===============
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. automethod:: Parametrization.compute_dPgeom

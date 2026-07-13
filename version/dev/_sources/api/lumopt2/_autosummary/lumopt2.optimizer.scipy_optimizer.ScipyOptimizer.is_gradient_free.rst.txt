@@ -1,0 +1,6 @@
+is\_gradient\_free
+==================
+
+.. currentmodule:: lumopt2.optimizer.scipy_optimizer
+
+.. autoproperty:: ScipyOptimizer.is_gradient_free

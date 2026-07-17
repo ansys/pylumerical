@@ -1,0 +1,6 @@
+load\_forward\_results
+======================
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.load_forward_results

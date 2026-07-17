@@ -1,0 +1,26 @@
+﻿Parametrize
+===========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: Parametrize
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Parametrize.movement
+      Parametrize.polygon_pts_per_segment
+      Parametrize.segment_index
+      Parametrize.num_added_vertices
+      Parametrize.bounds
+   
+   

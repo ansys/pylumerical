@@ -1,0 +1,6 @@
+save\_early\_exit
+=================
+
+.. currentmodule:: lumopt2.utils.file_logger
+
+.. automethod:: JSONLogger.save_early_exit

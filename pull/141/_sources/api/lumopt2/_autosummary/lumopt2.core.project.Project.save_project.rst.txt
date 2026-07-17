@@ -1,0 +1,6 @@
+save\_project
+=============
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.save_project

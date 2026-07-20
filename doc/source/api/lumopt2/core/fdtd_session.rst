@@ -1,5 +1,5 @@
-core.fdtd_session
-=================
+lumopt2.core.fdtd_session
+=========================
 
 .. automodule:: lumopt2.core.fdtd_session
    :no-members:

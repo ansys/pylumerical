@@ -97,7 +97,7 @@ numpydoc_validation_checks = {
     # "SS03", # Summary does not end with a period
     "SS04",  # Summary contains heading whitespaces
     # "SS05", # Summary must start with infinitive verb, not third person
-    # "RT02",  # The first line of the Returns section should contain only the # TO-DO : Revert for R1.3
+    "RT02",  # The first line of the Returns section should contain only the
     # type, unless multiple values are being returned"
 }
 
@@ -208,6 +208,7 @@ rst_prolog += f""".. |supported_lum_release| replace:: {supported_lum_release}""
 # static path
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
+html_js_files = ["notebook_download.js"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

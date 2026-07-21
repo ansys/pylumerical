@@ -41,6 +41,12 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
       This example demonstrates how to set up a basic MODE simulation to calculate the supported modes of a waveguide.
 
+   .. grid-item-card:: Basic HEAT simulation - Thermal Waveguide Tuner
+      :link: examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
+      :link-type: doc
+
+      This example demonstrates how to set up and run a simple HEAT simulation to calculate the temperature profile for a thermal waveguide tuner.
+
    .. grid-item-card:: Using Structure and Analysis Groups - Photonic Crystal Bandstructure
       :link: examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
       :link-type: doc
@@ -89,7 +95,7 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
-
+   examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
 .. toctree::
    :hidden:
    :caption: Photonic inverse design

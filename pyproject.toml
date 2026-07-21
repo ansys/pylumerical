@@ -39,18 +39,18 @@ dependencies = [
 
 [project.optional-dependencies]
 tests = [
-    "pytest==9.0.3",
+    "pytest==9.1.1",
     "pytest-cov==7.1.0",
 ]
 doc = [
-    "ansys-sphinx-theme[autoapi]==1.8.2",
+    "ansys-sphinx-theme[autoapi]==1.9.0",
     "numpydoc==1.10.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.7.0",
     "nbsphinx==0.9.8",
-    "jupytext==1.19.3",
-    "ipykernel==7.2.0"
+    "jupytext==1.19.4",
+    "ipykernel==7.3.0"
 ]
 
 [tool.flit.module]

@@ -15,5 +15,6 @@
 * [Kerry McAdams](https://github.com/klmcadams)
 * [Kyle Johnson](https://github.com/kyle-johnson-ansys)
 * [Marius Ghetie](https://github.com/mghetie-ansys)
+* [Muhammed Adedigba](https://github.com/moe-ad)
 * [Revathy Venugopal](https://github.com/Revathyvenugopal162)
 * [Roberto Pastor Muela](https://github.com/RobPasMue)

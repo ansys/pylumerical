@@ -22,7 +22,7 @@ jobs:
     name: "Actions Security"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-actions-security@v10.3.2
+      - uses: ansys/actions/check-actions-security@v10.3.5
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
       contents: read
     steps:
       - name: PyAnsys Vulnerability check (on PR)
-        uses: ansys/actions/check-vulnerabilities@v10.3.2
+        uses: ansys/actions/check-vulnerabilities@v10.3.5
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
@@ -52,7 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - name: "Checkout project"
-       uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
        with:
         persist-credentials: false
      - name: "Sync labels"
@@ -62,7 +62,7 @@ jobs:
      - name: "Label pull-request"
        # HACK: skip if contributor does not have write permissions (forks)
        if: github.event.pull_request.head.repo.full_name == github.repository
-       uses: actions/labeler@f27b608878404679385c85cfa523b85ccb86e213 # v6.1.0
+       uses: actions/labeler@bf12e9b00b37c5c0ca2b87b79b2daf7891dbda13 # v7.0.0
        with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -74,7 +74,7 @@ jobs:
       pull-requests: write # Required to update PRs
     runs-on: ubuntu-latest
     steps:
-    - uses: ansys/actions/doc-changelog@v10.3.2
+    - uses: ansys/actions/doc-changelog@v10.3.5
       with:
         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
         use-conventional-commits: true
@@ -86,7 +86,7 @@ jobs:
     name: "Run commit style checks"
     runs-on: ubuntu-latest
     steps:
-      - uses: ansys/actions/check-pr-title@v10.3.2
+      - uses: ansys/actions/check-pr-title@v10.3.5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -117,7 +117,7 @@ jobs:
       contents: write # Required to deploy PR documentation
       pull-requests: write # Needed to add comments to the PR when cleaning pull directory
     steps:
-      - uses: ansys/actions/doc-deploy-pr@v10.3.2
+      - uses: ansys/actions/doc-deploy-pr@v10.3.5
         with:
           cname: ${{ env.DOCUMENTATION_CNAME }}
           token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}

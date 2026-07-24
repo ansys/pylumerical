@@ -1,0 +1,29 @@
+﻿PanelState
+==========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: PanelState
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      PanelState.iteration
+      PanelState.iterations
+      PanelState.fom_values
+      PanelState.gradient_norms
+      PanelState.has_gradient_data
+      PanelState.current_params
+      PanelState.initial_params
+      PanelState.current_fom
+   
+   

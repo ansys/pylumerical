@@ -1,0 +1,24 @@
+﻿Segment
+=======
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: Segment
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Segment.polygon_pts_per_segment
+      Segment.start
+      Segment.type
+   
+   

@@ -68,3 +68,23 @@ def setup_fdtd_with_groups():
     yield fdtd
     print("\n--> Teardown")
     fdtd.close()
+
+
+@pytest.fixture(scope="module")
+def setup_device():
+    """Set up and tear down DEVICE."""
+    print("\n--> Setup")
+    device = lumapi.DEVICE(hide=True)
+    yield device
+    print("\n--> Teardown")
+    device.close()
+
+
+@pytest.fixture(scope="module")
+def setup_mode():
+    """Set up and tear down MODE."""
+    print("\n--> Setup")
+    mode = lumapi.MODE(hide=True)
+    yield mode
+    print("\n--> Teardown")
+    mode.close()

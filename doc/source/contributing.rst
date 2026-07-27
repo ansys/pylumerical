@@ -5,13 +5,30 @@ PyLumerical follows the `PyAnsys <https://dev.docs.pyansys.com/how-to/contributi
 
 The following section provides information for contributing to PyLumerical.
 
+Contribution procedures
+------------------------
+
+#. Fork this repository.
+
+#. Clone your forked repository.
+
+#. Follow the instructions below to install it in developer mode.
+
+#. Make your changes and commit them to your forked repository. You may test locally following the guidelines below.
+
+#. Push your changes and make a pull request to the main repository.
+
+#. Contact the PyLumerical maintainers to review your pull request, including running of CI/CD tests.
+
+#. On subsequent updates to your pull request, contact the maintainers to request run CI/CD on it.
+
 Installing PyLumerical in developer mode
 -----------------------------------------
 
 Installing PyLumerical in developer mode allows
 you to modify the source and enhance it.
 
-#. Start by cloning this repository:
+#. Start by cloning the repository, if you are working with a fork, use the URL of your forked repository.
 
    .. code:: bash
 

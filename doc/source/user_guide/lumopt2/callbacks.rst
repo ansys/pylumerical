@@ -32,10 +32,6 @@ The lumopt2 module provides various built-in callbacks for simple visualization 
 Visualization
 ~~~~~~~~~~~~~
 
-.. note::
-
-   The live visualization does not update when running in an interactive environment such as Jupyter Notebook or Spyder. In these cases, the visualizer still saves the images to the project folder.
-
 :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` creates a live matplotlib figure that updates as the optimization progresses.
 You compose the figure from a list of panels, each of which owns one subplot.
 The visualizer by default saves a PNG image of the figure to the project folder after every update.
@@ -141,7 +137,7 @@ The following methods are available to override, listed in the order they are ca
 - ``on_iteration_end(self, project, iteration, params, fom_value, gradient=None, **kwargs)``: called after each iteration completes.
 - ``on_optimization_end(self, success, final_fom, final_params, num_iterations, **kwargs)``: called once when the optimization finishes. This is always called, even if the run is interrupted.
 
-Example: tracking parameters
+Example - tracking parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A custom callback can record any quantity that lumopt2 passes to a hook, so you can inspect it after the run or plot it live.

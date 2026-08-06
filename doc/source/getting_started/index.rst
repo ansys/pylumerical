@@ -15,6 +15,10 @@ You can install PyLumerical using pip.
 
 First, create a virtual environment and activate it to avoid dependency conflicts and to keep your global Python environment clean.
 
+.. note::
+
+   If you have multiple Python versions installed, ensure you are using the right executable for the virtual environment. The supported Python versions are at the top of this page.
+
 .. tab-set::
 
    .. tab-item:: Linux
@@ -48,6 +52,7 @@ Then, upgrade pip to the latest version, and install PyLumerical with the packag
 .. tip::
     Using a virtual environment isn't a requirement, but it's a best practice for Python development.
     PyLumerical is compatible with various Python IDEs including VS Code, Jupyter Notebook, and Cursor. After installation, you can use your preferred editor to start using PyLumerical.
+    Refer to the documentation of your IDE for instructions on how to use the virtual environment.
 
 Requirements
 -------------

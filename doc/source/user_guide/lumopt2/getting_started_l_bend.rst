@@ -129,6 +129,10 @@ When creating this class, you specify a segment to parametrize, and a number of 
 
 After entering the settings, use the :py:class:`ClosedCurve.make_segments_parametric <lumopt2.parametrization.closed_curve.ClosedCurve>` to finalize the parametric segments.
 
+.. tip::
+
+    Set the movement to ``both`` to instead allow the vertices to move in Cartesian directions. See :py:class:`~lumopt2.parametrization.closed_curve.Parametrize` for more information.
+
 .. code-block:: python
     :lineno-start: 99
 
@@ -166,7 +170,8 @@ Project configuration
 ---------------------
 
 The definition of the base geometry, parametrization, and figure of merit are passed to the :py:class:`lumopt2.core.project.Project` class.
-You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
+This example uses the default GPU local runner, which uses the first GPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__. To use the CPU, pass in a :py:class:`~lumopt2.utils.runner.LocalRunner` class with the argument ``"CPU"``. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
+You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed.
 
 .. code-block:: python
     :lineno-start: 118
@@ -174,12 +179,16 @@ You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :
     project = lmpt.Project(setup=generate_base_sim, parametrization=closed_curve, fom=l_bend_fom, fdtd_session=fdtd_session)
 
 At this point, you can open the project to ensure the set up is correct by calling :py:class:`Project.visualize_fom() <lumopt2.core.project.Project>`.
-The initial figure of merit value is also printed in the terminal.
+The initial figure of merit value is also printed in the terminal. Press enter to continue with the optimization after confirming the set up and values on screen.
 
 .. code-block:: python
     :lineno-start: 119
 
     project.visualize_fom()
+
+.. tip::
+
+    Validation functions in ``lumopt2`` typically prompt you to press Enter to continue, giving you a chance to check the results before continuing.
 
 .. image:: ../../_static/images/l_bend/l_bend_project_visualization.png
    :align: center

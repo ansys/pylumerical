@@ -63,6 +63,13 @@ To start using lumopt2, use the following import statement.
 
 The lumopt2 module exposes various important classes and functions directly from the top level namespace. For a full list of available functions, and for module level descriptions, refer to the :doc:`API reference <../../api/lumopt2/index>`.
 
+If you are running this example in the Lumerical scripting environment, comment the import statement above, and un-comment the following import statement.
+
+.. code-block:: python
+    :lineno-start: 6
+
+    # import lumopt2 as lmpt
+
 Optimization region setup
 ------------------------------
 
@@ -186,10 +193,10 @@ In addition, the :py:class:`~lumopt2.core.project.Project` class can also be use
     :lineno-start: 34
 
     project = lmpt.Project(setup = os.path.join(cwd_path, 'metalens_3x3.fsp'), parametrization = parametrization, fom = fom,
-                       fdtd_session = lmpt.FdtdSession(show_fdtd_cad = False), runner = lmpt.LocalRunner(resource = 'GPU'))
+                       fdtd_session = lmpt.FdtdSession(show_fdtd_cad = False), runner = lmpt.LocalRunner("CPU"))
 
 Here, the base simulation is set up via the pre-existing .fsp file, and the parametrization and figure of merit are set up as seen from previous sections. The FDTD session defined by :py:class:`~lumopt2.core.fdtd_session.FdtdSession` specifies that the FDTD GUI will remain hidden to avoid FDTD windows popping up during the optimization.
-Finally, the local runner defined by :py:class:`~lumopt2.utils.runner.LocalRunner` specifies that the first GPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__ will be used.
+Finally, the local runner defined by :py:class:`~lumopt2.utils.runner.LocalRunner` specifies that the first CPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__ will be used. Use "GPU" or no argument to use the first GPU resource instead.
 
 .. tip::
 
@@ -201,6 +208,12 @@ Validate and run optimization
 After setting up all the optimization components, run ``project.visualize_fom(params=params)`` to validate that the set up is valid, and compute the figure of merit for the initial design.
 
 At this point, the console launches FDTD, and displays the value of the figure of merit.
+
+After confirming that the set up is correct, press enter to continue with running the optimization.
+
+.. tip::
+
+    Validation functions in ``lumopt2`` typically prompt you to press Enter to continue, giving you a chance to check the results before continuing.
 
 .. code-block:: bash
 
@@ -260,6 +273,19 @@ After the optimization finishes, the final optimized parameters are displayed in
     XX:XX:XX - INFO - Best parameters (9 values):
     XX:XX:XX - INFO -   [ 7.61010969e-08,  1.00000000e-07,  7.66330617e-08,  5.00000000e-08,  5.18586837e-08,
     XX:XX:XX - INFO -     5.00000000e-08,  7.61160062e-08,  1.00000000e-07,  7.66139584e-08]
+
+The following command is ran to save the final design to a new Lumerical FDTD project file.
+
+.. code-block:: python
+    :lineno-start: 59
+
+    # Save final design for further processing
+    best_params, best_fom = result
+    project.save_project("metalens_3x3_optimization_final.fsp", params=best_params)
+
+.. tip::
+
+    The final design is also available in the ``fwd_default.fsp`` file in the results folder. You can also use the ``store_all_simulations`` flag in :py:class:`~lumopt2.core.optimization.Optimization` to store all intermediate steps.
 
 The final optimization plot is as follows.
 

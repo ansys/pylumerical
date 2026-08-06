@@ -68,7 +68,7 @@ If you are running this example in the Lumerical scripting environment, comment 
 .. code-block:: python
     :lineno-start: 6
 
-    # import lumopt2 as lmpt
+    # import lumopt2 as lmpt # Uncomment this line and comment the line above for use in Lumerical script editor
 
 Optimization region setup
 ------------------------------
@@ -76,10 +76,9 @@ Optimization region setup
 Define the optimization region using the :py:class:`~lumopt2.utils.common.Box` class.
 
 .. code-block:: python
-    :lineno-start: 12
+    :lineno-start: 13
 
-    optimization_region = lmpt.Box(x_span = 1e-6, y_span = 1e-6, z_min = 1e-6, z_max = 1e-6 + 750e-9,
-                               dx = 0.025e-6, dy = 0.025e-6, dz = 0.025e-6)
+    optimization_region = lmpt.Box(x_span=1e-6, y_span=1e-6, z_min=1e-6, z_max=1e-6 + 750e-9, dx=0.025e-6, dy=0.025e-6, dz=0.025e-6)
 
 This defines a box with 1 micron side length in the x and y-diirections, and a height of 750 nm in the z-direction, covering the area where the pillar geometry is expected to change.
 
@@ -100,10 +99,14 @@ This class is the most general way to parametrize a design in lumopt2, and does 
 .. code-block:: python
     :lineno-start: 16
 
-    num_cyl = 3*3
-    bounds = [(0.05e-6, 0.1e-6)]*num_cyl
+    num_cyl = 3 * 3
+    bounds = [(0.05e-6, 0.1e-6)] * num_cyl
+
+
     def param_func(params):
-        return {f'cyl{idx}::radius': value for idx, value in enumerate(params)}
+        return {f"cyl{idx}::radius": value for idx, value in enumerate(params)}
+
+
     parametrization = lmpt.Parametrization(func=param_func, bounds=bounds, optimization_region=optimization_region)
 
 Define the bounds for each cylinder.
@@ -112,17 +115,17 @@ Here the bounds variable defines the lower and upper bound for each pillar indiv
 .. code-block:: python
     :lineno-start: 17
 
-    bounds = [(0.05e-6, 0.1e-6)]*num_cyl
+    bounds = [(0.05e-6, 0.1e-6)] * num_cyl
 
 The :py:class:`~lumopt2.parametrization.parametrization.Parametrization` class takes in a function, ``param_func`` that maps between the optimization parameters and the Lumerical object properties.
 The function needs to map a parameter array to a dictionary, such that the keys correspond to the object properties in the Lumerical simulation, and the values are calculated from elements in the parameter array.
 The mapping function is as follows.
 
 .. code-block:: python
-    :lineno-start: 18
+    :lineno-start: 20
 
     def param_func(params):
-        return {f'cyl{idx}::radius': value for idx, value in enumerate(params)}
+        return {f"cyl{idx}::radius": value for idx, value in enumerate(params)}
 
 For this problem, the function generates a dictionary by enumerating through the input parameter array.
 The keys are in the format of ``cyl{idx}::radius``, where the field prior to ``::``, such as ``cyl0``, ``cyl1``, corresponds to the Lumerical object names as set up in the simulation file, and the field after ``::`` corresponds to the name of the object property.
@@ -135,7 +138,7 @@ If you set up objects in a group, the format is ``group_name::object_name::prope
 Finally, create the ``parametrization`` class by passing in the function that generates the map, the bounds, and the optimization region from earlier.
 
 .. code-block:: python
-    :lineno-start: 18
+    :lineno-start: 24
 
     parametrization = lmpt.Parametrization(func=param_func, bounds=bounds, optimization_region=optimization_region)
 
@@ -146,38 +149,42 @@ Figure of merit setup
 As explained before, the target of this optimization example is to maximize the ratio of the field intensity at a "focus" region compared to a normalization region.
 
 .. code-block:: python
-    :lineno-start: 26
+    :lineno-start: 30
 
     # Sum of field intensity at 'focus' normalized by sum of field intensity at 'norm'
-    intensity_focus = lmpt.FieldResults(monitor_name='focus', metric='intensity', wavelengths = 940e-9)
-    intensity_norm = lmpt.FieldResults(monitor_name='norm', metric='intensity', wavelengths = 940e-9)
+    intensity_focus = lmpt.FieldResults(monitor_name="focus", metric="intensity", wavelengths=940e-9)
+    intensity_norm = lmpt.FieldResults(monitor_name="norm", metric="intensity", wavelengths=940e-9)
+
+
     def custom_fct(result_list):
-        return result_list[0]/result_list[1]
-    fom = lmpt.Fom([intensity_focus, intensity_norm], fct = custom_fct)
+        return result_list[0] / result_list[1]
+
+
+    fom = lmpt.Fom([intensity_focus, intensity_norm], fct=custom_fct)
 
 Here, the code defines the two simulation results using the :py:class:`~lumopt2.fom.simulation_results.FieldResults` class, which takes in the name of a field region object, ``focus`` or ``norm``, the result to extract, ``intensity``, and the wavelength to extract the field at, which is 940nm.
 
 .. code-block:: python
-    :lineno-start: 27
+    :lineno-start: 31
 
-    intensity_focus = lmpt.FieldResults(monitor_name='focus', metric='intensity', wavelengths = 940e-9)
-    intensity_norm = lmpt.FieldResults(monitor_name='norm', metric='intensity', wavelengths = 940e-9)
+    intensity_focus = lmpt.FieldResults(monitor_name="focus", metric="intensity", wavelengths=940e-9)
+    intensity_norm = lmpt.FieldResults(monitor_name="norm", metric="intensity", wavelengths=940e-9)
 
 Next, the two simulation results must be combined into a single figure of merit value, which is accomplished through a custom function.
 The function assumes a list of numbers as input, which are the simulation results ``intensity_focus`` and ``intensity_norm`` in this case.
 
 .. code-block:: python
-    :lineno-start: 29
+    :lineno-start: 35
 
     def custom_fct(result_list):
-        return result_list[0]/result_list[1]
+        return result_list[0] / result_list[1]
 
 Finally, create the figure of merit using :py:func:`~lumopt2.fom.fom.Fom`, with the first argument as the list of results, and the second argument as the function defined earlier to convert the results to an optimization target.
 
 .. code-block:: python
-    :lineno-start: 31
+    :lineno-start: 39
 
-    fom = lmpt.Fom([intensity_focus, intensity_norm], fct = custom_fct)
+    fom = lmpt.Fom([intensity_focus, intensity_norm], fct=custom_fct)
 
 .. note::
 
@@ -190,17 +197,22 @@ Now that the base simulation, parametrization, and figure of merit are defined, 
 In addition, the :py:class:`~lumopt2.core.project.Project` class can also be used to specify how the FDTD simulations are run via the ``fdtd_session`` and ``runner`` parameters.
 
 .. code-block:: python
-    :lineno-start: 34
+    :lineno-start: 42
 
-    project = lmpt.Project(setup = os.path.join(cwd_path, 'metalens_3x3.fsp'), parametrization = parametrization, fom = fom,
-                       fdtd_session = lmpt.FdtdSession(show_fdtd_cad = False), runner = lmpt.LocalRunner("CPU"))
+    project = lmpt.Project(
+        setup=os.path.join(cwd_path, "metalens_3x3.fsp"),
+        parametrization=parametrization,
+        fom=fom,
+        fdtd_session=lmpt.FdtdSession(show_fdtd_cad=False),
+        runner=lmpt.LocalRunner("CPU"),
+    )
 
 Here, the base simulation is set up via the pre-existing .fsp file, and the parametrization and figure of merit are set up as seen from previous sections. The FDTD session defined by :py:class:`~lumopt2.core.fdtd_session.FdtdSession` specifies that the FDTD GUI will remain hidden to avoid FDTD windows popping up during the optimization.
 Finally, the local runner defined by :py:class:`~lumopt2.utils.runner.LocalRunner` specifies that the first CPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__ will be used. Use "GPU" or no argument to use the first GPU resource instead.
 
 .. tip::
 
-    For further information on setting up resources, see the `Resource configuration elements and controls Knowledge Base article <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__.
+    If you have a `compatible GPU <https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU>`__, use ``runner=lmpt.LocalRunner("GPU")`` to speed up the optimization.
 
 Validate and run optimization
 -----------------------------
@@ -235,18 +247,18 @@ The :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class takes in
 For further discussions on optimizers, see the :ref:`optimizer section of the optimization session article <optimization-session-optimizers>`.
 
 .. code-block:: python
-    :lineno-start: 41
+    :lineno-start: 54
 
-    optimizer = lmpt.ScipyOptimizer(bounds = bounds, max_iter = 15, gtol = 1e-9)
+    optimizer = lmpt.ScipyOptimizer(bounds=bounds, max_iter=15, gtol=1e-9)
     visualizer = lmpt.GraphicalVisualizer()
     optimization = lmpt.Optimization(project, optimizer, visualizer)
 
 Finally, use the ``optimization.run()`` method to start the optimization.
 
 .. code-block:: python
-   :lineno-start: 44
+   :lineno-start: 57
 
-    optimization.run()
+    result = optimization.run(initial_params=params)
 
 When the optimization starts, the console outputs the current progress, and a matplotlib window opens to visualize results for each iteration. A new folder is also created to store the optimization results with the name format ``lumopt2_project_<time_stamp>``.
 

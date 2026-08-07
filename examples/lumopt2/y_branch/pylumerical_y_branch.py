@@ -11,24 +11,25 @@
 
 # ## Imports
 
-import math
+# +
 from pathlib import Path
 
 from matplotlib import pyplot as plt
 
 plt.ion()
-
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 import ansys.lumerical.core.lumopt2 as lmpt
 
+# -
+
 # ## Material, simulation, geometry
 
 # ### Material and waveguide parameters
 
-n_wg = math.sqrt(12.25)  # Silicon refractive index
-n_bg = math.sqrt(2.25)  # Silicon oxide background
+n_wg = np.sqrt(12.25)  # Silicon refractive index
+n_bg = np.sqrt(2.25)  # Silicon oxide background
 wg_width = 0.5e-6  # Waveguide width (500 nm)
 wg_height = 0.22e-6  # Waveguide height (220 nm)
 
@@ -175,19 +176,6 @@ y_branch_curve.plot()
 plt.pause(0.1)
 # -
 
-# ## Figure of merit
-
-# Define a broadband figure of merit: the target transmission to ``port_out1``
-# is 0.5 (50% of the input power per output arm), averaged over the O-band
-# sweep above.  PNorm broadcasts the scalar target across all wavelengths
-# automatically.
-
-
-# +
-port_out = lmpt.PortResults("port_out1", metric="transmission", wavelengths=wavelengths)
-y_branch_fom = lmpt.Fom(port_out, fct=lmpt.PNorm(p=2, target=0.5))
-# -
-
 # ## Parametrization
 
 # Parametrize the y-branch geometry and enforce mirror symmetry across y=0.
@@ -315,6 +303,20 @@ y_branch_curve.set_parametrization_function(
 y_branch_curve.plot()
 plt.pause(0.1)
 # -
+
+# ## Figure of merit
+
+# Define a broadband figure of merit: the target transmission to ``port_out1``
+# is 0.5 (50% of the input power per output arm), averaged over the O-band
+# sweep above.  PNorm broadcasts the scalar target across all wavelengths
+# automatically.
+
+
+# +
+port_out = lmpt.PortResults("port_out1", metric="transmission", wavelengths=wavelengths)
+y_branch_fom = lmpt.Fom(port_out, fct=lmpt.PNorm(p=2, target=0.5))
+# -
+
 
 # ## Optimization session setup
 

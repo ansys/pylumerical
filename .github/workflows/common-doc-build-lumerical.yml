@@ -51,7 +51,7 @@ jobs:
       BUILD_PYLUMERICAL_CHEATSHEET: "TRUE"
       BUILD_PYLUMERICAL_EXAMPLES: "TRUE"
       QUARTO_VERSION: "1.10.3"
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_2"
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_3"
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: "lumerical-unified-docs"
     steps:
       - name: "Checkout PyLumerical"

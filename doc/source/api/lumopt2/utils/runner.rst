@@ -1,5 +1,5 @@
-utils.runner
-============
+lumopt2.utils.runner
+====================
 
 .. automodule:: lumopt2.utils.runner
    :no-members:
@@ -15,3 +15,4 @@ Classes
    Job
    BaseRunner
    LocalRunner
+   SlurmRunner

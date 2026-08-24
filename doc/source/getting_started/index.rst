@@ -92,36 +92,80 @@ My first PyLumerical project
 
 .. vale on
 
-The code snippet below provides a simple project of using PyLumerical and the Python library matplotlib to visualize the transmission of a gold thin film illuminated by a plane wave.
+The code snippet below provides a simple project of using PyLumerical to drive a Lumerical FDTD simulation with an array of nanoholes on a gold film atop a glass substrate.
 
-.. code-block:: python
+.. rubric:: Step 1 - Import and simulation parameters
 
-   import ansys.lumerical.core as lumapi
-   import numpy as np
-   import matplotlib.pyplot as plt # Ensure matplotlib is installed in your environment first
+Import PyLumerical and define various simulation parameters.
 
-   with lumapi.FDTD() as fdtd:
-      lambda_range = np.linspace(300e-9, 1100e-9, 500)
-      c=2.99792458e8
-      f_range = c/lambda_range
-      au_index = fdtd.getfdtdindex("Au (Gold) - CRC", f_range, np.min(f_range), np.max(f_range)) # Use the getfdtdindex command to obtain the correct complex index for gold
+.. dropdown:: Show imports
+   :icon: download
+   :chevron: right-down
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Imports ---
+      :end-before: # --- Imports end ---
+
+.. dropdown:: Show parameter definition
+   :icon: gear
+   :chevron: right-down
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Parameters ---
+      :end-before: # --- Parameters end ---
 
 
-      stackRT_result = fdtd.stackrt(np.transpose(au_index), np.array([10e-9]), f_range) # Use the stackrt command to calculate the transmission and reflection
-   # Visualize using matplotlib
-   fig, ax = plt.subplots()
-   ax.plot(lambda_range*1e9, stackRT_result["Ts"], label="Transmission")
-   ax.set_xlabel("Wavelength [nm]")
-   ax.set_ylabel("Transmission")
-   ax.legend()
-   plt.show()
+.. rubric:: Step 2 - Build simulation
 
-This simulation returns the following result.
+Set up the simulation, including the region, geometry, materials, source, and monitors.
 
-.. image:: ../_static/images/PyLumerical_Example_Image.png
-   :alt: PyLumerical example
+.. dropdown:: Show simulation setup
+   :icon: tools
+   :chevron: right-down
+   :open:
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Simulation setup ---
+      :end-before: # --- Simulation setup end --
+
+The simulation file is saved in the current working directory - you can open it in the Lumerical GUI to check the simulation setup.
+
+.. image:: ../_static/simulation_examples/getting_started_nanoholes/simulation_setup.png
+   :alt: Simulation setup
    :align: center
-   :width: 50%
+
+.. rubric:: Step 3 - Run and plot results
+
+Run the simulation and plot the transmission and reflection spectra.
+
+.. dropdown:: Show simulation run and plotting
+   :icon: graph
+   :chevron: right-down
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+      :start-after: # --- Run ---
+      :end-before: # --- Run end --
+
+The figure below shows the transmission and reflection spectrum of the array.
+
+.. image:: ../_static/simulation_examples/getting_started_nanoholes/final_result.png
+   :alt: Transmission spectrum
+   :align: center
+
+
+.. rubric:: Full script
+
+.. dropdown:: Show full script for copy and paste
+   :icon: download
+   :chevron: right-down
+
+   .. literalinclude:: ../_static/simulation_examples/getting_started_nanoholes/getting_started_nanoholes.py
+      :language: python
+
 
 Further resources
 -----------------
@@ -145,6 +189,15 @@ Further resources
       :link-type: doc
 
       Gallery of examples using PyLumerical.
+
+.. grid:: 1 1 1 1
+
+   .. grid-item-card:: Lumerical scripting commands
+      :link: https://optics.ansys.com/hc/en-us/articles/360037228834-Lumerical-scripting-language-By-category
+      :link-type: url
+
+      Reference for Lumerical scripting commands.
+
 
 .. grid:: 1 1 1 1
 

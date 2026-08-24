@@ -36,6 +36,10 @@ Visualization
 You compose the figure from a list of panels, each of which owns one subplot.
 The visualizer by default saves a PNG image of the figure to the project folder after every update.
 
+.. note::
+
+   The visualizer does not automatically update in interactive Python environments such as Jupyter Notebook or Spyder. In these environments, the visualizer still saves the images to the project folder.
+
 .. code:: python
 
    visualizer = lmpt.GraphicalVisualizer()

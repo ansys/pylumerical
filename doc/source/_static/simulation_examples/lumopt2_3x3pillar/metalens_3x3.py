@@ -3,6 +3,7 @@ import os
 import numpy as np
 
 import ansys.lumerical.core.lumopt2 as lmpt
+# import lumopt2 as lmpt # Uncomment this line and comment the line above for use in Lumerical script editor
 
 # Set working directory to current path
 cwd_path = os.path.dirname(__file__)
@@ -43,7 +44,7 @@ project = lmpt.Project(
     parametrization=parametrization,
     fom=fom,
     fdtd_session=lmpt.FdtdSession(show_fdtd_cad=False),
-    runner=lmpt.LocalRunner(resource="GPU"),
+    runner=lmpt.LocalRunner("CPU"),
 )
 
 ## VALIDATION ##
@@ -53,4 +54,8 @@ project.visualize_fom(params=params)  # Test Figure of Merit
 optimizer = lmpt.ScipyOptimizer(bounds=bounds, max_iter=15, gtol=1e-9)
 visualizer = lmpt.GraphicalVisualizer()
 optimization = lmpt.Optimization(project, optimizer, visualizer)
-optimization.run(initial_params=params)
+result = optimization.run(initial_params=params)
+
+# Save final design for further processing
+best_params, best_fom = result
+project.save_project("metalens_3x3_optimization_final.fsp", params=best_params)

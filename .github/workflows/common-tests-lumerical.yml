@@ -24,7 +24,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads
     env:
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_2'
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_3'
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 
@@ -34,7 +34,7 @@ jobs:
           persist-credentials: false
 
       - name: "Login to GitHub container registry"
-        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}

@@ -1,5 +1,6 @@
 import numpy as np
 import ansys.lumerical.core.lumopt2 as lmpt
+# import lumopt2 as lmpt  # Uncomment this line and comment the line above if running in the Lumerical scripting environment
 import math
 
 # Parameters
@@ -93,6 +94,7 @@ num_pts_per_curve = 2                      # Number of control points to optimiz
 # Each control point is allowed to slide along the local outward normal between
 # bounds[0] and bounds[1].  The asymmetric range gives the optimizer more room
 # to bow the silicon outward (positive direction) than to carve into it.
+# Here, positive movement of vertex means an expansion of the waveguide, and negative movement means a contraction of the waveguide.
 bounds = (-200e-9, 400e-9)
 segments_to_parametrize = [lmpt.Parametrize(segment_index=2, num_added_vertices=num_pts_per_curve, bounds=bounds, movement='normal'),  # Outer sidewall
                            lmpt.Parametrize(segment_index=6, num_added_vertices=num_pts_per_curve, bounds=bounds, movement='normal')]  # Inner sidewall
@@ -115,7 +117,10 @@ l_bend_fom = lmpt.Fom(port_out, fct=lmpt.PNorm(p=2,target=1.0))
 fdtd_session = lmpt.FdtdSession(show_fdtd_cad=False)
 
 # Create the project
-project = lmpt.Project(setup=generate_base_sim, parametrization=closed_curve, fom=l_bend_fom, fdtd_session=fdtd_session)
+project = lmpt.Project(setup=generate_base_sim, 
+                       parametrization=closed_curve, 
+                       fom=l_bend_fom, 
+                       fdtd_session=fdtd_session)
 project.visualize_fom()
 
 # Use Nelder-Mead optimizer (gradient-free).  With only 4 parameters the

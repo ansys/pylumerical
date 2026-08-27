@@ -88,7 +88,7 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
       :link: examples/lumopt2/color_router/color_router_pylumerical
       :link-type: doc
 
-      This example demonstrates a multi-configuration lumopt2 workflow with a simple color router design.
+      This example uses ``lumopt2`` with multi-configuration for the inverse design of a color router lens.
 
 .. toctree::
    :hidden:
@@ -107,3 +107,4 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    :caption: Photonic inverse design
 
    examples/lumopt2/y_branch/pylumerical_y_branch
+   examples/lumopt2/color_router/color_router_pylumerical

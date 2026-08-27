@@ -1,3 +1,5 @@
+Synopsys
+synopsys
 ANSYS
 [Aa]nsys
 isort

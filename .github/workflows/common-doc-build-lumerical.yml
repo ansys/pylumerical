@@ -35,7 +35,7 @@ jobs:
     permissions:
       contents: read # Required to checkout repository
     steps:
-      - uses: ansys/actions/doc-style@v10.3.2
+      - uses: ansys/actions/doc-style@v10.3.6
         with:
           token: ${{ secrets.TOKEN }}
 
@@ -51,16 +51,16 @@ jobs:
       BUILD_PYLUMERICAL_CHEATSHEET: "TRUE"
       BUILD_PYLUMERICAL_EXAMPLES: "TRUE"
       QUARTO_VERSION: "1.10.3"
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_2"
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_3"
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: "lumerical-unified-docs"
     steps:
       - name: "Checkout PyLumerical"
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: "Login to GitHub container registry"
-        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}

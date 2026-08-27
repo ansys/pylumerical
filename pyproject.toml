@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
+requires = ["flit_core >=3.2,<5"]
 build-backend = "flit_core.buildapi"
 
 [project]
@@ -8,8 +8,7 @@ dynamic = ["version"]
 description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
 requires-python = ">=3.10,<4"
-license = "MIT"
-license_files = ["LICENSE"]
+license = { file = "LICENSE" }
 authors=[
     {name="ANSYS, Inc.", email="pyansys.core@ansys.com"}
 ]
@@ -39,18 +38,18 @@ dependencies = [
 
 [project.optional-dependencies]
 tests = [
-    "pytest==9.0.3",
+    "pytest==9.1.1",
     "pytest-cov==7.1.0",
 ]
 doc = [
-    "ansys-sphinx-theme[autoapi]==1.8.2",
+    "ansys-sphinx-theme[autoapi]==1.9.0",
     "numpydoc==1.10.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.7.0",
     "nbsphinx==0.9.8",
-    "jupytext==1.19.3",
-    "ipykernel==7.2.0"
+    "jupytext==1.19.5",
+    "ipykernel==7.3.0"
 ]
 
 [tool.flit.module]

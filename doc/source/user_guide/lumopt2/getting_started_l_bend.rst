@@ -32,7 +32,7 @@ In this example, the base simulation is set up using a Python function, which de
 The function also sets up the geometry of the fixed input and output straight waveguides; however, the actual bend geometry to be optimized is defined by the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class, as explained later.
 
 .. code-block:: python
-    :lineno-start: 35
+    :lineno-start: 36
 
     def generate_base_sim(fdtd):
         fdtd.addfdtd({"x min":fdtd_min_x-fdtd_buffer, "x max":fdtd_max_x+fdtd_buffer, "y min":fdtd_min_y-fdtd_buffer,
@@ -65,17 +65,17 @@ The end point of each is segment is assumed to be the start point of the next; i
 The segments are connected ensuring both continuity of the curve and its first derivative to obtain a smooth 2D curve.
 
 .. code-block:: python
-    :lineno-start: 68
+    :lineno-start: 69
 
     path = [ (lmpt.Segment([ fdtd_min_x,              wg_width/2],             'linear')),  # Segment 1
-         (lmpt.Segment([-wg_width/2-bend_radius,  wg_width/2],             'cubic')),   # Segment 2 (outer sidewall, parametric)
-         (lmpt.Segment([-wg_width/2,              wg_width/2+bend_radius], 'linear')),  # Segment 3
-         (lmpt.Segment([-wg_width/2,              fdtd_max_y],             'linear')),  # Segment 4
-         (lmpt.Segment([ wg_width/2,              fdtd_max_y],             'linear')),  # Segment 5
-         (lmpt.Segment([ wg_width/2,              wg_width/2+bend_radius], 'cubic')),   # Segment 6 (inner sidewall, parametric)
-         (lmpt.Segment([-wg_width/2-bend_radius, -wg_width/2],             'linear')),  # Segment 7
-         (lmpt.Segment([ fdtd_min_x,             -wg_width/2],             'linear')),  # Segment 8
-       ]
+             (lmpt.Segment([-wg_width/2-bend_radius,  wg_width/2],             'cubic')),   # Segment 2 (outer sidewall, parametric)
+             (lmpt.Segment([-wg_width/2,              wg_width/2+bend_radius], 'linear')),  # Segment 3
+             (lmpt.Segment([-wg_width/2,              fdtd_max_y],             'linear')),  # Segment 4
+             (lmpt.Segment([ wg_width/2,              fdtd_max_y],             'linear')),  # Segment 5
+             (lmpt.Segment([ wg_width/2,              wg_width/2+bend_radius], 'cubic')),   # Segment 6 (inner sidewall, parametric)
+             (lmpt.Segment([-wg_width/2-bend_radius, -wg_width/2],             'linear')),  # Segment 7
+             (lmpt.Segment([ fdtd_min_x,             -wg_width/2],             'linear')),  # Segment 8
+           ]
 
 
 After defining the path, pass it to the :py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve` class to create the object, passing in along with other variables including the refractive index and thickness.
@@ -84,12 +84,12 @@ The optimization region must be passed to the :py:class:`~lumopt2.parametrizatio
 
 
 .. code-block:: python
-    :lineno-start: 81
+    :lineno-start: 82
 
     optimization_region = lmpt.Box(x_min=fdtd_min_x, x_max=fdtd_max_x,
-                               y_min=fdtd_min_y, y_max=fdtd_max_y,
-                               z_min=-wg_height/2.0, z_max=wg_height/2.0,
-                               mesh_size=mesh_size)
+                                   y_min=fdtd_min_y, y_max=fdtd_max_y,
+                                   z_min=-wg_height/2.0, z_max=wg_height/2.0,
+                                   mesh_size=mesh_size)
 
     # Create base geometry using ClosedCurve
     closed_curve = lmpt.ClosedCurve(path, optimization_region=optimization_region, index=n_wg, z_min=-wg_height/2.0, z_max= wg_height/2.0)
@@ -97,7 +97,7 @@ The optimization region must be passed to the :py:class:`~lumopt2.parametrizatio
 At this point, the geometry is set up as a fixed L-bend, and you can visualize it using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>` to ensure that the shape is as expected.
 
 .. code-block:: python
-    :lineno-start: 88
+    :lineno-start: 89
 
     closed_curve.plot() # Visualize the base geometry
 
@@ -114,32 +114,36 @@ For parametrization of the L-bend, you can use the :py:class:`~lumopt2.parametri
 When creating this class, you specify a segment to parametrize, and a number of added vertices, which are allowed to move. In addition, you also specify the bounds and the direction of movement. Here the ``"normal"`` movement option restricts movement to the normal of the curve.
 
 .. code-block:: python
-    :lineno-start: 90
+    :lineno-start: 91
 
     ## CLOSED CURVE - PARAMETRIZATION ##
     num_pts_per_curve = 2                      # Number of control points to optimize for each of the two curved segments
-    num_params        = 2 * num_pts_per_curve  # Total number of parameters
 
     # Each control point is allowed to slide along the local outward normal between
     # bounds[0] and bounds[1].  The asymmetric range gives the optimizer more room
     # to bow the silicon outward (positive direction) than to carve into it.
+    # Here, positive movement of vertex means an expansion of the waveguide, and negative movement means a contraction of the waveguide.
     bounds = (-200e-9, 400e-9)
     segments_to_parametrize = [lmpt.Parametrize(segment_index=2, num_added_vertices=num_pts_per_curve, bounds=bounds, movement='normal'),  # Outer sidewall
                                lmpt.Parametrize(segment_index=6, num_added_vertices=num_pts_per_curve, bounds=bounds, movement='normal')]  # Inner sidewall
 
 After entering the settings, use the :py:class:`ClosedCurve.make_segments_parametric <lumopt2.parametrization.closed_curve.ClosedCurve>` to finalize the parametric segments.
 
+.. tip::
+
+    Set the movement to ``both`` to instead allow the vertices to move in Cartesian directions. See :py:class:`~lumopt2.parametrization.closed_curve.Parametrize` for more information.
+
 .. code-block:: python
-    :lineno-start: 99
+    :lineno-start: 101
 
     closed_curve.make_segments_parametric(segments_to_parametrize)
 
 After parametrization, you can see the added vertices using :py:class:`ClosedCurve.plot() <lumopt2.parametrization.closed_curve.ClosedCurve>`.
 
 .. code-block:: python
-    :lineno-start: 101
+    :lineno-start: 103
 
-    closed_curve.plot() # Visualize the base geometry
+    closed_curve.plot() # Visualize the geometry with parametric segments and control points
 
 .. image:: ../../_static/images/l_bend/l_bend_geometry_withparametrization.png
    :align: center
@@ -157,7 +161,7 @@ For this example, the figure of merit is set up using the :py:class:`~lumopt2.fo
 In this example, we aim to maximize the transmission for the full O-band using a second order P-norm using :py:func:`~lumopt2.utils.common.PNorm`, with a target transmission of 1, which calculates the figure of merit based on :math:`1-\sqrt{\text{mean}((|T(\lambda)|-1)^2)}`.
 
 .. code-block:: python
-    :lineno-start: 109
+    :lineno-start: 111
 
     port_out = lmpt.PortResults('port_out', metric='transmission', wavelengths=wavelengths)
     l_bend_fom = lmpt.Fom(port_out, fct=lmpt.PNorm(p=2,target=1.0))
@@ -166,20 +170,28 @@ Project configuration
 ---------------------
 
 The definition of the base geometry, parametrization, and figure of merit are passed to the :py:class:`lumopt2.core.project.Project` class.
-You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
+This example uses the default GPU local runner, which uses the first GPU resource enabled in the `FDTD Resource Configuration <https://optics.ansys.com/hc/en-us/articles/360058790674-Resource-configuration-elements-and-controls>`__. To use the CPU, pass in a :py:class:`~lumopt2.utils.runner.LocalRunner` class with the argument ``"CPU"``. See the :doc:`simple metalens example <getting_started_simple_metalens>` for more details.
+You can also include the :py:class:`lumopt2.core.fdtd_session.FdtdSession` and :py:class:`lumopt2.utils.runner.LocalRunner` classes if non-default settings needed.
 
 .. code-block:: python
-    :lineno-start: 118
+    :lineno-start: 120
 
-    project = lmpt.Project(setup=generate_base_sim, parametrization=closed_curve, fom=l_bend_fom, fdtd_session=fdtd_session)
+    project = lmpt.Project(setup=generate_base_sim,
+                           parametrization=closed_curve,
+                           fom=l_bend_fom,
+                           fdtd_session=fdtd_session)
 
 At this point, you can open the project to ensure the set up is correct by calling :py:class:`Project.visualize_fom() <lumopt2.core.project.Project>`.
-The initial figure of merit value is also printed in the terminal.
+The initial figure of merit value is also printed in the terminal. Press enter to continue with the optimization after confirming the set up and values on screen.
 
 .. code-block:: python
-    :lineno-start: 119
+    :lineno-start: 124
 
     project.visualize_fom()
+
+.. tip::
+
+    Validation functions in ``lumopt2`` typically prompt you to press Enter to continue, giving you a chance to check the results before continuing.
 
 .. image:: ../../_static/images/l_bend/l_bend_project_visualization.png
    :align: center
@@ -191,7 +203,7 @@ Optimizer
 For this example, the optimization is ran with the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class with the default L-BFGS-B method and a maximum of 10 iterations.
 
 .. code-block:: python
-    :lineno-start: 123
+    :lineno-start: 128
 
     optimizer = lmpt.ScipyOptimizer(method='L-BFGS-B', max_iter=10)
 
@@ -203,18 +215,18 @@ To aid visualization and logging for this optimization, this example uses the bu
 The visualizer is initialized using the :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` class, with specific panels for each subplot.
 
 .. code-block:: python
-    :lineno-start: 128
+    :lineno-start: 133
 
     visualizer = lmpt.GraphicalVisualizer(
         figsize=(7, 7),
         layout=(2, 2),
         panels=[ lmpt.FomPanel(),
-                lmpt.GradientNormPanel(),
-                lmpt.GeometryPanel(),
-                lmpt.MonitorPanel( monitor_name='FDTD::ports::port_out',
+                 lmpt.GradientNormPanel(),
+                 lmpt.GeometryPanel(),
+                 lmpt.MonitorPanel( monitor_name='FDTD::ports::port_out',
                                     result_name='T',
                                     operation='abs',
-                            title='Output transmission',
+                               title='Output transmission',
             ),
         ],
     )
@@ -222,7 +234,7 @@ The visualizer is initialized using the :py:class:`~lumopt2.utils.graphical_visu
 After specifying the visualizer, pass it as a callback function to the optimization object. In addition to the visualizer, a :py:class:`~lumopt2.utils.file_logger.FileLogger` is also included.
 
 .. code-block:: python
-    :lineno-start: 143
+    :lineno-start: 148
 
     optimization = lmpt.Optimization(
         project=project,
@@ -246,7 +258,7 @@ After the simulation completes, export the final simulation file using the :py:c
 In this example, the final project file is saved as ``L_bend_optimization_final.fsp`` in the optimization directory. This project file can then be used for further analysis or exporting for fabrication.
 
 .. code-block:: python
-    :lineno-start: 153
+    :lineno-start: 158
 
     best_params, best_fom = result
     project.save_project("L_bend_optimization_final.fsp",params=best_params)

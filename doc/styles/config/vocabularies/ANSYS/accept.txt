@@ -1,3 +1,5 @@
+Synopsys
+synopsys.com
 ANSYS
 [Aa]nsys
 isort

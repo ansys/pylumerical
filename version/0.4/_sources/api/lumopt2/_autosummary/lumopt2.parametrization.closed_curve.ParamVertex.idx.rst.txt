@@ -1,0 +1,6 @@
+idx
+===
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: ParamVertex.idx

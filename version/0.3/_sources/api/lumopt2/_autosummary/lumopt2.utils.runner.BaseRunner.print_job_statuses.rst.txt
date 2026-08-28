@@ -1,0 +1,6 @@
+print\_job\_statuses
+====================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.print_job_statuses

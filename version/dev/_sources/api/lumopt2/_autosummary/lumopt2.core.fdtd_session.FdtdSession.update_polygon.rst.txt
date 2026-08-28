@@ -1,0 +1,6 @@
+update\_polygon
+===============
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.update_polygon

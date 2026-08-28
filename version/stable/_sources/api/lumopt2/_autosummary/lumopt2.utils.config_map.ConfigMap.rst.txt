@@ -1,0 +1,33 @@
+﻿ConfigMap
+=========
+
+.. currentmodule:: lumopt2.utils.config_map
+
+.. autoclass:: ConfigMap
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ConfigMap.get_filenames_in_order
+      
+      
+      ConfigMap.get_sim_results
+      
+      
+      ConfigMap.get_values_in_order
+      
+      
+      ConfigMap.set_filename_iteration
+      
+   
+   
+
+   
+   
+   

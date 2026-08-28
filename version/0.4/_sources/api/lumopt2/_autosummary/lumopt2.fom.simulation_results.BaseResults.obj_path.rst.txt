@@ -1,0 +1,6 @@
+obj\_path
+=========
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. autoproperty:: BaseResults.obj_path

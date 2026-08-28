@@ -1,0 +1,52 @@
+﻿PortFom
+=======
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. autoclass:: PortFom
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      PortFom.calculate_fom
+      
+      
+      PortFom.calculate_gradient_fields
+      
+      
+      PortFom.create_project_folder
+      
+      
+      PortFom.get_adjoint_fields
+      
+      
+      PortFom.get_jacobian
+      
+      
+      PortFom.get_scaling_factor
+      
+      
+      PortFom.set_project_name
+      
+      
+      PortFom.setup_adjoint_simulation
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      PortFom.supports_concurrent_adjoint
+   
+   

@@ -1,0 +1,6 @@
+visualize\_geometry
+===================
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.visualize_geometry

@@ -1,0 +1,6 @@
+get\_fields\_at\_wavelengths
+============================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.get_fields_at_wavelengths

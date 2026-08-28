@@ -1,0 +1,6 @@
+get\_adjoint\_fields
+====================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.get_adjoint_fields

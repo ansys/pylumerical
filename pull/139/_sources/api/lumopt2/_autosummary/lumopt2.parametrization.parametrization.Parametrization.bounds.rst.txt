@@ -1,0 +1,6 @@
+bounds
+======
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. autoproperty:: Parametrization.bounds

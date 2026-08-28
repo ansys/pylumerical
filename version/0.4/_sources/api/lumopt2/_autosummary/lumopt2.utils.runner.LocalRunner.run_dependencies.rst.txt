@@ -1,0 +1,6 @@
+run\_dependencies
+=================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.run_dependencies

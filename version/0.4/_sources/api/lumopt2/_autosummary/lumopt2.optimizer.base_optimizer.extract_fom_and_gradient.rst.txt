@@ -1,0 +1,6 @@
+﻿extract\_fom\_and\_gradient
+===========================
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. autofunction:: extract_fom_and_gradient

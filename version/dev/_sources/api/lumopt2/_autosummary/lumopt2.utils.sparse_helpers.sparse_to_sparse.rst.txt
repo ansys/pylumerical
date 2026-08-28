@@ -1,0 +1,6 @@
+﻿sparse\_to\_sparse
+==================
+
+.. currentmodule:: lumopt2.utils.sparse_helpers
+
+.. autofunction:: sparse_to_sparse

@@ -1,0 +1,6 @@
+run
+===
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. automethod:: Optimization.run

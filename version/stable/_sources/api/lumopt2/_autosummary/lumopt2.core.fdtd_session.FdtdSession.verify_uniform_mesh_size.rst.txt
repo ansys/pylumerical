@@ -1,0 +1,6 @@
+verify\_uniform\_mesh\_size
+===========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.verify_uniform_mesh_size

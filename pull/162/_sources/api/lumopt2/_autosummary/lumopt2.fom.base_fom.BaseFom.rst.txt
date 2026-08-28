@@ -1,0 +1,49 @@
+﻿BaseFom
+=======
+
+.. currentmodule:: lumopt2.fom.base_fom
+
+.. autoclass:: BaseFom
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      BaseFom.calculate_fom
+      
+      
+      BaseFom.calculate_gradient_fields
+      
+      
+      BaseFom.create_project_folder
+      
+      
+      BaseFom.get_adjoint_fields
+      
+      
+      BaseFom.get_jacobian
+      
+      
+      BaseFom.get_scaling_factor
+      
+      
+      BaseFom.set_project_name
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      BaseFom.supports_concurrent_adjoint
+   
+   

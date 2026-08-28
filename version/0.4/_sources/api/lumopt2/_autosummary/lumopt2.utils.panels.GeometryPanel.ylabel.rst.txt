@@ -1,0 +1,6 @@
+ylabel
+======
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: GeometryPanel.ylabel

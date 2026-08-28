@@ -1,0 +1,6 @@
+show\_best
+==========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: FomPanel.show_best

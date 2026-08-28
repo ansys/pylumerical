@@ -1,0 +1,6 @@
+get\_sim\_results
+=================
+
+.. currentmodule:: lumopt2.utils.config_map
+
+.. automethod:: ConfigMap.get_sim_results

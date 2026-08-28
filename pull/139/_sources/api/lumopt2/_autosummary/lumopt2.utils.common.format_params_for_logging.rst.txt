@@ -1,0 +1,6 @@
+﻿format\_params\_for\_logging
+============================
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autofunction:: format_params_for_logging

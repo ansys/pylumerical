@@ -1,0 +1,6 @@
+﻿finite\_difference\_gradient
+============================
+
+.. currentmodule:: lumopt2.utils.fd_grad
+
+.. autofunction:: finite_difference_gradient

@@ -1,0 +1,6 @@
+compute\_opt\_params\_direct\_to\_permittivity\_jacobian
+========================================================
+
+.. currentmodule:: lumopt2.parametrization.base_parametrization
+
+.. automethod:: BaseParametrization.compute_opt_params_direct_to_permittivity_jacobian

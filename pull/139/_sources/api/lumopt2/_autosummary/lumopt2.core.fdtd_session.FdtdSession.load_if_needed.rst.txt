@@ -1,0 +1,6 @@
+load\_if\_needed
+================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.load_if_needed

@@ -1,0 +1,6 @@
+parametrization
+===============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: GeometryPanel.parametrization

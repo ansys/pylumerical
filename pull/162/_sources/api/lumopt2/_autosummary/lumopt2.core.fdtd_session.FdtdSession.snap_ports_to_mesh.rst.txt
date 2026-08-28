@@ -1,0 +1,6 @@
+snap\_ports\_to\_mesh
+=====================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.snap_ports_to_mesh

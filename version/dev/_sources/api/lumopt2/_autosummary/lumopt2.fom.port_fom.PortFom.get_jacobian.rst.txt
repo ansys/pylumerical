@@ -1,0 +1,6 @@
+get\_jacobian
+=============
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.get_jacobian

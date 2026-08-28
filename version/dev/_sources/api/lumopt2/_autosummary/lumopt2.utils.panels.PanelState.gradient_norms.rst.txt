@@ -1,0 +1,6 @@
+gradient\_norms
+===============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.gradient_norms

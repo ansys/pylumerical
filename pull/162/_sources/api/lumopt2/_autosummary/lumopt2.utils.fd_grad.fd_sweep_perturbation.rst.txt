@@ -1,0 +1,6 @@
+﻿fd\_sweep\_perturbation
+=======================
+
+.. currentmodule:: lumopt2.utils.fd_grad
+
+.. autofunction:: fd_sweep_perturbation

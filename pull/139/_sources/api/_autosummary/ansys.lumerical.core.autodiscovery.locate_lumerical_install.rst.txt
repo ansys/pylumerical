@@ -1,0 +1,6 @@
+﻿locate\_lumerical\_install
+==========================
+
+.. currentmodule:: ansys.lumerical.core.autodiscovery
+
+.. autofunction:: locate_lumerical_install

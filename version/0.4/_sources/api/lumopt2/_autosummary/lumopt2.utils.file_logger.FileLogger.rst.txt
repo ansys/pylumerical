@@ -1,0 +1,40 @@
+﻿FileLogger
+==========
+
+.. currentmodule:: lumopt2.utils.file_logger
+
+.. autoclass:: FileLogger
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      FileLogger.close
+      
+      
+      FileLogger.on_function_eval
+      
+      
+      FileLogger.on_iteration_end
+      
+      
+      FileLogger.on_iteration_start
+      
+      
+      FileLogger.on_optimization_end
+      
+      
+      FileLogger.on_optimization_start
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,42 @@
+﻿GeometryPanel
+=============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: GeometryPanel
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      GeometryPanel.on_optimization_end
+      
+      
+      GeometryPanel.setup
+      
+      
+      GeometryPanel.update
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      GeometryPanel.aspect
+      GeometryPanel.parametrization
+      GeometryPanel.requires_forward_results
+      GeometryPanel.title
+      GeometryPanel.xlabel
+      GeometryPanel.ylabel
+   
+   

@@ -1,0 +1,6 @@
+setup
+=====
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. automethod:: MonitorPanel.setup

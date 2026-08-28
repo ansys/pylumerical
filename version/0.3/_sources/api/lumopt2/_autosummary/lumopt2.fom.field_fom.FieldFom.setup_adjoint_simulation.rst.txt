@@ -1,0 +1,6 @@
+setup\_adjoint\_simulation
+==========================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.setup_adjoint_simulation

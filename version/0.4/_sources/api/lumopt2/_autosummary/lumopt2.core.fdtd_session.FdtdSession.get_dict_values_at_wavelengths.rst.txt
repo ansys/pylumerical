@@ -1,0 +1,6 @@
+get\_dict\_values\_at\_wavelengths
+==================================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.get_dict_values_at_wavelengths

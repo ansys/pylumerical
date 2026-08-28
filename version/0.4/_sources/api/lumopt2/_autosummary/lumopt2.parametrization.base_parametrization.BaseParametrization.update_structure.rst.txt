@@ -1,0 +1,6 @@
+update\_structure
+=================
+
+.. currentmodule:: lumopt2.parametrization.base_parametrization
+
+.. automethod:: BaseParametrization.update_structure

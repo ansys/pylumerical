@@ -1,0 +1,1024 @@
+[
+    {
+        "objectID": "index",
+        "href": "index.html#pylumerical-documentation-010",
+        "title": "PyLumerical documentation 0.1.0",
+        "section": "PyLumerical documentation 0.1.0",
+        "text": "PyLumerical is the Python automation library for Ansys Lumerical photonics simulation software. Use PyLumerical to seamlessly control Ansys Lumerical products including Ansys Lumerical FDTD™, Ansys Lumerical MODE™, Ansys Lumerical Multiphysics™, and Ansys Lumerical INTERCONNECT™ directly in Python.\nYou can use PyLumerical to set up geometry and material, run simulations, and retrieve results from Lumerical products, while leveraging the power of extensive Python libraries.\nIf you have existing automation in the Lumerical Scripting Language, you can also use them seamlessly with PyLumerical, and build your Python workflow around them.\nAs a part of the PyAnsys project, PyLumerical also enables you to integrate with other Ansys products to create complex and accurate multiphysics workflows.\nThe Lumerical inverse design library lumopt and the high performance computing (HPC) scheduler automation library lumslurm are currently only available as a part of the Lumerical Python API and cannot be accessed in PyLumerical.\nThe Lumerical Python API is still provided with Lumerical products. If you wish to use the Lumerical Python API instead of PyLumerical, please see the Lumerical Python API documentation in the Lumerical Knowledge Base.\nNew to PyLumerical? This quick start guide provides you with information to rapidly get started.\nIn-depth information on key concepts of PyLumerical.\nDescription of classes and methods of the PyLumerical module.\nPyLumerical documentation 0.1.0"
+    },
+    {
+        "objectID": "user_guide/accessing_simulation_results",
+        "href": "user_guide/accessing_simulation_results.html#accessing-simulation-results",
+        "title": "Accessing simulation results",
+        "section": "Accessing simulation results",
+        "text": "Simulation results are typically stored in datasets simulation or monitor objects Lumerical products.\nThis article describes how you can access and process datasets and raw simulation data when using the PyLumerical.\nFor more information on how PyLumerical translates basic data types and best practices when transferring data, see the article on Passing data, for more information on Lumerical datasets, see the Lumerical Knowledge Base article Introduction to lumerical datasets.\nAccessing simulation results"
+    },
+    {
+        "objectID": "user_guide/accessing_simulation_results",
+        "href": "user_guide/accessing_simulation_results.html#accessing-datasets",
+        "title": "Accessing simulation results > Accessing datasets",
+        "section": "Accessing datasets",
+        "text": "Lumerical products package relevant results in datasets so that you can readily visualize and explore them.\nYou can use the getresult method to retrieve these datasets into the Python workspace.\nPyLumerical retrieves datasets as dictionaries, with keys associated with various attributes and parameters.\nDictionaries converted from datasets have a special metadata key Lumerical_dataset which contains identifier values, this key preserves their structure when performing a roundtrip back to the Lumerical environment.\nWhen passing a dictionary from Python to Lumerical, PyLumerical converts it into a generic structure, unless it has the metadata element.\nAttributes and parameters are both stored as numpy.ndarray. Parameters are 1-D arrays that acts as a list of parameters.\nFor attributes, the dimension of the array depends on the type of dataset, the type of data, and the number of parameters.\nDataset Type\nAttribute Dimensions\nMatrix Dataset\nDimensions depend on type of attribute:\nScalar attribute: [ N_{p1} ; N_{p2} ; … ; N_{pn} ]\nVector attribute: [ N_{p1} ; N_{p2} ; … ; N_{pn} ; 3 ]\nwhere N_{p_i} is the length of the ith parameter.\nRectilinear Dataset\nDimensions depend on type of attribute:\nScalar attribute: [ N_x ; N_y ; N_z ; N_{p1} ; N_{p2} ; … ;\nN_{pn} ]\nVector attribute: [ N_x ; N_y ; N_z ; N_{p1} ; N_{p2} ; … ;\nN_{pn} ; 3 ]\nTensor attribute: [ N_x ; N_y ; N_z ; N_{p1} ; N_{p2} ; … ;\nN_{pn} ; 9 ]\nwhere N_k, k = x, y, z are the lengths of the\ncoordinate vectors, and N_{p_i} is the length of the ith\nparameter. If the dataset is 2D or 1D, then there\nare singleton dimensions, so that one of N_k = 1.\nUnstructured Dataset\nDimensions depend on type of attribute:\nScalar attribute: [ N_N ; N_{p1} ; N_{p2} ; … ; N_{pn} ; 1 ]\nVector attribute: [ N_N ; N_{p1} ; N_{p2} ; … ; N_{pn} ; 3 ]\nTensor attribute: [ N_N ; N_{p1} ; N_{p2} ; … ; N_{pn} ; 9 ]\nwhere N_N is the number of elements in the unstructured grid.\nAn extra attribute for the grid connectivity array,\nconnectivity, is also a part of the dataset.\nYou can remove singleton dimensions with the pinch command in Lumerical or numpy.squeeze() in numpy.\nExample\nThe following example uses an example file ‘fdtd_file.fsp’ created using the following script.\nThe following script uses this file to obtain rectilinear datasets.\nReturns\nThe following script creates a p-n junction in Lumerical Multiphysics, and returns an unstructured dataset related to its doping.\nReturns\nAccessing datasets\nLumerical_dataset\nnumpy.ndarray\nconnectivity\nnumpy.squeeze()"
+    },
+    {
+        "objectID": "user_guide/accessing_simulation_results",
+        "href": "user_guide/accessing_simulation_results.html#accessing-raw-data",
+        "title": "Accessing simulation results > Accessing raw data",
+        "section": "Accessing raw data",
+        "text": "Raw data from monitors are results in their raw, matrix form. You can also pass these results to the Python workspace using the getdata command.\nPyLumerical retrieves raw data from Lumerical products as numpy.ndarray objects.\nThe length to each dimension of the returned array depends on whether the raw data was originally an attribute or parameter.\nThese dimensions follow the dimensions for attributes and parameters described in the “Accessing dataset” section.\nExample\nThe following example uses the FDTD project file “fdtd_file.fsp” created above and accesses raw data stored in the profile monitor.\nReturns\nAccessing raw data\nnumpy.ndarray"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#installation-and-getting-started",
+        "title": "Installation and getting started",
+        "section": "Installation and getting started",
+        "text": "Installation and getting started"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#installation",
+        "title": "Installation and getting started > Installation",
+        "section": "Installation",
+        "text": "You can install PyLumerical using pip.\nFirst, ensure that you have the latest pip version:\nThen, install using:\nInstallation"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#requirements",
+        "title": "Installation and getting started > Requirements",
+        "section": "Requirements",
+        "text": "You must have an Ansys Lumerical GUI license to use PyLumerical. For more information, please visit the licensing page on the Ansys Optics website.\nIn addition, you must also have Lumerical 2022 R1 or later installed on your computer. Upon importing PyLumerical, the autodiscovery function automatically locates the Lumerical installation path. If it fails to do so, you must set the path manually using ansys.lumerical.core.autodiscovery.locate_lumerical_install().\nRequirements\nansys.lumerical.core.autodiscovery.locate_lumerical_install()"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#my-first-pylumerical-project",
+        "title": "Installation and getting started > My first PyLumerical project",
+        "section": "My first PyLumerical project",
+        "text": "The code snippet below provides simple project of using PyLumerical to visualize the transmission of a gold thin film illuminated by a plane wave.\nThis simulation returns the following result.\nMy first PyLumerical project"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#further-resources",
+        "title": "Installation and getting started > Further resources",
+        "section": "Further resources",
+        "text": "Information on key concepts of PyLumerical.\nReference for the PyLumerical API.\nGallery of examples using PyLumerical.\nFurther resources"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#recommended-examples",
+        "title": "Installation and getting started > Recommended examples",
+        "section": "Recommended examples",
+        "text": "Recommended examples to further build your understanding of PyLumerical and its capabilities.\nRecommended examples"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#ansys-lumerical-fdtd",
+        "title": "Installation and getting started > Ansys Lumerical FDTD™",
+        "section": "Ansys Lumerical FDTD™",
+        "text": "Nanowire example using FDTD\nAnsys Lumerical FDTD™"
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#ansys-lumerical-interconnect",
+        "title": "Installation and getting started > Ansys Lumerical INTERCONNECT™",
+        "section": "Ansys Lumerical INTERCONNECT™",
+        "text": "Monte Carlo analysis in INTERCONNECT\nOptical transceiver co-simulation in INTERCONNECT\nAnsys Lumerical INTERCONNECT™"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.close",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.close.html#close",
+        "title": "close",
+        "section": "close",
+        "text": "Calls appClose on the the object handle and destroy the session\nclose\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.close",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.close.html#ansys.lumerical.core.MODE.close",
+        "title": "close > close > close",
+        "section": "close > close",
+        "text": "MODE.close()\n\nCalls appClose on the the object handle and destroy the session\n\nParameters\n\nNone\n\n\n\nReturns\n\npython:None\n\n\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectById.html#getobjectbyid",
+        "title": "getObjectById",
+        "section": "getObjectById",
+        "text": "Returns a simulation object by ID.\nObject ID of the target simulation object.\nThe object ID is the fully distinguished name of the object.\nFor example,\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\nFor example,\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\nIf an unqualified name is given, the group scope will be prepended to the name.\nObject obtained by the function.\nReturns the currently selected simulation object.\nReturns a list of all currently selected simulation objects.\nAdd a rectangle and obtain it by ID.\nReturns\nThe same command still works even if you don’t specify the scope.\nReturns\nIf multiple rectangles are defined, use numbers to specify the correct one\nReturns\ngetObjectById\npython:str\nansys.lumerical.core.SimObject\ngetObjectBySelection()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectById.html#ansys.lumerical.core.INTERCONNECT.getObjectById",
+        "title": "getObjectById > getObjectById > getObjectById",
+        "section": "getObjectById > getObjectById",
+        "text": "INTERCONNECT.getObjectById(id)\n\nReturns a simulation object by ID.\n\nParameters\n\nid\n\npython:str\n\nObject ID of the target simulation object.\n\nThe object ID is the fully distinguished name of the object.\n\nFor example,\n\n>>> ::model::group::rectangle\n\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\n\nFor example,\n\n>>> ::model::group::rectangle#3\n\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\n\nIf an unqualified name is given, the group scope will be prepended to the name.\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by the function.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nExamples\n\nAdd a rectangle and obtain it by ID.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"::model::rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nThe same command still works even if you don’t specify the scope.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nIf multiple rectangles are defined, use numbers to specify the correct one\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect(z = 0e-6)\n>>> fdtd.addrect(z = 1e-6)\n>>> rect = fdtd.getObjectById(\"rectangle#1\")\n>>> rect2 = fdtd.getObjectById(\"rectangle#2\")\n>>> print(f\"Rectangle 1 z position: {rect['z']}, Rectangle 2 z position: {rect2['z']}\")\n\nReturns\n\n>>> Rectangle 1 z position: 0.0, Rectangle 2 z position: 1e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.close",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.close.html#close",
+        "title": "close",
+        "section": "close",
+        "text": "Calls appClose on the the object handle and destroy the session\nclose\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.close",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.close.html#ansys.lumerical.core.DEVICE.close",
+        "title": "close > close > close",
+        "section": "close > close",
+        "text": "DEVICE.close()\n\nCalls appClose on the the object handle and destroy the session\n\nParameters\n\nNone\n\n\n\nReturns\n\npython:None\n\n\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.putv.html#putv",
+        "title": "putv",
+        "section": "putv",
+        "text": "Low level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThe name of the variable to retrieve from the Lumerical session.\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\nSee the “See also” section below for more details on supported data types and how they are handled.\nIf the method cannot retrieve the variable or the data type is unsupported.\nGets a variable from the Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\nputv\npython:str\nany\npython:None\nLumApiError\ngetv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.putv.html#ansys.lumerical.core.INTERCONNECT.putv",
+        "title": "putv > putv > putv",
+        "section": "putv > putv",
+        "text": "INTERCONNECT.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nThe name of the variable to retrieve from the Lumerical session.\n\nvalue\n\nany\n\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\n\nSee the “See also” section below for more details on supported data types and how they are handled.\n\nReturns\n\npython:None\n\n\n\nRaises\n\nLumApiError\n\nIf the method cannot retrieve the variable or the data type is unsupported.\n\ngetv()\n\nGets a variable from the Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.html#interconnect",
+        "title": "INTERCONNECT",
+        "section": "INTERCONNECT",
+        "text": "Represents an interactive session with Ansys Lumerical INTERCONNECT™.\nThis class provides the main interface to interact with the Lumerical product.\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\nDeprecated parameter, do not enter values other than the default.\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\nhostname: a string indicating the IP address.\nport: an integer indicating the port to connect to.\nKeyword arguments, see “Other Parameters”: below for options and their usage.\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\nFor more information, see the Script commands as methods article in the User guide.\nINTERCONNECT.close()\nCalls appClose on the the object handle and destroy the session\nINTERCONNECT.eval(code)\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\nINTERCONNECT.getAllSelectedObjects()\nReturns a list of all currently selected simulation objects.\nINTERCONNECT.getObjectById(id)\nReturns a simulation object by ID.\nINTERCONNECT.getObjectBySelection()\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nINTERCONNECT.getv(varname)\nLow level script workspace method that gets a variable from the Lumerical session.\nINTERCONNECT.putv(varname, value)\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nINTERCONNECT\npython:str\noptional\npython:str\noptional\noptional\nstruct\noptional\nstruct\noptional\npython:dict\noptional\npython:str\noptional\npython:str\noptional\nINTERCONNECT.close\nINTERCONNECT.eval\nINTERCONNECT.getAllSelectedObjects\nINTERCONNECT.getObjectById\nINTERCONNECT.getObjectBySelection\nINTERCONNECT.getv\nINTERCONNECT.putv"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.html#ansys.lumerical.core.INTERCONNECT",
+        "title": "INTERCONNECT > INTERCONNECT > INTERCONNECT",
+        "section": "INTERCONNECT > INTERCONNECT",
+        "text": "class ansys.lumerical.core.INTERCONNECT(filename=None, key=None, hide=False, serverArgs={}, remoteArgs={}, **kwargs)\n\nRepresents an interactive session with Ansys Lumerical INTERCONNECT™.\n\nThis class provides the main interface to interact with the Lumerical product.\n\nParameters\n\nfilename\n\npython:str, optional\n\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\n\nkey\n\npython:str, optional\n\nDeprecated parameter, do not enter values other than the default.\n\nhide\n\nbool, optional\n\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\n\nserverArgs\n\nstruct, optional\n\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\n\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\n\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\n\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\n\n\n\n\n\nremoteArgs\n\nstruct, optional\n\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\n\nhostname: a string indicating the IP address.\n\nport: an integer indicating the port to connect to.\n\n**kwargs\n\npython:dict, optional\n\nKeyword arguments, see “Other Parameters”: below for options and their usage.\n\nAttributes\n\nLumerical objects don’t have user modifiable attributes.\n\n\n\nOther Parameters\n\nproject\n\npython:str, optional\n\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\n\nscript\n\npython:str, optional\n\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\n\nNotes\n\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\n\nFor more information, see the Script commands as methods article in the User guide.\n\n!! processed by numpydoc !!\n\nMethods\n\n\n\n\n\n\n\nINTERCONNECT.close()\n\nCalls appClose on the the object handle and destroy the session\n\nINTERCONNECT.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nINTERCONNECT.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nINTERCONNECT.getObjectById(id)\n\nReturns a simulation object by ID.\n\nINTERCONNECT.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nINTERCONNECT.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nINTERCONNECT.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\n"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getv.html#getv",
+        "title": "getv",
+        "section": "getv",
+        "text": "Low level script workspace method that gets a variable from the Lumerical session.\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nLumerical variable name of the variable to obtain.\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\nstr for strings in Lumerical\nfloat for real numbers in Lumerical\nnumpy.ndarray for complex numbers in Lumerical\nnumpy.ndarray for matrices in Lumerical\nlist for cell arrays in Lumerical\ndict for structs in Lumerical\ndict for datasets in Lumerical\nPuts a variable from the local Python environment into an active Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\ngetv\npython:str\nany\nstr\nfloat\nnumpy.ndarray\nnumpy.ndarray\nlist\ndict\ndict\nputv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getv.html#ansys.lumerical.core.DEVICE.getv",
+        "title": "getv > getv > getv",
+        "section": "getv > getv",
+        "text": "DEVICE.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nLumerical variable name of the variable to obtain.\n\nReturns\n\nany\n\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\n\nstr for strings in Lumerical\n\nfloat for real numbers in Lumerical\n\nnumpy.ndarray for complex numbers in Lumerical\n\nnumpy.ndarray for matrices in Lumerical\n\nlist for cell arrays in Lumerical\n\ndict for structs in Lumerical\n\ndict for datasets in Lumerical\n\nputv()\n\nPuts a variable from the local Python environment into an active Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.eval.html#eval",
+        "title": "eval",
+        "section": "eval",
+        "text": "Low level script workspace method that evaluates the input string as Lumerical Scripting Language.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\nAdds a rectangle to the current simulation.\nAdds a rectangle to the current simulation using f-strings.\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\nContents of code.txt\nPython driver code\neval\npython:str\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.eval.html#ansys.lumerical.core.MODE.eval",
+        "title": "eval > eval > eval",
+        "section": "eval > eval",
+        "text": "MODE.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\n\nParameters\n\ncode\n\npython:str\n\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\n\nReturns\n\npython:None\n\n\n\nExamples\n\nAdds a rectangle to the current simulation.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.eval(f\"addrect;\")\n\nAdds a rectangle to the current simulation using f-strings.\n\n>>> fdtd = lumapi.FDTD()\n>>> code = \"addrect;addcircle;\"\n>>> fdtd.eval(f\"{code}\\n\")\n\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\n\nContents of code.txt\n\n>>> addrect;\n>>> addcircle;\n\nPython driver code\n\n>>> fdtd = lumapi.FDTD()\n>>> code = open(\"code.txt\", \"r\").read()\n>>> fdtd.eval(code)\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObjectId",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObjectId.html#simobjectid",
+        "title": "SimObjectId",
+        "section": "SimObjectId",
+        "text": "Represents a weak reference to a simulation object.\nDon’t use this class directly.\nSimObjectId"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObjectId",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObjectId.html#ansys.lumerical.core.SimObjectId",
+        "title": "SimObjectId > SimObjectId > SimObjectId",
+        "section": "SimObjectId > SimObjectId",
+        "text": "class ansys.lumerical.core.SimObjectId(id)\n\nRepresents a weak reference to a simulation object.\n\nDon’t use this class directly.\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject.getParent",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.getParent.html#getparent",
+        "title": "getParent",
+        "section": "getParent",
+        "text": "Return the parent of the currently selected object in the Lumerical session.\nThis command does not support objects where the parent was changed since object creation, for example, objects that had their parent changed from the addtogroup command.\nThe parent of the currently selected object in the Lumerical software.\nReturns the children of the currently selected object in the Lumerical session.\ngetParent\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject.getChildren()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject.getParent",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.getParent.html#ansys.lumerical.core.SimObject.getParent",
+        "title": "getParent > getParent > getParent",
+        "section": "getParent > getParent",
+        "text": "SimObject.getParent()\n\nReturn the parent of the currently selected object in the Lumerical session.\n\nThis command does not support objects where the parent was changed since object creation, for example, objects that had their parent changed from the addtogroup command.\n\nParameters\n\nNone\n\n\n\nReturns\n\nansys.lumerical.core.SimObject\n\nThe parent of the currently selected object in the Lumerical software.\n\nansys.lumerical.core.SimObject.getChildren()\n\nReturns the children of the currently selected object in the Lumerical session.\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.putv.html#putv",
+        "title": "putv",
+        "section": "putv",
+        "text": "Low level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThe name of the variable to retrieve from the Lumerical session.\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\nSee the “See also” section below for more details on supported data types and how they are handled.\nIf the method cannot retrieve the variable or the data type is unsupported.\nGets a variable from the Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\nputv\npython:str\nany\npython:None\nLumApiError\ngetv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.putv.html#ansys.lumerical.core.DEVICE.putv",
+        "title": "putv > putv > putv",
+        "section": "putv > putv",
+        "text": "DEVICE.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nThe name of the variable to retrieve from the Lumerical session.\n\nvalue\n\nany\n\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\n\nSee the “See also” section below for more details on supported data types and how they are handled.\n\nReturns\n\npython:None\n\n\n\nRaises\n\nLumApiError\n\nIf the method cannot retrieve the variable or the data type is unsupported.\n\ngetv()\n\nGets a variable from the Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getObjectById.html#getobjectbyid",
+        "title": "getObjectById",
+        "section": "getObjectById",
+        "text": "Returns a simulation object by ID.\nObject ID of the target simulation object.\nThe object ID is the fully distinguished name of the object.\nFor example,\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\nFor example,\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\nIf an unqualified name is given, the group scope will be prepended to the name.\nObject obtained by the function.\nReturns the currently selected simulation object.\nReturns a list of all currently selected simulation objects.\nAdd a rectangle and obtain it by ID.\nReturns\nThe same command still works even if you don’t specify the scope.\nReturns\nIf multiple rectangles are defined, use numbers to specify the correct one\nReturns\ngetObjectById\npython:str\nansys.lumerical.core.SimObject\ngetObjectBySelection()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getObjectById.html#ansys.lumerical.core.MODE.getObjectById",
+        "title": "getObjectById > getObjectById > getObjectById",
+        "section": "getObjectById > getObjectById",
+        "text": "MODE.getObjectById(id)\n\nReturns a simulation object by ID.\n\nParameters\n\nid\n\npython:str\n\nObject ID of the target simulation object.\n\nThe object ID is the fully distinguished name of the object.\n\nFor example,\n\n>>> ::model::group::rectangle\n\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\n\nFor example,\n\n>>> ::model::group::rectangle#3\n\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\n\nIf an unqualified name is given, the group scope will be prepended to the name.\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by the function.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nExamples\n\nAdd a rectangle and obtain it by ID.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"::model::rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nThe same command still works even if you don’t specify the scope.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nIf multiple rectangles are defined, use numbers to specify the correct one\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect(z = 0e-6)\n>>> fdtd.addrect(z = 1e-6)\n>>> rect = fdtd.getObjectById(\"rectangle#1\")\n>>> rect2 = fdtd.getObjectById(\"rectangle#2\")\n>>> print(f\"Rectangle 1 z position: {rect['z']}, Rectangle 2 z position: {rect2['z']}\")\n\nReturns\n\n>>> Rectangle 1 z position: 0.0, Rectangle 2 z position: 1e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectBySelection.html#getobjectbyselection",
+        "title": "getObjectBySelection",
+        "section": "getObjectBySelection",
+        "text": "Returns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nObject obtained by function.\nReturns a simulation object by ID.\nReturns a list of all currently selected simulation objects\nReturns\ngetObjectBySelection\nansys.lumerical.core.SimObject\ngetObjectById()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectBySelection.html#ansys.lumerical.core.DEVICE.getObjectBySelection",
+        "title": "getObjectBySelection > getObjectBySelection > getObjectBySelection",
+        "section": "getObjectBySelection > getObjectBySelection",
+        "text": "DEVICE.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nParameters\n\nNone\n\n\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by function.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> obj = fdtd.getObjectBySelection() #Only the first one out of the objects that are selected is returned here\n>>> print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectBySelection.html#getobjectbyselection",
+        "title": "getObjectBySelection",
+        "section": "getObjectBySelection",
+        "text": "Returns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nObject obtained by function.\nReturns a simulation object by ID.\nReturns a list of all currently selected simulation objects\nReturns\ngetObjectBySelection\nansys.lumerical.core.SimObject\ngetObjectById()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectBySelection.html#ansys.lumerical.core.FDTD.getObjectBySelection",
+        "title": "getObjectBySelection > getObjectBySelection > getObjectBySelection",
+        "section": "getObjectBySelection > getObjectBySelection",
+        "text": "FDTD.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nParameters\n\nNone\n\n\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by function.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> obj = fdtd.getObjectBySelection() #Only the first one out of the objects that are selected is returned here\n>>> print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#contributing",
+        "title": "Contributing",
+        "section": "Contributing",
+        "text": "PyLumerical follows the PyAnsys contribution guidelines. Ensure that you are familiar with the contents of this guide before contributing to PyLumerical.\nThe following section provides information for contributing to PyLumerical.\nContributing"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#installing-pylumerical-in-developer-mode",
+        "title": "Contributing > Installing PyLumerical in developer mode",
+        "section": "Installing PyLumerical in developer mode",
+        "text": "Installing PyLumerical in developer mode allows\nyou to modify the source and enhance it.\nStart by cloning this repository:\nCreate a clean Python virtual environment:\nActivate the virtual environment:\nInstall PyLumerical in editable mode:\nInstall additional requirements as needed for documentation and tests:\nInstalling PyLumerical in developer mode"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#code-style",
+        "title": "Contributing > Code style",
+        "section": "Code style",
+        "text": "Use pre-commit to ensure that your code meets the style requirements for PyLumerical prior to filing a pull request. The automatic CI/CD procedures uses the same checks as pre-commit, hence, it’s preferable to first run pre-commit locally.\nTo install pre-commit and check over all your files, run the following commands:\nYou can also set up pre-commit as a hook to automatically run before committing changes.\nCode style"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#testing",
+        "title": "Contributing > Testing",
+        "section": "Testing",
+        "text": "PyLumerical uses pytest for testing.\nTo run tests, first install the test requirements seen in the previous section, and then run the following command in the root directory of the repository:\nReplace <path_to_virtual_environment> with the path to your virtual environment, and <pylumerical_repository> with the path to your local PyLumerical repository.\nTesting\n<path_to_virtual_environment>\n<pylumerical_repository>"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#documentation",
+        "title": "Contributing > Documentation",
+        "section": "Documentation",
+        "text": "PyLumerical uses reStructuredText and Sphinx for documentation. Before building the documentation, first install the documentation requirements seen in the previous section.\nYou can build the documentation locally by navigating to the /doc directory and running the following commands:\nThe documentation is under the doc/_build/html directory.\nYou can also clean the documentation build directory by running:\nDocumentation\n/doc\ndoc/_build/html"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject.getChildren",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.getChildren.html#getchildren",
+        "title": "getChildren",
+        "section": "getChildren",
+        "text": "Returns the children of the currently selected object in the Lumerical session.\nList of children for the currently selected simulation object.\nReturns the parent of the currently selected object in the Lumerical session.\ngetChildren\nlist\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject.getParent()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject.getChildren",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.getChildren.html#ansys.lumerical.core.SimObject.getChildren",
+        "title": "getChildren > getChildren > getChildren",
+        "section": "getChildren > getChildren",
+        "text": "SimObject.getChildren()\n\nReturns the children of the currently selected object in the Lumerical session.\n\nParameters\n\nNone\n\n\n\nReturns\n\nlist [ansys.lumerical.core.SimObject]\n\nList of children for the currently selected simulation object.\n\nansys.lumerical.core.SimObject.getParent()\n\nReturns the parent of the currently selected object in the Lumerical session.\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectById.html#getobjectbyid",
+        "title": "getObjectById",
+        "section": "getObjectById",
+        "text": "Returns a simulation object by ID.\nObject ID of the target simulation object.\nThe object ID is the fully distinguished name of the object.\nFor example,\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\nFor example,\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\nIf an unqualified name is given, the group scope will be prepended to the name.\nObject obtained by the function.\nReturns the currently selected simulation object.\nReturns a list of all currently selected simulation objects.\nAdd a rectangle and obtain it by ID.\nReturns\nThe same command still works even if you don’t specify the scope.\nReturns\nIf multiple rectangles are defined, use numbers to specify the correct one\nReturns\ngetObjectById\npython:str\nansys.lumerical.core.SimObject\ngetObjectBySelection()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getObjectById.html#ansys.lumerical.core.FDTD.getObjectById",
+        "title": "getObjectById > getObjectById > getObjectById",
+        "section": "getObjectById > getObjectById",
+        "text": "FDTD.getObjectById(id)\n\nReturns a simulation object by ID.\n\nParameters\n\nid\n\npython:str\n\nObject ID of the target simulation object.\n\nThe object ID is the fully distinguished name of the object.\n\nFor example,\n\n>>> ::model::group::rectangle\n\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\n\nFor example,\n\n>>> ::model::group::rectangle#3\n\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\n\nIf an unqualified name is given, the group scope will be prepended to the name.\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by the function.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nExamples\n\nAdd a rectangle and obtain it by ID.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"::model::rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nThe same command still works even if you don’t specify the scope.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nIf multiple rectangles are defined, use numbers to specify the correct one\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect(z = 0e-6)\n>>> fdtd.addrect(z = 1e-6)\n>>> rect = fdtd.getObjectById(\"rectangle#1\")\n>>> rect2 = fdtd.getObjectById(\"rectangle#2\")\n>>> print(f\"Rectangle 1 z position: {rect['z']}, Rectangle 2 z position: {rect2['z']}\")\n\nReturns\n\n>>> Rectangle 1 z position: 0.0, Rectangle 2 z position: 1e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObjectResults",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObjectResults.html#simobjectresults",
+        "title": "SimObjectResults",
+        "section": "SimObjectResults",
+        "text": "Contains results of a simulation object.\nThis object is returned by the results attribute of a ansys.lumerical.core.SimObject instance.\nDon’t initialize this class directly. Other functions and methods return this class.\nSimObjectResults\nansys.lumerical.core.SimObject"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObjectResults",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObjectResults.html#ansys.lumerical.core.SimObjectResults",
+        "title": "SimObjectResults > SimObjectResults > SimObjectResults",
+        "section": "SimObjectResults > SimObjectResults",
+        "text": "class ansys.lumerical.core.SimObjectResults(parent)\n\nContains results of a simulation object.\n\nThis object is returned by the results attribute of a ansys.lumerical.core.SimObject instance.\n\nDon’t initialize this class directly. Other functions and methods return this class.\n\nParameters\n\nDon’t initialize this class directly.\n\n\n\nAttributes\n\nThe object has attributes that match each of the results of the simulation object in Lumerical products. The attribute names are the same as the result names, except that spaces are replaced with underscore characters. You can also access these attributes like a Python dict using the subscripting operator []. When accessed this way, attributes retain their original name including spaces.\n\n\n\nEach time you read the attribute, this method retrieves result data. Therefore, for results with a large amount of data, avoid repeatedly accessing the attribute. Instead, store the result in a local variable.\n\n\n\nThis method does not support writing to results, and doing so has no effect on the simulation object in the Lumerical environment.\n\n\n\nref_working_with_simulation_objects\n\n\n\nref_accessing_simulation_results\n\n\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getAllSelectedObjects.html#getallselectedobjects",
+        "title": "getAllSelectedObjects",
+        "section": "getAllSelectedObjects",
+        "text": "Returns a list of all currently selected simulation objects.\nA list consisting of ansys.lumerical.core.SimObject objects.\nReturns a simulation object by ID.\nReturns the currently selected simulation object.\nReturns\ngetAllSelectedObjects\nlist\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject\ngetObjectById()\ngetObjectBySelection()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getAllSelectedObjects.html#ansys.lumerical.core.DEVICE.getAllSelectedObjects",
+        "title": "getAllSelectedObjects > getAllSelectedObjects > getAllSelectedObjects",
+        "section": "getAllSelectedObjects > getAllSelectedObjects",
+        "text": "DEVICE.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nParameters\n\nNone\n\n\n\nReturns\n\nlist [ansys.lumerical.core.SimObject]\n\nA list consisting of ansys.lumerical.core.SimObject objects.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> objList = fdtd.getAllSelectedObjects() #A list of object is returned here\n>>> for obj in objList:\n>>>     print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \\n\")\n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0 \n>>> Rectangle name: Rect1, z position: 1e-06\n>>> Rectangle name: Rect2, z position: 2e-06\n>>> Rectangle name: Rect3, z position: 3e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/autodiscovery",
+        "href": "api/autodiscovery.html#autodiscovery",
+        "title": "Autodiscovery",
+        "section": "Autodiscovery",
+        "text": "PyLumerical requires Lumerical 2022 R1 or later to run. The autodiscovery function first attempts to find the installation location using the following methods:\nWindows registry: On Windows, PyLumerical checks the registry for the installation path of Lumerical products.\nOn Windows, with the Lumerical standalone installer: C:\\Program Files\\Lumerical\\\nOn Windows, with the Ansys automated installer: C:\\Program Files\\ANSYS Inc\\ANSYS Optics\\\nOn Linux, with the Lumerical standalone installer: /opt/Lumerical/\nOn Linux, with the Ansys automated installer: ~/Ansys/ansys_inc/\nIf PyLumerical can’t find the installation path automatically, it returns a warning, and you must set the path manually.\nThe autodiscovery function below is automatically ran when you import PyLumerical:\nansys.lumerical.core.autodiscovery.locate_lumerical_install()\nLocate the installation directory and interop library directory for Lumerical software.\nAutodiscovery\nC:\\Program Files\\Lumerical\\\nC:\\Program Files\\ANSYS Inc\\ANSYS Optics\\\n/opt/Lumerical/\n~/Ansys/ansys_inc/\nansys.lumerical.core.autodiscovery.locate_lumerical_install"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getv.html#getv",
+        "title": "getv",
+        "section": "getv",
+        "text": "Low level script workspace method that gets a variable from the Lumerical session.\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nLumerical variable name of the variable to obtain.\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\nstr for strings in Lumerical\nfloat for real numbers in Lumerical\nnumpy.ndarray for complex numbers in Lumerical\nnumpy.ndarray for matrices in Lumerical\nlist for cell arrays in Lumerical\ndict for structs in Lumerical\ndict for datasets in Lumerical\nPuts a variable from the local Python environment into an active Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\ngetv\npython:str\nany\nstr\nfloat\nnumpy.ndarray\nnumpy.ndarray\nlist\ndict\ndict\nputv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getv.html#ansys.lumerical.core.FDTD.getv",
+        "title": "getv > getv > getv",
+        "section": "getv > getv",
+        "text": "FDTD.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nLumerical variable name of the variable to obtain.\n\nReturns\n\nany\n\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\n\nstr for strings in Lumerical\n\nfloat for real numbers in Lumerical\n\nnumpy.ndarray for complex numbers in Lumerical\n\nnumpy.ndarray for matrices in Lumerical\n\nlist for cell arrays in Lumerical\n\ndict for structs in Lumerical\n\ndict for datasets in Lumerical\n\nputv()\n\nPuts a variable from the local Python environment into an active Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getObjectBySelection.html#getobjectbyselection",
+        "title": "getObjectBySelection",
+        "section": "getObjectBySelection",
+        "text": "Returns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nObject obtained by function.\nReturns a simulation object by ID.\nReturns a list of all currently selected simulation objects\nReturns\ngetObjectBySelection\nansys.lumerical.core.SimObject\ngetObjectById()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getObjectBySelection.html#ansys.lumerical.core.MODE.getObjectBySelection",
+        "title": "getObjectBySelection > getObjectBySelection > getObjectBySelection",
+        "section": "getObjectBySelection > getObjectBySelection",
+        "text": "MODE.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nParameters\n\nNone\n\n\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by function.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> obj = fdtd.getObjectBySelection() #Only the first one out of the objects that are selected is returned here\n>>> print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getAllSelectedObjects.html#getallselectedobjects",
+        "title": "getAllSelectedObjects",
+        "section": "getAllSelectedObjects",
+        "text": "Returns a list of all currently selected simulation objects.\nA list consisting of ansys.lumerical.core.SimObject objects.\nReturns a simulation object by ID.\nReturns the currently selected simulation object.\nReturns\ngetAllSelectedObjects\nlist\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject\ngetObjectById()\ngetObjectBySelection()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.getAllSelectedObjects.html#ansys.lumerical.core.FDTD.getAllSelectedObjects",
+        "title": "getAllSelectedObjects > getAllSelectedObjects > getAllSelectedObjects",
+        "section": "getAllSelectedObjects > getAllSelectedObjects",
+        "text": "FDTD.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nParameters\n\nNone\n\n\n\nReturns\n\nlist [ansys.lumerical.core.SimObject]\n\nA list consisting of ansys.lumerical.core.SimObject objects.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> objList = fdtd.getAllSelectedObjects() #A list of object is returned here\n>>> for obj in objList:\n>>>     print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \\n\")\n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0 \n>>> Rectangle name: Rect1, z position: 1e-06\n>>> Rectangle name: Rect2, z position: 2e-06\n>>> Rectangle name: Rect3, z position: 3e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/index",
+        "href": "api/index.html#api-reference",
+        "title": "API reference",
+        "section": "API reference",
+        "text": "The API reference provides an overview of classes and methods used in PyLumerical.\nMain classes to programmatically interact with Lumerical products.\nAuxiliary classes used to represent simulation objects, their results, and IDs.\nFunction to automatically discover Lumerical installation.\nAPI reference"
+    },
+    {
+        "objectID": "api/interface_class",
+        "href": "api/interface_class.html#interface-classes",
+        "title": "Interface classes",
+        "section": "Interface classes",
+        "text": "Instances of these objects each represent an interactive session with a Lumerical product, and provide methods to create simulation objects, run simulations, and access results.\nansys.lumerical.core.FDTD([filename, key, ...])\nRepresents an interactive session with Ansys Lumerical FDTD™.\nansys.lumerical.core.MODE([filename, key, ...])\nRepresents an interactive session with Ansys Lumerical MODE™.\nansys.lumerical.core.DEVICE([filename, key, ...])\nRepresents an interactive session with Ansys Lumerical Multiphysics™.\nansys.lumerical.core.INTERCONNECT([...])\nRepresents an interactive session with Ansys Lumerical INTERCONNECT™.\nThe PyLumerical User guide provides information on how to get started and details of how to use the Lumerical class methods to interact with Lumerical products.\nInterface classes\nansys.lumerical.core.FDTD\nansys.lumerical.core.MODE\nansys.lumerical.core.DEVICE\nansys.lumerical.core.INTERCONNECT"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getv.html#getv",
+        "title": "getv",
+        "section": "getv",
+        "text": "Low level script workspace method that gets a variable from the Lumerical session.\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nLumerical variable name of the variable to obtain.\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\nstr for strings in Lumerical\nfloat for real numbers in Lumerical\nnumpy.ndarray for complex numbers in Lumerical\nnumpy.ndarray for matrices in Lumerical\nlist for cell arrays in Lumerical\ndict for structs in Lumerical\ndict for datasets in Lumerical\nPuts a variable from the local Python environment into an active Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\ngetv\npython:str\nany\nstr\nfloat\nnumpy.ndarray\nnumpy.ndarray\nlist\ndict\ndict\nputv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getv.html#ansys.lumerical.core.MODE.getv",
+        "title": "getv > getv > getv",
+        "section": "getv > getv",
+        "text": "MODE.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nLumerical variable name of the variable to obtain.\n\nReturns\n\nany\n\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\n\nstr for strings in Lumerical\n\nfloat for real numbers in Lumerical\n\nnumpy.ndarray for complex numbers in Lumerical\n\nnumpy.ndarray for matrices in Lumerical\n\nlist for cell arrays in Lumerical\n\ndict for structs in Lumerical\n\ndict for datasets in Lumerical\n\nputv()\n\nPuts a variable from the local Python environment into an active Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.html#mode",
+        "title": "MODE",
+        "section": "MODE",
+        "text": "Represents an interactive session with Ansys Lumerical MODE™.\nThis class provides the main interface to interact with the Lumerical product.\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\nDeprecated parameter, do not enter values other than the default.\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\nhostname: a string indicating the IP address.\nport: an integer indicating the port to connect to.\nKeyword arguments, see “Other Parameters”: below for options and their usage.\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\nFor more information, see the Script commands as methods article in the User guide.\nMODE.close()\nCalls appClose on the the object handle and destroy the session\nMODE.eval(code)\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\nMODE.getAllSelectedObjects()\nReturns a list of all currently selected simulation objects.\nMODE.getObjectById(id)\nReturns a simulation object by ID.\nMODE.getObjectBySelection()\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nMODE.getv(varname)\nLow level script workspace method that gets a variable from the Lumerical session.\nMODE.putv(varname, value)\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nMODE\npython:str\noptional\npython:str\noptional\noptional\nstruct\noptional\nstruct\noptional\npython:dict\noptional\npython:str\noptional\npython:str\noptional\nMODE.close\nMODE.eval\nMODE.getAllSelectedObjects\nMODE.getObjectById\nMODE.getObjectBySelection\nMODE.getv\nMODE.putv"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.html#ansys.lumerical.core.MODE",
+        "title": "MODE > MODE > MODE",
+        "section": "MODE > MODE",
+        "text": "class ansys.lumerical.core.MODE(filename=None, key=None, hide=False, serverArgs={}, remoteArgs={}, **kwargs)\n\nRepresents an interactive session with Ansys Lumerical MODE™.\n\nThis class provides the main interface to interact with the Lumerical product.\n\nParameters\n\nfilename\n\npython:str, optional\n\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\n\nkey\n\npython:str, optional\n\nDeprecated parameter, do not enter values other than the default.\n\nhide\n\nbool, optional\n\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\n\nserverArgs\n\nstruct, optional\n\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\n\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\n\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\n\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\n\n\n\n\n\nremoteArgs\n\nstruct, optional\n\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\n\nhostname: a string indicating the IP address.\n\nport: an integer indicating the port to connect to.\n\n**kwargs\n\npython:dict, optional\n\nKeyword arguments, see “Other Parameters”: below for options and their usage.\n\nAttributes\n\nLumerical objects don’t have user modifiable attributes.\n\n\n\nOther Parameters\n\nproject\n\npython:str, optional\n\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\n\nscript\n\npython:str, optional\n\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\n\nNotes\n\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\n\nFor more information, see the Script commands as methods article in the User guide.\n\n!! processed by numpydoc !!\n\nMethods\n\n\n\n\n\n\n\nMODE.close()\n\nCalls appClose on the the object handle and destroy the session\n\nMODE.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nMODE.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nMODE.getObjectById(id)\n\nReturns a simulation object by ID.\n\nMODE.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nMODE.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nMODE.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\n"
+    },
+    {
+        "objectID": "user_guide/index",
+        "href": "user_guide/index.html#user-guide",
+        "title": "User guide",
+        "section": "User guide",
+        "text": "Use Python to analyze data, automate complex workflows, optimizations, and produce publication-quality plots. PyLumerical provides a method to seamlessly use Python to interact with Ansys Lumerical products.\nThis user guide provides important informational resources on key concepts of PyLumerical.\nLearn how to open, close and interact with Lumerical products through sessions.\nLearn how to interact with Lumerical products using script commands.\nLearning how to create and manipulate simulation objects.\nLearning how data types are transferred between Lumerical and Python.\nLearn how to access simulation results and work with Lumerical datasets.\nUser guide"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#working-with-simulation-objects",
+        "title": "Working with simulation objects",
+        "section": "Working with simulation objects",
+        "text": "At a basic level, you can interact with simulation objects in the same way as when you use the Lumerical Script Language.\nHowever, Lumerical scripting language interacts primarily with the currently selected object, which may not be clear from the Python code alone.\nTherefore, PyLumerical also provides you with ways to interact with all objects that fits better with the Python coding style.\nThis article describes various ways to interact with simulation objects, such as structures, sources, and monitors.\nFor more information on how to use script commands in PyLumerical, see the article on Script commands as methods.\nWorking with simulation objects"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#creating-simulation-objects",
+        "title": "Working with simulation objects > Creating simulation objects",
+        "section": "Creating simulation objects",
+        "text": "When adding a simulation object into Lumerical products using PyLumerical, you can set the values of properties at creation.\nThere are multiple ways of assigning the properties of objects when you create them.\nCreating simulation objects"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#assigning-properties-with-an-ordered-dict",
+        "title": "Working with simulation objects > Assigning properties with an ordered dict",
+        "section": "Assigning properties with an ordered dict",
+        "text": "You can also use a Python dict as a constructor to the object by assigning it to the attribute properties.\nIn Python, dict ordering isn’t guaranteed, so if there are properties that depend on other properties, an collections.OrderedDict is necessary.\nFor example, in the example below, ‘override global monitor settings’ must be true before you can set ‘frequency points’.\nUsing an collections.OrderedDict is the safest way to ensure that PyLumerical processes all settings as intended.\nExample\nIf you don’t have properties where ordering is important, you can use a regular dict.\nAssigning properties with an ordered dict\ndict\ndict\ncollections.OrderedDict\ncollections.OrderedDict\ndict"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#assigning-properties-with-keyword-arguments",
+        "title": "Working with simulation objects > Assigning properties with keyword arguments",
+        "section": "Assigning properties with keyword arguments",
+        "text": "You can also assign properties upon construction using keyword arguments.\nThe property names are the same as those in the Lumerical products.\nProperties with space in their name have spaces replaced by underscores.\nWhen using keyword arguments, the order of assignment isn’t guaranteed.\nTherefore, if the order of assignment is important, use an collections.OrderedDict instead.\nExample\nAssigning properties with keyword arguments\ncollections.OrderedDict"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#assigning-properties-with-set",
+        "title": "Working with simulation objects > Assigning properties with “set”",
+        "section": "Assigning properties with “set”",
+        "text": "In addition to the two methods above, you can also use the traditional Lumerical scripting method set or setnamed to directly set the properties after the object is created.\nExample\nAssigning properties with “set”"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#linked-properties",
+        "title": "Working with simulation objects > Linked properties",
+        "section": "Linked properties",
+        "text": "In Lumerical, some object properties affect each other.\nFor example, in a geometry object, such as the rectangle, you can either set the dimension using x span and x, or x min and x max.\nWhen you set linked properties, unexpected changes may occur to the object.\nExample\nReturns\nLinked properties\nx span\nx\nx min\nx max"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#manipulating-simulation-objects",
+        "title": "Working with simulation objects > Manipulating simulation objects",
+        "section": "Manipulating simulation objects",
+        "text": "When adding a new object to a Lumerical product session, PyLumerical returns a Python object representing that simulation object.\nManipulating the returned object makes changes to the corresponding object in the Lumerical product.\nManipulating simulation objects"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#direct-attribute-access",
+        "title": "Working with simulation objects > Direct attribute access",
+        "section": "Direct attribute access",
+        "text": "Like normal Python objects, you can access Lumerical simulation object attributes as seen below.\nThe following code adds a rectangle and changes its dimensions.\nExample\nDirect attribute access"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#dict-like-access",
+        "title": "Working with simulation objects > Dict-like access",
+        "section": "Dict-like access",
+        "text": "You can access parameters of the object like a Python dict.\nThe following example shows dict-like access of parameters in an FDTD rectangle object.\nExample\nDict-like access"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#duplicate-names",
+        "title": "Working with simulation objects > Duplicate names",
+        "section": "Duplicate names",
+        "text": "Duplicate names of simulation object cause an undefined behavior in the script.\nAs shown in the script and animation below, if you have two rectangle objects named “Rect1,” manipulating them causes unknown behaviour, even if the Python variable assigned to them are different.\nIn these cases, PyLumerical gives a warning to inform you of the duplication.\nExample\nDuplicate names"
+    },
+    {
+        "objectID": "user_guide/working_with_simulation_objects",
+        "href": "user_guide/working_with_simulation_objects.html#parent-and-children-objects",
+        "title": "Working with simulation objects > Parent and children objects",
+        "section": "Parent and children objects",
+        "text": "You can traverse the tree of objects in a Lumerical product using the parent or children of an object.\nExample\nParent and children objects"
+    },
+    {
+        "objectID": "examples",
+        "href": "examples.html#examples",
+        "title": "Examples",
+        "section": "Examples",
+        "text": "You can use the examples below to get started with PyLumerical and learn its basic functionalities.\nFor in-depth discussion of PyLumerical concepts, see the User guide.\nThis example demonstrates how to initialize a local Lumerical session using PyLumerical.\nDownload the example here.\nThis example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.\nThe example uses PyLumerical with workflows and syntax similar to the Lumerical Scripting Language.\nDownload the example here.\nThis example demonstrates how to set up a basic FDTD simulation with a Gaussian source and frequency-domain monitor.\nThis example uses PyLumerical with workflows and syntax that is more native to Python.\nDownload the example here.\nExamples"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectById.html#getobjectbyid",
+        "title": "getObjectById",
+        "section": "getObjectById",
+        "text": "Returns a simulation object by ID.\nObject ID of the target simulation object.\nThe object ID is the fully distinguished name of the object.\nFor example,\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\nFor example,\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\nIf an unqualified name is given, the group scope will be prepended to the name.\nObject obtained by the function.\nReturns the currently selected simulation object.\nReturns a list of all currently selected simulation objects.\nAdd a rectangle and obtain it by ID.\nReturns\nThe same command still works even if you don’t specify the scope.\nReturns\nIf multiple rectangles are defined, use numbers to specify the correct one\nReturns\ngetObjectById\npython:str\nansys.lumerical.core.SimObject\ngetObjectBySelection()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectById",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.getObjectById.html#ansys.lumerical.core.DEVICE.getObjectById",
+        "title": "getObjectById > getObjectById > getObjectById",
+        "section": "getObjectById > getObjectById",
+        "text": "DEVICE.getObjectById(id)\n\nReturns a simulation object by ID.\n\nParameters\n\nid\n\npython:str\n\nObject ID of the target simulation object.\n\nThe object ID is the fully distinguished name of the object.\n\nFor example,\n\n>>> ::model::group::rectangle\n\nIf duplicate names exist, append #N to the name to unambiguously identify a single object. N is an integer identifying the Nth object in the tree with the given name.\n\nFor example,\n\n>>> ::model::group::rectangle#3\n\nThe behavior is undefined if duplicate object names exist, and no specifier is used.\n\nIf an unqualified name is given, the group scope will be prepended to the name.\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by the function.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nExamples\n\nAdd a rectangle and obtain it by ID.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"::model::rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nThe same command still works even if you don’t specify the scope.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect()\n>>> rect = fdtd.getObjectById(\"rectangle\")\n>>> print(f\"{type(rect)}\")\n\nReturns\n\n>>> <class 'lumapi.SimObject'>\n\nIf multiple rectangles are defined, use numbers to specify the correct one\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.addrect(z = 0e-6)\n>>> fdtd.addrect(z = 1e-6)\n>>> rect = fdtd.getObjectById(\"rectangle#1\")\n>>> rect2 = fdtd.getObjectById(\"rectangle#2\")\n>>> print(f\"Rectangle 1 z position: {rect['z']}, Rectangle 2 z position: {rect2['z']}\")\n\nReturns\n\n>>> Rectangle 1 z position: 0.0, Rectangle 2 z position: 1e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/simobject_class",
+        "href": "api/simobject_class.html#auxiliary-classes",
+        "title": "Auxiliary classes",
+        "section": "Auxiliary classes",
+        "text": "These classes represent simulation objects, their results, and IDs.\nDon’t instantiate these classes directly. Methods of interface classes often return instances of these classes.\nansys.lumerical.core.SimObject(parent, id)\nRepresents a simulation object in the Objects Tree.\nansys.lumerical.core.SimObjectResults(parent)\nContains results of a simulation object.\nansys.lumerical.core.SimObjectId(id)\nRepresents a weak reference to a simulation object.\nAuxiliary classes\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObjectResults\nansys.lumerical.core.SimObjectId"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#script-commands-as-methods",
+        "title": "Script commands as methods",
+        "section": "Script commands as methods",
+        "text": "At the most basic level, you can use PyLumerical to directly invoke Lumerical script commands and interact with the product as the Lumerical Scripting Language would.\nThis article describes the basic use case for using scripting commands as methods, and common best practices.\nScript commands as methods"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#built-in-scripting-commands",
+        "title": "Script commands as methods > Built-in scripting commands",
+        "section": "Built-in scripting commands",
+        "text": "Built-in scripting commands"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#overview",
+        "title": "Script commands as methods > Overview",
+        "section": "Overview",
+        "text": "You can use almost all script commands in the Lumerical Scripting Language as methods on your session object in Python.\nThe PyLumerical methods and the Lumerical script commands share the same name, and you can call them directly on the session object once you create it.\nFor more information on the Lumerical Scripting Language, please see:\nLumerical Scripting Learning Track on Ansys Innovation Courses (AIC)\nLumerical Scripting Language - Alphabetical list\nLumerical Scripting Language - By category\nTwo simple examples are show below. The first example uses Lumerical commands getfdtdindex and stackrt  in conjunction with typical math and plotting libraries in Python to simulate and visualize the transmission of a gold thin film illuminated by a plane wave.\nThe second example sets up and runs a simple simulation with a gaussian source and a frequency domain monitor.\nExample\nFor more information on how to install PyLumerical and import the modules, see Installation and getting started for PyLumerical.\nExample\nOverview"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#constructor-script-commands",
+        "title": "Script commands as methods > Constructor script commands",
+        "section": "Constructor script commands",
+        "text": "You can use many script commands to add simulation objects such simulation regions or geometric regions. These commands typically start with “add”, for example, addrect or addfdtd.\nIn PyLumerical, you can create simulation objects in many different ways.\nAt a fundamental level, you can create objects and have their properties set like a Lumerical script using set and setnamed.\nIn addition, PyLumerical also supports assigning properties to object in a way more native to Python, either by creating a dictionary and assigning it to the properties attribute during initialization or using keyword arguments directly.\nWhen constructing objects using these methods, you may need to initialize some properties in order, and some properties may overwrite other properties. Therefore, it’s recommended to use an ordered dictionary to ensure that you set these properties as intended.\nThe examples below show various methods on object construction.\nFor more information regarding adding and manipulating simulation objects, including best practices, see the article on Working with simulation objects.\nWhen a property has a space in its name, for example, x span, the name for keyword arguments uses an underscore instead of space, for example, x_span.\nExample\nThese examples create a 3D FDTD region centered at the origin and with a span of 1μm.\nFirstly, using the Lumerical script commands:\nThe following code creates the FDTD region uses an ordered dictionary to set its properties.\nThe following code creates the FDTD region using keyword arguments\nFor more information regarding adding and manipulating simulation objects, including other ways to interact with these objects and best practices see the article on Working with simulation objects.\nConstructor script commands\nx span\nx_span"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#importing-custom-script-commands",
+        "title": "Script commands as methods > Importing custom script commands",
+        "section": "Importing custom script commands",
+        "text": "In addition to default script commands, you can also take advantage of the auto-syncing function feature in PyLumerical and import functions that are pre-defined in a Lumerical script file (.lsf file).\nTo import these functions, you can either execute the scripts while constructing the session using the script keyword argument, or manually evaluating the file using the ansys.lumerical.core.FDTD.eval() method.\nThe ansys.lumerical.core.FDTD.eval() is common to all products, and is available as ansys.lumerical.core.MODE.eval(), ansys.lumerical.core.DEVICE.eval(), and ansys.lumerical.core.INTERCONNECT.eval().\nExample\nThe following two .lsf files contains custom functions.\nMyFunctions.lsf\nMyFunctions2.lsf\nThe following script imports functions from both custom script files upon session creation.\nReturns\nImporting custom script commands\nansys.lumerical.core.FDTD.eval()\nansys.lumerical.core.FDTD.eval()\nansys.lumerical.core.MODE.eval()\nansys.lumerical.core.DEVICE.eval()\nansys.lumerical.core.INTERCONNECT.eval()"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#non-constructor-script-commands",
+        "title": "Script commands as methods > Non-constructor script commands",
+        "section": "Non-constructor script commands",
+        "text": "For script commands that needs input arguments, but don’t create simulation objects, you can only use them with position arguments and not keyword arguments.\nFor example, the following code results in an error, even though the set script command takes property and value as input arguments.\nExample\nThe correct usage is the following.\nThis applies also to methods defined in other scripting files that are loaded by first evaluating the script file.\nExample\nA Lumerical script file named MyConstructor.lsf contains the following function definition.\nThe following Python driver script causes an error, even though the function defined in the script file have arguments named x_input, y_input, and z_input.\nIn contrast, the following driver script executes without error, and add both the FDTD region as well as the rectangle.\nNon-constructor script commands"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#unsupported-methods",
+        "title": "Script commands as methods > Unsupported methods",
+        "section": "Unsupported methods",
+        "text": "While most script commands are available, there are a few categories of commands that aren’t available for use in PyLumerical. For example, certain reserved keywords, such as “c” for the speed of light, are unavailable in Python.\nIf you requires access to these variables, it’s best to either define them in Python, or to use the ansys.lumerical.core.FDTD.eval() method.\nHowever, if the ansys.lumerical.core.FDTD.eval() method is used, you should be mindful that the variables in the Python and Lumerical scripting environments are not automatically shared.\nThe ansys.lumerical.core.FDTD.eval() method is common to all products, and is available as ansys.lumerical.core.MODE.eval(), ansys.lumerical.core.DEVICE.eval(), and ansys.lumerical.core.INTERCONNECT.eval().\nOperators\nPyLumerical doesn’t overload script operators in the Lumerical Scripting Language, and you can’t use them “as-is” in Python. Use alternatives in Python. The unavailable operators include:\nAlgebraic–For example,  * , / , + , - , ^\nLogical–For example,  >= , < , > , & , and , | , or , ! , ~\nThe  ? (print, display) operator used to screen and query available results\nUnsupported methods\nansys.lumerical.core.FDTD.eval()\nansys.lumerical.core.FDTD.eval()\nansys.lumerical.core.FDTD.eval()\nansys.lumerical.core.MODE.eval()\nansys.lumerical.core.DEVICE.eval()\nansys.lumerical.core.INTERCONNECT.eval()"
+    },
+    {
+        "objectID": "user_guide/script_commands_as_methods",
+        "href": "user_guide/script_commands_as_methods.html#local-documentation",
+        "title": "Script commands as methods > Local documentation",
+        "section": "Local documentation",
+        "text": "For information on the PyLumerical methods from within the environment, Python docstrings are available for Lumerical session objects. This is the simplest way to determine the available script commands, and syntax.\nThis contains information similar to Alphabetical List of Script Commands.\nYou can view the docstring by using the Python built-in function “help” or most ways rich interactive Python shells display docstrings, for example IPython or Jupyter Notebook.\nExample\nReturns\nLocal documentation"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects.html#getallselectedobjects",
+        "title": "getAllSelectedObjects",
+        "section": "getAllSelectedObjects",
+        "text": "Returns a list of all currently selected simulation objects.\nA list consisting of ansys.lumerical.core.SimObject objects.\nReturns a simulation object by ID.\nReturns the currently selected simulation object.\nReturns\ngetAllSelectedObjects\nlist\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject\ngetObjectById()\ngetObjectBySelection()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects.html#ansys.lumerical.core.INTERCONNECT.getAllSelectedObjects",
+        "title": "getAllSelectedObjects > getAllSelectedObjects > getAllSelectedObjects",
+        "section": "getAllSelectedObjects > getAllSelectedObjects",
+        "text": "INTERCONNECT.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nParameters\n\nNone\n\n\n\nReturns\n\nlist [ansys.lumerical.core.SimObject]\n\nA list consisting of ansys.lumerical.core.SimObject objects.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> objList = fdtd.getAllSelectedObjects() #A list of object is returned here\n>>> for obj in objList:\n>>>     print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \\n\")\n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0 \n>>> Rectangle name: Rect1, z position: 1e-06\n>>> Rectangle name: Rect2, z position: 2e-06\n>>> Rectangle name: Rect3, z position: 3e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.putv.html#putv",
+        "title": "putv",
+        "section": "putv",
+        "text": "Low level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThe name of the variable to retrieve from the Lumerical session.\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\nSee the “See also” section below for more details on supported data types and how they are handled.\nIf the method cannot retrieve the variable or the data type is unsupported.\nGets a variable from the Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\nputv\npython:str\nany\npython:None\nLumApiError\ngetv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.putv.html#ansys.lumerical.core.FDTD.putv",
+        "title": "putv > putv > putv",
+        "section": "putv > putv",
+        "text": "FDTD.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nThe name of the variable to retrieve from the Lumerical session.\n\nvalue\n\nany\n\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\n\nSee the “See also” section below for more details on supported data types and how they are handled.\n\nReturns\n\npython:None\n\n\n\nRaises\n\nLumApiError\n\nIf the method cannot retrieve the variable or the data type is unsupported.\n\ngetv()\n\nGets a variable from the Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.eval.html#eval",
+        "title": "eval",
+        "section": "eval",
+        "text": "Low level script workspace method that evaluates the input string as Lumerical Scripting Language.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\nAdds a rectangle to the current simulation.\nAdds a rectangle to the current simulation using f-strings.\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\nContents of code.txt\nPython driver code\neval\npython:str\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.eval.html#ansys.lumerical.core.DEVICE.eval",
+        "title": "eval > eval > eval",
+        "section": "eval > eval",
+        "text": "DEVICE.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\n\nParameters\n\ncode\n\npython:str\n\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\n\nReturns\n\npython:None\n\n\n\nExamples\n\nAdds a rectangle to the current simulation.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.eval(f\"addrect;\")\n\nAdds a rectangle to the current simulation using f-strings.\n\n>>> fdtd = lumapi.FDTD()\n>>> code = \"addrect;addcircle;\"\n>>> fdtd.eval(f\"{code}\\n\")\n\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\n\nContents of code.txt\n\n>>> addrect;\n>>> addcircle;\n\nPython driver code\n\n>>> fdtd = lumapi.FDTD()\n>>> code = open(\"code.txt\", \"r\").read()\n>>> fdtd.eval(code)\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.putv.html#putv",
+        "title": "putv",
+        "section": "putv",
+        "text": "Low level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThe name of the variable to retrieve from the Lumerical session.\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\nSee the “See also” section below for more details on supported data types and how they are handled.\nIf the method cannot retrieve the variable or the data type is unsupported.\nGets a variable from the Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\nputv\npython:str\nany\npython:None\nLumApiError\ngetv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.putv",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.putv.html#ansys.lumerical.core.MODE.putv",
+        "title": "putv > putv > putv",
+        "section": "putv > putv",
+        "text": "MODE.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nThe name of the variable to retrieve from the Lumerical session.\n\nvalue\n\nany\n\nThe value to put into the Lumerical session. The type depends on the type of variable in Python.\n\nSee the “See also” section below for more details on supported data types and how they are handled.\n\nReturns\n\npython:None\n\n\n\nRaises\n\nLumApiError\n\nIf the method cannot retrieve the variable or the data type is unsupported.\n\ngetv()\n\nGets a variable from the Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#session-management",
+        "title": "Session management",
+        "section": "Session management",
+        "text": "Session management"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#starting-a-local-session",
+        "title": "Session management > Starting a local session",
+        "section": "Starting a local session",
+        "text": "The Python API interacts with Lumerical products through sessions. The simplest way to create a session is by calling the relevant constructor for the Lumerical product and storing it in an object. These constructors construct objects derived from the Lumerical class.\nExample\nParameters\nProduct\nDerived Class\nAnsys Lumerical FDTD™\nFDTD\nAnsys Lumerical MODE™\nMODE\nAnsys Lumerical Multiphysics™\nDEVICE\nAnsys Lumerical INTERCONNECT™\nINTERCONNECT\nYou can also create multiple sessions, even if they’re for the same product.\nExample\nEach of the product’s constructor supports various parameters and keyword arguments. For more information, see API reference.\nExample\nStarting a local session"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#advanced-session-management",
+        "title": "Session management > Advanced session management",
+        "section": "Advanced session management",
+        "text": "Advanced session management"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#wrapping-the-session-in-a-function",
+        "title": "Session management > Wrapping the session in a function",
+        "section": "Wrapping the session in a function",
+        "text": "In Python, you can use functions if you need to run numerous similar instances. For example, when sweeping over some optional parameters. For more information on how Lumerical sessions return results, see Passing data and Working with simulation objects.\nExample\nWrapping the session in a function"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#using-the-with-context-manager",
+        "title": "Session management > Using the “with” context manager",
+        "section": "Using the “with” context manager",
+        "text": "PyLumerical support Python “with” statement by giving well-defined entrance and exit behavior to Lumerical session objects in Python. If there are any errors within the “with” code block, the session still closes successfully, unlike in a function. Any error message you typically see in a Lumerical script environment is also displayed in the Python exception.\nExample\nUsing the “with” context manager"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#passing-in-command-line-arguments",
+        "title": "Session management > Passing in command line arguments",
+        "section": "Passing in command line arguments",
+        "text": "Starting a session using PyLumerical is identical to running the solutions command line executable, as seen in these articles - Windows / Linux.\nWhen starting a session using Python, use the serverArgs parameter to specify command line arguments.\nExample\nThe Python code above is equivalent to running the following command:\nPassing in command line arguments\nserverArgs"
+    },
+    {
+        "objectID": "user_guide/session_management",
+        "href": "user_guide/session_management.html#closing-the-session",
+        "title": "Session management > Closing the session",
+        "section": "Closing the session",
+        "text": "When the variables local to the function or context manager go out of scope, they are automatically deleted. Lumerical sessions automatically closes when all variable references pointing to it are deleted.\nThe Lumerical session also automatically terminate after the python script reaches the end.\nPython automatically deletes variables as they removed from scope, so most of the time you don’t need to close a session manually. However, you can also do so explicitly using the following command.\nClosing the session"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.eval.html#eval",
+        "title": "eval",
+        "section": "eval",
+        "text": "Low level script workspace method that evaluates the input string as Lumerical Scripting Language.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\nAdds a rectangle to the current simulation.\nAdds a rectangle to the current simulation using f-strings.\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\nContents of code.txt\nPython driver code\neval\npython:str\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.eval.html#ansys.lumerical.core.INTERCONNECT.eval",
+        "title": "eval > eval > eval",
+        "section": "eval > eval",
+        "text": "INTERCONNECT.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\n\nParameters\n\ncode\n\npython:str\n\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\n\nReturns\n\npython:None\n\n\n\nExamples\n\nAdds a rectangle to the current simulation.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.eval(f\"addrect;\")\n\nAdds a rectangle to the current simulation using f-strings.\n\n>>> fdtd = lumapi.FDTD()\n>>> code = \"addrect;addcircle;\"\n>>> fdtd.eval(f\"{code}\\n\")\n\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\n\nContents of code.txt\n\n>>> addrect;\n>>> addcircle;\n\nPython driver code\n\n>>> fdtd = lumapi.FDTD()\n>>> code = open(\"code.txt\", \"r\").read()\n>>> fdtd.eval(code)\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.autodiscovery.locate_lumerical_install",
+        "href": "api/_autosummary/ansys.lumerical.core.autodiscovery.locate_lumerical_install.html#locate_lumerical_install",
+        "title": "locate_lumerical_install",
+        "section": "locate_lumerical_install",
+        "text": "Locate the installation directory and interop library directory for Lumerical software.\nThis function attempts to identify the most recent installation path of Lumerical\nsoftware and its associated Python interop library directory based on the operating\nsystem and predefined directory structures.\nThe path to the Lumerical installation directory, or None if not found.\nIf the operating system is not Windows or Linux.\nOn Windows, the function first searches the registry, then searches under “C:\\Program Files\\Lumerical\\” and\n“C:\\Program Files\\Ansys Inc\\Lumerical”.\nOn Linux, the function searches under “/opt/lumerical/” and “~/Ansys/ansys_inc/Lumerical”.\nExample 1: Use autodiscovery to locate a Lumerical installation in a default location.\nExample 2: Provide a custom installation path before importing the module.\nExample 3: Provide a custom installation path after importing the module.\nlocate_lumerical_install\npython:str\npython:None\nRuntimeError"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.autodiscovery.locate_lumerical_install",
+        "href": "api/_autosummary/ansys.lumerical.core.autodiscovery.locate_lumerical_install.html#ansys.lumerical.core.autodiscovery.locate_lumerical_install",
+        "title": "locate_lumerical_install > locate_lumerical_install > locate_lumerical_install",
+        "section": "locate_lumerical_install > locate_lumerical_install",
+        "text": "ansys.lumerical.core.autodiscovery.locate_lumerical_install()\n\nLocate the installation directory and interop library directory for Lumerical software.\n\nThis function attempts to identify the most recent installation path of Lumerical\nsoftware and its associated Python interop library directory based on the operating\nsystem and predefined directory structures.\n\nReturns\n\npython:str or python:None\n\nThe path to the Lumerical installation directory, or None if not found.\n\nRaises\n\nRuntimeError\n\nIf the operating system is not Windows or Linux.\n\nNotes\n\nOn Windows, the function first searches the registry, then searches under “C:\\Program Files\\Lumerical\\” and\n“C:\\Program Files\\Ansys Inc\\Lumerical”.\n\nOn Linux, the function searches under “/opt/lumerical/” and “~/Ansys/ansys_inc/Lumerical”.\n\nExamples\n\nExample 1: Use autodiscovery to locate a Lumerical installation in a default location.\n\n>>> import ansys.lumerical.core as lumapi\n>>> # use lumapi ...\n\nExample 2: Provide a custom installation path before importing the module.\n\n>>> import ansys.api.lumerical.lumapi\n>>> ansys.api.lumerical.lumapi.InteropPaths.setLumericalInstallPath(r\"C:\\Program Files\\Lumerical\\v252\\\")\n>>> import ansys.lumerical.core as lumapi\n>>> # use lumapi ...\n\nExample 3: Provide a custom installation path after importing the module.\n\n>>> import ansys.lumerical.core as lumapi\nWarning: Lumerical installation not found. Please use InteropPaths.setLumericalInstallPath to set the interop library location.\n>>> lumapi.InteropPaths.setLumericalInstallPath(r\"C:\\Program Files\\Lumerical\\v252\\\")\n>>> # use lumapi ...\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#release-notes",
+        "title": "Release notes",
+        "section": "Release notes",
+        "text": "This document contains the release notes for the project.\nRelease notes"
+    },
+    {
+        "objectID": "changelog",
+        "href": "changelog.html#010---november-14-2025",
+        "title": "Release notes > 0.1.0 - November 14, 2025",
+        "section": "0.1.0 - November 14, 2025",
+        "text": "Add deploy PR documentation label and workflow\n#16\nAdd workflows\n#5\nUpdating numerous files and pipeline for initial release\n#17\nRelease prep\n#20\n0.1.0 - November 14, 2025"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.eval.html#eval",
+        "title": "eval",
+        "section": "eval",
+        "text": "Low level script workspace method that evaluates the input string as Lumerical Scripting Language.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\nAdds a rectangle to the current simulation.\nAdds a rectangle to the current simulation using f-strings.\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\nContents of code.txt\nPython driver code\neval\npython:str\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.eval",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.eval.html#ansys.lumerical.core.FDTD.eval",
+        "title": "eval > eval > eval",
+        "section": "eval > eval",
+        "text": "FDTD.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nThis function is useful when you want to reduce the number of API calls for performance. For example, if you want to execute many commands in a loop, writing commands in Lumerical Scripting Language and executing it in a single call can improve performance.\n\nParameters\n\ncode\n\npython:str\n\nEvaluates the argument code as Lumerical Scripting Language. The input code must be a string, and should follow syntaxes of the Lumerical Scripting Language. The method ignores characters in the string.\n\nReturns\n\npython:None\n\n\n\nExamples\n\nAdds a rectangle to the current simulation.\n\n>>> fdtd = lumapi.FDTD()\n>>> fdtd.eval(f\"addrect;\")\n\nAdds a rectangle to the current simulation using f-strings.\n\n>>> fdtd = lumapi.FDTD()\n>>> code = \"addrect;addcircle;\"\n>>> fdtd.eval(f\"{code}\\n\")\n\nAdds a rectangle to the current simulation using a text file, “code.txt” from the current working directory containing the commands. This text file can be in .lsf format or any other format that can be read by Python and turned into a string.\n\nContents of code.txt\n\n>>> addrect;\n>>> addcircle;\n\nPython driver code\n\n>>> fdtd = lumapi.FDTD()\n>>> code = open(\"code.txt\", \"r\").read()\n>>> fdtd.eval(code)\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getAllSelectedObjects.html#getallselectedobjects",
+        "title": "getAllSelectedObjects",
+        "section": "getAllSelectedObjects",
+        "text": "Returns a list of all currently selected simulation objects.\nA list consisting of ansys.lumerical.core.SimObject objects.\nReturns a simulation object by ID.\nReturns the currently selected simulation object.\nReturns\ngetAllSelectedObjects\nlist\nansys.lumerical.core.SimObject\nansys.lumerical.core.SimObject\ngetObjectById()\ngetObjectBySelection()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.MODE.getAllSelectedObjects",
+        "href": "api/_autosummary/ansys.lumerical.core.MODE.getAllSelectedObjects.html#ansys.lumerical.core.MODE.getAllSelectedObjects",
+        "title": "getAllSelectedObjects > getAllSelectedObjects > getAllSelectedObjects",
+        "section": "getAllSelectedObjects > getAllSelectedObjects",
+        "text": "MODE.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nParameters\n\nNone\n\n\n\nReturns\n\nlist [ansys.lumerical.core.SimObject]\n\nA list consisting of ansys.lumerical.core.SimObject objects.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetObjectBySelection()\n\nReturns the currently selected simulation object.\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> objList = fdtd.getAllSelectedObjects() #A list of object is returned here\n>>> for obj in objList:\n>>>     print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \\n\")\n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0 \n>>> Rectangle name: Rect1, z position: 1e-06\n>>> Rectangle name: Rect2, z position: 2e-06\n>>> Rectangle name: Rect3, z position: 3e-06\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.html#simobject",
+        "title": "SimObject",
+        "section": "SimObject",
+        "text": "Represents a simulation object in the Objects Tree.\nDon’t initialize this class directly. Other functions and methods return this class.\nIn addition to the default attributes listed below, SimObjects also have attributes that match the properties of the simulation object. See the “Notes” section below for more information.\nAn object containing the results of the simulation object.\nA dictionary that can be used to assign properties to the simulation object.\nAll SimObjects also have attributes that match the properties of the simulation object in the Lumerical environment.\nThe attribute names are the same as the property names in the Lumerical application, except that spaces are replaced with underscore characters. You can also read and set attributes like a Python dict using the subscripting operator []. \nWhen you access it this way, attributes retain their original name including spaces. Setting an attribute immediately updates the object in the Lumerical application.\nFor further information, see the Working with simulation objects page in the User guide.\nExample\nReturns\nWhen two simulation objects have the same name in the Lumerical product, operations on them can generate unexpected results. Assign unique names to all simulation objects when using PyLumerical to avoid this problem.\nExample\nFor more information, see Working with simulation objects in the User guide.\nSimObject.getChildren()\nReturns the children of the currently selected object in the Lumerical session.\nSimObject.getParent()\nReturn the parent of the currently selected object in the Lumerical session.\nSimObject\nansys.lumerical.core.SimObjectResults\npython:dict\nSimObject.getChildren\nSimObject.getParent"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.SimObject",
+        "href": "api/_autosummary/ansys.lumerical.core.SimObject.html#ansys.lumerical.core.SimObject",
+        "title": "SimObject > SimObject > SimObject",
+        "section": "SimObject > SimObject",
+        "text": "class ansys.lumerical.core.SimObject(parent, id)\n\nRepresents a simulation object in the Objects Tree.\n\nDon’t initialize this class directly. Other functions and methods return this class.\n\nIn addition to the default attributes listed below, SimObjects also have attributes that match the properties of the simulation object. See the “Notes” section below for more information.\n\nParameters\n\nDon’t initialize this class directly.\n\n\n\nAttributes\n\nresults\n\nansys.lumerical.core.SimObjectResults\n\nAn object containing the results of the simulation object.\n\nproperties\n\npython:dict\n\nA dictionary that can be used to assign properties to the simulation object.\n\nNotes\n\nAll SimObjects also have attributes that match the properties of the simulation object in the Lumerical environment.\n\nThe attribute names are the same as the property names in the Lumerical application, except that spaces are replaced with underscore characters. You can also read and set attributes like a Python dict using the subscripting operator []. \nWhen you access it this way, attributes retain their original name including spaces. Setting an attribute immediately updates the object in the Lumerical application.\nFor further information, see the Working with simulation objects page in the User guide.\n\nExample\n\n>>> fdtd = lumapi.FDTD()\n>>> #Initialize position and x span using keyword arguments\n>>> rect_obj = fdtd.addrect(x=0,y=0,z=0, x_span = 2e-6)\n>>> #Set y span as an attribute \n>>> rect_obj.y_span = 2e-6\n>>> #Set z span like a dict, note that there is now a space since the original Lumerical attribute has a space\n>>> rect_obj[\"z span\"] = 0.5e-6\n>>> #Read and print out the x-span of the rectangle set earlier\n>>> print(f\"{rect_obj.x_span =} \\n\")\n\nReturns\n\n>>> Attribute Access: rect_obj.x_span =2e-06 \n>>> Dict Access: rect_obj['x span']=2e-06\n\nWhen two simulation objects have the same name in the Lumerical product, operations on them can generate unexpected results. Assign unique names to all simulation objects when using PyLumerical to avoid this problem.\n\nExample\n\n>>> fdtd = lumapi.FDTD()\n>>> rect_bot =fdtd.addrect(name = \"Rect\",x_span = 1e-6, z_span = 0.25e-6, z=0) #Create a bottom rectangle, Rect1\n>>> rect_top = fdtd.addrect(name = \"Rect\", x_span = 1e-6, z_span = 0.25e-6, z=0.5e-6) #Create a top rectangle, Rect 2\n>>> #The following code will change the x_span of the BOTTOM rectangle!\n>>> rect_top.x_span = 2e-6\n\nFor more information, see Working with simulation objects in the User guide.\n\n!! processed by numpydoc !!\n\nMethods\n\n\n\n\n\n\n\nSimObject.getChildren()\n\nReturns the children of the currently selected object in the Lumerical session.\n\nSimObject.getParent()\n\nReturn the parent of the currently selected object in the Lumerical session.\n\n"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.html#fdtd",
+        "title": "FDTD",
+        "section": "FDTD",
+        "text": "Represents an interactive session with Ansys Lumerical FDTD™.\nThis class provides the main interface to interact with the Lumerical product.\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\nDeprecated parameter, do not enter values other than the default.\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\nhostname: a string indicating the IP address.\nport: an integer indicating the port to connect to.\nKeyword arguments, see “Other Parameters”: below for options and their usage.\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\nFor more information, see the Script commands as methods article in the User guide.\nFDTD.close()\nCalls appClose on the the object handle and destroy the session\nFDTD.eval(code)\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\nFDTD.getAllSelectedObjects()\nReturns a list of all currently selected simulation objects.\nFDTD.getObjectById(id)\nReturns a simulation object by ID.\nFDTD.getObjectBySelection()\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nFDTD.getv(varname)\nLow level script workspace method that gets a variable from the Lumerical session.\nFDTD.putv(varname, value)\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nFDTD\npython:str\noptional\npython:str\noptional\noptional\nstruct\noptional\nstruct\noptional\npython:dict\noptional\npython:str\noptional\npython:str\noptional\nFDTD.close\nFDTD.eval\nFDTD.getAllSelectedObjects\nFDTD.getObjectById\nFDTD.getObjectBySelection\nFDTD.getv\nFDTD.putv"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.html#ansys.lumerical.core.FDTD",
+        "title": "FDTD > FDTD > FDTD",
+        "section": "FDTD > FDTD",
+        "text": "class ansys.lumerical.core.FDTD(filename=None, key=None, hide=False, serverArgs={}, remoteArgs={}, **kwargs)\n\nRepresents an interactive session with Ansys Lumerical FDTD™.\n\nThis class provides the main interface to interact with the Lumerical product.\n\nParameters\n\nfilename\n\npython:str, optional\n\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\n\nkey\n\npython:str, optional\n\nDeprecated parameter, do not enter values other than the default.\n\nhide\n\nbool, optional\n\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\n\nserverArgs\n\nstruct, optional\n\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\n\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\n\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\n\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\n\n\n\n\n\nremoteArgs\n\nstruct, optional\n\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\n\nhostname: a string indicating the IP address.\n\nport: an integer indicating the port to connect to.\n\n**kwargs\n\npython:dict, optional\n\nKeyword arguments, see “Other Parameters”: below for options and their usage.\n\nAttributes\n\nLumerical objects don’t have user modifiable attributes.\n\n\n\nOther Parameters\n\nproject\n\npython:str, optional\n\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\n\nscript\n\npython:str, optional\n\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\n\nNotes\n\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\n\nFor more information, see the Script commands as methods article in the User guide.\n\n!! processed by numpydoc !!\n\nMethods\n\n\n\n\n\n\n\nFDTD.close()\n\nCalls appClose on the the object handle and destroy the session\n\nFDTD.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nFDTD.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nFDTD.getObjectById(id)\n\nReturns a simulation object by ID.\n\nFDTD.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nFDTD.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nFDTD.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\n"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectBySelection.html#getobjectbyselection",
+        "title": "getObjectBySelection",
+        "section": "getObjectBySelection",
+        "text": "Returns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nObject obtained by function.\nReturns a simulation object by ID.\nReturns a list of all currently selected simulation objects\nReturns\ngetObjectBySelection\nansys.lumerical.core.SimObject\ngetObjectById()\ngetAllSelectedObjects()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectBySelection",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getObjectBySelection.html#ansys.lumerical.core.INTERCONNECT.getObjectBySelection",
+        "title": "getObjectBySelection > getObjectBySelection > getObjectBySelection",
+        "section": "getObjectBySelection > getObjectBySelection",
+        "text": "INTERCONNECT.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nParameters\n\nNone\n\n\n\nReturns\n\nansys.lumerical.core.SimObject\n\nObject obtained by function.\n\ngetObjectById()\n\nReturns a simulation object by ID.\n\ngetAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects\n\nExamples\n\n>>> fdtd = lumapi.FDTD()\n>>> z_placements = [0, 1e-6, 2e-6, 3e-6]\n>>> for i,position in enumerate(z_placements):\n>>>     fdtd.addrect(name = f\"Rect{i}\", z=position)\n>>> fdtd.selectpartial(\"Rect\") #Selects all objects with “Rect” as a part of its name\n>>> obj = fdtd.getObjectBySelection() #Only the first one out of the objects that are selected is returned here\n>>> print(f\"Rectangle name: {obj['name']}, z position: {obj['z']} \n\nReturns\n\n>>> Rectangle name: Rect0, z position: 0.0\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#passing-data",
+        "title": "Passing data",
+        "section": "Passing data",
+        "text": "When driving Lumerical’s tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don’t share a workspace.\nInstead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types.\nThis article describes how PyLumerical translates basic data types between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.\nFor more information on how to work with datasets, which includes these basic data types and typically contain simulation results, see the article on Accessing simulation results.\nLumerical\nPython\nString\nstr\nReal\nfloat\nComplex\nnumpy.ndarray\nMatrix\nnumpy.ndarray\nCell array\nlist\nStruct\ndict\nDataset\ndict\nPassing data\nstr\nfloat\nnumpy.ndarray\nnumpy.ndarray\nlist\ndict\ndict"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#python-to-lumerical-conversions",
+        "title": "Passing data > Python to Lumerical conversions",
+        "section": "Python to Lumerical conversions",
+        "text": "When you send a variable from the Python workspace to Lumerical products, such as when setting parameters, or when using Lumerical scripting functions for further post processing, PyLumerical uses the following rules.\nPython to Lumerical conversions"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#string",
+        "title": "Passing data > String",
+        "section": "String",
+        "text": "String values passed from Python are directly converted into string values in the Lumerical workspace.\nString"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#real-number",
+        "title": "Passing data > Real number",
+        "section": "Real number",
+        "text": "PyLumerical converts real numbers from Python into float values in Lumerical. Since the Lumerical workspace doesn’t support integer types, any integer types are also converted into float.\nReal number"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#complex-number",
+        "title": "Passing data > Complex number",
+        "section": "Complex number",
+        "text": "You must encapsulate complex numbers in a single element numpy array before passing them from Python into Lumerical. In Python, the complex variable is “j”, whereas in Lumerical, it’s “i”.\nComplex number"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#numpy-array",
+        "title": "Passing data > Numpy array",
+        "section": "Numpy array",
+        "text": "PyLumerical converts numpy arrays from Python into matrices in Lumerical, and it supports complex-valued numpy arrays.\nNumpy array"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#list",
+        "title": "Passing data > List",
+        "section": "List",
+        "text": "PyLumerical converts lists from Python, which can contain any of the basic types mentioned in this section, into cell arrays in the Lumerical scripting workspace.\nList"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#dict",
+        "title": "Passing data > Dict",
+        "section": "Dict",
+        "text": "PyLumerical converts dictionaries from Python, which can contain any of the basic types mentioned in this section, into structures in Lumerical. The order of the dictionary isn’t preserved.\nDict"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#other-types",
+        "title": "Passing data > Other types",
+        "section": "Other types",
+        "text": "All other types, except those mentioned above, aren’t supported and results in an error if your script attempts to pass them into the Lumerical workspace.\nOther types"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#lumerical-to-python-conversions",
+        "title": "Passing data > Lumerical to Python conversions",
+        "section": "Lumerical to Python conversions",
+        "text": "When retrieving a variable from the Lumerical product to the Python workspace, such as when obtaining simulation results from simulation objects and monitors, or when retrieving return values from a Lumerical scripting function, PyLumerical uses the following rules.\nLumerical to Python conversions"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#string",
+        "title": "Passing data > String",
+        "section": "String",
+        "text": "When PyLumerical retrieves a string from Lumerical, it returns the variable into the Python environment as a string.\nString"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#real-number",
+        "title": "Passing data > Real number",
+        "section": "Real number",
+        "text": "When PyLumerical retrieves any real number from Lumerical, it returns the value into the Python environment as a float. Since Lumerical doesn’t support integers, even if you previously passed a variable into Lumerical as integer, PyLumerical still retrieves it as float.\nReal number"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#complex-number",
+        "title": "Passing data > Complex number",
+        "section": "Complex number",
+        "text": "PyLumerical automatically converts complex numbers into a 1x1 numpy array in the Python environment, with the complex number being the only element in that array.\nFor example, the following script creates a Lumerical scripting function that returns a complex value and checks its type, length, and value in Python.\nReturns\nIn Lumerical, the complex variable is “i”, whereas in Python, the complex variable is “j”.\nComplex number"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#matrix",
+        "title": "Passing data > Matrix",
+        "section": "Matrix",
+        "text": "PyLumerical retrieves matrices as numpy arrays of the same size. These arrays also support complex data as their elements.\nMatrix"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#struct",
+        "title": "Passing data > Struct",
+        "section": "Struct",
+        "text": "PyLumerical converts structures from Lumerical into Python dictionaries, with each field turned into an attribute. The keys of the dictionary are field names, and it’s order from Lumerical isn’t preserved.\nFor example, the following script creates a Lumerical scripting function that returns a structure checks its type and contents in Python.\nReturns\nStruct"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#cell-array",
+        "title": "Passing data > Cell array",
+        "section": "Cell array",
+        "text": "PyLumerical retrieves Lumerical cell arrays as Python lists. Elements of these lists can contain any of the basic data types.\nFor example, the following script creates a Lumerical function that creates a cell array with a string, a matrix, and a structure that has another cell array as its element, returns it to the Python workspace, and checks each element.\nReturns\nCell array"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#explicit-transfer-functions",
+        "title": "Passing data > Explicit transfer functions",
+        "section": "Explicit transfer functions",
+        "text": "Two explicit transfer functions, ansys.lumerical.core.FDTD.getv() and ansys.lumerical.core.FDTD.putv() are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively.\nWhile these can be useful in a small number of circumstances, avoid using these functions unless it’s necessary, as changes to variables in one workspace doesn’t automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.\nansys.lumerical.core.FDTD.getv() and ansys.lumerical.core.FDTD.putv() is common to all products, and is available in ansys.lumerical.core.MODE, ansys.lumerical.core.DEVICE, and ansys.lumerical.core.INTERCONNECT as well.\nExplicit transfer functions\nansys.lumerical.core.FDTD.getv()\nansys.lumerical.core.FDTD.putv()\nansys.lumerical.core.FDTD.getv()\nansys.lumerical.core.FDTD.putv()\nansys.lumerical.core.MODE\nansys.lumerical.core.DEVICE\nansys.lumerical.core.INTERCONNECT"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#transfer-speed",
+        "title": "Passing data > Transfer speed",
+        "section": "Transfer speed",
+        "text": "Typically, this transfer doesn’t present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed.\nHowever, when working with very large datasets it may be important to take this into consideration if efficiency is imperative.\nTransfer speed"
+    },
+    {
+        "objectID": "user_guide/passing_data",
+        "href": "user_guide/passing_data.html#best-practices",
+        "title": "Passing data > Best practices",
+        "section": "Best practices",
+        "text": "If you are creating a large number of variables or repeatedly sending and retrieving data in a loop with many API calls, it could be more efficient to do so inside the Lumerical script environment by using the ansys.lumerical.core.FDTD.eval() command such that this all happens in one operation.\nBest practices\nansys.lumerical.core.FDTD.eval()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.close",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.close.html#close",
+        "title": "close",
+        "section": "close",
+        "text": "Calls appClose on the the object handle and destroy the session\nclose\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.close",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.close.html#ansys.lumerical.core.INTERCONNECT.close",
+        "title": "close > close > close",
+        "section": "close > close",
+        "text": "INTERCONNECT.close()\n\nCalls appClose on the the object handle and destroy the session\n\nParameters\n\nNone\n\n\n\nReturns\n\npython:None\n\n\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.html#device",
+        "title": "DEVICE",
+        "section": "DEVICE",
+        "text": "Represents an interactive session with Ansys Lumerical Multiphysics™.\nThis class provides the main interface to interact with the Lumerical product.\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\nDeprecated parameter, do not enter values other than the default.\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\nhostname: a string indicating the IP address.\nport: an integer indicating the port to connect to.\nKeyword arguments, see “Other Parameters”: below for options and their usage.\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\nFor more information, see the Script commands as methods article in the User guide.\nDEVICE.close()\nCalls appClose on the the object handle and destroy the session\nDEVICE.eval(code)\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\nDEVICE.getAllSelectedObjects()\nReturns a list of all currently selected simulation objects.\nDEVICE.getObjectById(id)\nReturns a simulation object by ID.\nDEVICE.getObjectBySelection()\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\nDEVICE.getv(varname)\nLow level script workspace method that gets a variable from the Lumerical session.\nDEVICE.putv(varname, value)\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\nDEVICE\npython:str\noptional\npython:str\noptional\noptional\nstruct\noptional\nstruct\noptional\npython:dict\noptional\npython:str\noptional\npython:str\noptional\nDEVICE.close\nDEVICE.eval\nDEVICE.getAllSelectedObjects\nDEVICE.getObjectById\nDEVICE.getObjectBySelection\nDEVICE.getv\nDEVICE.putv"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.DEVICE",
+        "href": "api/_autosummary/ansys.lumerical.core.DEVICE.html#ansys.lumerical.core.DEVICE",
+        "title": "DEVICE > DEVICE > DEVICE",
+        "section": "DEVICE > DEVICE",
+        "text": "class ansys.lumerical.core.DEVICE(filename=None, key=None, hide=False, serverArgs={}, remoteArgs={}, **kwargs)\n\nRepresents an interactive session with Ansys Lumerical Multiphysics™.\n\nThis class provides the main interface to interact with the Lumerical product.\n\nParameters\n\nfilename\n\npython:str, optional\n\nA single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.\n\nkey\n\npython:str, optional\n\nDeprecated parameter, do not enter values other than the default.\n\nhide\n\nbool, optional\n\nShows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.\n\nserverArgs\n\nstruct, optional\n\nPass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (Windows / Linux) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:\n\nFor command line arguments that is a toggle, such as -use-solve, use Booleans as values.\n\nFor command line arguments with argument inputs, such as platform, use strings as values. This applies to numerical arguments such as those for “threads”.\n\nNote: Incorrect command line arguments have no effect but will not result in an error or warning.\n\n\n\n\n\nremoteArgs\n\nstruct, optional\n\nPass connection information as a dictionary. Use only when using the Python API remotely on a Linux machine that is running the Interop Server. Dictionary fields are as follows:\n\nhostname: a string indicating the IP address.\n\nport: an integer indicating the port to connect to.\n\n**kwargs\n\npython:dict, optional\n\nKeyword arguments, see “Other Parameters”: below for options and their usage.\n\nAttributes\n\nLumerical objects don’t have user modifiable attributes.\n\n\n\nOther Parameters\n\nproject\n\npython:str, optional\n\nA single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.\n\nscript\n\npython:str, optional\n\nA single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.\n\nNotes\n\nIn addition to the class methods below, Lumerical objects dynamically define methods that correspond to Lumerical script commands when you instantiate them.\n\nFor more information, see the Script commands as methods article in the User guide.\n\n!! processed by numpydoc !!\n\nMethods\n\n\n\n\n\n\n\nDEVICE.close()\n\nCalls appClose on the the object handle and destroy the session\n\nDEVICE.eval(code)\n\nLow level script workspace method that evaluates the input string as Lumerical Scripting Language.\n\nDEVICE.getAllSelectedObjects()\n\nReturns a list of all currently selected simulation objects.\n\nDEVICE.getObjectById(id)\n\nReturns a simulation object by ID.\n\nDEVICE.getObjectBySelection()\n\nReturns the currently selected simulation object, if multiple objects are selected, the first one in the list returned.\n\nDEVICE.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nDEVICE.putv(varname, value)\n\nLow level script workspace method that puts a variable from the local Python environment into an active Lumerical session.\n\n"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getv.html#getv",
+        "title": "getv",
+        "section": "getv",
+        "text": "Low level script workspace method that gets a variable from the Lumerical session.\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\nLumerical variable name of the variable to obtain.\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\nstr for strings in Lumerical\nfloat for real numbers in Lumerical\nnumpy.ndarray for complex numbers in Lumerical\nnumpy.ndarray for matrices in Lumerical\nlist for cell arrays in Lumerical\ndict for structs in Lumerical\ndict for datasets in Lumerical\nPuts a variable from the local Python environment into an active Lumerical session.\nInformation on how passing non-dataset variables are handled.\nInformation on how passing datasets are handled.\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\nReturns\ngetv\npython:str\nany\nstr\nfloat\nnumpy.ndarray\nnumpy.ndarray\nlist\ndict\ndict\nputv()"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getv",
+        "href": "api/_autosummary/ansys.lumerical.core.INTERCONNECT.getv.html#ansys.lumerical.core.INTERCONNECT.getv",
+        "title": "getv > getv > getv",
+        "section": "getv > getv",
+        "text": "INTERCONNECT.getv(varname)\n\nLow level script workspace method that gets a variable from the Lumerical session.\n\nThe variable can be a string, real/complex numbers, matrix, cell or struct.\n\nThis method is a low level method that interacts directly with the script workspace in Lumerical. It is not recommended to use this unless a specific function needs to be achieved.\n\nParameters\n\nvarname\n\npython:str\n\nLumerical variable name of the variable to obtain.\n\nReturns\n\nany\n\nRetrieved Python variable, the type depends on the type of variable in Lumerical.\n\nstr for strings in Lumerical\n\nfloat for real numbers in Lumerical\n\nnumpy.ndarray for complex numbers in Lumerical\n\nnumpy.ndarray for matrices in Lumerical\n\nlist for cell arrays in Lumerical\n\ndict for structs in Lumerical\n\ndict for datasets in Lumerical\n\nputv()\n\nPuts a variable from the local Python environment into an active Lumerical session.\n\nref_passing_data\n\nInformation on how passing non-dataset variables are handled.\n\nref_accessing_simulation_results\n\nInformation on how passing datasets are handled.\n\nExamples\n\nPutting a string from Python to Lumerical, then retrieving it and printing its type.\n\n>>> with lumapi.FDTD(hide = True) as fdtd:\n>>>     Lumerical = 'Ansys Inc'\n>>>     fdtd.putv('Lum_str',Lumerical)\n>>>     print(type(fdtd.getv('Lum_str')),str(fdtd.getv('Lum_str')))\n\nReturns\n\n>>> <class 'str'> Ansys Inc\n\n!! processed by numpydoc !!"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.close",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.close.html#close",
+        "title": "close",
+        "section": "close",
+        "text": "Calls appClose on the the object handle and destroy the session\nclose\npython:None"
+    },
+    {
+        "objectID": "api/_autosummary/ansys.lumerical.core.FDTD.close",
+        "href": "api/_autosummary/ansys.lumerical.core.FDTD.close.html#ansys.lumerical.core.FDTD.close",
+        "title": "close > close > close",
+        "section": "close > close",
+        "text": "FDTD.close()\n\nCalls appClose on the the object handle and destroy the session\n\nParameters\n\nNone\n\n\n\nReturns\n\npython:None\n\n\n\n!! processed by numpydoc !!"
+    }
+]

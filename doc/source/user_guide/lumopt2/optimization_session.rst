@@ -50,7 +50,7 @@ The overall workflow for running an inverse design problem is shown in the diagr
          :link: #runner
          :link-type: url
 
-         ``lumopt2.LocalRunner``
+         ``lumopt2.LocalRunner`` ``lumopt2.SlurmRunner``
 
    .. grid-item::
       :columns: 12 12 1 1
@@ -193,8 +193,12 @@ Runner
 
 The runner is responsible for managing the computational resources for running the optimization.
 
-lumopt2 currently supports local runners for CPU and GPU optimization, defined through :py:class:`~lumopt2.utils.runner.LocalRunner`.
-The runner uses the first GPU or CPU resource enabled in the FDTD resource manager list, depending on the specified type.
+lumopt2 currently supports local and slurm runners for CPU and GPU optimization, defined through :py:class:`~lumopt2.utils.runner.LocalRunner` and :py:class:`~lumopt2.utils.runner.SlurmRunner`.
+
+Local runner
+^^^^^^^^^^^^
+
+A local runner uses the first GPU or CPU resource enabled in the FDTD resource manager list, depending on the specified type.
 
 To set up a local runner, use the following code.
 
@@ -218,6 +222,21 @@ For further information on resource configuration and GPU simulation, please vis
         .. card:: :octicon:`book` Lumerical KB - GPU simulation
             :link: https://optics.ansys.com/hc/en-us/articles/17518942465811-Getting-started-with-running-FDTD-on-GPU
             :link-type: url
+
+Slurm runner
+^^^^^^^^^^^^
+
+A slurm runner handles the submission of jobs to a slurm cluster, and is useful for large optimization problems.
+
+To set up a slurm runner, follow this guide.
+
+.. grid:: 1 1 4 4
+
+    .. grid-item::
+
+        .. card:: :octicon:`book` User guide - slurm runner
+            :link: slurm_optimization
+            :link-type: doc
 
 .. _optimization-session-optimizers:
 
@@ -307,6 +326,7 @@ You can export the optimization results in your preferred method, or recreate an
    Project: parametrization <parametrization>
    Project: figure of merit <figure_of_merit>
    Callbacks <callbacks>
+   Slurm optimization <slurm_optimization>
 
 Diagnostics
 -----------

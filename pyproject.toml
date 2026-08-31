@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
+requires = ["flit_core >=3.2,<5"]
 build-backend = "flit_core.buildapi"
 
 [project]
@@ -9,7 +9,7 @@ description = "Python interface to Ansys Lumerical"
 readme = "README.rst"
 requires-python = ">=3.10,<4"
 license = "MIT"
-license_files = ["LICENSE"]
+license-files = [ "LICENSE" ]
 authors=[
     {name="ANSYS, Inc.", email="pyansys.core@ansys.com"}
 ]

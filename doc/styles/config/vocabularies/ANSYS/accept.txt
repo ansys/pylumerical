@@ -1,3 +1,5 @@
+Synopsys
+synopsys
 ANSYS
 [Aa]nsys
 isort
@@ -52,3 +54,5 @@ SciPy
 callback[s]?
 autograd
 [Ss]lurm
+nanohole[s]
+Spyder

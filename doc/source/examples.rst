@@ -84,6 +84,12 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
       This example demonstrates the use of ``lumopt2`` for the inverse design of a Y-branch.
       It utilizes a custom function to enforce symmetric parametrization, and exports the final design to a GDSII file.
 
+   .. grid-item-card:: Color Router
+      :link: examples/lumopt2/color_router/color_router_pylumerical
+      :link-type: doc
+
+      This example uses ``lumopt2`` with multi-configuration for the inverse design of a color router lens.
+
 .. toctree::
    :hidden:
    :caption: Simulation automation
@@ -101,3 +107,4 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    :caption: Photonic inverse design
 
    examples/lumopt2/y_branch/pylumerical_y_branch
+   examples/lumopt2/color_router/color_router_pylumerical

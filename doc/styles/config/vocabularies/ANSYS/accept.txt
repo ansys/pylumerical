@@ -45,9 +45,10 @@ Ey
 Ez
 lumapi
 metalens[es]?
-namespace
+namespace[s]?
 nm
 scipy
 SciPy
-callback[s]
+callback[s]?
 autograd
+[Ss]lurm

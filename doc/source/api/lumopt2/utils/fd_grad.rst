@@ -15,3 +15,4 @@ Functions
    finite_difference_gradient
    fd_sweep_perturbation
    validate_gradient
+   visualize_d_eps

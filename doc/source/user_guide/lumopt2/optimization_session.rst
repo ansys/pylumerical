@@ -326,7 +326,7 @@ You can export the optimization results in your preferred method, or recreate an
    Project: parametrization <parametrization>
    Project: figure of merit <figure_of_merit>
    Callbacks <callbacks>
-   Slurm optimization <slurm_optimization>
+   Running on cluster with Slurm <slurm_optimization>
 
 Diagnostics
 -----------

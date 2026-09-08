@@ -1,6 +1,14 @@
 Running lumopt2 optimization on a cluster with Slurm
 ====================================================
 
+.. warning::
+
+    Running ``lumopt2`` with Slurm is an initial release. The following limitations current apply:
+
+    1. On a cluster where resources are being heavily utilized, ``lumopt2`` may hang, and you need to manually cancel the optimization as a result. This is due to Slurm job records being expunged from memory quickly after completion. As a workaround, configure the ``slurm.conf`` file on the Slurm cluster with a large ``MinJobAge`` attribute, greater than 36000 seconds. This may require administrator access.
+    2. For :py:class:`~lumopt2.core.project_config.ProjectConfig` objects, the slurm runner does not support Python callables, only ``.lsf`` files.
+
+
 You can run ``lumopt2`` optimizations on a compute cluster with the Slurm job scheduler using the :py:class:`~lumopt2.utils.runner.SlurmRunner` class.
 This allows you to utilize high-performance computing resources for your optimization tasks.
 
@@ -19,12 +27,13 @@ The diagram below illustrates the steps done by the head node and the compute no
 Optimization scripts for Slurm - pure functions
 -----------------------------------------------
 
-To create an optimization for a slurm cluster, you can generally define the optimization problem in the same way as a local optimization, but with an additional requirements for functions that are executed on the compute nodes because the compute node won't have access to the same environment.
+To create an optimization for a slurm cluster, you can generally define the optimization problem in the same way as an optimization on your local computer, but with additional requirements for functions that are executed on the compute nodes.
+These additional requirements exist because the compute nodes and the head node don't share the same Python interpreter.
 All functions that needs to execute on the compute node, **commonly the parameter definition function, the figure of merit objective function, and configuration functions**, must adhere to the following additional requirements:
 
 1. The function must not be a lambda function.
-2. The function can only use the following namespaces: ``lumopt2``, ``np`` for ``numpy``, and ``anp`` for ``autograd.numpy``.
-3. The function must not contain reference any global variables or objects. All auxiliary functions and variables must be defined within the function scope.
+2. The function can only use methods and classes from the following modules in addition to built-in types and methods: ``lumopt2``, ``np`` for ``numpy``, and ``anp`` for ``autograd.numpy``.
+3. The function must not contain reference any references to global variables or objects. All auxiliary functions and variables must be defined within the function scope.
 
 ``lumopt2`` examines functions for these requirements prior to running, and the script does not run if the requirements are not met.
 
@@ -67,9 +76,9 @@ After setting up the configuration, you can set up the Slurm runner object.
         slurm_config=slurm_config, # Points to the SlurmConfig object
         fdtd_session=fdtd_session_head_slurm,
         resource=resource, # "GPU" or "CPU"
-        sim_threads_per_process='32', # Number of threads to use for each FDTD simulation process, only applies to CPU optimizations.
-        py_threads_per_process='32', # Number of threads to use for each Python process. The Python processes are responsible for calculations of the FoM and other operations that are not done in FDTD.
-        num_concurrent_d_eps='1', # Number of concurrent d_eps calculations.
+        sim_threads_per_process=32, # Number of threads to use for each FDTD simulation process, only applies to CPU optimizations.
+        py_threads_per_process=8, # Number of threads to use for each Python process. The Python processes are responsible for calculations of the FoM and other operations that are not done in FDTD. Suggest setting to no more than 8 threads per process.
+        num_concurrent_d_eps=1, # Number of concurrent d_eps calculations.
         gpu_targets=['sample_gpu_name'], # List of GPU targets to use for the optimization
     )
 

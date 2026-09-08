@@ -56,6 +56,12 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
 .. grid:: 2 2 3 3
 
+   .. grid-item-card:: Diffraction Grating (RCWA)
+      :link: examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa
+      :link-type: doc
+
+      This example simulates a simple diffraction grating using RCWA.
+
    .. grid-item-card:: Metalens (RCWA / FDTD)
       :link: examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
       :link-type: doc
@@ -91,6 +97,7 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    examples/Sessions_and_Objects/basic_session_management/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
    examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
+   examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa
    examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE

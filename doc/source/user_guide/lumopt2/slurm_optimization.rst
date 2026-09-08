@@ -77,7 +77,7 @@ After setting up the configuration, you can set up the Slurm runner object.
         fdtd_session=fdtd_session_head_slurm,
         resource=resource, # "GPU" or "CPU"
         sim_threads_per_process=32, # Number of threads to use for each FDTD simulation process, only applies to CPU optimizations.
-        py_threads_per_process=8, # Number of threads to use for each Python process. The Python processes are responsible for calculations of the FoM and other operations that are not done in FDTD. Suggest setting to no more than 8 threads per process.
+        py_threads_per_process=8, # Number of threads to use for each Python process responsible for calculations of the FoM and other operations that are not done in FDTD.
         num_concurrent_d_eps=1, # Number of concurrent d_eps calculations.
         gpu_targets=['sample_gpu_name'], # List of GPU targets to use for the optimization
     )

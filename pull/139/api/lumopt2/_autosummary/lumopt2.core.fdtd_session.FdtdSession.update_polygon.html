@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -631,7 +631,7 @@
 <h1>update_polygon<a class="headerlink" href="#update-polygon" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.core.fdtd_session.FdtdSession.update_polygon">
-<span class="sig-prename descclassname"><span class="pre">FdtdSession.</span></span><span class="sig-name descname"><span class="pre">update_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.core.fdtd_session.FdtdSession.update_polygon" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">FdtdSession.</span></span><span class="sig-name descname"><span class="pre">update_polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">structure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.14)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.core.fdtd_session.FdtdSession.update_polygon" title="Link to this definition">#</a></dt>
 <dd><p>Create or update the optimization polygon in the FDTD CAD.</p>
 <p>Two paths:</p>
 <ul class="simple">
@@ -650,10 +650,10 @@ scratch with the full set of properties.</p></li>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>structure</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dict</span></code>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]</span></dt><dd><p>Structure dictionary from <code class="docutils literal notranslate"><span class="pre">generate_structure()</span></code> containing
+<dt><strong>structure</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dict</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]</span></dt><dd><p>Structure dictionary from <code class="docutils literal notranslate"><span class="pre">generate_structure()</span></code> containing
 polygon vertices, index, and z-span information.</p>
 </dd>
-<dt><strong>polygon_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Explicit polygon name override.  When provided, takes precedence
+<dt><strong>polygon_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Explicit polygon name override.  When provided, takes precedence
 over <code class="docutils literal notranslate"><span class="pre">structure.get('polygon_name')</span></code> (which itself defaults to
 <code class="docutils literal notranslate"><span class="pre">'optimization_polygon'</span></code>).  Used by <code class="docutils literal notranslate"><span class="pre">CombinedParametrization</span></code>
 to give each <code class="docutils literal notranslate"><span class="pre">ClosedCurve</span></code> child a unique polygon in the FDTD

@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -630,7 +630,7 @@
 <h1>calculate_gradient_fields<a class="headerlink" href="#calculate-gradient-fields" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.fom.field_fom.FieldFom.calculate_gradient_fields">
-<span class="sig-prename descclassname"><span class="pre">FieldFom.</span></span><span class="sig-name descname"><span class="pre">calculate_gradient_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parametrization</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_factors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.fom.field_fom.FieldFom.calculate_gradient_fields" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">FieldFom.</span></span><span class="sig-name descname"><span class="pre">calculate_gradient_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">parametrization</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_factors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><span class="pre">ndarray</span></a></span></span><a class="headerlink" href="#lumopt2.fom.field_fom.FieldFom.calculate_gradient_fields" title="Link to this definition">#</a></dt>
 <dd><p>Compute the gradient of the FOM with respect to permittivity using adjoint fields.</p>
 <p>The implementation runs in two phases:</p>
 <ol class="arabic simple">
@@ -663,7 +663,7 @@ forward reads across entries become cache hits.</p>
 </dd>
 <dt><strong>parametrization</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseParametrization</span></code></span></dt><dd><p>Current geometry parametrization used to compute the scaling factor.</p>
 </dd>
-<dt><strong>symmetry_factors</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Per-monitor symmetry factors (from
+<dt><strong>symmetry_factors</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Per-monitor symmetry factors (from
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">fom_symmetry_factors</span></code>).  When
 provided, the Jacobian of the FOM is divided by each monitor’s
 factor before accumulating gradient contributions, so that monitors

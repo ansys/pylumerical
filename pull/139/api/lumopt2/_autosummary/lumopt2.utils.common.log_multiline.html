@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -636,7 +636,7 @@
 <h1>log_multiline<a class="headerlink" href="#log-multiline" title="Link to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="lumopt2.utils.common.log_multiline">
-<span class="sig-prename descclassname"><span class="pre">lumopt2.utils.common.</span></span><span class="sig-name descname"><span class="pre">log_multiline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><span class="pre">Logger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.utils.common.log_multiline" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">lumopt2.utils.common.</span></span><span class="sig-name descname"><span class="pre">log_multiline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><span class="pre">Logger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.utils.common.log_multiline" title="Link to this definition">#</a></dt>
 <dd><p>Log a multi-line <code class="docutils literal notranslate"><span class="pre">message</span></code> so every line gets the formatter prefix.</p>
 <p>Python’s <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Formatter" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">logging.Formatter</span></code></a> is invoked once per record and
 only prepends timestamp / level / logger-name to the <em>first</em> line
@@ -655,9 +655,9 @@ does not silently drop output.</p>
 <dd class="field-odd"><dl>
 <dt><strong>target_logger</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Logger" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logging.Logger</span></code></a></span></dt><dd><p>Logger to emit on.</p>
 </dd>
-<dt><strong>level</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Log level for every emitted record (e.g. <code class="docutils literal notranslate"><span class="pre">logging.INFO</span></code>).</p>
+<dt><strong>level</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Log level for every emitted record (e.g. <code class="docutils literal notranslate"><span class="pre">logging.INFO</span></code>).</p>
 </dd>
-<dt><strong>message</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The (possibly multi-line) message to log.</p>
+<dt><strong>message</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>The (possibly multi-line) message to log.</p>
 </dd>
 </dl>
 </dd>

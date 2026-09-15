@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -637,22 +637,22 @@
 <h1>find_segments_connecting<a class="headerlink" href="#find-segments-connecting" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.parametrization.closed_curve.ClosedCurve.find_segments_connecting">
-<span class="sig-prename descclassname"><span class="pre">ClosedCurve.</span></span><span class="sig-name descname"><span class="pre">find_segments_connecting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#lumopt2.parametrization.closed_curve.ClosedCurve.find_segments_connecting" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ClosedCurve.</span></span><span class="sig-name descname"><span class="pre">find_segments_connecting</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_vertex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.14)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#lumopt2.parametrization.closed_curve.ClosedCurve.find_segments_connecting" title="Link to this definition">#</a></dt>
 <dd><p>Find all segments that connect two vertices (possibly through intermediate vertices).</p>
 <p>This is useful after splitting segments, when you want to find which segments
 now connect the original vertices.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>start_vertex</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>1-based start vertex index.</p>
+<dt><strong>start_vertex</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>1-based start vertex index.</p>
 </dd>
-<dt><strong>end_vertex</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>1-based end vertex index.</p>
+<dt><strong>end_vertex</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>1-based end vertex index.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>]</dt><dd><p>List of 1-based segment indices connecting the vertices.
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a>]</dt><dd><p>List of 1-based segment indices connecting the vertices.
 List of 1-based segment indices that connect start_vertex to end_vertex
 (possibly through intermediate vertices)</p>
 </dd>

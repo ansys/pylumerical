@@ -54,7 +54,7 @@
   
     <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../_static/searchtools.js"></script>
@@ -611,8 +611,8 @@ For more information on how to use script commands in PyLumerical, see the artic
 There are multiple ways of assigning the properties of objects when you create them.</p>
 <section id="assigning-properties-with-an-ordered-dict">
 <h3>Assigning properties with an ordered dict<a class="headerlink" href="#assigning-properties-with-an-ordered-dict" title="Link to this heading">#</a></h3>
-<p>You can also use a Python <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> as a constructor to the object by assigning it to the attribute properties.
-In Python, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> ordering isn’t guaranteed, so if there are properties that depend on other properties, an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is necessary.
+<p>You can also use a Python <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> as a constructor to the object by assigning it to the attribute properties.
+In Python, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> ordering isn’t guaranteed, so if there are properties that depend on other properties, an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is necessary.
 For example, in the example below, ‘override global monitor settings’ must be true before you can set ‘frequency points’.
 Using an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is the safest way to ensure that PyLumerical processes all settings as intended.</p>
 <p><strong>Example</strong></p>
@@ -624,7 +624,7 @@ Using an <a class="reference external" href="https://docs.python.org/3/library/c
 <span class="linenos">6</span><span class="n">fdtd</span><span class="o">.</span><span class="n">addpower</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="n">props</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you don’t have properties where ordering is important, you can use a regular <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<p>If you don’t have properties where ordering is important, you can use a regular <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 </section>
 <section id="assigning-properties-with-keyword-arguments">
 <h3>Assigning properties with keyword arguments<a class="headerlink" href="#assigning-properties-with-keyword-arguments" title="Link to this heading">#</a></h3>

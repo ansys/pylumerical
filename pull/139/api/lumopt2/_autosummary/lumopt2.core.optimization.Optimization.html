@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -641,7 +641,7 @@ and parametrization. Must have methods for computing FOM and gradients.</p>
 <dt><strong>optimizer</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseOptimizer</span></code></span></dt><dd><p>The optimizer instance that will perform the parameter updates. Must
 have an optimize method that accepts objective and gradient functions.</p>
 </dd>
-<dt><strong>callbacks</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseCallback</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>List of callbacks invoked at the standard optimization events
+<dt><strong>callbacks</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseCallback</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>List of callbacks invoked at the standard optimization events
 (<code class="docutils literal notranslate"><span class="pre">on_optimization_start</span></code>, <code class="docutils literal notranslate"><span class="pre">on_iteration_start</span></code>,
 <code class="docutils literal notranslate"><span class="pre">on_function_eval</span></code>, <code class="docutils literal notranslate"><span class="pre">on_iteration_end</span></code>, <code class="docutils literal notranslate"><span class="pre">on_optimization_end</span></code>).
 A single callback may be passed in place of a list.  All
@@ -652,7 +652,7 @@ progress with live plots.  If <code class="docutils literal notranslate"><span c
 every run produces an <code class="docutils literal notranslate"><span class="pre">optimization.log</span></code> in the project folder.
 Pass an empty list (<code class="docutils literal notranslate"><span class="pre">[]</span></code>) to disable callbacks entirely.</p>
 </dd>
-<dt><strong>store_all_simulations</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, each iteration writes uniquely-named <code class="docutils literal notranslate"><span class="pre">.fsp</span></code> files
+<dt><strong>store_all_simulations</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, each iteration writes uniquely-named <code class="docutils literal notranslate"><span class="pre">.fsp</span></code> files
 (<code class="docutils literal notranslate"><span class="pre">fwd_default_iter1.fsp</span></code>, <code class="docutils literal notranslate"><span class="pre">fwd_default_iter2.fsp</span></code>, …) so the full
 simulation history is preserved on disk.  If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), the
 <code class="docutils literal notranslate"><span class="pre">.fsp</span></code> filenames stay stable across iterations
@@ -663,7 +663,7 @@ names also mean the visualizer can reload the most recent forward
 would invalidate Lumerical’s internal pointer to its sibling
 <code class="docutils literal notranslate"><span class="pre">&lt;stem&gt;_output.h5</span></code> and break port-derived results like <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
 </dd>
-<dt><strong>log_profiling_summary</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the wall-clock profiling summary (FDTD setup,
+<dt><strong>log_profiling_summary</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the wall-clock profiling summary (FDTD setup,
 simulation, <code class="docutils literal notranslate"><span class="pre">dEps/dP</span></code>, data transfer, …) is printed at
 <code class="docutils literal notranslate"><span class="pre">INFO</span></code> level when the optimization finishes.  If <code class="docutils literal notranslate"><span class="pre">False</span></code>
 (default), the summary is still emitted at <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> so it
@@ -680,34 +680,34 @@ summary on demand can also call
 </dd>
 <dt><strong>optimizer</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseOptimizer</span></code></span></dt><dd><p>Reference to the optimizer performing updates.</p>
 </dd>
-<dt><strong>iteration</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Current iteration number.  Iteration 0 corresponds to the baseline
+<dt><strong>iteration</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Current iteration number.  Iteration 0 corresponds to the baseline
 evaluation at the initial parameters; iterations 1, 2, … correspond
 to the optimizer’s parameter updates.</p>
 </dd>
-<dt><strong>fom_eval_count</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Total number of FOM evaluations performed so far (1-indexed).  Each
+<dt><strong>fom_eval_count</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Total number of FOM evaluations performed so far (1-indexed).  Each
 cache miss increments this counter.</p>
 </dd>
-<dt><strong>grad_eval_count</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Total number of gradient evaluations performed so far (1-indexed).
+<dt><strong>grad_eval_count</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Total number of gradient evaluations performed so far (1-indexed).
 Each call to <code class="xref py py-meth docutils literal notranslate"><span class="pre">Project.compute_gradient()</span></code> that is not served
 by the per-evaluation cache increments this counter.  Together
 with <code class="docutils literal notranslate"><span class="pre">fom_eval_count</span></code> it lets callbacks distinguish FOM-only
 line-search trials from full forward+adjoint passes.</p>
 </dd>
-<dt><strong>best_fom</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Best (maximum) FOM value encountered during optimization.</p>
+<dt><strong>best_fom</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Best (maximum) FOM value encountered during optimization.</p>
 </dd>
-<dt><strong>best_params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Parameters corresponding to the best FOM value.</p>
+<dt><strong>best_params</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">np.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Parameters corresponding to the best FOM value.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If project or optimizer is None or invalid.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If project or optimizer is None or invalid.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If project is not an instance of Project.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If project is not an instance of Project.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If optimizer is not an instance of BaseOptimizer.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If optimizer is not an instance of BaseOptimizer.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If project doesn’t have required methods (compute_fom, compute_gradient).</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#TypeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeError</span></code></a></dt><dd><p>If project doesn’t have required methods (compute_fom, compute_gradient).</p>
 </dd>
 </dl>
 </dd>

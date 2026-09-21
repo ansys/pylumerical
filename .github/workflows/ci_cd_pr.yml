@@ -77,7 +77,7 @@ jobs:
     - uses: ansys/actions/doc-changelog@v11.0.4
       with:
         token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-        use-conventional-commits: true
+        use-pull-request-title: true
         use-default-towncrier-config: true
         bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
         bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}

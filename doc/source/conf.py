@@ -225,6 +225,7 @@ linkcheck_ignore = [
     "https://pypi.org/project/ansys-lumerical-core",
     "https://github.com/HIPS/autograd/blob/master/docs/tutorial.md",
     r"https://optics.ansys.com/hc/",  # ignore Zendesk articles because help center is not accessible by bots/crawlers
+    r"https://innovationspace.ansys.com", # Innovationspac is either too bloated or blocked (timesout)
     # Ignore example download links for .ipynb and .py files, these links do not work until a version is published
     rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.ipynb",
     rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.py",

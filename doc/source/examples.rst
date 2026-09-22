@@ -70,6 +70,12 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
+   .. grid-item-card:: Grating Coupler
+      :link: examples/Single_Solver_Workflows/grating_couper/grating_coupler
+      :link-type: doc
+
+      This example demonstrates how to simulate a grating coupler connecting a single-mode fiber on the surface of a photonic chip to an integrated waveguide.
+
 Photonic inverse design
 ------------------------
 

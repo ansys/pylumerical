@@ -81,6 +81,20 @@ These classes provide auxiliary utilities for optimization such as job managemen
 
         Wall-clock profiling for optimization phases.
 
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: utils.slurm_config
+        :link: slurm_config
+        :link-type: doc
+
+        Slurm cluster configuration and resource resolution.
+
+    .. grid-item-card:: utils.pure_func_checker
+        :link: pure_func_checker
+        :link-type: doc
+
+        Static analysis helpers for validating pure, picklable functions.
+
 .. toctree::
    :hidden:
 
@@ -94,3 +108,6 @@ These classes provide auxiliary utilities for optimization such as job managemen
    runner
    fd_grad
    profiler
+   slurm_config
+   pure_func_checker
+   custom_serializers

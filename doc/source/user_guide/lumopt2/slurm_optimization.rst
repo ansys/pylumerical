@@ -109,5 +109,5 @@ Finally, set up the project and optimization objects as you would for a local op
 
 .. tip::
 
-    Considering using a configuration file or environment variable to store critical paths and settings to use in a variety of ``lumopt2`` scripts.
+    Consider using a configuration file or environment variable to store critical paths and settings to use in a variety of ``lumopt2`` scripts.
 

@@ -33,7 +33,7 @@ All functions that needs to execute on the compute node, **commonly the paramete
 
 1. The function must not be a lambda function.
 2. The function can only use methods and classes from the following modules in addition to built-in types and methods: ``lumopt2``, ``np`` for ``numpy``, and ``anp`` for ``autograd.numpy``.
-3. The function must not contain reference any references to global variables or objects. All auxiliary functions and variables must be defined within the function scope.
+3. The function must not contain references to any global variables or objects. All auxiliary functions and variables must be defined within the function scope.
 
 ``lumopt2`` examines functions for these requirements prior to running, and the script does not run if the requirements are not met.
 
@@ -77,8 +77,9 @@ After setting up the configuration, you can set up the Slurm runner object.
         fdtd_session=fdtd_session_head_slurm,
         resource=resource, # "GPU" or "CPU"
         sim_threads_per_process=32, # Number of threads to use for each FDTD simulation process, only applies to CPU optimizations.
-        py_threads_per_process=8, # Number of threads to use for each Python process responsible for calculations of the FoM and other operations that are not done in FDTD.
-        num_concurrent_d_eps=1, # Number of concurrent d_eps calculations.
+        py_threads_per_process=8, # Number of threads to use for each Python process responsible for calculations of the FoM and other
+        # operations needs access to the FDTD GUI, but do not require running a simulation.
+        num_concurrent_d_eps=1, # Number of concurrent d_eps calculations, set this to more than 1 to run d_eps calculations in parallel.
         gpu_targets=['sample_gpu_name'], # List of GPU targets to use for the optimization
     )
 

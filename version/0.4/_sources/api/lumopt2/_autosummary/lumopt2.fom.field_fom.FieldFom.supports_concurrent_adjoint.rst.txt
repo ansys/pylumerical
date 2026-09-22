@@ -1,0 +1,6 @@
+supports\_concurrent\_adjoint
+=============================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. autoattribute:: FieldFom.supports_concurrent_adjoint

@@ -1,0 +1,6 @@
+set\_project\_name
+==================
+
+.. currentmodule:: lumopt2.fom.base_fom
+
+.. automethod:: BaseFom.set_project_name

@@ -1,0 +1,6 @@
+close
+=====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: DEVICE.close

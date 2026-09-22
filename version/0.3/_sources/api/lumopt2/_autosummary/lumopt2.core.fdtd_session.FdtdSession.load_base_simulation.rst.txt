@@ -1,0 +1,6 @@
+load\_base\_simulation
+======================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.load_base_simulation

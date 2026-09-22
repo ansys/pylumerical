@@ -1,0 +1,6 @@
+markersize
+==========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: GradientNormPanel.markersize

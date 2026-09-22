@@ -1,0 +1,6 @@
+set\_working\_directory
+=======================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.set_working_directory

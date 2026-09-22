@@ -1,0 +1,28 @@
+﻿OptimizationResult
+==================
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoclass:: OptimizationResult
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      OptimizationResult.message
+      OptimizationResult.success
+      OptimizationResult.initial_fom
+      OptimizationResult.final_fom
+      OptimizationResult.optimal_params
+      OptimizationResult.num_iterations
+      OptimizationResult.history
+   
+   

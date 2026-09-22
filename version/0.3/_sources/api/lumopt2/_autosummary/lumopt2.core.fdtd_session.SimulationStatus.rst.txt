@@ -1,0 +1,34 @@
+﻿SimulationStatus
+================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoclass:: SimulationStatus
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      SimulationStatus.from_bytes
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      SimulationStatus.LAYOUT_MODE
+      SimulationStatus.FULL_TIME
+      SimulationStatus.AUTOSHUTOFF
+      SimulationStatus.DIVERGED
+   
+   

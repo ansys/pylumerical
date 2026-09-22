@@ -1,0 +1,6 @@
+get\_transmission\_results
+==========================
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. automethod:: PortResults.get_transmission_results

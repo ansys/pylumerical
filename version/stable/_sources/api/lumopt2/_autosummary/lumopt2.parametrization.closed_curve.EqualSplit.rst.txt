@@ -1,0 +1,24 @@
+﻿EqualSplit
+==========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: EqualSplit
+
+   
+
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      EqualSplit.polygon_pts_per_segment
+      EqualSplit.segment_index
+      EqualSplit.num_added_vertices
+   
+   

@@ -1,0 +1,6 @@
+compute\_parametrization\_jacobian
+==================================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.compute_parametrization_jacobian

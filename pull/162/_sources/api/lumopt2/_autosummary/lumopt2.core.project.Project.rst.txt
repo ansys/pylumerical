@@ -1,0 +1,60 @@
+﻿Project
+=======
+
+.. currentmodule:: lumopt2.core.project
+
+.. autoclass:: Project
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Project.compute_fom
+      
+      
+      Project.compute_gradient
+      
+      
+      Project.generate
+      
+      
+      Project.load_forward_results
+      
+      
+      Project.run_adjoint
+      
+      
+      Project.run_forward
+      
+      
+      Project.save_project
+      
+      
+      Project.set_adj
+      
+      
+      Project.set_fwd
+      
+      
+      Project.setup_base_simulation
+      
+      
+      Project.update_geometry
+      
+      
+      Project.visualize_fom
+      
+      
+      Project.visualize_geometry
+      
+   
+   
+
+   
+   
+   

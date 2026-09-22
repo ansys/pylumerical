@@ -1,0 +1,6 @@
+create\_project\_folder
+=======================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.create_project_folder

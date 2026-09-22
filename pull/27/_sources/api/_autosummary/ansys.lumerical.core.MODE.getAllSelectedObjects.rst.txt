@@ -1,0 +1,6 @@
+getAllSelectedObjects
+=====================
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: MODE.getAllSelectedObjects

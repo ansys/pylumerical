@@ -1,0 +1,6 @@
+get\_values\_in\_order
+======================
+
+.. currentmodule:: lumopt2.utils.config_map
+
+.. automethod:: ConfigMap.get_values_in_order

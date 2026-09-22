@@ -1,0 +1,33 @@
+﻿DEpsCalculator
+==============
+
+.. currentmodule:: lumopt2.parametrization.d_eps_calculator
+
+.. autoclass:: DEpsCalculator
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      DEpsCalculator.calculate_dF_dPi
+      
+      
+      DEpsCalculator.compute
+      
+      
+      DEpsCalculator.grab_epsilon_material
+      
+      
+      DEpsCalculator.remap_wavelengths
+      
+   
+   
+
+   
+   
+   

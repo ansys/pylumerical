@@ -1,0 +1,6 @@
+get\_initial\_params
+====================
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. automethod:: Parametrization.get_initial_params

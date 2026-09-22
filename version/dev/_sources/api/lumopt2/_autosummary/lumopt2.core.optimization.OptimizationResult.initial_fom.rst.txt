@@ -1,0 +1,6 @@
+initial\_fom
+============
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoattribute:: OptimizationResult.initial_fom

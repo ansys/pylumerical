@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Passing data &#8212; PyLumerical</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=fbf3eb5d" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/ansys-sphinx-theme.css?v=fbf3eb5d" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../_static/documentation_options.js?v=e7fb764e"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f245db63"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'user_guide/passing_data';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://lumerical.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Accessing simulation results" href="accessing_simulation_results.html" />
+    <link rel="prev" title="Working with simulation objects" href="working_with_simulation_objects.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.dev0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyLumerical - Home"/>
+    <img src="../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyLumerical - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../changelog.html">
+    Release notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div>
+        </div>
+      
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../changelog.html">
+    Release notes
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="session_management.html">Session management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script_commands_as_methods.html">Script commands as methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="working_with_simulation_objects.html">Working with simulation objects</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Passing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="accessing_simulation_results.html">Accessing simulation results</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="index.html" class="nav-link">User guide</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Passing data</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="passing-data">
+<span id="ref-passing-data"></span><h1>Passing data<a class="headerlink" href="#passing-data" title="Link to this heading">#</a></h1>
+<p>When driving Lumerical’s tools using PyLumerical, the Lumerical environment is connected with the Python environment, but they don’t share a workspace.</p>
+<p>Instead, PyLumerical passes variables between the Lumerical and Python environments as exact copies. During the transition, PyLumerical translates variables between Lumerical types and Python types.
+This article describes how PyLumerical translates basic data types between the Python environment and the Lumerical product, performance considerations, and best practices associated with it.</p>
+<p>For more information on how to work with datasets, which includes these basic data types and typically contain simulation results, see the article on <a class="reference internal" href="accessing_simulation_results.html"><span class="doc">Accessing simulation results</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Lumerical</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>String</p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Real</p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Complex</p></td>
+<td><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034929613-matrix-Script-command">Matrix</a></p></td>
+<td><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034929913-cell-Script-command">Cell array</a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034409574-struct-Script-command">Struct</a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360034409554-Introduction-to-Lumerical-datasets">Dataset</a></p></td>
+<td><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="python-to-lumerical-conversions">
+<h2>Python to Lumerical conversions<a class="headerlink" href="#python-to-lumerical-conversions" title="Link to this heading">#</a></h2>
+<p>When you send a variable from the Python workspace to Lumerical products, such as when setting parameters, or when using Lumerical scripting functions for further post processing, PyLumerical uses the following rules.</p>
+<section id="string">
+<h3>String<a class="headerlink" href="#string" title="Link to this heading">#</a></h3>
+<p>String values passed from Python are directly converted into string values in the Lumerical workspace.</p>
+</section>
+<section id="real-number">
+<h3>Real number<a class="headerlink" href="#real-number" title="Link to this heading">#</a></h3>
+<p>PyLumerical converts real numbers from Python into float values in Lumerical. Since the Lumerical workspace doesn’t support integer types, any integer types are also converted into float.</p>
+</section>
+<section id="complex-number">
+<h3>Complex number<a class="headerlink" href="#complex-number" title="Link to this heading">#</a></h3>
+<p>You must encapsulate complex numbers in a single element numpy array before passing them from Python into Lumerical. In Python, the complex variable is “j”, whereas in Lumerical, it’s “i”.</p>
+</section>
+<section id="numpy-array">
+<h3>Numpy array<a class="headerlink" href="#numpy-array" title="Link to this heading">#</a></h3>
+<p>PyLumerical converts numpy arrays from Python into matrices in Lumerical, and it supports complex-valued numpy arrays.</p>
+</section>
+<section id="list">
+<h3>List<a class="headerlink" href="#list" title="Link to this heading">#</a></h3>
+<p>PyLumerical converts lists from Python, which can contain any of the basic types mentioned in this section, into cell arrays in the Lumerical scripting workspace.</p>
+</section>
+<section id="dict">
+<h3>Dict<a class="headerlink" href="#dict" title="Link to this heading">#</a></h3>
+<p>PyLumerical converts dictionaries from Python, which can contain any of the basic types mentioned in this section, into structures in Lumerical. The order of the dictionary isn’t preserved.</p>
+</section>
+<section id="other-types">
+<h3>Other types<a class="headerlink" href="#other-types" title="Link to this heading">#</a></h3>
+<p>All other types, except those mentioned above, aren’t supported and results in an error if your script attempts to pass them into the Lumerical workspace.</p>
+</section>
+</section>
+<section id="lumerical-to-python-conversions">
+<h2>Lumerical to Python conversions<a class="headerlink" href="#lumerical-to-python-conversions" title="Link to this heading">#</a></h2>
+<p>When retrieving a variable from the Lumerical product to the Python workspace, such as when obtaining simulation results from simulation objects and monitors, or when retrieving return values from a Lumerical scripting function, PyLumerical uses the following rules.</p>
+<section id="id1">
+<h3>String<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>When PyLumerical retrieves a string from Lumerical, it returns the variable into the Python environment as a string.</p>
+</section>
+<section id="id2">
+<h3>Real number<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>When PyLumerical retrieves any real number from Lumerical, it returns the value into the Python environment as a float. Since Lumerical doesn’t support integers, even if you previously passed a variable into Lumerical as integer, PyLumerical still retrieves it as float.</p>
+</section>
+<section id="id3">
+<h3>Complex number<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>PyLumerical automatically converts complex numbers into a 1x1 numpy array in the Python environment, with the complex number being the only element in that array.</p>
+<p>For example, the following script creates a Lumerical scripting function that returns a complex value and checks its type, length, and value in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">()</span>
+<span class="n">fdtd</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;function return_complex(){return 1+1i;}&quot;</span><span class="p">)</span>
+<span class="n">complex_value</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">return_complex</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Returned value is of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">complex_value</span><span class="p">)</span><span class="si">}</span><span class="s1">, length </span><span class="si">{</span><span class="n">complex_value</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1"> with value </span><span class="si">{</span><span class="n">complex_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Returned</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">of</span> <span class="nb">type</span> <span class="p">,</span> <span class="n">length</span> <span class="mi">1</span> <span class="k">with</span> <span class="n">value</span> <span class="p">[</span><span class="mf">1.</span><span class="o">+</span><span class="mf">1.</span><span class="n">j</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Lumerical, the complex variable is “i”, whereas in Python, the complex variable is “j”.</p>
+</div>
+</section>
+<section id="id4">
+<h3>Matrix<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>PyLumerical retrieves matrices as numpy arrays of the same size. These arrays also support complex data as their elements.</p>
+</section>
+<section id="id5">
+<h3>Struct<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>PyLumerical converts structures from Lumerical into Python dictionaries, with each field turned into an attribute. The keys of the dictionary are field names, and it’s order from Lumerical isn’t preserved.</p>
+<p>For example, the following script creates a Lumerical scripting function that returns a structure checks its type and contents in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">()</span>
+<span class="n">fdtd</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;function return_struct(){return {&quot;name&quot;:&quot;MyStruct&quot;,&quot;real value&quot;: 1e-6, &quot;complex value&quot;: 1+1i, &quot;matrix&quot;: matrix(2,2)};}&#39;</span><span class="p">)</span>
+<span class="n">struct_returned</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">return_struct</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The type of the returned value is </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">struct_returned</span><span class="p">)</span><span class="si">}</span><span class="s2">, the values within are: </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">struct_returned</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Field - </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">, Value - </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">, Type - </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Returns</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The type of the returned value is &lt;class &#39;dict&#39;&gt;, the values within are:
+Field - complex value, Value - [[1.+1.j]], Type - &lt;class &#39;numpy.ndarray&#39;&gt;
+Field - matrix, Value - [[0. 0.] [0. 0.]], Type - &lt;class &#39;numpy.ndarray&#39;&gt;
+Field - name, Value - MyStruct, Type - &lt;class &#39;str&#39;&gt;
+Field - real value, Value - 1e-06, Type - &lt;class &#39;float&#39;&gt;
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>Cell array<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>PyLumerical retrieves Lumerical cell arrays as Python lists. Elements of these lists can contain any of the basic data types.</p>
+<p>For example, the following script creates a Lumerical function that creates a cell array with a string, a matrix, and a structure that has another cell array as its element, returns it to the Python workspace, and checks each element.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">()</span>
+<span class="n">fdtd</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;function return_cell(){mycell = cell(3); mycell</span><span class="si">{1}</span><span class="s1">=&quot;Hello World&quot;; mycell</span><span class="si">{2}</span><span class="s1"> = matrix(2,2); mycell</span><span class="si">{3}</span><span class="s1"> = {&quot;name&quot;:&quot;Lumerical&quot;, &quot;value&quot;:cell(3)}; return mycell;}&#39;</span><span class="p">)</span>
+<span class="n">cell_returned</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">return_cell</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Returns</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>The type of the returned value is &lt;class &#39;list&#39;&gt;, the values within are:
+
+Value - Hello World, Type - &lt;class &#39;str&#39;&gt;
+
+Value - [[0. 0.] [0. 0.]], Type - &lt;class &#39;numpy.ndarray&#39;&gt;
+
+Value - {&#39;name&#39;: &#39;Lumerical&#39;, &#39;value&#39;: [0.0, 0.0, 0.0]}, Type - &lt;class &#39;dict&#39;&gt;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="explicit-transfer-functions">
+<h2>Explicit transfer functions<a class="headerlink" href="#explicit-transfer-functions" title="Link to this heading">#</a></h2>
+<p>Two explicit transfer functions, <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.FDTD.getv.html#ansys.lumerical.core.FDTD.getv" title="ansys.lumerical.core.FDTD.getv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ansys.lumerical.core.FDTD.getv()</span></code></a> and <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.FDTD.putv.html#ansys.lumerical.core.FDTD.putv" title="ansys.lumerical.core.FDTD.putv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ansys.lumerical.core.FDTD.putv()</span></code></a> are available to manually retrieve variables from the Lumerical workspace and placing them into the workspace, respectively.
+While these can be useful in a small number of circumstances, avoid using these functions unless it’s necessary, as changes to variables in one workspace doesn’t automatically synchronize with the other. Usually, you can use Python methods to interact with simulation objects, including entering inputs and retrieving outputs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.FDTD.getv.html#ansys.lumerical.core.FDTD.getv" title="ansys.lumerical.core.FDTD.getv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ansys.lumerical.core.FDTD.getv()</span></code></a> and <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.FDTD.putv.html#ansys.lumerical.core.FDTD.putv" title="ansys.lumerical.core.FDTD.putv"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ansys.lumerical.core.FDTD.putv()</span></code></a> is common to all products, and is available in <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.MODE.html#ansys.lumerical.core.MODE" title="ansys.lumerical.core.MODE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ansys.lumerical.core.MODE</span></code></a>, <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.DEVICE.html#ansys.lumerical.core.DEVICE" title="ansys.lumerical.core.DEVICE"><code class="xref py py-class docutils literal notranslate"><span class="pre">ansys.lumerical.core.DEVICE</span></code></a>, and <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.INTERCONNECT.html#ansys.lumerical.core.INTERCONNECT" title="ansys.lumerical.core.INTERCONNECT"><code class="xref py py-class docutils literal notranslate"><span class="pre">ansys.lumerical.core.INTERCONNECT</span></code></a> as well.</p>
+</div>
+</section>
+<section id="transfer-speed">
+<h2>Transfer speed<a class="headerlink" href="#transfer-speed" title="Link to this heading">#</a></h2>
+<p>Typically, this transfer doesn’t present an issue in terms of fidelity, nor does it typically present a bottleneck in terms of speed.
+However, when working with very large datasets it may be important to take this into consideration if efficiency is imperative.</p>
+</section>
+<section id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If you are creating a large number of variables or repeatedly sending and retrieving data in a loop with many API calls, it could be more efficient to do so inside the Lumerical script environment by using the <a class="reference internal" href="../api/_autosummary/ansys.lumerical.core.FDTD.eval.html#ansys.lumerical.core.FDTD.eval" title="ansys.lumerical.core.FDTD.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ansys.lumerical.core.FDTD.eval()</span></code></a> command such that this all happens in one operation.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-to-lumerical-conversions">Python to Lumerical conversions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#string">String</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#real-number">Real number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complex-number">Complex number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numpy-array">Numpy array</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list">List</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dict">Dict</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#other-types">Other types</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lumerical-to-python-conversions">Lumerical to Python conversions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">String</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Real number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Complex number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Struct</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Cell array</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explicit-transfer-functions">Explicit transfer functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-speed">Transfer speed</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-practices">Best practices</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../_sources/user_guide/passing_data.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../_static/search.json";
+</script>
+
+
+<script src="../_static/js/search.js"></script>
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.4.2. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+add\_field\_monitors
+====================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.add_field_monitors

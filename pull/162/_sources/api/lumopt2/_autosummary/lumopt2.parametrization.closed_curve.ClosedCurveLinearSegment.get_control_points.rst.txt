@@ -1,0 +1,6 @@
+get\_control\_points
+====================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurveLinearSegment.get_control_points

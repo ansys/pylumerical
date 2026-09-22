@@ -1,0 +1,34 @@
+﻿ParameterScaler
+===============
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. autoclass:: ParameterScaler
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ParameterScaler.to_physical
+      
+      
+      ParameterScaler.to_scaled
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ParameterScaler.scaled_bounds
+   
+   

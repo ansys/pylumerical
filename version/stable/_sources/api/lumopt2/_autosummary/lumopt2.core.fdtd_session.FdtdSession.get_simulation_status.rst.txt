@@ -1,0 +1,6 @@
+get\_simulation\_status
+=======================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.get_simulation_status

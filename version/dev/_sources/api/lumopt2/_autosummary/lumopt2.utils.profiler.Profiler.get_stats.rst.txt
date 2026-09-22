@@ -1,0 +1,6 @@
+get\_stats
+==========
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.get_stats

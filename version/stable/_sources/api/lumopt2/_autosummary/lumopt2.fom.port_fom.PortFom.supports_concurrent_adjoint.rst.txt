@@ -1,0 +1,6 @@
+supports\_concurrent\_adjoint
+=============================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. autoattribute:: PortFom.supports_concurrent_adjoint

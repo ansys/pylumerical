@@ -1,0 +1,6 @@
+apply
+=====
+
+.. currentmodule:: lumopt2.core.project_config
+
+.. automethod:: ProjectConfig.apply

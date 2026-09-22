@@ -1,0 +1,6 @@
+setup\_base\_simulation
+=======================
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.setup_base_simulation

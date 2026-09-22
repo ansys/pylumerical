@@ -1,0 +1,6 @@
+store\_mesh\_info
+=================
+
+.. currentmodule:: lumopt2.parametrization.combined_parametrization
+
+.. automethod:: CombinedParametrization.store_mesh_info

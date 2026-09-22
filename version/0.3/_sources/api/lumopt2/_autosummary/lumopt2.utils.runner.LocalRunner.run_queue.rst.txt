@@ -1,0 +1,6 @@
+run\_queue
+==========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.run_queue

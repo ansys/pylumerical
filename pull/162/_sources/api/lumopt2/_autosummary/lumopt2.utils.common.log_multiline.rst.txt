@@ -1,0 +1,6 @@
+﻿log\_multiline
+==============
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autofunction:: log_multiline

@@ -1,0 +1,6 @@
+compute\_lumerical\_to\_permittivity\_jacobian
+==============================================
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. automethod:: Parametrization.compute_lumerical_to_permittivity_jacobian

@@ -1,0 +1,6 @@
+update\_polygon\_vertices
+=========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.update_polygon_vertices

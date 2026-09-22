@@ -35,7 +35,7 @@ jobs:
     permissions:
       contents: read # Required to checkout repository
     steps:
-      - uses: ansys/actions/doc-style@v10.3.6
+      - uses: ansys/actions/doc-style@v11.0.4
         with:
           token: ${{ secrets.TOKEN }}
 

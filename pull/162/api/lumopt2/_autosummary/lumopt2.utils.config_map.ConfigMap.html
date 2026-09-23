@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -631,7 +631,7 @@
 <h1>ConfigMap<a class="headerlink" href="#configmap" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumopt2.utils.config_map.ConfigMap">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.config_map.</span></span><span class="sig-name descname"><span class="pre">ConfigMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.config_map.ConfigMap" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.config_map.</span></span><span class="sig-name descname"><span class="pre">ConfigMap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.config_map.ConfigMap" title="Link to this definition">#</a></dt>
 <dd><p>Organises simulation results into per-configuration groups and manages filenames.</p>
 <p>Accepts a list of simulation result objects and groups them by their
 associated <code class="docutils literal notranslate"><span class="pre">Config</span></code> instance (currently always <code class="docutils literal notranslate"><span class="pre">None</span></code> until multi-config
@@ -647,18 +647,18 @@ positional order expected by the user-defined <code class="docutils literal notr
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>sim_results</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Simulation result objects to organise.  Each must expose a <code class="docutils literal notranslate"><span class="pre">config</span></code>
+<dt><strong>sim_results</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Simulation result objects to organise.  Each must expose a <code class="docutils literal notranslate"><span class="pre">config</span></code>
 attribute (<code class="docutils literal notranslate"><span class="pre">None</span></code> for the default single-config workflow) and a
 <code class="docutils literal notranslate"><span class="pre">monitor_name</span></code> attribute used to build adjoint filenames.</p>
 </dd>
-<dt><strong>project_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Name to use for the project folder.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, a name of the form
+<dt><strong>project_name</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Name to use for the project folder.  If <code class="docutils literal notranslate"><span class="pre">None</span></code>, a name of the form
 <code class="docutils literal notranslate"><span class="pre">lumopt2_project_YYYYMMDD_HHMMSS</span></code> is generated automatically.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>config_map</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Dictionary keyed by <code class="docutils literal notranslate"><span class="pre">Config</span></code> instance (or <code class="docutils literal notranslate"><span class="pre">None</span></code> for the default
+<dt><strong>config_map</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a></span></dt><dd><p>Dictionary keyed by <code class="docutils literal notranslate"><span class="pre">Config</span></code> instance (or <code class="docutils literal notranslate"><span class="pre">None</span></code> for the default
 config).  Each value is a dict with:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">'config'</span></code>: the <code class="docutils literal notranslate"><span class="pre">Config</span></code> instance for this group.</p></li>
@@ -669,11 +669,11 @@ session is available.</p></li>
 <code class="docutils literal notranslate"><span class="pre">'adj_filename'</span></code> for one result in this group.</p></li>
 </ul>
 </dd>
-<dt><strong>sim_results_ordered</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Simulation results in the exact order supplied to the constructor.
+<dt><strong>sim_results_ordered</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Simulation results in the exact order supplied to the constructor.
 This order must match the positional arguments of the user-defined
 <code class="docutils literal notranslate"><span class="pre">fct</span></code> in <code class="xref py py-class docutils literal notranslate"><span class="pre">Fom</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">custom_fct(int_red,</span> <span class="pre">int_green,</span> <span class="pre">...)</span></code>).</p>
 </dd>
-<dt><strong>project_folder</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Path/name of the project folder where simulation files are written.</p>
+<dt><strong>project_folder</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Path/name of the project folder where simulation files are written.</p>
 </dd>
 </dl>
 </dd>

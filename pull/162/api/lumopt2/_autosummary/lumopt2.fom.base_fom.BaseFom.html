@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -626,7 +626,7 @@
 <h1>BaseFom<a class="headerlink" href="#basefom" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumopt2.fom.base_fom.BaseFom">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.fom.base_fom.</span></span><span class="sig-name descname"><span class="pre">BaseFom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.fom.base_fom.BaseFom" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.fom.base_fom.</span></span><span class="sig-name descname"><span class="pre">BaseFom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">fct</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">callable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.fom.base_fom.BaseFom" title="Link to this definition">#</a></dt>
 <dd><p>Base class for figure of merit (FOM) calculation driven by user-defined functions and simulation monitors.</p>
 <p><code class="docutils literal notranslate"><span class="pre">BaseFom</span></code> provides shared FOM infrastructure including constructor validation,
 result loading, Jacobian computation, and gradient field assembly.
@@ -635,11 +635,11 @@ adjoint field extraction for different monitor types.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>sim_results</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">PortResults</span></code> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">those</span></code></span></dt><dd><p>One or more monitor result objects whose extracted values are passed (in
+<dt><strong>sim_results</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">PortResults</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">those</span></code></span></dt><dd><p>One or more monitor result objects whose extracted values are passed (in
 order) as positional arguments to <code class="docutils literal notranslate"><span class="pre">fct</span></code>.  All objects must be
 <code class="xref py py-class docutils literal notranslate"><span class="pre">FieldResults</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">PortResults</span></code>.</p>
 </dd>
-<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>Scalar-valued function of the monitor results.  Its positional arguments
+<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>Scalar-valued function of the monitor results.  Its positional arguments
 must correspond one-to-one with the elements of <code class="docutils literal notranslate"><span class="pre">sim_results</span></code> as
 supplied.  The function body must use <code class="docutils literal notranslate"><span class="pre">autograd.numpy</span></code> operations so
 that <code class="docutils literal notranslate"><span class="pre">autograd.jacobian</span></code> can differentiate it.  Subclasses supply a
@@ -649,23 +649,23 @@ type-appropriate default when the user does not specify one.</p>
 </dd>
 <dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>Wrapped version of the user-supplied function (accepts a single tuple/list
+<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a></span></dt><dd><p>Wrapped version of the user-supplied function (accepts a single tuple/list
 argument for compatibility with <code class="docutils literal notranslate"><span class="pre">autograd.jacobian</span></code>).</p>
 </dd>
 <dt><strong>config_map</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConfigMap</span></code></span></dt><dd><p>Organises the simulation results into per-config groups and stores
 forward/adjoint filenames.</p>
 </dd>
-<dt><strong>scaling_factor</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Physical pre-factor applied to the adjoint gradient fields.  Computed 
+<dt><strong>scaling_factor</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#float" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">None</span></code></a></span></dt><dd><p>Physical pre-factor applied to the adjoint gradient fields.  Computed 
 and cached on the first call to <a class="reference internal" href="lumopt2.fom.base_fom.BaseFom.get_scaling_factor.html#lumopt2.fom.base_fom.BaseFom.get_scaling_factor" title="lumopt2.fom.base_fom.BaseFom.get_scaling_factor"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_scaling_factor()</span></code></a>.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If any element of <code class="docutils literal notranslate"><span class="pre">sim_results</span></code> is not a <code class="xref py py-class docutils literal notranslate"><span class="pre">FieldResults</span></code> or
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If any element of <code class="docutils literal notranslate"><span class="pre">sim_results</span></code> is not a <code class="xref py py-class docutils literal notranslate"><span class="pre">FieldResults</span></code> or
 <code class="xref py py-class docutils literal notranslate"><span class="pre">PortResults</span></code> instance.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">fct</span></code> is not callable.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#ValueError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">fct</span></code> is not callable.</p>
 </dd>
 </dl>
 </dd>

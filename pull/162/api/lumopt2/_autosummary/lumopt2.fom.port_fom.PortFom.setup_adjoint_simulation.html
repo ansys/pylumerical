@@ -54,7 +54,7 @@
   
     <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../../_static/searchtools.js"></script>
@@ -630,7 +630,7 @@
 <h1>setup_adjoint_simulation<a class="headerlink" href="#setup-adjoint-simulation" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.fom.port_fom.PortFom.setup_adjoint_simulation">
-<span class="sig-prename descclassname"><span class="pre">PortFom.</span></span><span class="sig-name descname"><span class="pre">setup_adjoint_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.fom.simulation_results.PortResults.html#lumopt2.fom.simulation_results.PortResults" title="lumopt2.fom.simulation_results.PortResults"><span class="pre">PortResults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.fom.port_fom.PortFom.setup_adjoint_simulation" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PortFom.</span></span><span class="sig-name descname"><span class="pre">setup_adjoint_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.fom.simulation_results.PortResults.html#lumopt2.fom.simulation_results.PortResults" title="lumopt2.fom.simulation_results.PortResults"><span class="pre">PortResults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.fom.port_fom.PortFom.setup_adjoint_simulation" title="Link to this definition">#</a></dt>
 <dd><p>Configure the FDTD session for an adjoint port simulation.</p>
 <p>Sets <code class="docutils literal notranslate"><span class="pre">sim_result.monitor_name</span></code> as the active source port for the
 adjoint run and updates port positions by one mesh cell to account for
@@ -640,7 +640,7 @@ the monitor/source offset convention used by Lumerical.</p>
 <dd class="field-odd"><dl>
 <dt><strong>fdtd_session</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FdtdSession</span></code></span></dt><dd><p>Active FDTD session to modify.</p>
 </dd>
-<dt><strong>sources</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Unused for port-based simulations.</p>
+<dt><strong>sources</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>Unused for port-based simulations.</p>
 </dd>
 <dt><strong>sim_result</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PortResults</span></code></span></dt><dd><p>Port-based simulation result that defines which port monitor to use
 as the adjoint source.</p>
@@ -649,9 +649,9 @@ as the adjoint source.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If setting the source port fails.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If setting the source port fails.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If the configuration entry for <code class="docutils literal notranslate"><span class="pre">sim_result</span></code> cannot be found in
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If the configuration entry for <code class="docutils literal notranslate"><span class="pre">sim_result</span></code> cannot be found in
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">config_map</span></code>.</p>
 </dd>
 </dl>

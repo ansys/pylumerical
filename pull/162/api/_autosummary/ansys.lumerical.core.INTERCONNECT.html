@@ -54,7 +54,7 @@
   
     <link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
   
-    <script src="../../_static/documentation_options.js?v=59a9b892"></script>
+    <script src="../../_static/documentation_options.js?v=a4d987d4"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -79,7 +79,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="0.4.dev0" />
+  <meta name="docsearch:version" content="0.5.dev0" />
   
     
     <script src="../../_static/searchtools.js"></script>
@@ -622,11 +622,11 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>filename</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.</p>
+<dt><strong>filename</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing either a script filename or a project filename. When the parameter is a project filename, the product opens and loads the project. When the parameter is a script filename, the product evaluates the script. We recommend using the keyword arguments script and project instead of this parameter. See below for more details on keyword arguments.</p>
 </dd>
-<dt><strong>key</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Deprecated parameter, do not enter values other than the default.</p>
+<dt><strong>key</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Deprecated parameter, do not enter values other than the default.</p>
 </dd>
-<dt><strong>hide</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Shows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.</p>
+<dt><strong>hide</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Shows or hides the Lumerical GUI/CAD environment on startup. When set to True, all pop-up messages that normally appear in the GUI does not appear.</p>
 </dd>
 <dt><strong>serverArgs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/struct.html#module-struct" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">struct</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Pass command line arguments (Windows/Linux) to the product during launch as a dictionary. Equivalent to adding options (<a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360024812334-Running-simulations-using-the-Windows-command-prompt">Windows</a> / <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/360024974033-Running-simulations-using-terminal-on-Linux">Linux</a>) behind the “solutions” executables, for example, fdtd-solutions. Each key should match the name of the command line argument (without the -). The value depends on the type of command line argument:</p>
 <ul class="simple">
@@ -641,7 +641,7 @@
 <li><p>port: an integer indicating the port to connect to.</p></li>
 </ul>
 </dd>
-<dt><strong>**kwargs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Keyword arguments, see “Other Parameters”: below for options and their usage.</p>
+<dt><strong>**kwargs</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">dict</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Keyword arguments, see “Other Parameters”: below for options and their usage.</p>
 </dd>
 </dl>
 </dd>
@@ -652,9 +652,9 @@
 </dd>
 <dt class="field-odd">Other Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>project</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.</p>
+<dt><strong>project</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing a project filename, including extension. The product will open this project before any scripts specified by the script keyword are run.</p>
 </dd>
-<dt><strong>script</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.</p>
+<dt><strong>script</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>A single string containing a script filename including extension, or a collection of strings that are script filenames. For collections list and tuple are preferred; dicts are not supported. These scripts run after the opening the project specified in the project keyword. If you do not specify a project, they will run in a new blank project.</p>
 </dd>
 </dl>
 </dd>

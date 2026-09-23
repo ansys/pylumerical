@@ -228,6 +228,7 @@ linkcheck_ignore = [
     # Ignore example download links for .ipynb and .py files, these links do not work until a version is published
     rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.ipynb",
     rf"https://{cname}/version/{get_version_match(version)}/examples/.*\.py",
+    r"https://innovation.ansys.com/",  # Ignore innovation course links as it is also not accessible by crawlers
 ]
 
 # If we are on a release, we have to ignore the "release" URLs, since it is not

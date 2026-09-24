@@ -6,17 +6,16 @@
 # The grating is parameterized by its periodicity, fill factor, top width, and depth.
 # In Part 2, we use RCWA to calculate the complex transmission/reflection of the grating.
 # In Part 3, we plot the results.
-# In Part 4, we use FDTD to calculate transmission, to see if the two results converge.
+# Diffraction gratings can also be simulated using the FDTD method. 
+# In Part 4, we use FDTD to calculate transmission and confirm if both methods agree.
 #
 # Prerequisites: Valid FDTD license is required.
 
 # Perform required imports
 from typing import Dict, Tuple  # Only required for better type hint
-
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt  # Only required for plotting
 import numpy as np
-
 import ansys.lumerical.core as lumapi
 
 # ## Part 1: Set up structures and simulation objects
@@ -24,7 +23,7 @@ import ansys.lumerical.core as lumapi
 # +
 # Define parameters
 
-# Set whether user want to see GUI pop
+# Set whether the GUI should be shown or hidden
 show_GUI = True
 
 # Set filename for saving and loading
@@ -282,7 +281,7 @@ print("phi:", np.unique(gc["phi"]), "deg")
 # -
 
 
-# ## Part 3: Plot results and export to LSWM
+# ## Part 3: Plot RCWA results
 
 # +
 # Now plot useful results.
@@ -436,7 +435,8 @@ plt.show(block=False)
 # <img src="images/diffraction_efficiency.png" width="600">
 
 # ## Part 4: Verify the results with FDTD
-# Unlike RCWA, FDTD simulation requires a dedicated defined source to excite EM field, and a dedicated defined monitor to capture EM field.
+# The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results. 
+# We can use periodic boundary 
 
 
 # +
@@ -445,7 +445,7 @@ def set_fdtd_simulation(
     fdtd, filename, x_min: float, x_max: float, y_min: float, y_max: float, z_min: float, z_max: float, wl_min: float, wl_max: float
 ) -> None:
     """
-    Set up the FDTD simulation environment: one FDTD mesh, one plane wave source, and one DFT 2D monitor.
+    Set up the FDTD simulation : FDTD region, a plane wave source, and a 2D DFT monitor.
 
     Parameters
     ----------
@@ -671,7 +671,7 @@ fig  # plot the figure
 # <img src="images/diffraction_efficiency_FDTD_total_order.png" width="600">
 
 # +
-# Safely close the Lumerical task
+# Safely close the Lumerical session
 if not show_GUI:
     fdtd.close()
 # -

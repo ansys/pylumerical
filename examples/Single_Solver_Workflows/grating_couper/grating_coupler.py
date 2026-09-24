@@ -38,6 +38,7 @@ file_name = "./grating_coupler_setup.fsp"
 
 # Unit
 um_to_m = 1e-6
+m_to_um = 1e6
 
 # Materials
 MATERIAL_SIO2 = "SiO2 (Glass) - Palik"
@@ -594,7 +595,7 @@ fdtd.save(file_name)
 
 
 # +
-# Extract data from monitors
+# Extract data from the xz monitors
 def extract_result_xz_mesh(results, key: str):
     """Extract x, z mesh and the specified field from the results dictionary."""
     x_um = np.asarray(results["x"]).squeeze() * 1e6
@@ -636,6 +637,24 @@ plt.show(block=False)
 
 # -
 # <img src="images/grating_coupler_results.png" width="600">
+
+# +
+# Extract transmission data from port 2 and plot
+transmission_port_2 = fdtd.getresult("FDTD::ports::port 2", "T")
+
+wavelength_port_2 = np.asarray(transmission_port_2["lambda"]).squeeze()
+T_port_2 = np.abs(np.asarray(transmission_port_2["T"]).squeeze())
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(wavelength_port_2 * 1e6, T_port_2)
+ax.set_xlabel("Wavelength (um)")
+ax.set_ylabel("Transmission (a.u.)")
+ax.set_title("Transmission at Port 2")
+plt.grid(alpha=0.3)
+plt.show(block=False)
+
+# -
+# <img src="images/transmission_p2.png" width="600">
 
 # +
 # Close the simulation properly.

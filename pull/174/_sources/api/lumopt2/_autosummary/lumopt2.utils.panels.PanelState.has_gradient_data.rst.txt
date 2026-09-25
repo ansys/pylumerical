@@ -1,0 +1,6 @@
+has\_gradient\_data
+===================
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.has_gradient_data

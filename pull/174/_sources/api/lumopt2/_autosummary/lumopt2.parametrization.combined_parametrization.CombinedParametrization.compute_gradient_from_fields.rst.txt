@@ -1,0 +1,6 @@
+compute\_gradient\_from\_fields
+===============================
+
+.. currentmodule:: lumopt2.parametrization.combined_parametrization
+
+.. automethod:: CombinedParametrization.compute_gradient_from_fields

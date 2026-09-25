@@ -1,0 +1,86 @@
+﻿ClosedCurve
+===========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: ClosedCurve
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      ClosedCurve.compute_gradient_from_fields
+      
+      
+      ClosedCurve.compute_opt_params_direct_to_permittivity_jacobian
+      
+      
+      ClosedCurve.compute_parametrization_jacobian
+      
+      
+      ClosedCurve.compute_params_to_lumerical_jacobian
+      
+      
+      ClosedCurve.compute_polygon_jacobian
+      
+      
+      ClosedCurve.create_optimization_structures
+      
+      
+      ClosedCurve.discretize_polygon
+      
+      
+      ClosedCurve.find_segments_connecting
+      
+      
+      ClosedCurve.get_bounding_box
+      
+      
+      ClosedCurve.get_bounds
+      
+      
+      ClosedCurve.get_initial_params
+      
+      
+      ClosedCurve.make_segments_parametric
+      
+      
+      ClosedCurve.make_vertex_parametric
+      
+      
+      ClosedCurve.plot
+      
+      
+      ClosedCurve.set_parametrization_function
+      
+      
+      ClosedCurve.split_segments
+      
+      
+      ClosedCurve.store_mesh_info
+      
+      
+      ClosedCurve.update_structure
+      
+      
+      ClosedCurve.visualize
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ClosedCurve.bounds
+   
+   

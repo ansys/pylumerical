@@ -1,0 +1,47 @@
+﻿MonitorPanel
+============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: MonitorPanel
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      MonitorPanel.on_optimization_end
+      
+      
+      MonitorPanel.setup
+      
+      
+      MonitorPanel.update
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      MonitorPanel.axes_kwargs
+      MonitorPanel.cmap
+      MonitorPanel.frequency
+      MonitorPanel.image_kwargs
+      MonitorPanel.line_kwargs
+      MonitorPanel.monitor_name
+      MonitorPanel.operation
+      MonitorPanel.requires_forward_results
+      MonitorPanel.result_name
+      MonitorPanel.title
+      MonitorPanel.wavelength
+   
+   

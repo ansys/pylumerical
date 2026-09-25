@@ -1,0 +1,6 @@
+optimal\_params
+===============
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoattribute:: OptimizationResult.optimal_params

@@ -1,0 +1,190 @@
+/* Do not show In [ ]: / Out [ ]: prompt boxes on notebook cells.*/
+.nbinput .prompt,
+.nboutput .prompt {
+    display: none;
+}
+.highlight span.linenos {
+    opacity: 0.4 !important;
+}
+
+/* Dropdown width */
+
+details.sd-dropdown {
+    width: 100% !important;
+}
+
+/* === Flow diagram styling for lumopt2 navigation === */
+
+/* Chevron shared properties */
+.flow-chevron-up::after,
+.flow-chevron-right::after {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    background: var(--pst-color-border, var(--sd-color-secondary));
+}
+
+/* Vertical chevron (pointing up) */
+.flow-chevron-up {
+    text-align: center;
+    padding: 0.5rem 0;
+}
+
+.flow-chevron-up::after {
+    width: 36px;
+    height: 18px;
+    clip-path: polygon(50% 0%, 0% 100%, 20% 100%, 50% 35%, 80% 100%, 100% 100%);
+}
+
+/* Horizontal chevron (pointing right) */
+.flow-chevron-right {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.flow-chevron-right::after {
+    width: 18px;
+    height: 36px;
+    clip-path: polygon(100% 50%, 0% 0%, 0% 20%, 65% 50%, 0% 80%, 0% 100%);
+}
+
+/* Hub row: equal height columns, cards fill parent */
+.flow-hub-row .sd-row {
+    align-items: stretch;
+}
+
+.flow-hub-row .sd-col > .sd-card {
+    height: 100%;
+}
+
+/* Static cards: center content vertically */
+.flow-card-static {
+    pointer-events: none;
+}
+
+.flow-card-static .sd-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Center all card content in the flow diagram */
+.flow-hub-row .sd-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Arrow connector (centered horizontally in column) */
+.flow-arrow-right {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.flow-arrow-right::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 10px);
+    left: 12%;
+    right: 12%;
+    height: 20px;
+    background: var(--pst-color-border, var(--sd-color-secondary));
+    clip-path: polygon(0% 40%, 0% 60%, 65% 60%, 65% 100%, 100% 50%, 65% 0%, 65% 40%);
+}
+
+/* Container box for components section */
+.flow-box {
+    box-shadow: none;
+    background: transparent;
+}
+
+.flow-box > .sd-card-body > .sd-card-title {
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+/* Bracket connector ] shape: vertical line with horizontal tails at top and bottom */
+.flow-bracket-right {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* ] shape drawn with border (open on the left side) */
+.flow-bracket-right::before {
+    content: '';
+    position: absolute;
+    left: 15%;
+    top: 8%;
+    bottom: 8%;
+    width: 20%;
+    border: 2px solid var(--pst-color-border, var(--sd-color-secondary));
+    border-left: none;
+}
+
+/* Arrow pointing right from the bracket midpoint */
+.flow-bracket-right::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 10px);
+    left: 35%;
+    right: 5%;
+    height: 20px;
+    background: var(--pst-color-border, var(--sd-color-secondary));
+    clip-path: polygon(0% 40%, 0% 60%, 65% 60%, 65% 100%, 100% 50%, 65% 0%, 65% 40%);
+}
+
+/* Bracket variant with arrow pointing at top card */
+.flow-bracket-top::before {
+    content: '';
+    position: absolute;
+    left: 15%;
+    top: 8%;
+    bottom: 8%;
+    width: 20%;
+    border: 2px solid var(--pst-color-border, var(--sd-color-secondary));
+    border-left: none;
+}
+
+.flow-bracket-top::after {
+    content: '';
+    position: absolute;
+    top: 12%;
+    left: 35%;
+    right: 5%;
+    height: 20px;
+    background: var(--pst-color-border, var(--sd-color-secondary));
+    clip-path: polygon(0% 40%, 0% 60%, 65% 60%, 65% 100%, 100% 50%, 65% 0%, 65% 40%);
+}
+
+.flow-bracket-top {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Compact vertical spacing for flow diagram cards */
+.flow-hub-row .sd-card-body {
+    padding: 0.5rem;
+}
+.flow-hub-row .sd-card-header {
+    padding: 0.4rem 0.5rem;
+}
+.flow-hub-row .sd-card {
+    margin-bottom: 0.3rem;
+}
+
+/* Give col 1 cards tighter horizontal padding so text fits in 2-col width */
+.flow-hub-row > .sd-row > .sd-col:first-child .sd-card-body {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}

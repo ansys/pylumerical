@@ -1,0 +1,6 @@
+segment\_index
+==============
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: EqualSplit.segment_index

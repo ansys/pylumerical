@@ -102,7 +102,7 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
    examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
-   examples/Single_Solver_Workflows/grating_couper/grating_coupler
+   examples/Single_Solver_Workflows/grating_coupler/grating_coupler
 .. toctree::
    :hidden:
    :caption: Photonic inverse design

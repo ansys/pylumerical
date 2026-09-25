@@ -24,7 +24,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads
     env:
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_3'
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_4'
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 
@@ -81,6 +81,21 @@ jobs:
               pytest --cov="/home/lumerical/.local/lib/python3.13/site-packages/ansys/api/lumerical/" \
               --cov="./tests/unit" --cov-report=xml:.cov/xml --cov-report=html:.cov/html --verbose"
 
+      - name: "Collect Ansys licensing diagnostics"
+        if: always()
+        env:
+          DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: ${{ env.DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME }}
+          DIAGNOSTICS_DIR: ${{ runner.temp }}/ansys-diagnostics
+        run: |
+          if docker inspect "$DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME" >/dev/null 2>&1; then
+            mkdir -p "$DIAGNOSTICS_DIR"
+            docker cp \
+              "${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME}:/home/lumerical/.ansys" \
+              "$DIAGNOSTICS_DIR/" || echo "::warning::Unable to copy /home/lumerical/.ansys from the Lumerical container."
+          else
+            echo "::warning::Lumerical container is unavailable; no Ansys licensing diagnostics were collected."
+          fi
+
       - name: "Restore original ownership"
         if: always()
         env:
@@ -106,6 +121,16 @@ jobs:
         with:
           name: coverage-html-ubuntu
           path: .cov/html
+          retention-days: 7
+
+      - name: Upload Ansys licensing diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ansys-licensing-diagnostics
+          path: ${{ runner.temp }}/ansys-diagnostics
+          include-hidden-files: true
+          if-no-files-found: warn
           retention-days: 7
 
       - name: Upload coverage to Codecov

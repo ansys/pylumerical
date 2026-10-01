@@ -1,0 +1,6 @@
+set\_adj
+========
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.set_adj

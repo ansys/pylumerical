@@ -1,0 +1,6 @@
+set\_filename\_iteration
+========================
+
+.. currentmodule:: lumopt2.utils.config_map
+
+.. automethod:: ConfigMap.set_filename_iteration

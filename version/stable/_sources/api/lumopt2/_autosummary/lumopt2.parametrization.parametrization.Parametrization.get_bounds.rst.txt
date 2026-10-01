@@ -1,0 +1,6 @@
+get\_bounds
+===========
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. automethod:: Parametrization.get_bounds

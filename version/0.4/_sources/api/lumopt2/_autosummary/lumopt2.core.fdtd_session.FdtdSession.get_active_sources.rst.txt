@@ -1,0 +1,6 @@
+get\_active\_sources
+====================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.get_active_sources

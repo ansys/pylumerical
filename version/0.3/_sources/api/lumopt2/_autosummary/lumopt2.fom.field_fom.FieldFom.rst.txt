@@ -1,0 +1,55 @@
+﻿FieldFom
+========
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. autoclass:: FieldFom
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      FieldFom.calculate_fom
+      
+      
+      FieldFom.calculate_gradient_fields
+      
+      
+      FieldFom.create_project_folder
+      
+      
+      FieldFom.dipole_base_amplitude
+      
+      
+      FieldFom.get_adjoint_fields
+      
+      
+      FieldFom.get_jacobian
+      
+      
+      FieldFom.get_scaling_factor
+      
+      
+      FieldFom.set_project_name
+      
+      
+      FieldFom.setup_adjoint_simulation
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      FieldFom.supports_concurrent_adjoint
+   
+   

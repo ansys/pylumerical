@@ -1,0 +1,45 @@
+﻿FomPanel
+========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: FomPanel
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      FomPanel.on_optimization_end
+      
+      
+      FomPanel.setup
+      
+      
+      FomPanel.update
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      FomPanel.color
+      FomPanel.label
+      FomPanel.linewidth
+      FomPanel.log_y
+      FomPanel.marker
+      FomPanel.markersize
+      FomPanel.requires_forward_results
+      FomPanel.show_best
+      FomPanel.title
+   
+   

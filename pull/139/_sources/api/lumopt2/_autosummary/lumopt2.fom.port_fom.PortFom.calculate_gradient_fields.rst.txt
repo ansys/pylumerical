@@ -1,0 +1,6 @@
+calculate\_gradient\_fields
+===========================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.calculate_gradient_fields

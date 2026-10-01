@@ -1,0 +1,6 @@
+add\_job
+========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.add_job

@@ -1,0 +1,6 @@
+eval
+====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: DEVICE.eval

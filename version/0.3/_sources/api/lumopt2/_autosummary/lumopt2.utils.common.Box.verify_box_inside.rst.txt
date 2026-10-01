@@ -1,0 +1,6 @@
+verify\_box\_inside
+===================
+
+.. currentmodule:: lumopt2.utils.common
+
+.. automethod:: Box.verify_box_inside

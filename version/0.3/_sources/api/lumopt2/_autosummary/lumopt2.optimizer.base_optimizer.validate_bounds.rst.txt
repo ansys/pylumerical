@@ -1,0 +1,6 @@
+﻿validate\_bounds
+================
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. autofunction:: validate_bounds

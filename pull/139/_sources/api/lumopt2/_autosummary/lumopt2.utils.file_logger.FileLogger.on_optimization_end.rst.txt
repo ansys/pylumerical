@@ -1,0 +1,6 @@
+on\_optimization\_end
+=====================
+
+.. currentmodule:: lumopt2.utils.file_logger
+
+.. automethod:: FileLogger.on_optimization_end

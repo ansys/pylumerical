@@ -1,0 +1,6 @@
+run
+===
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.run

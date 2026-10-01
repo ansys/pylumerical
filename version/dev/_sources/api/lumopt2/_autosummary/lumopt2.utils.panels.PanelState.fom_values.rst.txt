@@ -1,0 +1,6 @@
+fom\_values
+===========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.fom_values

@@ -1,0 +1,6 @@
+compute\_polygon\_jacobian
+==========================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.compute_polygon_jacobian

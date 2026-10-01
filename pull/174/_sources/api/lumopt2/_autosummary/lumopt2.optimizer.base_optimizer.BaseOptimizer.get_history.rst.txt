@@ -1,0 +1,6 @@
+get\_history
+============
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. automethod:: BaseOptimizer.get_history

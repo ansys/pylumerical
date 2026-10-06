@@ -76,7 +76,8 @@ class TestLumApiError:
         assert "Object ::model::rect_2 not found" in str(ex_info.value)
 
     def test_no_items_selected_error(self, setup_fdtd):
-        """Test 05: Test 'Lumerical' object 'getObjectBySelection' method raises 'in getid, no objects in the tree are currently selected' LumApiError."""
+        """Test 05: Test 'Lumerical' object 'getObjectBySelection' method raises
+        'in getid, no objects in the tree are currently selected' LumApiError."""
         setup_fdtd.unselectall()
 
         with pytest.raises(lumapi.LumApiError) as ex_info:

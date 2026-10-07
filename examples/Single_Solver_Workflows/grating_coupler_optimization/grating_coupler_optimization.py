@@ -29,8 +29,8 @@ import ansys.lumerical.core as lumapi
 # +
 show_GUI = True
 # The `grating_coupler.fsp` file can be obtained by following the previous steps in the grating coupler workflow.
-load_file_name = "C:/Users/yiwenfan/Documents/grating_coupler/grating_coupler.fsp"
-save_file_name = "C:/Users/yiwenfan/Documents/grating_coupler/grating_coupler_optimized.fsp"
+load_file_name = "your/path/to/grating_coupler.fsp"
+save_file_name = "your/path/to/grating_coupler_optimized.fsp"
 
 # Unit conversion factors
 um_to_m = 1e-6

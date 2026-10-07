@@ -1,0 +1,6 @@
+auto\_log
+=========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: GradientNormPanel.auto_log

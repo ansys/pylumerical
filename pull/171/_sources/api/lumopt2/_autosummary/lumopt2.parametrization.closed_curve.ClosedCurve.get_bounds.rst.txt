@@ -1,0 +1,6 @@
+get\_bounds
+===========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.get_bounds

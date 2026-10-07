@@ -1,0 +1,6 @@
+calculate\_fom
+==============
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.calculate_fom

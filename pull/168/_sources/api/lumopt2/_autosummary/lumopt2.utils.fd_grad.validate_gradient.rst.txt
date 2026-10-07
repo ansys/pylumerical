@@ -1,0 +1,6 @@
+﻿validate\_gradient
+==================
+
+.. currentmodule:: lumopt2.utils.fd_grad
+
+.. autofunction:: validate_gradient

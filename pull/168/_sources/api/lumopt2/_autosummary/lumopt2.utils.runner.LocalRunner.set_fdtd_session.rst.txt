@@ -1,0 +1,6 @@
+set\_fdtd\_session
+==================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.set_fdtd_session

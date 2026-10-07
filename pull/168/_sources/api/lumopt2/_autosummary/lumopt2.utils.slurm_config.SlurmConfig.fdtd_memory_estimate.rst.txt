@@ -1,0 +1,6 @@
+fdtd\_memory\_estimate
+======================
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.fdtd_memory_estimate

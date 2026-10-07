@@ -1,0 +1,75 @@
+﻿SlurmRunner
+===========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. autoclass:: SlurmRunner
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      SlurmRunner.add_job
+      
+      
+      SlurmRunner.check_circular_dependencies
+      
+      
+      SlurmRunner.check_job_completion
+      
+      
+      SlurmRunner.clear
+      
+      
+      SlurmRunner.clear_jobs
+      
+      
+      SlurmRunner.get_job
+      
+      
+      SlurmRunner.get_job_dependencies_ids
+      
+      
+      SlurmRunner.get_job_result
+      
+      
+      SlurmRunner.get_task_type
+      
+      
+      SlurmRunner.print_job_statuses
+      
+      
+      SlurmRunner.pyfct_to_script
+      
+      
+      SlurmRunner.run
+      
+      
+      SlurmRunner.run_dependencies
+      
+      
+      SlurmRunner.run_queue
+      
+      
+      SlurmRunner.set_done
+      
+      
+      SlurmRunner.set_fdtd_session
+      
+      
+      SlurmRunner.set_job_result
+      
+      
+      SlurmRunner.set_jobid
+      
+   
+   
+
+   
+   
+   

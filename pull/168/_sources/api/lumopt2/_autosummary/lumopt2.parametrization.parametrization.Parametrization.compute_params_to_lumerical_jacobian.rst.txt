@@ -1,0 +1,6 @@
+compute\_params\_to\_lumerical\_jacobian
+========================================
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. automethod:: Parametrization.compute_params_to_lumerical_jacobian

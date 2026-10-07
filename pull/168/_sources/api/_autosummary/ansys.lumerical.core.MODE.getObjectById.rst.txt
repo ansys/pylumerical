@@ -1,0 +1,6 @@
+getObjectById
+=============
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: MODE.getObjectById

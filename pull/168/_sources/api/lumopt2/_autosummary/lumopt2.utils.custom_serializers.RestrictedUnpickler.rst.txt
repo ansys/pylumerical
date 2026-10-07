@@ -1,0 +1,39 @@
+﻿RestrictedUnpickler
+===================
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. autoclass:: RestrictedUnpickler
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      RestrictedUnpickler.find_class
+      
+      
+      RestrictedUnpickler.load
+      
+      
+      RestrictedUnpickler.safe_loads
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      RestrictedUnpickler.ALLOWED_CLASSES
+      RestrictedUnpickler.ALLOWED_MODULE_PREFIXES
+   
+   

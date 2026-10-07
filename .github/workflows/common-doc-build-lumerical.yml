@@ -51,7 +51,7 @@ jobs:
       BUILD_PYLUMERICAL_CHEATSHEET: "TRUE"
       BUILD_PYLUMERICAL_EXAMPLES: "TRUE"
       QUARTO_VERSION: "1.10.3"
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_3"
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: "ghcr.io/ansys-internal/lumerical-unified:v261_4"
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: "lumerical-unified-docs"
     steps:
       - name: "Checkout PyLumerical"
@@ -91,6 +91,7 @@ jobs:
             --detach -it \
             --network="host" \
             --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
+            --add-host "ansys-license-s:${LICENSE_SERVER}" \
             --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
             --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
             ${DOCKER_IMAGE_LUMERICAL_UNIFIED}

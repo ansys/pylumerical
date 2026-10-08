@@ -1,0 +1,31 @@
+﻿ClosedCurveSegment
+==================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoclass:: ClosedCurveSegment
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      ClosedCurveSegment.evaluate
+      
+      
+      ClosedCurveSegment.get_num_params
+      
+      
+      ClosedCurveSegment.set_parametric
+      
+   
+   
+
+   
+   
+   

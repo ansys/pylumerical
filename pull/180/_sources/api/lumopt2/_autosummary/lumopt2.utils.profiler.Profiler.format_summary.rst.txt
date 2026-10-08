@@ -1,0 +1,6 @@
+format\_summary
+===============
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.format_summary

@@ -1,0 +1,6 @@
+set\_job\_result
+================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.set_job_result

@@ -70,6 +70,13 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
+   .. grid-item-card:: Grating Coupler (2) - Optimization
+      :link: examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization
+      :link-type: doc
+
+      This example demonstrates how to use SciPy to optimize the fiber position for improved coupling efficiency in a grating coupler.
+
+
 Photonic inverse design
 ------------------------
 

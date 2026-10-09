@@ -1,0 +1,15 @@
+﻿Job
+===
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. autoclass:: Job
+
+   
+
+   
+   
+
+   
+   
+   

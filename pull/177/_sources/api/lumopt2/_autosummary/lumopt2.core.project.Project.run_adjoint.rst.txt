@@ -1,0 +1,6 @@
+run\_adjoint
+============
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.run_adjoint

@@ -1,0 +1,6 @@
+monitor\_name
+=============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: MonitorPanel.monitor_name

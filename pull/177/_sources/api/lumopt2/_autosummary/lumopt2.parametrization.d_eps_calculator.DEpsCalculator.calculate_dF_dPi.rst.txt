@@ -1,0 +1,6 @@
+calculate\_dF\_dPi
+==================
+
+.. currentmodule:: lumopt2.parametrization.d_eps_calculator
+
+.. automethod:: DEpsCalculator.calculate_dF_dPi

@@ -1,0 +1,6 @@
+remap\_wavelengths
+==================
+
+.. currentmodule:: lumopt2.parametrization.d_eps_calculator
+
+.. automethod:: DEpsCalculator.remap_wavelengths

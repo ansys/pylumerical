@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -630,7 +631,7 @@
 <h1>setup_adjoint_simulation<a class="headerlink" href="#setup-adjoint-simulation" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.fom.field_fom.FieldFom.setup_adjoint_simulation">
-<span class="sig-prename descclassname"><span class="pre">FieldFom.</span></span><span class="sig-name descname"><span class="pre">setup_adjoint_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.fom.simulation_results.FieldResults.html#lumopt2.fom.simulation_results.FieldResults" title="lumopt2.fom.simulation_results.FieldResults"><span class="pre">FieldResults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.fom.field_fom.FieldFom.setup_adjoint_simulation" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">FieldFom.</span></span><span class="sig-name descname"><span class="pre">setup_adjoint_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fdtd_session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.core.fdtd_session.FdtdSession.html#lumopt2.core.fdtd_session.FdtdSession" title="lumopt2.core.fdtd_session.FdtdSession"><span class="pre">FdtdSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sources</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sim_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.fom.simulation_results.FieldResults.html#lumopt2.fom.simulation_results.FieldResults" title="lumopt2.fom.simulation_results.FieldResults"><span class="pre">FieldResults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#lumopt2.fom.field_fom.FieldFom.setup_adjoint_simulation" title="Link to this definition">#</a></dt>
 <dd><p>Configure the FDTD session for an adjoint field simulation.</p>
 <p>Reads and conjugates the forward E-field from <code class="docutils literal notranslate"><span class="pre">sim_result</span></code>, switches
 the session to layout mode, disables all forward sources, enables source
@@ -641,7 +642,7 @@ adjoint source with the conjugated forward E-field.</p>
 <dd class="field-odd"><dl>
 <dt><strong>fdtd_session</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FdtdSession</span></code></span></dt><dd><p>Active FDTD session to modify. Must be in analysis mode with forward-simulation results.</p>
 </dd>
-<dt><strong>sources</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>List of forward source descriptors (source_type, source_name) to disable.</p>
+<dt><strong>sources</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a></span></dt><dd><p>List of forward source descriptors (source_type, source_name) to disable.</p>
 </dd>
 <dt><strong>sim_result</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code></span></dt><dd><p>Simulation result whose monitor will be switched to source mode.</p>
 </dd>
@@ -649,9 +650,9 @@ adjoint source with the conjugated forward E-field.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If disabling the forward sources fails.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If disabling the forward sources fails.</p>
 </dd>
-<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If switching the monitor to source mode fails.</p>
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#RuntimeError" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></dt><dd><p>If switching the monitor to source mode fails.</p>
 </dd>
 </dl>
 </dd>

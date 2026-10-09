@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -633,9 +634,9 @@ adjoint source setup and adjoint field extraction for field monitors.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>sim_results</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code></span></dt><dd><p>One or more field monitor result objects.</p>
+<dt><strong>sim_results</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code> or <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">list</span></code></a> <code class="xref py py-obj docutils literal notranslate"><span class="pre">of</span></code> <code class="xref py py-obj docutils literal notranslate"><span class="pre">FieldResults</span></code></span></dt><dd><p>One or more field monitor result objects.</p>
 </dd>
-<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#callable" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Scalar-valued function of the monitor values.  Defaults to
+<dt><strong>fct</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#callable" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">callable()</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Scalar-valued function of the monitor values.  Defaults to
 <code class="docutils literal notranslate"><span class="pre">anp.mean(x)</span></code>, which averages the values across all monitors.</p>
 </dd>
 </dl>

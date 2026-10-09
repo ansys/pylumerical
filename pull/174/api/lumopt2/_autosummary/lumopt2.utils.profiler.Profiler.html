@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -631,7 +632,7 @@
 <h1>Profiler<a class="headerlink" href="#profiler" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumopt2.utils.profiler.Profiler">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.profiler.</span></span><span class="sig-name descname"><span class="pre">Profiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.profiler.Profiler" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.profiler.</span></span><span class="sig-name descname"><span class="pre">Profiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.profiler.Profiler" title="Link to this definition">#</a></dt>
 <dd><p>Aggregate wall-clock time per named category.</p>
 <p>Categories are tracked hierarchically via a context-stack: nesting
 one <a class="reference internal" href="lumopt2.utils.profiler.Profiler.measure.html#lumopt2.utils.profiler.Profiler.measure" title="lumopt2.utils.profiler.Profiler.measure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">measure()</span></code></a> inside another produces a slash-joined full
@@ -644,7 +645,7 @@ with <a class="reference internal" href="lumopt2.utils.profiler.Profiler.enable.
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>enabled</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.14)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If True (the default), <a class="reference internal" href="lumopt2.utils.profiler.Profiler.measure.html#lumopt2.utils.profiler.Profiler.measure" title="lumopt2.utils.profiler.Profiler.measure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">measure()</span></code></a> records timings.  If
+<dt><strong>enabled</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bltin-boolean-values" title="(in Python v3.15)"><span class="xref std std-ref">bool</span></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>If True (the default), <a class="reference internal" href="lumopt2.utils.profiler.Profiler.measure.html#lumopt2.utils.profiler.Profiler.measure" title="lumopt2.utils.profiler.Profiler.measure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">measure()</span></code></a> records timings.  If
 False, <a class="reference internal" href="lumopt2.utils.profiler.Profiler.measure.html#lumopt2.utils.profiler.Profiler.measure" title="lumopt2.utils.profiler.Profiler.measure"><code class="xref py py-meth docutils literal notranslate"><span class="pre">measure()</span></code></a> is a no-op and no statistics are
 accumulated.</p>
 </dd>

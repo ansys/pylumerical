@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -640,7 +641,7 @@ to log a tree-formatted breakdown.</p>
 <p>The profiler is single-threaded by design (lumopt2 optimizations are
 single-threaded).  A lock is used for safety but there is no support
 for concurrent measurements across threads.</p>
-<p>Time is measured with <a class="reference external" href="https://docs.python.org/3/library/time.html#time.perf_counter" title="(in Python v3.14)"><code class="xref py py-func docutils literal notranslate"><span class="pre">time.perf_counter()</span></code></a>, which has the
+<p>Time is measured with <a class="reference external" href="https://docs.python.org/3/library/time.html#time.perf_counter" title="(in Python v3.15)"><code class="xref py py-func docutils literal notranslate"><span class="pre">time.perf_counter()</span></code></a>, which has the
 highest available resolution.  Overhead per <code class="docutils literal notranslate"><span class="pre">measure()</span></code> call is on
 the order of 1 microsecond.</p>
 </section>

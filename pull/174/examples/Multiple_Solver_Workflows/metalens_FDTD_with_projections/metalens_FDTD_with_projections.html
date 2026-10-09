@@ -91,6 +91,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -532,6 +533,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../lumopt2/y_branch/pylumerical_y_branch.html">Inverse design of a Y-branch using lumopt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lumopt2/color_router/color_router_pylumerical.html">Inverse design of a color router lens using lumopt2</a></li>
 </ul>
 </div>
 </nav></div>
@@ -622,7 +624,7 @@ Step 3 for full FDTD simulation.</p>
 <section id="Part-0:-Perform-required-imports-and-specify-design-parameters.">
 <h2>Part 0: Perform required imports and specify design parameters.<a class="headerlink" href="#Part-0:-Perform-required-imports-and-specify-design-parameters." title="Link to this heading">#</a></h2>
 <p>Units are meters unless otherwise specified.</p>
-<p><img alt="0ae995621cee4c8a8445e1d5b13f4655" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
+<p><img alt="3542cf60b3ce4968bdfbe4917b97f5a4" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -801,7 +803,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="7eb5dffe3fff44548ebd69505eab8a5a" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
+<p><img alt="067db45e2dd14808934f6108d880362b" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-2:-Create-simple-unit-cell-library.">
 <h2>Part 2: Create simple unit cell library.<a class="headerlink" href="#Part-2:-Create-simple-unit-cell-library." title="Link to this heading">#</a></h2>
@@ -912,7 +914,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="376c78426ada46b28630fe5ef6c42d95" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
+<p><img alt="c72184722c794c0783e510090b9c795f" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -962,7 +964,7 @@ Step 3 for full FDTD simulation.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="6f5215765f4c49e1aa1c65efa051dc3c" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
+<p><img alt="6bdefaf0a5a24c1182545664d67aafdb" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-3:-Obtain-the-radius-vs.-position-to-match-the-target-phase-profile-as-closely-as-possible.">
 <h2>Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.<a class="headerlink" href="#Part-3:-Obtain-the-radius-vs.-position-to-match-the-target-phase-profile-as-closely-as-possible." title="Link to this heading">#</a></h2>
@@ -1002,7 +1004,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="a5d4f5326d554191959b730025b2e559" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
+<p><img alt="17515cb33ffb4df8a977541735364aac" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-4:-Build-full-metalens-in-FDTD-and-analyze-results.-We-use-the-Assembly-Group-Object-for-efficiency.">
 <h2>Part 4: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.<a class="headerlink" href="#Part-4:-Build-full-metalens-in-FDTD-and-analyze-results.-We-use-the-Assembly-Group-Object-for-efficiency." title="Link to this heading">#</a></h2>
@@ -1201,7 +1203,7 @@ Step 3 for full FDTD simulation.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="8bebcd56dea74114b8ff443cb6089379" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
+<p><img alt="b6fb0000580a44f8a0eb68eb6a17cd34" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1255,7 +1257,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="1dadda1d35d944a0bc1d23163fdcb6c6" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
+<p><img alt="fc86c7081fee43d49e6c990c57f04794" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1294,7 +1296,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="57b1dff13758469883b66425fe695671" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
+<p><img alt="d131967d42774d469296a674600d2783" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1332,7 +1334,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="8b7bba5ef5234c3d9640724441e7adf0" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
+<p><img alt="661820df44d94c65804a1df965fc9806" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-5:-Export-to-GDS">
 <h2>Part 5: Export to GDS<a class="headerlink" href="#Part-5:-Export-to-GDS" title="Link to this heading">#</a></h2>
@@ -1424,7 +1426,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="1edec5ed14fb4ac9896aced06768668e" class="no-scaled-link" src="../../../_images/generated_gds.png" style="width: 600px;" /></p>
+<p><img alt="8a3e7a12ada747b6bb203f44c2a33a78" class="no-scaled-link" src="../../../_images/generated_gds.png" style="width: 600px;" /></p>
 </section>
 </section>
 

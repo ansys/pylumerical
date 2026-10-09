@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -626,7 +627,7 @@
 <h1>BaseParametrization<a class="headerlink" href="#baseparametrization" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumopt2.parametrization.base_parametrization.BaseParametrization">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.parametrization.base_parametrization.</span></span><span class="sig-name descname"><span class="pre">BaseParametrization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimization_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.utils.common.Box.html#lumopt2.utils.common.Box" title="lumopt2.utils.common.Box"><span class="pre">Box</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.parametrization.base_parametrization.BaseParametrization" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.parametrization.base_parametrization.</span></span><span class="sig-name descname"><span class="pre">BaseParametrization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimization_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lumopt2.utils.common.Box.html#lumopt2.utils.common.Box" title="lumopt2.utils.common.Box"><span class="pre">Box</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.parametrization.base_parametrization.BaseParametrization" title="Link to this definition">#</a></dt>
 <dd><p>Base class for all parametrization types.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -651,7 +652,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="lumopt2.parametrization.base_parametrization.BaseParametrization.store_mesh_info.html#lumopt2.parametrization.base_parametrization.BaseParametrization.store_mesh_info" title="lumopt2.parametrization.base_parametrization.BaseParametrization.store_mesh_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseParametrization.store_mesh_info</span></code></a>(fdtd_session)</p></td>
 <td><p>Read the locked grid and store mesh info in <code class="docutils literal notranslate"><span class="pre">structure</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure.html#lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure" title="lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseParametrization.update_structure</span></code></a>(...[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure.html#lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure" title="lumopt2.parametrization.base_parametrization.BaseParametrization.update_structure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseParametrization.update_structure</span></code></a>(...)</p></td>
 <td><p>Update the geometry in the FDTD simulation with new parameters.</p></td>
 </tr>
 </tbody>

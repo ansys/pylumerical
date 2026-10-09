@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -611,10 +612,10 @@ For more information on how to use script commands in PyLumerical, see the artic
 There are multiple ways of assigning the properties of objects when you create them.</p>
 <section id="assigning-properties-with-an-ordered-dict">
 <h3>Assigning properties with an ordered dict<a class="headerlink" href="#assigning-properties-with-an-ordered-dict" title="Link to this heading">#</a></h3>
-<p>You can also use a Python <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> as a constructor to the object by assigning it to the attribute properties.
-In Python, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> ordering isn’t guaranteed, so if there are properties that depend on other properties, an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is necessary.
+<p>You can also use a Python <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> as a constructor to the object by assigning it to the attribute properties.
+In Python, <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a> ordering isn’t guaranteed, so if there are properties that depend on other properties, an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is necessary.
 For example, in the example below, ‘override global monitor settings’ must be true before you can set ‘frequency points’.
-Using an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is the safest way to ensure that PyLumerical processes all settings as intended.</p>
+Using an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> is the safest way to ensure that PyLumerical processes all settings as intended.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="linenos">2</span><span class="kn">import</span><span class="w"> </span><span class="nn">ansys.lumerical.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lumapi</span>
@@ -624,7 +625,7 @@ Using an <a class="reference external" href="https://docs.python.org/3/library/c
 <span class="linenos">6</span><span class="n">fdtd</span><span class="o">.</span><span class="n">addpower</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="n">props</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you don’t have properties where ordering is important, you can use a regular <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
+<p>If you don’t have properties where ordering is important, you can use a regular <a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>.</p>
 </section>
 <section id="assigning-properties-with-keyword-arguments">
 <h3>Assigning properties with keyword arguments<a class="headerlink" href="#assigning-properties-with-keyword-arguments" title="Link to this heading">#</a></h3>
@@ -632,7 +633,7 @@ Using an <a class="reference external" href="https://docs.python.org/3/library/c
 The property names are the same as those in the Lumerical products.
 Properties with space in their name have spaces replaced by underscores.</p>
 <p>When using keyword arguments, the order of assignment isn’t guaranteed.
-Therefore, if the order of assignment is important, use an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> instead.</p>
+Therefore, if the order of assignment is important, use an <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> instead.</p>
 <p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">()</span>
 <span class="linenos">2</span><span class="n">fdtd</span><span class="o">.</span><span class="n">addfdtd</span><span class="p">(</span><span class="n">dimension</span><span class="o">=</span><span class="s2">"2D"</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mf">0.0e-9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0e-9</span><span class="p">,</span> <span class="n">x_span</span><span class="o">=</span><span class="mf">3.0e-6</span><span class="p">,</span> <span class="n">y_span</span><span class="o">=</span><span class="mf">1.0e-6</span><span class="p">)</span>

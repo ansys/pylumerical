@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -633,12 +634,12 @@
 <h1>BaseRunner<a class="headerlink" href="#baserunner" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="lumopt2.utils.runner.BaseRunner">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.runner.</span></span><span class="sig-name descname"><span class="pre">BaseRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.runner.BaseRunner" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lumopt2.utils.runner.</span></span><span class="sig-name descname"><span class="pre">BaseRunner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">resource</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'CPU'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.utils.runner.BaseRunner" title="Link to this definition">#</a></dt>
 <dd><p>Base class for job managers.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>resource</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Resource type for computation: “CPU” or “GPU” (default: “CPU”).</p>
+<dt><strong>resource</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">optional</span></code></span></dt><dd><p>Resource type for computation: “CPU” or “GPU” (default: “CPU”).</p>
 </dd>
 </dl>
 </dd>
@@ -673,7 +674,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="lumopt2.utils.runner.BaseRunner.print_job_statuses.html#lumopt2.utils.runner.BaseRunner.print_job_statuses" title="lumopt2.utils.runner.BaseRunner.print_job_statuses"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseRunner.print_job_statuses</span></code></a>()</p></td>
 <td><p>Log the status of all jobs.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="lumopt2.utils.runner.BaseRunner.pyfct_to_script.html#lumopt2.utils.runner.BaseRunner.pyfct_to_script" title="lumopt2.utils.runner.BaseRunner.pyfct_to_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseRunner.pyfct_to_script</span></code></a>(fct, inputs, label)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="lumopt2.utils.runner.BaseRunner.pyfct_to_script.html#lumopt2.utils.runner.BaseRunner.pyfct_to_script" title="lumopt2.utils.runner.BaseRunner.pyfct_to_script"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseRunner.pyfct_to_script</span></code></a>(fct, subfcts, ...)</p></td>
 <td><p>Convert a Python function to a standalone script file.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="lumopt2.utils.runner.BaseRunner.set_done.html#lumopt2.utils.runner.BaseRunner.set_done" title="lumopt2.utils.runner.BaseRunner.set_done"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseRunner.set_done</span></code></a>(label)</p></td>

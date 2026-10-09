@@ -88,6 +88,7 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
+  <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
   
@@ -637,20 +638,20 @@
 <h1>set_parametric<a class="headerlink" href="#set-parametric" title="Link to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="lumopt2.parametrization.closed_curve.ClosedCurveSegment.set_parametric">
-<span class="sig-prename descclassname"><span class="pre">ClosedCurveSegment.</span></span><span class="sig-name descname"><span class="pre">set_parametric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_added_vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.parametrization.closed_curve.ClosedCurveSegment.set_parametric" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">ClosedCurveSegment.</span></span><span class="sig-name descname"><span class="pre">set_parametric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_added_vertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">movement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lumopt2.parametrization.closed_curve.ClosedCurveSegment.set_parametric" title="Link to this definition">#</a></dt>
 <dd><p>Make this segment parametric for optimization.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>num_added_vertices</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Number of intermediate vertices to add (not including start/end vertices).</p>
+<dt><strong>num_added_vertices</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Number of intermediate vertices to add (not including start/end vertices).</p>
 </dd>
-<dt><strong>movement</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.14)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Type of movement allowed (‘x-axis’, ‘y-axis’, ‘both’).</p>
+<dt><strong>movement</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="docutils literal notranslate"><span class="pre">str</span></code></a></span></dt><dd><p>Type of movement allowed (‘x-axis’, ‘y-axis’, ‘both’).</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#NotImplementedError" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code></a></dt><dd><p>Always.  Direct segment-level parametrization is not currently
+<dt><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#NotImplementedError" title="(in Python v3.15)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NotImplementedError</span></code></a></dt><dd><p>Always.  Direct segment-level parametrization is not currently
 wired up to <code class="docutils literal notranslate"><span class="pre">ClosedCurve.discretize_polygon</span></code> – the polygon-build
 loop always passes <code class="docutils literal notranslate"><span class="pre">params=None</span></code> to <code class="docutils literal notranslate"><span class="pre">segment.evaluate()</span></code>.
 Use <code class="docutils literal notranslate"><span class="pre">Parametrize(segment_index=...)</span></code> (or

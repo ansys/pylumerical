@@ -1,0 +1,24 @@
+﻿Box
+===
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autoclass:: Box
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Box.verify_box_inside
+      
+   
+   
+
+   
+   
+   

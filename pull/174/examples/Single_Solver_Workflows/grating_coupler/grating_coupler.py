@@ -652,6 +652,7 @@ ax.set_ylabel("Transmission (a.u.)")
 ax.set_title("Transmission at Port 2")
 plt.grid(alpha=0.3)
 plt.show(block=False)
+plt.pause(12)
 
 # -
 # <img src="images/transmission_p2.png" width="600">

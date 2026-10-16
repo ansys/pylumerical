@@ -14,7 +14,6 @@
 # Perform required imports
 from typing import Dict, Tuple  # Only required for better type hint
 
-from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt  # Only required for plotting
 import numpy as np
 
@@ -429,6 +428,7 @@ axes[1].set_title("P Polarization")
 
 fig.tight_layout()
 plt.show(block=False)
+plt.pause(10)
 
 # -
 
@@ -554,127 +554,97 @@ def set_polarization_angle_and_run_fdtd(fdtd, filename, source_name: str = "sour
 # Here we test P-polarization: polarization_angle = 0, axis = axes[1]
 set_polarization_angle_and_run_fdtd(fdtd, filename, polarization_angle=0)
 axis = axes[1]
-
 # # Otherwise use S-polarization: polarization_angle = 90, axis = axes[0]
 # set_polarization_angle_and_run_FDTD(fdtd, filename, polarization_angle=90)
 # axis = axes[0]
-
 
 # +
 # Capture the total transmission and plot
 frequencies = fdtd.getdata("monitor", "f").flatten()
 wavelength_list = 3e8 / frequencies
-transmission_list = fdtd.transmission("monitor").flatten()
+tot_transmission_list = fdtd.transmission("monitor").flatten()
 
 axis.scatter(
     wavelength_list * 1e9,  # Transfer to nm
-    transmission_list,
+    tot_transmission_list,
     color="red",
     s=80,
     marker="x",
     zorder=10,
 )
 
-fig  # plot the figure
+fig.show()  # plot the figure
+plt.pause(10)
+
 # -
 # <img src="images/diffraction_efficiency_FDTD_total.png" width="600">
 #
-# According to grating equation (normal incidence)
-# $$ \frac{m \lambda}{D} = \sin{\theta}, $$
-# the $m$ -th order beam should be propagated at $\arcsin{(\frac{m \lambda}{D})}$ direction,
-# where $D$ is the grating period `period_x_m`.
+# ### Use the `grating` command to extract diffraction efficiencies by order
 #
-# Therefore, we calculate `order_ux` as $\frac{m \lambda}{D}$, compare it with Lumerical FDTD
-# far field monitor's internal `fdtd.farfieldux()`, to get the transmission of each order at each wavelength point.
+# For normal incidence, the grating equation is:
+# $$
+# \frac{m \lambda}{D} = \sin(\theta),
+# $$
+# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period (`period_x`).
+# The $m$-th order propagates at an angle $\theta = \arcsin\left(\frac{m \lambda}{D}\right)$.
+#
+# In this example, the wavelength range is 350–800 nm and the grating period is 600 nm.
+# Thus, only the zeroth order propagates for $\lambda > 600$ nm. At 600 nm, the $\pm 1$ orders are at the
+# grazing-angle threshold; below 600 nm, they can propagate. Similarly, the $\pm 2$ orders are at the
+# grazing-angle threshold at 300 nm and can propagate below 300 nm.
+#
+# Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set `y_order = 0`.
+
 
 # +
-# Calculate the far field data
-
-# First, define a few parameters to use Lumerical FDTD's far field related feature
-ux_map_pix_num = 500  # far field monitor's resolution, higher value -> higher accuracy
-uy_map_pix_num = 1  # for simplification as we are modeling a 1D grating on x-direction
-illumination_type = 2  # 1: Gaussian. 2: plane wave.
-num_of_period_x = 20  # how many monitor (in this case, the DFT monitor "monitor") periods is considered when calculating the far field,
-# higher value -> higher accuracy -> sharper peaks in far field -> requires higher `ux_map_pix_num`
-num_of_period_y = 1  # for simplification as we are modeling a 1D grating on x-direction
+def available_orders(wavelength: float, grating_period: float) -> list:
+    """Use grating equation to determine available diffraction orders for a given wavelength and grating period."""
+    m_max = int(np.floor(grating_period / wavelength))
+    return [m for m in range(-m_max, m_max + 1)]
 
 
-def find_main_lobe(y: np.ndarray, peak_idx: int) -> Tuple[int, int]:
-    """
-    Find the indices that defines the full lobe for given function and index.
+# +
+# Capture the frequency and wavelength data from the FDTD monitor
+f_list = fdtd.getdata("monitor", "f").flatten()
+lambda_list = 3e8 / f_list
 
-    Parameters
-    ----------
-    y: 1D array of function values (e.g., far field energy distribution) to search within
-    peak_idx: Index of the peak within `y` around which the main lobe is found
+# Different wavelength corresponds to different output shapes, so we extract the output for each frequency
+for idx, f in enumerate(f_list):
+    # Extract the grating output for the current frequency index
+    out = np.asarray(fdtd.grating("monitor", idx + 1))  # In Lumerical, all index start from 1
+    # Reshape the output to 2D matrix if it's a scalar (0D array)
+    if out.ndim == 0:
+        out = out.reshape(1, 1)
 
-    Returns
-    -------
-    A tuple (left_idx, right_idx) of indices bounding the main lobe around `peak_idx`, clipped to the
-    valid range of `y`
-    """
-    # left minimum
-    left_idx = peak_idx - 1
-    while left_idx > 1 and y[left_idx - 1] <= y[left_idx]:
-        left_idx -= 1
+    # Calculate propagating diffraction orders for the current wavelength
+    available_orders_list = available_orders(wavelength=lambda_list[idx], grating_period=period_x)
 
-    # right minimum
-    right_idx = peak_idx + 1
-    while right_idx < len(y) - 2 and y[right_idx] >= y[right_idx + 1]:
-        right_idx += 1
+    # Calculate order mesh corresponding to `out`
+    order_x, order_y = np.meshgrid(available_orders_list, available_orders_list, indexing="ij")
 
-    return np.max((left_idx, 0)), np.min((right_idx, len(y)))
+    # Extract the diffraction orders along y = 0 line
+    y0_mask = order_y == 0
+    x_line = order_x[y0_mask]
+    transmission_line = out[y0_mask]
 
+    # Plot the transmission value on existing axis for each order, each wavelength
+    for order, transmission in zip(x_line, transmission_line):
+        axis.scatter(
+            lambda_list[idx] * m_to_nm,  # Transfer to nm
+            transmission * tot_transmission_list[idx],  # Adjusted by total energy transmission
+            color=order_style(order)[0],
+            s=60,
+            marker="o",
+            zorder=10,
+        )
 
-# Calculate transmission at each wavelength, each order
-transmission_order_wavelength = np.zeros((len(order_ns), len(wavelength_list)))
-for w_idx, wavelength in enumerate(wavelength_list):
-    # Capture the far field monitor
-    E = fdtd.farfield3d(
-        "monitor",
-        w_idx + 1,  # monitor name, frequency index (start at 1)
-        ux_map_pix_num,
-        uy_map_pix_num,
-        illumination_type,
-        num_of_period_x,
-        num_of_period_y,
-    ).flatten()
-    ux = fdtd.farfieldux("monitor", w_idx + 1, ux_map_pix_num, uy_map_pix_num, illumination_type).flatten()
-    uy = fdtd.farfielduy("monitor", w_idx + 1, ux_map_pix_num, uy_map_pix_num, illumination_type)
-
-    # For each wavelength, calculate corresponding ux of each order of interests
-    order_ux = order_ns * wavelength / period_x  # legal value: >-1 & <1
-
-    # Find the index of order_ux that closest to ux
-    order_ux_idx = np.abs(ux[:, None] - order_ux.flatten()).argmin(axis=0)
-
-    total_energy = np.trapezoid(E, ux)
-    for i, idx in enumerate(order_ux_idx):
-        left_idx, right_idx = find_main_lobe(E, idx)
-        main_lobe_energy = np.trapezoid(E[left_idx:right_idx], ux[left_idx:right_idx])
-        transmission_order_wavelength[i, w_idx] = float(main_lobe_energy / total_energy * transmission_list[w_idx])
-
-# Plot
-for i, order in enumerate(order_ns):
-    transmission_wavelength = transmission_order_wavelength[i, :].flatten()
-    axis.scatter(
-        wavelength_list * 1e9,  # Transfer to nm
-        transmission_wavelength,
-        color=order_style(order)[0],
-        s=60,
-        marker="x",
-        zorder=10,
-    )
-fdtd_marker = Line2D([], [], color="black", marker="x", linestyle="None", label="FDTD confirmation")
-axis.legend(handles=axis.get_legend_handles_labels()[0] + [fdtd_marker])
-
-fig  # plot the figure
+fig.show()  # plot the figure
+plt.pause(10)
 
 # -
-# <img src="images/diffraction_efficiency_FDTD_total_order.png" width="600">
+# <img src="images/diffraction_efficiency_FDTD_order.png" width="600">
 
 # +
 # Safely close the Lumerical session
 if not show_GUI:
     fdtd.close()
-# -

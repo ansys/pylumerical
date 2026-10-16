@@ -6,50 +6,54 @@
 # The grating is parameterized by its periodicity, fill factor, top width, and depth.
 # In Part 2, we use RCWA to calculate the complex transmission/reflection of the grating.
 # In Part 3, we plot the results.
+# Diffraction gratings can also be simulated using the FDTD method.
+# In Part 4, we use FDTD to calculate transmission and confirm if both methods agree.
 #
 # Prerequisites: Valid FDTD license is required.
 
 # Perform required imports
+from typing import Dict, Tuple  # Only required for better type hint
 
-# +
 import matplotlib.pyplot as plt  # Only required for plotting
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 
-# -
-
-# ## Part 1: Set up structures and simulation objects.
+# ## Part 1: Set up structures and simulation objects
 
 # +
 # Define parameters
+
+# Set whether the GUI should be shown or hidden
+show_GUI = True
 
 # Set filename for saving and loading
 filename = "1D_diffraction_grating.fsp"
 
 # Units
-um = 1e-6
-nm = 1e-9
+um_to_m = 1e-6
+nm_to_m = 1e-9
+m_to_nm = 1e9
 
 # Grating parameters
-period_x = 0.600 * um  # Period (pitch) of the grating in x direction, 1D grating
+period_x = 0.600 * um_to_m  # Period (pitch) of the grating in x direction, 1D grating
 fill_factor = 0.5
-depth = 0.40 * um
+depth = 0.40 * um_to_m
 top_factor = 0.3  # The top width of the grating tooth as a factor of the bottom width, for a trapezoidal profile. Set to 0 for rectangular profile.
 num_teeth = 5  # Number of grating teeth to create; only one is needed for periodic boundary conditions
 
 # Base/ substrate parameters
 base_x = 1.5 * period_x * num_teeth  # The x span of the base/substrate
 base_y = 3 * period_x
-base_z = 5 * um  # Typically we inject light into the substrate/base and assume it is infinitely thick compared to the teeth
+base_z = 5 * um_to_m  # Typically we inject light into the substrate/base and assume it is infinitely thick compared to the teeth
 
 # Set materials
 n_grat = 1.565  # Refractive index of the grating material, simple non-dispersive material
 n_base = 1.565  # Refractive index of the base material, simple non-dispersive material
 
 # Define wavelengths of interest
-wl_min = 350 * nm
-wl_max = 800 * nm
+wl_min = 350 * nm_to_m
+wl_max = 800 * nm_to_m
 
 # Define angles of interest
 theta_min = 0
@@ -71,7 +75,20 @@ sim_z_min = -z_buffer
 # The simulation file will be saved to the current working directory with the name specified in the "filename" variable above.
 
 
-def build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base):
+def build_1d_grating(
+    fdtd,
+    filename,
+    period_x: float,
+    fill_factor: float,
+    depth: float,
+    top_factor: float,
+    num_teeth: int,
+    base_x: float,
+    base_y: float,
+    base_z: float,
+    n_grat: float,
+    n_base: float,
+) -> None:
     """
     Build a 1D trapezoidal blazed grating structure on a substrate.
 
@@ -116,7 +133,7 @@ def build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, n
         fdtd.save(filename)
 
 
-def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
+def build_rcwa(fdtd, filename, x_min: float, x_max: float, y_min: float, y_max: float, z_min: float, z_max: float) -> None:
     """
     Set up the RCWA simulation object geometry.
 
@@ -155,22 +172,21 @@ def build_rcwa(fdtd, filename, x_min, x_max, y_min, y_max, z_min, z_max):
 
 
 # Build the grating and RCWA simulation objects
-with lumapi.FDTD(hide=False) as fdtd:
-    build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base)
-    print("Grating geometry saved to file: " + filename)
-    x_shift = -0.25 * period_x  # Shift the RCWA simulation region by a quarter period to avoid the interface coinciding with the grating tooth edge
-    build_rcwa(fdtd, filename, -0.5 * period_x + x_shift, 0.5 * period_x + x_shift, -0.5 * period_x, 0.5 * period_x, -2 * depth, 3 * depth)
-    print("RCWA simulation geometry saved to file: " + filename)
-
+fdtd = lumapi.FDTD(hide=not show_GUI)
+build_1d_grating(fdtd, filename, period_x, fill_factor, depth, top_factor, num_teeth, base_x, base_y, base_z, n_grat, n_base)
+print("Grating geometry saved to file: " + filename)
+x_shift = -0.25 * period_x  # Shift the RCWA simulation region by a quarter period to avoid the interface coinciding with the grating tooth edge
+build_rcwa(fdtd, filename, -0.5 * period_x + x_shift, 0.5 * period_x + x_shift, -0.5 * period_x, 0.5 * period_x, -2 * depth, 3 * depth)
+print("RCWA simulation geometry saved to file: " + filename)
 # -
 
 # <img src="images/diffraction_grating_screenshot.png" width="600">
 
-# ## Part 2: RCWA Simulation.
+# ## Part 2: RCWA Simulation
 #
 
 # +
-# Open the previously saved file, configure wavelength/angle excitation settings, and run the RCWA simulation.
+# Configure wavelength/angle excitation settings, and run the RCWA simulation.
 # The grating_characterization result is returned. For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object
 # Grating_characterization returns the complex S-parameters for each grating order split into S and P polarizations.
 
@@ -181,7 +197,19 @@ num_theta = 4
 num_phi = 3
 
 
-def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_min=0, theta_max=90, num_theta=1, phi_min=0, phi_max=180, num_phi=1):
+def run_rcwa_simulation(
+    fdtd,
+    filename,
+    wl_min: float,
+    wl_max: float,
+    num_wavelengths: int,
+    theta_min: float = 0.0,
+    theta_max: float = 90.0,
+    num_theta: int = 1,
+    phi_min: float = 0.0,
+    phi_max: float = 180.0,
+    num_phi: int = 1,
+) -> Tuple[Dict, Dict]:
     """
     Run the RCWA simulation and retrieves the grating characterization results.
 
@@ -198,6 +226,13 @@ def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_m
     phi_min: Minimum azimuthal angle (phi)
     phi_max: Maximum azimuthal angle (phi)
     num_phi: Number of phi points
+
+    Returns
+    -------
+    gc: The grating_characterization result, containing the full complex S-parameters (Tss, Tpp, Rss, Rpp)
+        versus wavelength, theta, phi, and diffraction orders n and m
+    total_energy: The total_energy result, containing the total transmission/reflection (Ts, Tp, Rs, Rp)
+        versus wavelength, theta, and phi for each polarization
     """
     # First, return to layout
     fdtd.switchtolayout()
@@ -234,29 +269,45 @@ def run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_m
 
 
 # Now use the function to run the RCWA simulation and retrieve the results
-with lumapi.FDTD(filename, hide=False) as fdtd:
-    gc, total_energy = run_rcwa_simulation(
-        fdtd, filename, wl_min, wl_max, num_wavelengths, theta_min, theta_max, num_theta, phi_min, phi_max, num_phi
-    )
-    print("RCWA simulation completed and results retrieved.")
+gc, total_energy = run_rcwa_simulation(fdtd, filename, wl_min, wl_max, num_wavelengths, theta_min, theta_max, num_theta, phi_min, phi_max, num_phi)
+print("RCWA simulation completed and results retrieved.")
 
 # Print the sweep parameters
 print("RCWA sweep parameters:")
-print("lambda:", np.unique(gc["lambda"]) * 1e9, "nm")  # Convert to nm for display
+print("lambda:", np.unique(gc["lambda"]) * m_to_nm, "nm")  # Convert to nm for display
 print("theta:", np.unique(gc["theta"]), "deg")
 print("phi:", np.unique(gc["phi"]), "deg")
 # -
 
 
-# ## Part 3: Plot results and export to LSWM.
+# ## Part 3: Plot RCWA results
 
 # +
 # Now plot useful results.
 # The following function helps to extract useful results from the grating_characterization object for plotting.
 
 
-def extract_values_gc(gc, order_n=0, order_m=0, angle_theta=0, angle_phi=0):
-    """Extract T, R results versus wavelength for the specified order and angle for both S and P polarizations."""
+def extract_values_gc(
+    gc, order_n: int = 0, order_m: int = 0, angle_theta: float = 0.0, angle_phi: float = 0.0
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Extract T, R results versus wavelength for the specified order and angle for both S and P polarizations.
+
+    Parameters
+    ----------
+    gc: The grating_characterization result dictionary returned by the RCWA simulation, containing the complex
+        S-parameters (Tss, Tpp, Rss, Rpp) versus wavelength, theta, phi, and diffraction orders n and m
+    order_n: Diffraction order index along n to extract
+    order_m: Diffraction order index along m to extract
+    angle_theta: Incident theta angle (deg) to extract
+    angle_phi: Incident phi angle (deg) to extract
+
+    Returns
+    -------
+    plot_Tss, plot_Rss, plot_Tpp, plot_Rpp: Transmission/reflection efficiencies versus wavelength for the
+        specified order and angle, for S and P polarizations respectively
+    wavelengths: Wavelength values corresponding to the results
+    """
     Tss = gc["Tss"]  # Result returned vs. wavelength, theta, phi, orders n and m
     Tpp = gc["Tpp"]
     Rss = gc["Rss"]
@@ -278,8 +329,25 @@ def extract_values_gc(gc, order_n=0, order_m=0, angle_theta=0, angle_phi=0):
     return plot_Tss, plot_Rss, plot_Tpp, plot_Rpp, wavelengths
 
 
-def extract_values_total_energy(total_energy, angle_theta=0, angle_phi=0):
-    """Extract T, R results versus wavelength for the specified angle for both S and P polarizations."""
+def extract_values_total_energy(
+    total_energy: dict, angle_theta: float = 0.0, angle_phi: float = 0.0
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Extract T, R results versus wavelength for the specified angle for both S and P polarizations.
+
+    Parameters
+    ----------
+    total_energy: The total_energy result dictionary returned by the RCWA simulation, containing the total
+        transmission/reflection (Ts, Tp, Rs, Rp) versus wavelength, theta, and phi for each polarization
+    angle_theta: Incident theta angle (deg) to extract
+    angle_phi: Incident phi angle (deg) to extract
+
+    Returns
+    -------
+    plot_Ts, plot_Rs, plot_Tp, plot_Rp: Total transmission/reflection efficiencies versus wavelength at the
+        specified angle, for S and P polarizations respectively
+    wavelengths: Wavelength values corresponding to the results
+    """
     Ts = total_energy["Ts"]  # Result returned vs. wavelength, theta, phi
     Tp = total_energy["Tp"]
     Rs = total_energy["Rs"]
@@ -309,8 +377,19 @@ order_ns = range(-3, 4)  # Specify the range of diffraction orders to plot, e.g.
 fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharex=True, sharey=True)
 
 
-def order_style(order_n):
-    """Help plot diffraction orders with different colors."""
+def order_style(order_n: int):
+    """
+    Help plot diffraction orders with different colors.
+
+    Parameters
+    ----------
+    order_n: Diffraction order index to get the plotting color/linestyle for. Order 0 is plotted in black;
+        negative orders (-3 to -1) use shades of blue, and positive orders (1 to 3) use shades of red
+
+    Returns
+    -------
+    A tuple of (color, linestyle) to use when plotting the given diffraction order
+    """
     if order_n == 0:
         return "black", "-"
     color_map = {
@@ -349,7 +428,223 @@ axes[1].set_title("P Polarization")
 
 fig.tight_layout()
 plt.show(block=False)
+plt.pause(10)
 
 # -
 
 # <img src="images/diffraction_efficiency.png" width="600">
+
+# ## Part 4: Verify the results with FDTD
+# The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results.
+# We can use periodic boundary
+
+
+# +
+# Function to set up FDTD simulation environment: a FDTD mesh with proper boundary conditions, a source, and a monitor
+def set_fdtd_simulation(
+    fdtd, filename, x_min: float, x_max: float, y_min: float, y_max: float, z_min: float, z_max: float, wl_min: float, wl_max: float
+) -> None:
+    """
+    Set up the FDTD simulation : FDTD region, a plane wave source, and a 2D DFT monitor.
+
+    Parameters
+    ----------
+    fdtd: The name of a Lumerical session object
+    filename: File name to save to
+    x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region
+    wl_min, wl_max: Source wavelength range
+    """
+    # First, return to layout
+    fdtd.switchtolayout()
+
+    # Set up FDTD simulation object
+    # The FDTD simulation area is set to be identical to the previous RCWA
+    # Please note that here we use Bloch boundary conditions for possibly tilted incident waves, with "set based on source angle" enabled.
+    # If the incident wave is normal to the surface, the Bloch boundary conditions reduce to Periodic boundary conditions.
+    fdtd.addfdtd(
+        {
+            "x min": x_min,
+            "x max": x_max,
+            "y min": y_min,
+            "y max": y_max,
+            "z min": z_min,
+            "z max": z_max,
+            "x min bc": "Bloch",
+            "y min bc": "Bloch",
+            "z min bc": "PML",
+            "z max bc": "PML",
+            "set based on source angle": 1,
+        }
+    )
+
+    # For FDTD, a dedicated source and monitor is required
+    fdtd.addplane(
+        {
+            "name": "source",
+            "injection axis": "z-axis",
+            "x min": x_min,
+            "x max": x_max,
+            "y min": y_min,
+            "y max": y_max,
+            "z": z_min * 0.95,  # z position: inside the FDTD range, slightly closer to z = 0
+            "wavelength start": wl_min,
+            "wavelength stop": wl_max,
+        }
+    )
+
+    # A plane monitor put at the top
+    fdtd.adddftmonitor(
+        {
+            "name": "monitor",
+            "monitor type": "2D Z-normal",
+            "x min": x_min,
+            "x max": x_max,
+            "y min": y_min,
+            "y max": y_max,
+            "z": z_max * 0.95,  # z position: inside the FDTD range, slightly closer to z = 0
+            "output Ex": 1,
+            "output Ey": 1,
+        }
+    )
+
+    # Save
+    fdtd.save(filename)
+
+
+# Now use the function to define a FDTD simulation area, plane wave source, and 2D plane monitor
+set_fdtd_simulation(
+    fdtd,
+    filename,
+    x_min=-0.5 * period_x + x_shift,
+    x_max=0.5 * period_x + x_shift,
+    y_min=-0.5 * period_x,
+    y_max=0.5 * period_x,
+    z_min=-2 * depth,
+    z_max=3 * depth,
+    wl_min=wl_min,
+    wl_max=wl_max,
+)
+
+
+# +
+def set_polarization_angle_and_run_fdtd(fdtd, filename, source_name: str = "source", polarization_angle: float = 0.0) -> None:
+    """
+    Set the polarization angle of the FDTD source and run the FDTD simulation.
+
+    Parameters
+    ----------
+    fdtd: The name of a Lumerical session object
+    filename: File name to save to
+    source_name: Name of the source object whose polarization angle is set
+    polarization_angle: Polarization angle (deg) to set on the source. Use 0 for P-polarization,
+        or 90 for S-polarization
+    """
+    # First, return to layout
+    fdtd.switchtolayout()
+
+    # Set polarization angle
+    fdtd.setnamed(source_name, "polarization angle", polarization_angle)
+
+    # Save and run
+    fdtd.save(filename)
+    fdtd.run("FDTD")  # Run FDTD only
+    fdtd.save(filename)  # Save the file after running to save the results
+
+
+# Here we test P-polarization: polarization_angle = 0, axis = axes[1]
+set_polarization_angle_and_run_fdtd(fdtd, filename, polarization_angle=0)
+axis = axes[1]
+# # Otherwise use S-polarization: polarization_angle = 90, axis = axes[0]
+# set_polarization_angle_and_run_FDTD(fdtd, filename, polarization_angle=90)
+# axis = axes[0]
+
+# +
+# Capture the total transmission and plot
+frequencies = fdtd.getdata("monitor", "f").flatten()
+wavelength_list = 3e8 / frequencies
+tot_transmission_list = fdtd.transmission("monitor").flatten()
+
+axis.scatter(
+    wavelength_list * 1e9,  # Transfer to nm
+    tot_transmission_list,
+    color="red",
+    s=80,
+    marker="x",
+    zorder=10,
+)
+
+fig.show()  # plot the figure
+plt.pause(10)
+
+# -
+# <img src="images/diffraction_efficiency_FDTD_total.png" width="600">
+#
+# ### Use the `grating` command to extract diffraction efficiencies by order
+#
+# For normal incidence, the grating equation is:
+# $$
+# \frac{m \lambda}{D} = \sin(\theta),
+# $$
+# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period (`period_x`).
+# The $m$-th order propagates at an angle $\theta = \arcsin\left(\frac{m \lambda}{D}\right)$.
+#
+# In this example, the wavelength range is 350–800 nm and the grating period is 600 nm.
+# Thus, only the zeroth order propagates for $\lambda > 600$ nm. At 600 nm, the $\pm 1$ orders are at the
+# grazing-angle threshold; below 600 nm, they can propagate. Similarly, the $\pm 2$ orders are at the
+# grazing-angle threshold at 300 nm and can propagate below 300 nm.
+#
+# Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set `y_order = 0`.
+
+
+# +
+def available_orders(wavelength: float, grating_period: float) -> list:
+    """Use grating equation to determine available diffraction orders for a given wavelength and grating period."""
+    m_max = int(np.floor(grating_period / wavelength))
+    return [m for m in range(-m_max, m_max + 1)]
+
+
+# +
+# Capture the frequency and wavelength data from the FDTD monitor
+f_list = fdtd.getdata("monitor", "f").flatten()
+lambda_list = 3e8 / f_list
+
+# Different wavelength corresponds to different output shapes, so we extract the output for each frequency
+for idx, f in enumerate(f_list):
+    # Extract the grating output for the current frequency index
+    out = np.asarray(fdtd.grating("monitor", idx + 1))  # In Lumerical, all index start from 1
+    # Reshape the output to 2D matrix if it's a scalar (0D array)
+    if out.ndim == 0:
+        out = out.reshape(1, 1)
+
+    # Calculate propagating diffraction orders for the current wavelength
+    available_orders_list = available_orders(wavelength=lambda_list[idx], grating_period=period_x)
+
+    # Calculate order mesh corresponding to `out`
+    order_x, order_y = np.meshgrid(available_orders_list, available_orders_list, indexing="ij")
+
+    # Extract the diffraction orders along y = 0 line
+    y0_mask = order_y == 0
+    x_line = order_x[y0_mask]
+    transmission_line = out[y0_mask]
+
+    # Plot the transmission value on existing axis for each order, each wavelength
+    for order, transmission in zip(x_line, transmission_line):
+        axis.scatter(
+            lambda_list[idx] * m_to_nm,  # Transfer to nm
+            transmission * tot_transmission_list[idx],  # Adjusted by total energy transmission
+            color=order_style(order)[0],
+            s=60,
+            marker="o",
+            zorder=10,
+        )
+
+fig.show()  # plot the figure
+plt.pause(10)
+
+# -
+# <img src="images/diffraction_efficiency_FDTD_order.png" width="600">
+
+# +
+# Safely close the Lumerical session
+if not show_GUI:
+    fdtd.close()

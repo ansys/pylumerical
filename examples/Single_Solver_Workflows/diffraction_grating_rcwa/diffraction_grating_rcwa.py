@@ -428,6 +428,7 @@ axes[1].set_title("P Polarization")
 
 fig.tight_layout()
 plt.show(block=False)
+plt.pause(10)
 
 # -
 
@@ -573,6 +574,7 @@ axis.scatter(
 )
 
 fig.show()  # plot the figure
+plt.pause(10)
 
 # -
 # <img src="images/diffraction_efficiency_FDTD_total.png" width="600">
@@ -637,6 +639,7 @@ for idx, f in enumerate(f_list):
         )
 
 fig.show()  # plot the figure
+plt.pause(10)
 
 # -
 # <img src="images/diffraction_efficiency_FDTD_order.png" width="600">

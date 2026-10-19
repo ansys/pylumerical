@@ -1,0 +1,6 @@
+remove\_objects\_by\_name
+=========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.remove_objects_by_name

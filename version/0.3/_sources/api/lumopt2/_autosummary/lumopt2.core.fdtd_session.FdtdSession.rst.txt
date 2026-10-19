@@ -1,0 +1,93 @@
+﻿FdtdSession
+===========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoclass:: FdtdSession
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      FdtdSession.add_field_monitors
+      
+      
+      FdtdSession.add_index_monitors
+      
+      
+      FdtdSession.add_nk_import_object
+      
+      
+      FdtdSession.check_object_for_source
+      
+      
+      FdtdSession.check_simulation_success
+      
+      
+      FdtdSession.close
+      
+      
+      FdtdSession.get_active_sources
+      
+      
+      FdtdSession.get_dict_values_at_wavelengths
+      
+      
+      FdtdSession.get_fields_at_wavelengths
+      
+      
+      FdtdSession.get_result
+      
+      
+      FdtdSession.get_simulation_status
+      
+      
+      FdtdSession.invalidate_loaded_state
+      
+      
+      FdtdSession.load_base_simulation
+      
+      
+      FdtdSession.load_if_needed
+      
+      
+      FdtdSession.lock_grid
+      
+      
+      FdtdSession.mark_as_loaded
+      
+      
+      FdtdSession.remove_objects_by_name
+      
+      
+      FdtdSession.set_mesh_refinement_region
+      
+      
+      FdtdSession.set_working_directory
+      
+      
+      FdtdSession.update_polygon
+      
+      
+      FdtdSession.update_polygon_vertices
+      
+      
+      FdtdSession.update_properties_in_cad
+      
+      
+      FdtdSession.verify_base_simulation
+      
+      
+      FdtdSession.verify_uniform_mesh_size
+      
+   
+   
+
+   
+   
+   

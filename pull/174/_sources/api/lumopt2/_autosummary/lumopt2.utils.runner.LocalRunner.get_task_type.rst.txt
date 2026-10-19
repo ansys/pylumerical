@@ -1,0 +1,6 @@
+get\_task\_type
+===============
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.get_task_type

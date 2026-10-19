@@ -1,0 +1,6 @@
+invalidate\_loaded\_state
+=========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.invalidate_loaded_state

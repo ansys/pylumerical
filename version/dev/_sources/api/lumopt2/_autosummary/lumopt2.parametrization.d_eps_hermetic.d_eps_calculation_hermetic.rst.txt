@@ -1,0 +1,6 @@
+﻿d\_eps\_calculation\_hermetic
+=============================
+
+.. currentmodule:: lumopt2.parametrization.d_eps_hermetic
+
+.. autofunction:: d_eps_calculation_hermetic

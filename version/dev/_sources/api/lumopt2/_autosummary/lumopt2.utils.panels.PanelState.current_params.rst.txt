@@ -1,0 +1,6 @@
+current\_params
+===============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.current_params

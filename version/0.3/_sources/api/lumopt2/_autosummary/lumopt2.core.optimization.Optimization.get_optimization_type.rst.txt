@@ -1,0 +1,6 @@
+get\_optimization\_type
+=======================
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. automethod:: Optimization.get_optimization_type

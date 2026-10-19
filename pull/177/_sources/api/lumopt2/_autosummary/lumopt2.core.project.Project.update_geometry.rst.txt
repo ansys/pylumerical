@@ -1,0 +1,6 @@
+update\_geometry
+================
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.update_geometry

@@ -1,0 +1,6 @@
+on\_optimization\_end
+=====================
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. automethod:: MonitorPanel.on_optimization_end

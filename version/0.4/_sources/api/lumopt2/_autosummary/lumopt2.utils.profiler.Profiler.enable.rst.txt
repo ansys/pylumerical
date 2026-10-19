@@ -1,0 +1,6 @@
+enable
+======
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.enable

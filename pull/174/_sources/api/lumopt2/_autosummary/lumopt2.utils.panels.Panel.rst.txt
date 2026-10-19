@@ -1,0 +1,38 @@
+﻿Panel
+=====
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: Panel
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Panel.on_optimization_end
+      
+      
+      Panel.setup
+      
+      
+      Panel.update
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Panel.requires_forward_results
+      Panel.title
+   
+   

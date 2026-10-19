@@ -1,0 +1,42 @@
+﻿Profiler
+========
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. autoclass:: Profiler
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Profiler.disable
+      
+      
+      Profiler.enable
+      
+      
+      Profiler.format_summary
+      
+      
+      Profiler.get_stats
+      
+      
+      Profiler.log_summary
+      
+      
+      Profiler.measure
+      
+      
+      Profiler.reset
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+dipole\_base\_amplitude
+=======================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.dipole_base_amplitude

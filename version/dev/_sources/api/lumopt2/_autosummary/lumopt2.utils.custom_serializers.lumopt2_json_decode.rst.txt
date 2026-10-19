@@ -1,0 +1,6 @@
+﻿lumopt2\_json\_decode
+=====================
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. autofunction:: lumopt2_json_decode

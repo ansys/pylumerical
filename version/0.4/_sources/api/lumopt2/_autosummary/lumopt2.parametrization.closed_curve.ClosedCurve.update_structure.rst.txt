@@ -1,0 +1,6 @@
+update\_structure
+=================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.update_structure

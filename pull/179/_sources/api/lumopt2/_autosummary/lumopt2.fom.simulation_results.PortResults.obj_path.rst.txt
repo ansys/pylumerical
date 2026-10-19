@@ -1,0 +1,6 @@
+obj\_path
+=========
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. autoproperty:: PortResults.obj_path

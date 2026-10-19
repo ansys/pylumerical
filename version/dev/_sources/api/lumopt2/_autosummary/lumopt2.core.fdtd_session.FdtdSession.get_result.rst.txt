@@ -1,0 +1,6 @@
+get\_result
+===========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.get_result

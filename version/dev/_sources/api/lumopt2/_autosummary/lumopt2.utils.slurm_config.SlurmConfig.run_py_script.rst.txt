@@ -1,0 +1,6 @@
+run\_py\_script
+===============
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.run_py_script

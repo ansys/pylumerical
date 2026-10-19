@@ -1,0 +1,6 @@
+prepare\_optimization
+=====================
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. automethod:: Optimization.prepare_optimization

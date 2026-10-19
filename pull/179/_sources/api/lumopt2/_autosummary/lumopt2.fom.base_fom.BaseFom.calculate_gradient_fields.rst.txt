@@ -1,0 +1,6 @@
+calculate\_gradient\_fields
+===========================
+
+.. currentmodule:: lumopt2.fom.base_fom
+
+.. automethod:: BaseFom.calculate_gradient_fields

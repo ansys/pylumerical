@@ -1,0 +1,6 @@
+num\_iterations
+===============
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoattribute:: OptimizationResult.num_iterations

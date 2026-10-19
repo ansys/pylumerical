@@ -1,0 +1,6 @@
+FULL\_TIME
+==========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoattribute:: SimulationStatus.FULL_TIME

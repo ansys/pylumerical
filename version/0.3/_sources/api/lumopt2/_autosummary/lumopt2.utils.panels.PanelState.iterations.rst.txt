@@ -1,0 +1,6 @@
+iterations
+==========
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: PanelState.iterations

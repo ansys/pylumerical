@@ -1,0 +1,6 @@
+set\_fwd
+========
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.set_fwd

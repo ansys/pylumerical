@@ -1,0 +1,975 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Grating Coupler: Optimization &#8212; PyLumerical</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=0790524f97105ba85085" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/ansys-sphinx-theme.css?v=5ffe81b6" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=9c93eea9" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=0790524f97105ba85085"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../../_static/documentation_options.js?v=a4d987d4"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f245db63"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.18.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://lumerical.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'dev';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../../../_static/notebook_download.js?v=b947e8ca"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Inverse design of a Y-branch using lumopt2" href="../../lumopt2/y_branch/pylumerical_y_branch.html" />
+    <link rel="prev" title="Thermal Waveguide Tuner (HEAT)" href="../thermal_tuner_heat/thermal_tuner_heat.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.5.dev0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  <meta property="og:site_name" content="PyAnsys" />
+  <meta name="physics" content="Optics" />
+  
+  
+  
+  
+  <meta name="robots" content="noindex, follow" />
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+<aside class="bd-header-announcement" aria-label="Announcement">
+  <div class="bd-header-announcement__content"><style>.bd-header-announcement{background-color:#66B366;}</style><b style="color:black;">The photonic inverse design module <code style="color:black;">lumopt2</code> is available in Ansys Lumerical 2026 R1.2 or later. For more information, see the User Guide.</b></div>
+</aside>
+
+  
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="https://docs.pyansys.com/">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="PyLumerical - Home"/>
+    <img src="../../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="PyLumerical - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    
+<!--
+  Announcement Version Loader
+  Dynamically loads the announcement.html content into the announcement_msg div.
+-->
+<div id="announcement_msg" aria-live="polite"></div>
+<script>
+  // Fetch and inject the announcement HTML content
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status} Announcement.html file not found, Please ignore this, if you are in dev/stable documentation`);
+      }
+      return response.text();
+    })
+    .then((text) => {
+      var msgDiv = document.getElementById("announcement_msg");
+      if (msgDiv) {
+        msgDiv.innerHTML = text;
+      }
+    })
+    .catch((error) => {
+      // Log only unexpected fetch errors
+      if (!(error.message && error.message.startsWith("HTTP error: 404"))) {
+        console.error(`Fetch problem: ${error.message} Announcement.html could not be loaded.`);
+      }
+    });
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../index.html" title="PyLumerical home">Home</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../getting_started/index.html">
+    Installation and getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../user_guide/index.html">
+    User guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../../examples.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+  
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pylumerical" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item pst-sidebar-collapse"><button id="pst-collapse-sidebar-button" aria-expanded="true" aria-controls="pst-primary-sidebar"><svg class="pst-icon svg-inline--fa" role="img" aria-hidden="true" focusable="false" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path fill="currentColor" d="M3 15.5C2.36232 15.5 1.74874 15.2564 1.28478 14.8189C0.820828 14.3815 0.541576 13.7832 0.504167 13.1467L0.5 13L0.5 3C0.499965 2.36232 0.743605 1.74874 1.18107 1.28478C1.61854 0.820828 2.21676 0.541576 2.85333 0.504167L3 0.5L13 0.5C13.6377 0.499965 14.2513 0.743605 14.7152 1.18107C15.1792 1.61854 15.4584 2.21676 15.4958 2.85333L15.5 3L15.5 13C15.5 13.6377 15.2564 14.2513 14.8189 14.7152C14.3815 15.1792 13.7832 15.4584 13.1467 15.4958L13 15.5L3 15.5ZM3 13.8333L10.5 13.8333L10.5 2.16667L3 2.16667C2.79589 2.16669 2.59889 2.24163 2.44636 2.37726C2.29383 2.5129 2.19638 2.69979 2.1725 2.9025L2.16667 3L2.16667 13C2.16669 13.2041 2.24163 13.4011 2.37726 13.5536C2.5129 13.7062 2.69979 13.8036 2.9025 13.8275L3 13.8333ZM6.65583 10.325L6.5775 10.2558L4.91083 8.58917C4.76735 8.44567 4.68116 8.25476 4.66843 8.05223C4.65569 7.84971 4.71729 7.6495 4.84167 7.48917L4.91083 7.41083L6.5775 5.74417C6.72747 5.59471 6.9287 5.50794 7.14032 5.50148C7.35194 5.49502 7.55809 5.56935 7.7169 5.70937C7.8757 5.8494 7.97525 6.04463 7.99533 6.25539C8.01541 6.46616 7.95451 6.67667 7.825 6.84417L7.75583 6.9225L6.67917 8L7.75583 9.0775C7.89931 9.22099 7.98551 9.41191 7.99824 9.61443C8.01097 9.81695 7.94938 10.0172 7.825 10.1775L7.75583 10.2558C7.61234 10.3993 7.42142 10.4855 7.2189 10.4982C7.01638 10.511 6.81617 10.4494 6.65583 10.325Z"/>
+  </svg>
+  <span class="pst-collapse-sidebar-label">Collapse Sidebar</span>
+  <span class="pst-expand-sidebar-label">Expand Sidebar</span>
+</button></div>
+        <div class="sidebar-primary-item">
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Simulation automation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections.html">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ring_resonator_interconnect/ring_resonator_interconnect.html">Simple Ring Resonator (INTERCONNECT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thermal_tuner_heat/thermal_tuner_heat.html">Thermal Waveguide Tuner (HEAT)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Grating Coupler: Optimization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../lumopt2/y_branch/pylumerical_y_branch.html">Inverse design of a Y-branch using lumopt2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lumopt2/color_router/color_router_pylumerical.html">Inverse design of a color router lens using lumopt2</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../../examples.html" class="nav-link">Examples</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Grating Coupler: Optimization</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<p class="sd-text-center"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-shadow-sm reference external" href="https://lumerical.docs.pyansys.com/version/dev/examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization.ipynb"><span><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-download" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"></path></svg> Download Jupyter Notebook (.ipynb)</span></a></p>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<p class="sd-text-center"><a class="sd-sphinx-override sd-btn sd-text-wrap sd-btn-secondary sd-shadow-sm reference external" href="https://lumerical.docs.pyansys.com/version/dev/examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization.py"><span><svg version="1.1" width="1.0em" height="1.0em" class="sd-octicon sd-octicon-download" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"></path><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"></path></svg> Download Python script (.py)</span></a></p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="Grating-Coupler:-Optimization">
+<h1>Grating Coupler: Optimization<a class="headerlink" href="#Grating-Coupler:-Optimization" title="Link to this heading">#</a></h1>
+<p>Given a grating coupler design, this example demonstrates how to optimize the fiber position for improved coupling efficiency.</p>
+<p>This example is the <strong>second</strong> part of the grating-coupler workflow:</p>
+<ul class="simple">
+<li><p>Create a grating coupler: set up the base simulation and run it.</p></li>
+<li><p><strong>Optimize the grating coupler: improve the fiber position for better coupling efficiency.</strong></p></li>
+<li><p>Extract S-parameters: export S-parameters to Interconnect.</p></li>
+<li><p>Lumerical FDTD and Zemax Interconnect: export the field to ZBF for import into Zemax.</p></li>
+</ul>
+<p>This example demonstrates how to set up a SciPy optimization with a small number of variables.</p>
+<section id="Prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#Prerequisites" title="Link to this heading">#</a></h2>
+<p>A valid FDTD license is required.</p>
+<section id="Import-required-modules">
+<h3>Import required modules<a class="headerlink" href="#Import-required-modules" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="linenos">2</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="linenos">3</span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">4</span><span class="kn">import</span><span class="w"> </span><span class="nn">ansys.lumerical.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">lumapi</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Assign-key-parameters">
+<h3>Assign key parameters<a class="headerlink" href="#Assign-key-parameters" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 5</span><span class="n">show_GUI</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos"> 6</span><span class="c1"># The `grating_coupler.fsp` file can be obtained by following the previous steps in the grating coupler workflow.</span>
+<span class="linenos"> 7</span><span class="n">load_file_name</span> <span class="o">=</span> <span class="s2">"your/path/to/grating_coupler.fsp"</span>
+<span class="linenos"> 8</span><span class="n">save_file_name</span> <span class="o">=</span> <span class="s2">"your/path/to/grating_coupler_optimized.fsp"</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span><span class="c1"># Unit conversion factors</span>
+<span class="linenos">11</span><span class="n">um_to_m</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="linenos">12</span><span class="n">m_to_um</span> <span class="o">=</span> <span class="mf">1e6</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="c1"># Optimization variable: fiber x-position `fiber_x_pos`</span>
+<span class="linenos">15</span><span class="n">fiber_x0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">5.0</span> <span class="o">*</span> <span class="n">um_to_m</span><span class="p">]</span>
+<span class="linenos">16</span><span class="n">fiber_x_bounds</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">1.5</span> <span class="o">*</span> <span class="n">um_to_m</span><span class="p">,</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="n">um_to_m</span><span class="p">)]</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Optimization target: maximize transmission at the target wavelength `lambda_0`</span>
+<span class="linenos">19</span><span class="n">lambda_0</span> <span class="o">=</span> <span class="mf">1.55</span> <span class="o">*</span> <span class="n">um_to_m</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># User-defined constant</span>
+<span class="linenos">22</span><span class="n">sio2_tox_offset</span> <span class="o">=</span> <span class="mf">0.65</span> <span class="o">*</span> <span class="n">um_to_m</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Set-up-FDTD-simulation-environment">
+<h3>Set up FDTD simulation environment<a class="headerlink" href="#Set-up-FDTD-simulation-environment" title="Link to this heading">#</a></h3>
+<p>Load the grating coupler <code class="docutils literal notranslate"><span class="pre">.fsp</span></code> file. It can be obtained by following the previous steps in the grating coupler workflow.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">23</span><span class="c1"># Load the project file.</span>
+<span class="linenos">24</span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">hide</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_GUI</span><span class="p">)</span>
+<span class="linenos">25</span><span class="n">fdtd</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_file_name</span><span class="p">)</span>
+<span class="linenos">26</span>
+<span class="linenos">27</span><span class="c1"># Use the coarsest mesh accuracy for faster optimization</span>
+<span class="linenos">28</span><span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
+<span class="linenos">29</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"FDTD"</span><span class="p">,</span> <span class="s2">"mesh accuracy"</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">30</span>
+<span class="linenos">31</span><span class="c1"># Capture the initial fiber and TOX positions and parameters.</span>
+<span class="linenos">32</span><span class="n">fiber_y_pos</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getnamed</span><span class="p">(</span><span class="s2">"fiber"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">)</span>
+<span class="linenos">33</span><span class="n">fiber_z_pos</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getnamed</span><span class="p">(</span><span class="s2">"fiber"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">)</span>
+<span class="linenos">34</span><span class="n">fiber_theta</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getnamed</span><span class="p">(</span><span class="s2">"fiber::core"</span><span class="p">,</span> <span class="s2">"rotation 1"</span><span class="p">)</span>
+<span class="linenos">35</span><span class="n">fiber_core_diameter</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getnamed</span><span class="p">(</span><span class="s2">"fiber::core"</span><span class="p">,</span> <span class="s2">"radius"</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="linenos">36</span><span class="n">tox_zpos</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getnamed</span><span class="p">(</span><span class="s2">"SiO2 TOX"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">)</span>
+<span class="linenos">37</span>
+<span class="linenos">38</span><span class="c1"># Calculate intermediate parameters and assign their values.</span>
+<span class="linenos">39</span><span class="n">port1_z_pos</span> <span class="o">=</span> <span class="n">tox_zpos</span> <span class="o">+</span> <span class="n">fiber_z_pos</span> <span class="o">+</span> <span class="n">sio2_tox_offset</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">fiber_theta</span><span class="p">))</span>
+<span class="linenos">40</span><span class="n">port_offset</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">fiber_core_diameter</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">fiber_theta</span><span class="p">))</span>
+<span class="linenos">41</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">,</span> <span class="n">fiber_y_pos</span><span class="p">)</span>
+<span class="linenos">42</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">,</span> <span class="n">port1_z_pos</span><span class="p">)</span>
+<span class="linenos">43</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"theta"</span><span class="p">,</span> <span class="n">fiber_theta</span><span class="p">)</span>
+<span class="linenos">44</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"rotation offset"</span><span class="p">,</span> <span class="n">port_offset</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Scipy-optimization">
+<h3>Scipy optimization<a class="headerlink" href="#Scipy-optimization" title="Link to this heading">#</a></h3>
+<p>For a small number of variables (&lt;=3), we recommend using SciPy as the optimizer. For a large number of variables, we recommend using <a class="reference external" href="https://lumerical.docs.pyansys.com/version/stable/user_guide/photonic_inverse_design_with_lumopt2.html">lumopt2</a>.</p>
+<p>Here, we use the SciPy <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/optimize.minimize-powell.html">Powell method</a>. To run the optimization, define:</p>
+<ul class="simple">
+<li><p>an objective function that takes the parameters and returns a fitness value,</p></li>
+<li><p>an initial guess for the variables, and</p></li>
+<li><p>bounds that physically constrain the variables.</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">45</span><span class="c1"># To optimize more variables, add them to `x0` and `bounds`, then unpack them here.</span>
+<span class="linenos">46</span><span class="n">fitness_history</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">47</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="k">def</span><span class="w"> </span><span class="nf">objective</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="linenos">50</span><span class="w">    </span><span class="sd">"""Objective function for optimizing the fiber's x-position.</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span><span class="sd">    Args:</span>
+<span class="linenos">53</span><span class="sd">        params (np.ndarray): Array containing the fiber x-position [fiber_x_pos].</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="sd">    Returns</span>
+<span class="linenos">56</span><span class="sd">    -------</span>
+<span class="linenos">57</span><span class="sd">        float: The negative transmission at the target wavelength.</span>
+<span class="linenos">58</span><span class="sd">    """</span>
+<span class="linenos">59</span>    <span class="c1"># Step 1: Capture the current parameter (fiber x-position).</span>
+<span class="linenos">60</span>    <span class="n">fiber_x_pos</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="linenos">61</span>
+<span class="linenos">62</span>    <span class="c1"># Step 2: Apply the current parameter to the simulation layout.</span>
+<span class="linenos">63</span>    <span class="c1"># Fiber x-position</span>
+<span class="linenos">64</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
+<span class="linenos">65</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"fiber"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">fiber_x_pos</span><span class="p">)</span>
+<span class="linenos">66</span>    <span class="c1"># Port 1 position</span>
+<span class="linenos">67</span>    <span class="n">port1_x_pos</span> <span class="o">=</span> <span class="n">fiber_x_pos</span> <span class="o">+</span> <span class="n">sio2_tox_offset</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">fiber_theta</span><span class="p">))</span>
+<span class="linenos">68</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">port1_x_pos</span><span class="p">)</span>
+<span class="linenos">69</span>
+<span class="linenos">70</span>    <span class="c1"># Step 3: Extract the merit function value (transmission at the target wavelength).</span>
+<span class="linenos">71</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="linenos">72</span>    <span class="c1"># Extract the wavelengths and transmission values from the simulation result.</span>
+<span class="linenos">73</span>    <span class="n">transmission</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 2"</span><span class="p">,</span> <span class="s2">"T"</span><span class="p">)</span>
+<span class="linenos">74</span>    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">transmission</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+<span class="linenos">75</span>    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">transmission</span><span class="p">[</span><span class="s2">"T"</span><span class="p">])</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="linenos">76</span>    <span class="n">fitness</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">-</span> <span class="n">lambda_0</span><span class="p">))])</span>
+<span class="linenos">77</span>
+<span class="linenos">78</span>    <span class="c1"># Append the current fitness to the history to track optimization progress.</span>
+<span class="linenos">79</span>    <span class="n">fitness_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fitness</span><span class="p">)</span>
+<span class="linenos">80</span>
+<span class="linenos">81</span>    <span class="c1"># The objective function must return a value to minimize, so return the negative fitness.</span>
+<span class="linenos">82</span>    <span class="k">return</span> <span class="o">-</span><span class="n">fitness</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">83</span><span class="c1"># Run the optimization using SciPy's `minimize` function. This may take a while because it runs multiple simulations.</span>
+<span class="linenos">84</span><span class="n">result</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">fiber_x0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"Powell"</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">fiber_x_bounds</span><span class="p">)</span>
+<span class="linenos">85</span><span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">:</span>
+<span class="linenos">86</span>    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="linenos">87</span>
+<span class="linenos">88</span><span class="n">best_fiber_x_pos</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">89</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Optimal fiber x: </span><span class="si">{</span><span class="n">best_fiber_x_pos</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">m_to_um</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> um; transmission: </span><span class="si">{</span><span class="o">-</span><span class="n">result</span><span class="o">.</span><span class="n">fun</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+</section>
+<section id="Apply-the-optimization-result-to-the-simulation-layout">
+<h3>Apply the optimization result to the simulation layout<a class="headerlink" href="#Apply-the-optimization-result-to-the-simulation-layout" title="Link to this heading">#</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">90</span><span class="n">best_port1_x_pos</span> <span class="o">=</span> <span class="n">best_fiber_x_pos</span> <span class="o">+</span> <span class="n">sio2_tox_offset</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">fiber_theta</span><span class="p">))</span>
+<span class="linenos">91</span>
+<span class="linenos">92</span><span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
+<span class="linenos">93</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"fiber"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">best_fiber_x_pos</span><span class="p">)</span>
+<span class="linenos">94</span><span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"::model::FDTD::ports::port 1"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">,</span> <span class="n">best_port1_x_pos</span><span class="p">)</span>
+<span class="linenos">95</span><span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">save_file_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 96</span><span class="c1"># Plot the optimization progress.</span>
+<span class="linenos"> 97</span><span class="n">best_fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">fitness_history</span><span class="p">)</span>
+<span class="linenos"> 98</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">best_fitness</span><span class="p">)</span>
+<span class="linenos"> 99</span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Objective evaluation"</span><span class="p">)</span>
+<span class="linenos">100</span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Best transmission"</span><span class="p">)</span>
+<span class="linenos">101</span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fitness improvement: </span><span class="si">{</span><span class="n">best_fitness</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">best_fitness</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> (+</span><span class="si">{</span><span class="n">best_fitness</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">best_fitness</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="linenos">102</span><span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="linenos">103</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<p><img alt="3291aedbb8d8404ebc3d482e6015e72e" class="no-scaled-link" src="../../../_images/fitness_history.png" style="width: 600px;" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">104</span><span class="c1"># Close the application when the GUI is hidden.</span>
+<span class="linenos">105</span><span class="k">if</span> <span class="ow">not</span> <span class="n">show_GUI</span><span class="p">:</span>
+<span class="linenos">106</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Prerequisites">Prerequisites</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Import-required-modules">Import required modules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Assign-key-parameters">Assign key parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-FDTD-simulation-environment">Set up FDTD simulation environment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Scipy-optimization">Scipy optimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Apply-the-optimization-result-to-the-simulation-layout">Apply the optimization result to the simulation layout</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <ul class="this-page-menu">
+      <li><a href="../../../_sources/examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization.py.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=0790524f97105ba85085"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=0790524f97105ba85085"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026 Synopsys, Inc. and ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<!--
+  Theme Version Footer
+  Displays the Sphinx theme version and the last updated date.
+  Accessibility and semantic improvements included.
+-->
+<footer class="theme-version" aria-label="Theme version and last update">
+  <span>
+    
+      Built with the
+      <a href="https://sphinxdocs.ansys.com/version/stable/index.html" target="_blank" rel="noopener noreferrer">
+        Ansys Sphinx Theme
+      </a>
+      1.9.0.
+    
+  </span>
+  <br />
+  <span>Last updated on <time id="ast_build_date"></time></span>
+</footer>
+<script>
+  // Set the last updated date in a readable format
+  (function() {
+    var options = { day: "numeric", month: "long", year: "numeric" };
+    var ast_lastModifiedDate = new Date(document.lastModified);
+    var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+    var dateElem = document.getElementById("ast_build_date");
+    if (dateElem) {
+      dateElem.textContent = ast_build_date;
+    }
+  })();
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

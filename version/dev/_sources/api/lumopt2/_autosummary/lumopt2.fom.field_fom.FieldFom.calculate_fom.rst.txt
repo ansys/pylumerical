@@ -1,0 +1,6 @@
+calculate\_fom
+==============
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.calculate_fom

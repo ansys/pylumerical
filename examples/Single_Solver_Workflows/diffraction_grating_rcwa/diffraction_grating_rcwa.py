@@ -436,7 +436,7 @@ plt.pause(10)
 
 # ## Part 4: Verify the results with FDTD
 # The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results.
-# We can use periodic boundary
+# We use periodic boundary conditions along both x and y directions to simulate an infinite grating.
 
 
 # +
@@ -581,11 +581,8 @@ plt.pause(10)
 #
 # ### Use the `grating` command to extract diffraction efficiencies by order
 #
-# For normal incidence, the grating equation is:
-# $$
-# \frac{m \lambda}{D} = \sin(\theta),
-# $$
-# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period (`period_x`).
+# For normal incidence, the grating equation is: $\frac{m\lambda}{D}=\sin{\theta}$,
+# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period `period_x`.
 # The $m$-th order propagates at an angle $\theta = \arcsin\left(\frac{m \lambda}{D}\right)$.
 #
 # In this example, the wavelength range is 350–800 nm and the grating period is 600 nm.

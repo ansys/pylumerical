@@ -1,0 +1,6 @@
+polygon\_pts\_per\_segment
+==========================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: EqualSplit.polygon_pts_per_segment

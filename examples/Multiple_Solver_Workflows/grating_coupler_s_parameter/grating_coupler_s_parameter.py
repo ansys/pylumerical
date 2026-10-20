@@ -33,9 +33,9 @@ show_GUI = True
 use_GPU_solver = True
 
 # The FDTD file can be obtained by following [Grating Coupler (2) Optimization](link).
-load_fdtd_file_path = "C:/Users/yiwenfan/Documents/grating_coupler/grating_coupler_optimized.fsp"
-S_parameter_export_file_path = "C:/Users/yiwenfan/Documents/grating_coupler/S_parameter_export.dat"
-save_itcn_file_path = "C:/Users/yiwenfan/Documents/grating_coupler/grating_coupler_customized.icp"
+load_fdtd_file_path = "your/path/to/grating_coupler_optimized.fsp"
+S_parameter_export_file_path = "your/path/to/S_parameter_export.dat"
+save_itcn_file_path = "your/path/to/grating_coupler_customized.icp"
 
 # Unit conversion factors
 um_to_m = 1e-6

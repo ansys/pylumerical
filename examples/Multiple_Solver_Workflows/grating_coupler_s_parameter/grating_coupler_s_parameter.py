@@ -1,0 +1,253 @@
+# # Grating Coupler: S-parameter Extraction
+#
+# Given a grating coupler design, this example demonstrates how to extract its scatter parameter using Lumerical S-Parameter Matrix Sweep,
+# and import it into INTERCONNECT.
+#
+# This example is the **third** part of the grating-coupler workflow:
+# - Create a grating coupler: set up the base simulation and run it.
+# - Optimize the grating coupler: improve the fiber position for better coupling efficiency.
+# - **Extract S-parameters: export S-parameters to INTERCONNECT.**
+# - Lumerical FDTD and Zemax Interconnect: export the field to ZBF for import into Zemax.
+#
+# In this example, we will show:
+# - How to set up S-Parameter Matrix Sweep in FDTD and export S-parameter results
+# - How to set up INTERCONNECT circuit and import S-parameter results
+#
+# ### Prerequisites
+#
+# A valid FDTD and INTERCONNECT license are required.
+#
+# ### Import required modules
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+import ansys.lumerical.core as lumapi
+
+#
+# ### Assign key parameters
+
+# +
+show_GUI = True
+use_GPU_solver = True
+
+# The FDTD file can be obtained by following [Grating Coupler (2) Optimization](link).
+load_fdtd_file_path = "your/path/to/grating_coupler_optimized.fsp"
+S_parameter_export_file_path = "your/path/to/S_parameter_export.dat"
+save_itcn_file_path = "your/path/to/grating_coupler_customized.icp"
+
+# Unit conversion factors
+um_to_m = 1e-6
+m_to_um = 1e6
+
+# -
+# ### Set up S-Parameter Matrix Sweep inside Lumerical FDTD
+# We use `addsweep()` command with `type = 3` for S-Parameter Matrix Sweep. Please refer to
+# [here](https://optics.ansys.com/hc/en-us/articles/360034930413-addsweep-Script-command) for more details.
+#
+# Please use normal dictionaries `{}` instead of `OrderedDict({})` when defining the index entries for the S-parameter mapping table,
+# because they are treated as *structs* inside Lumerical.
+
+
+# +
+def set_up_s_parameter_sweep(fdtd, sweep_name: str) -> None:
+    """Set up an S-Parameter Matrix Sweep in the given FDTD session with the specified sweep name."""
+    # Delete the existing sweep if it exists to avoid conflicts
+    try:
+        fdtd.deletesweep(sweep_name)
+    except Exception:
+        pass
+
+    # Add S-Parameter Matrix Sweep, default name "s-parameter sweep"
+    fdtd.addsweep(3)
+    # Change the default name
+    fdtd.setsweep("s-parameter sweep", "name", sweep_name)
+
+    # Define active entries for the S-parameter mapping table
+    # Mode
+    mode1 = {"id": 1, "label": "TE"}
+    # Two ports
+    port1 = {"Port": "port 1", "Mode": "mode 1"}
+    port2 = {"Port": "port 2", "Mode": "mode 1"}
+    fdtd.addsweepparameter(sweep_name, port1)
+    fdtd.addsweepparameter(sweep_name, port2)
+
+    # Two export setup
+    export1 = {"location": "LEFT", "mode 1": mode1}
+    export2 = {"location": "RIGHT", "mode 1": mode1}
+
+    exports = {"port 1": export1, "port 2": export2}
+    fdtd.setsweep(sweep_name, "export setup", exports)
+
+
+# +
+# Open application, load FDTD file
+fdtd = lumapi.FDTD(hide=not show_GUI)
+fdtd.load(load_fdtd_file_path)
+
+# Set up the S-parameter sweep in FDTD
+sweep_name = "S-parameter sweep"
+set_up_s_parameter_sweep(fdtd, sweep_name=sweep_name)
+
+# -
+#
+# If visually check the S-parameter sweep setup in FDTD GUI, you will be able to see
+#
+# <img src="images/s_parameter_gui_1.png" width="400"> <img src="images/s_parameter_gui_2.png" width="400">
+
+# +
+# Run sweep
+fdtd.save()
+if use_GPU_solver:
+    fdtd.runsweep(sweep_name, "GPU")
+else:
+    fdtd.runsweep(sweep_name, "CPU")
+fdtd.save()
+
+# Extract results for visualization
+S_result = fdtd.getsweepresult(sweep_name, "S parameters")
+
+# Export S-parameter data from FDTD to a file
+fdtd.exportsweep(sweep_name, S_parameter_export_file_path, "lumerical")
+
+# Properly close the FDTD session
+if not show_GUI:
+    fdtd.close()
+
+# +
+# Visualize the S-parameter
+S_lambda_um = np.asarray(S_result["lambda"]).squeeze() * m_to_um
+S11 = np.asarray(S_result["S11"]).squeeze()
+S21 = np.asarray(S_result["S21"]).squeeze()
+S12 = np.asarray(S_result["S12"]).squeeze()
+S22 = np.asarray(S_result["S22"]).squeeze()
+
+plt.figure()
+plt.plot(S_lambda_um, np.abs(S11) ** 2, label="S11")
+plt.plot(S_lambda_um, np.abs(S21) ** 2, label="S21")
+plt.plot(S_lambda_um, np.abs(S12) ** 2, label="S12")
+plt.plot(S_lambda_um, np.abs(S22) ** 2, label="S22")
+plt.xlabel("Wavelength (um)")
+plt.ylabel("Power Transmission")
+plt.title("S-parameter vs Wavelength")
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show(block=False)
+plt.pause(10)
+
+# -
+# <img src="images/fdtd_s_parameter.png" width="500">
+#
+# ### Set up INTERCONNECT simulation
+#
+# Please refer to [here](https://optics.ansys.com/hc/en-us/articles/360034936773-Python-co-simulation-with-INTERCONNECT) for more details.
+#
+# 1. Open an INTERCONNECT session and add elements
+#
+# 2. Connect elements' ports
+#
+# 3. Run simulation and capture the results
+
+
+# +
+def set_up_circuit(itcn, ana_name: str = "ONA_1", spar_name: str = "SPAR_1") -> tuple[str, str]:
+    """Set up the INTERCONNECT circuit with an Optical Network Analyzer and an S-parameter element."""
+    # === Set up elements ===
+    itcn.addelement("Optical Network Analyzer")  # default name: `ONA_1`
+    itcn.setnamed("ONA_1", "name", ana_name)
+
+    itcn.addelement("Optical N Port S-Parameter")  # default name: `SPAR_1`
+    itcn.setnamed("SPAR_1", "name", spar_name)
+
+    # === Set up wavelength range of the ONA ===
+    start_freq_hz = 3e8 / (np.min(S_lambda_um) * um_to_m)
+    stop_freq_hz = 3e8 / (np.max(S_lambda_um) * um_to_m)
+    itcn.setnamed(ana_name, "input parameter", "start and stop")
+    itcn.setnamed(ana_name, "start frequency", start_freq_hz)
+    itcn.setnamed(ana_name, "stop frequency", stop_freq_hz)
+
+    # === Load the S-parameter file from FDTD into the Grating Coupler element ===
+    itcn.setnamed(spar_name, "load from file", 1)
+    itcn.setnamed(spar_name, "s parameters filename", S_parameter_export_file_path)
+
+    # === (GUI only) Visually separate the two elements ===
+    if show_GUI:
+        itcn.setnamed(ana_name, "x position", 0)
+        itcn.setnamed(ana_name, "y position", 0)
+
+        itcn.setnamed(spar_name, "x position", 300)  # x-positive point to the right
+        itcn.setnamed(spar_name, "y position", 200)  # y-positive point down
+
+    return ana_name, spar_name
+
+
+# +
+# Open INTERCONNECT session and create circuit
+itcn = lumapi.INTERCONNECT(hide=not show_GUI)
+ana_name, spar_name = set_up_circuit(itcn=itcn, ana_name="ONA_1", spar_name="Grating_Coupler")
+
+# Confirm existing elements' port names
+print(f"> {ana_name} ports:")
+print(itcn.getports(ana_name))
+print(f"> {spar_name} ports:")
+print(itcn.getports(spar_name))
+
+# -
+# <img src="images/ports.png" width="200">
+
+
+# +
+def connect_port(itcn, component_a_name: str, a_port_name: str, component_b_name: str, b_port_name: str) -> None:
+    """Connect a port from component A to a port from component B."""
+    itcn.connect(component_a_name, a_port_name, component_b_name, b_port_name)
+
+
+# Connect ports, order not sensitive
+connect_port(itcn=itcn, component_a_name=ana_name, a_port_name="output", component_b_name=spar_name, b_port_name="port 1")
+connect_port(itcn=itcn, component_a_name=ana_name, a_port_name="input 1", component_b_name=spar_name, b_port_name="port 2")
+
+# Run simulation
+itcn.save(save_itcn_file_path)
+itcn.run()
+itcn.save(save_itcn_file_path)
+
+# Extract the simulation results for the ONA_1 component
+itcn_result = itcn.getresult("ONA_1", "input 1/mode 1/transmission")
+itcn_result_wavelength_um = np.asarray(itcn_result["wavelength"]).squeeze() * m_to_um
+itcn_result_TE_transmission = np.asarray(itcn_result["TE transmission"]).squeeze()
+
+# +
+# Plot the TE transmission as a function of wavelength
+# Duplicate old S-parameter plot
+fig, ax = plt.subplots()
+ax.plot(S_lambda_um, np.abs(S11) ** 2, label="S11")
+ax.plot(S_lambda_um, np.abs(S21) ** 2, label="S21")
+ax.plot(S_lambda_um, np.abs(S12) ** 2, label="S12")
+ax.plot(S_lambda_um, np.abs(S22) ** 2, label="S22")
+s_parameter_legend = ax.legend(loc="upper left")
+ax.add_artist(s_parameter_legend)
+
+# Plot the INTERCONNECT TE transmission on top of the S-parameter plot
+(te_line,) = ax.plot(
+    itcn_result_wavelength_um,
+    np.abs(itcn_result_TE_transmission) ** 2,
+    linestyle="--",
+    linewidth=4,
+    label="TE transmission",
+)
+ax.legend(handles=[te_line], loc="upper right")
+ax.set_xlabel("Wavelength (um)")
+ax.set_ylabel("Power Transmission")
+ax.grid(alpha=0.3)
+ax.set_title("FDTD S-parameter and INTERCONNECT TE Transmission vs Wavelength")
+plt.show(block=False)
+plt.pause(10)
+
+# +
+# Properly close the INTERCONNECT session
+if not show_GUI:
+    itcn.close()
+
+# -
+# <img src="images/itcn_te.png" width="500">

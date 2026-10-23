@@ -1,4 +1,4 @@
-# # Diffraction Grating (RCWA)
+# # Diffraction Grating (RCWA / FDTD)
 #
 # This example simulates a simple diffraction grating using RCWA.
 #
@@ -6,7 +6,6 @@
 # The grating is parameterized by its periodicity, fill factor, top width, and depth.
 # In Part 2, we use RCWA to calculate the complex transmission/reflection of the grating.
 # In Part 3, we plot the results.
-# Diffraction gratings can also be simulated using the FDTD method.
 # In Part 4, we use FDTD to calculate transmission and confirm if both methods agree.
 #
 # Prerequisites: Valid FDTD license is required.

@@ -91,9 +91,6 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
-  
-  
-  
   <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
@@ -700,315 +697,309 @@
 <span class="linenos">48</span><span class="n">z_buffer</span> <span class="o">=</span> <span class="n">wl_min</span>  <span class="c1"># A buffer region above and below the structure to ensure the simulation region is large enough to avoid boundary effects</span>
 <span class="linenos">49</span><span class="n">sim_z_max</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">+</span> <span class="n">z_buffer</span>  <span class="c1"># Good practice to make sure the simulation region is at least one wavelength larger than the structure</span>
 <span class="linenos">50</span><span class="n">sim_z_min</span> <span class="o">=</span> <span class="o">-</span><span class="n">z_buffer</span>
-</pre></div>
+<br/></pre></div>
 </div>
 </div>
+<p>Initialize session and build simulation objects. RCWA related documentations can be found <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object">here</a> This block will build a 1D trapezoidal blazed grating structure on a substrate. The simulation file will be saved to the current working directory with the name specified in the “filename” variable above.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 51</span><span class="c1"># Initialize session and build simulation objects. Set hide = True to hide the Lumerical GUI.</span>
-<span class="linenos"> 52</span><span class="c1"># This block will build a 1D trapezoidal blazed grating structure on a substrate.</span>
-<span class="linenos"> 53</span><span class="c1"># The simulation file will be saved to the current working directory with the name specified in the "filename" variable above.</span>
-<span class="linenos"> 54</span>
-<span class="linenos"> 55</span>
-<span class="linenos"> 56</span><span class="k">def</span><span class="w"> </span><span class="nf">build_1d_grating</span><span class="p">(</span>
-<span class="linenos"> 57</span>    <span class="n">fdtd</span><span class="p">,</span>
-<span class="linenos"> 58</span>    <span class="n">filename</span><span class="p">,</span>
-<span class="linenos"> 59</span>    <span class="n">period_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 60</span>    <span class="n">fill_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 61</span>    <span class="n">depth</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 62</span>    <span class="n">top_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 63</span>    <span class="n">num_teeth</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="linenos"> 64</span>    <span class="n">base_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 65</span>    <span class="n">base_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 66</span>    <span class="n">base_z</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 67</span>    <span class="n">n_grat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 68</span>    <span class="n">n_base</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos"> 69</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos"> 70</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos"> 71</span><span class="sd">    Build a 1D trapezoidal blazed grating structure on a substrate.</span>
-<span class="linenos"> 72</span>
-<span class="linenos"> 73</span><span class="sd">    Parameters</span>
-<span class="linenos"> 74</span><span class="sd">    ----------</span>
-<span class="linenos"> 75</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
-<span class="linenos"> 76</span><span class="sd">    filename: File name to save to</span>
-<span class="linenos"> 77</span><span class="sd">    period_x: Period (pitch) of the grating in x direction</span>
-<span class="linenos"> 78</span><span class="sd">    fill_factor: The width of the bottom of the grating tooth as a factor of the period</span>
-<span class="linenos"> 79</span><span class="sd">    depth: Depth of the grating</span>
-<span class="linenos"> 80</span><span class="sd">    top_factor: The top width of the grating tooth as a factor of the bottom width</span>
-<span class="linenos"> 81</span><span class="sd">    num_teeth: Number of grating teeth to create (note only 1 is needed for periodic simulation)</span>
-<span class="linenos"> 82</span><span class="sd">    base_x, base_y, base_z: Dimensions of the base/substrate, should extend through simulation region</span>
-<span class="linenos"> 83</span><span class="sd">    n_grat: Refractive index of the grating material</span>
-<span class="linenos"> 84</span><span class="sd">    n_base: Refractive index of the base material</span>
-<span class="linenos"> 85</span><span class="sd">    """</span>
-<span class="linenos"> 86</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addstructuregroup</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"1D_grating"</span><span class="p">})</span>
-<span class="linenos"> 87</span>    <span class="c1"># First add the base/substrate</span>
-<span class="linenos"> 88</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"base"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"x span"</span><span class="p">:</span> <span class="n">base_x</span><span class="p">,</span> <span class="s2">"y span"</span><span class="p">:</span> <span class="n">base_y</span><span class="p">,</span> <span class="s2">"z min"</span><span class="p">:</span> <span class="o">-</span><span class="n">base_z</span><span class="p">,</span> <span class="s2">"z max"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">:</span> <span class="n">n_base</span><span class="p">})</span>
-<span class="linenos"> 89</span>
-<span class="linenos"> 90</span>    <span class="c1"># Now add the grating teeth</span>
-<span class="linenos"> 91</span>    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_teeth</span><span class="p">):</span>
-<span class="linenos"> 92</span>        <span class="c1"># Define the vertices of the polygon</span>
-<span class="linenos"> 93</span>        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-<span class="linenos"> 94</span>        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">period_x</span> <span class="o">*</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="mi">0</span>
-<span class="linenos"> 95</span>        <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">period_x</span> <span class="o">*</span> <span class="n">top_factor</span> <span class="o">*</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="n">depth</span>
-<span class="linenos"> 96</span>        <span class="n">x4</span><span class="p">,</span> <span class="n">y4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">depth</span>
-<span class="linenos"> 97</span>        <span class="n">vtx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">],</span> <span class="p">[</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">],</span> <span class="p">[</span><span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">],</span> <span class="p">[</span><span class="n">x4</span><span class="p">,</span> <span class="n">y4</span><span class="p">]])</span>
-<span class="linenos"> 98</span>        <span class="c1"># Set the properties of the grating. We add a rotation to orient from the xy plane to the xz plane</span>
-<span class="linenos"> 99</span>        <span class="n">grating_props</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">100</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-<span class="linenos">101</span>            <span class="s2">"x"</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">num_teeth</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
-<span class="linenos">102</span>            <span class="s2">"y"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-<span class="linenos">103</span>            <span class="s2">"index"</span><span class="p">:</span> <span class="n">n_grat</span><span class="p">,</span>
-<span class="linenos">104</span>            <span class="s2">"first axis"</span><span class="p">:</span> <span class="s2">"x"</span><span class="p">,</span>
-<span class="linenos">105</span>            <span class="s2">"rotation 1"</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-<span class="linenos">106</span>        <span class="p">}</span>
-<span class="linenos">107</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">addpoly</span><span class="p">(</span><span class="n">grating_props</span><span class="p">)</span>
-<span class="linenos">108</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"vertices"</span><span class="p">,</span> <span class="n">vtx</span><span class="p">)</span>  <span class="c1"># Set the vertices of the polygon</span>
-<span class="linenos">109</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"z span"</span><span class="p">,</span> <span class="n">base_y</span><span class="p">)</span>  <span class="c1"># This is the thickness of the grating tooth in the y direction since there is a rotation</span>
-<span class="linenos">110</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">addtogroup</span><span class="p">(</span><span class="s2">"1D_grating"</span><span class="p">)</span>  <span class="c1"># Adds the recently created polygon to the structure group</span>
-<span class="linenos">111</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 51</span><span class="k">def</span><span class="w"> </span><span class="nf">build_1d_grating</span><span class="p">(</span>
+<span class="linenos"> 52</span>    <span class="n">fdtd</span><span class="p">,</span>
+<span class="linenos"> 53</span>    <span class="n">filename</span><span class="p">,</span>
+<span class="linenos"> 54</span>    <span class="n">period_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 55</span>    <span class="n">fill_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 56</span>    <span class="n">depth</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 57</span>    <span class="n">top_factor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 58</span>    <span class="n">num_teeth</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="linenos"> 59</span>    <span class="n">base_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 60</span>    <span class="n">base_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 61</span>    <span class="n">base_z</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 62</span>    <span class="n">n_grat</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 63</span>    <span class="n">n_base</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos"> 64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos"> 65</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos"> 66</span><span class="sd">    Build a 1D trapezoidal blazed grating structure on a substrate.</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="sd">    Parameters</span>
+<span class="linenos"> 69</span><span class="sd">    ----------</span>
+<span class="linenos"> 70</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
+<span class="linenos"> 71</span><span class="sd">    filename: File name to save to</span>
+<span class="linenos"> 72</span><span class="sd">    period_x: Period (pitch) of the grating in x direction</span>
+<span class="linenos"> 73</span><span class="sd">    fill_factor: The width of the bottom of the grating tooth as a factor of the period</span>
+<span class="linenos"> 74</span><span class="sd">    depth: Depth of the grating</span>
+<span class="linenos"> 75</span><span class="sd">    top_factor: The top width of the grating tooth as a factor of the bottom width</span>
+<span class="linenos"> 76</span><span class="sd">    num_teeth: Number of grating teeth to create (note only 1 is needed for periodic simulation)</span>
+<span class="linenos"> 77</span><span class="sd">    base_x, base_y, base_z: Dimensions of the base/substrate, should extend through simulation region</span>
+<span class="linenos"> 78</span><span class="sd">    n_grat: Refractive index of the grating material</span>
+<span class="linenos"> 79</span><span class="sd">    n_base: Refractive index of the base material</span>
+<span class="linenos"> 80</span><span class="sd">    """</span>
+<span class="linenos"> 81</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addstructuregroup</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"1D_grating"</span><span class="p">})</span>
+<span class="linenos"> 82</span>    <span class="c1"># First add the base/substrate</span>
+<span class="linenos"> 83</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrect</span><span class="p">({</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"base"</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"x span"</span><span class="p">:</span> <span class="n">base_x</span><span class="p">,</span> <span class="s2">"y span"</span><span class="p">:</span> <span class="n">base_y</span><span class="p">,</span> <span class="s2">"z min"</span><span class="p">:</span> <span class="o">-</span><span class="n">base_z</span><span class="p">,</span> <span class="s2">"z max"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">:</span> <span class="n">n_base</span><span class="p">})</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span>    <span class="c1"># Now add the grating teeth</span>
+<span class="linenos"> 86</span>    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_teeth</span><span class="p">):</span>
+<span class="linenos"> 87</span>        <span class="c1"># Define the vertices of the polygon</span>
+<span class="linenos"> 88</span>        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+<span class="linenos"> 89</span>        <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">period_x</span> <span class="o">*</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="mi">0</span>
+<span class="linenos"> 90</span>        <span class="n">x3</span><span class="p">,</span> <span class="n">y3</span> <span class="o">=</span> <span class="n">period_x</span> <span class="o">*</span> <span class="n">top_factor</span> <span class="o">*</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="n">depth</span>
+<span class="linenos"> 91</span>        <span class="n">x4</span><span class="p">,</span> <span class="n">y4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">depth</span>
+<span class="linenos"> 92</span>        <span class="n">vtx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">],</span> <span class="p">[</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">],</span> <span class="p">[</span><span class="n">x3</span><span class="p">,</span> <span class="n">y3</span><span class="p">],</span> <span class="p">[</span><span class="n">x4</span><span class="p">,</span> <span class="n">y4</span><span class="p">]])</span>
+<span class="linenos"> 93</span>        <span class="c1"># Set the properties of the grating. We add a rotation to orient from the xy plane to the xz plane</span>
+<span class="linenos"> 94</span>        <span class="n">grating_props</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos"> 95</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+<span class="linenos"> 96</span>            <span class="s2">"x"</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">num_teeth</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
+<span class="linenos"> 97</span>            <span class="s2">"y"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos"> 98</span>            <span class="s2">"index"</span><span class="p">:</span> <span class="n">n_grat</span><span class="p">,</span>
+<span class="linenos"> 99</span>            <span class="s2">"first axis"</span><span class="p">:</span> <span class="s2">"x"</span><span class="p">,</span>
+<span class="linenos">100</span>            <span class="s2">"rotation 1"</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+<span class="linenos">101</span>        <span class="p">}</span>
+<span class="linenos">102</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">addpoly</span><span class="p">(</span><span class="n">grating_props</span><span class="p">)</span>
+<span class="linenos">103</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"vertices"</span><span class="p">,</span> <span class="n">vtx</span><span class="p">)</span>  <span class="c1"># Set the vertices of the polygon</span>
+<span class="linenos">104</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="sa">f</span><span class="s2">"tooth_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"z span"</span><span class="p">,</span> <span class="n">base_y</span><span class="p">)</span>  <span class="c1"># This is the thickness of the grating tooth in the y direction since there is a rotation</span>
+<span class="linenos">105</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">addtogroup</span><span class="p">(</span><span class="s2">"1D_grating"</span><span class="p">)</span>  <span class="c1"># Adds the recently created polygon to the structure group</span>
+<span class="linenos">106</span>        <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">107</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span><span class="k">def</span><span class="w"> </span><span class="nf">build_rcwa</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">110</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">111</span><span class="sd">    Set up the RCWA simulation object geometry.</span>
 <span class="linenos">112</span>
-<span class="linenos">113</span>
-<span class="linenos">114</span><span class="k">def</span><span class="w"> </span><span class="nf">build_rcwa</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">115</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">116</span><span class="sd">    Set up the RCWA simulation object geometry.</span>
-<span class="linenos">117</span>
-<span class="linenos">118</span><span class="sd">    Note the RCWA interfaces are set according to the minimum and maximum z positions of the grating and base objects.</span>
-<span class="linenos">119</span><span class="sd">    Therefore, you must build the grating first and add the RCWA simulation object after the grating is built.</span>
-<span class="linenos">120</span>
-<span class="linenos">121</span><span class="sd">    Parameters</span>
-<span class="linenos">122</span><span class="sd">    ----------</span>
-<span class="linenos">123</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
-<span class="linenos">124</span><span class="sd">    filename: File name to save to</span>
-<span class="linenos">125</span><span class="sd">    x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region</span>
-<span class="linenos">126</span><span class="sd">    """</span>
-<span class="linenos">127</span>    <span class="c1"># Set up RCWA simulation object</span>
-<span class="linenos">128</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrcwa</span><span class="p">(</span>
-<span class="linenos">129</span>        <span class="p">{</span>
-<span class="linenos">130</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
-<span class="linenos">131</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
-<span class="linenos">132</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
-<span class="linenos">133</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
-<span class="linenos">134</span>            <span class="s2">"z min"</span><span class="p">:</span> <span class="n">z_min</span><span class="p">,</span>
-<span class="linenos">135</span>            <span class="s2">"z max"</span><span class="p">:</span> <span class="n">z_max</span><span class="p">,</span>
-<span class="linenos">136</span>            <span class="s2">"simulation region"</span><span class="p">:</span> <span class="s2">"3D"</span><span class="p">,</span>
-<span class="linenos">137</span>            <span class="s2">"propagation direction"</span><span class="p">:</span> <span class="s2">"forward"</span><span class="p">,</span>
-<span class="linenos">138</span>        <span class="p">}</span>
-<span class="linenos">139</span>    <span class="p">)</span>
-<span class="linenos">140</span>
-<span class="linenos">141</span>    <span class="c1"># Set the RCWA interface positions. The interface positions are set from the minimum and maximum z positions of the grating object.</span>
-<span class="linenos">142</span>    <span class="c1"># For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object</span>
-<span class="linenos">143</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"interface position"</span><span class="p">,</span> <span class="s2">"reference"</span><span class="p">)</span>
-<span class="linenos">144</span>    <span class="c1"># Here, set the number of interfaces in each layer; here we set 10 interfaces for the slanted grating</span>
-<span class="linenos">145</span>    <span class="c1"># Only 1 interface is needed for the base since it is uniform in z</span>
-<span class="linenos">146</span>    <span class="n">interfaces</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">"::model::1D_grating"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="s2">"::model::base"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
-<span class="linenos">147</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"interface reference positions"</span><span class="p">,</span> <span class="n">interfaces</span><span class="p">)</span>
-<span class="linenos">148</span>
-<span class="linenos">149</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="linenos">150</span>
-<span class="linenos">151</span>
-<span class="linenos">152</span><span class="c1"># Build the grating and RCWA simulation objects</span>
-<span class="linenos">153</span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">hide</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_GUI</span><span class="p">)</span>
-<span class="linenos">154</span><span class="n">build_1d_grating</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">period_x</span><span class="p">,</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">top_factor</span><span class="p">,</span> <span class="n">num_teeth</span><span class="p">,</span> <span class="n">base_x</span><span class="p">,</span> <span class="n">base_y</span><span class="p">,</span> <span class="n">base_z</span><span class="p">,</span> <span class="n">n_grat</span><span class="p">,</span> <span class="n">n_base</span><span class="p">)</span>
-<span class="linenos">155</span><span class="nb">print</span><span class="p">(</span><span class="s2">"Grating geometry saved to file: "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
-<span class="linenos">156</span><span class="n">x_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.25</span> <span class="o">*</span> <span class="n">period_x</span>  <span class="c1"># Shift the RCWA simulation region by a quarter period to avoid the interface coinciding with the grating tooth edge</span>
-<span class="linenos">157</span><span class="n">build_rcwa</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">depth</span><span class="p">)</span>
-<span class="linenos">158</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA simulation geometry saved to file: "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+<span class="linenos">113</span><span class="sd">    Note the RCWA interfaces are set according to the minimum and maximum z positions of the grating and base objects.</span>
+<span class="linenos">114</span><span class="sd">    Therefore, you must build the grating first and add the RCWA simulation object after the grating is built.</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span><span class="sd">    Parameters</span>
+<span class="linenos">117</span><span class="sd">    ----------</span>
+<span class="linenos">118</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
+<span class="linenos">119</span><span class="sd">    filename: File name to save to</span>
+<span class="linenos">120</span><span class="sd">    x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region</span>
+<span class="linenos">121</span><span class="sd">    """</span>
+<span class="linenos">122</span>    <span class="c1"># Set up RCWA simulation object</span>
+<span class="linenos">123</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addrcwa</span><span class="p">(</span>
+<span class="linenos">124</span>        <span class="p">{</span>
+<span class="linenos">125</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
+<span class="linenos">126</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
+<span class="linenos">127</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
+<span class="linenos">128</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
+<span class="linenos">129</span>            <span class="s2">"z min"</span><span class="p">:</span> <span class="n">z_min</span><span class="p">,</span>
+<span class="linenos">130</span>            <span class="s2">"z max"</span><span class="p">:</span> <span class="n">z_max</span><span class="p">,</span>
+<span class="linenos">131</span>            <span class="s2">"simulation region"</span><span class="p">:</span> <span class="s2">"3D"</span><span class="p">,</span>
+<span class="linenos">132</span>            <span class="s2">"propagation direction"</span><span class="p">:</span> <span class="s2">"forward"</span><span class="p">,</span>
+<span class="linenos">133</span>        <span class="p">}</span>
+<span class="linenos">134</span>    <span class="p">)</span>
+<span class="linenos">135</span>
+<span class="linenos">136</span>    <span class="c1"># Set the RCWA interface positions. The interface positions are set from the minimum and maximum z positions of the grating object.</span>
+<span class="linenos">137</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"interface position"</span><span class="p">,</span> <span class="s2">"reference"</span><span class="p">)</span>
+<span class="linenos">138</span>    <span class="c1"># Here, set the number of interfaces in each layer; here we set 10 interfaces for the slanted grating</span>
+<span class="linenos">139</span>    <span class="c1"># Only 1 interface is needed for the base since it is uniform in z</span>
+<span class="linenos">140</span>    <span class="n">interfaces</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">"::model::1D_grating"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="s2">"::model::base"</span><span class="p">,</span> <span class="s2">"max"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="linenos">141</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"interface reference positions"</span><span class="p">,</span> <span class="n">interfaces</span><span class="p">)</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">144</span>
+<span class="linenos">145</span>
+<span class="linenos">146</span><span class="c1"># Build the grating and RCWA simulation objects</span>
+<span class="linenos">147</span><span class="n">fdtd</span> <span class="o">=</span> <span class="n">lumapi</span><span class="o">.</span><span class="n">FDTD</span><span class="p">(</span><span class="n">hide</span><span class="o">=</span><span class="ow">not</span> <span class="n">show_GUI</span><span class="p">)</span>
+<span class="linenos">148</span><span class="n">build_1d_grating</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">period_x</span><span class="p">,</span> <span class="n">fill_factor</span><span class="p">,</span> <span class="n">depth</span><span class="p">,</span> <span class="n">top_factor</span><span class="p">,</span> <span class="n">num_teeth</span><span class="p">,</span> <span class="n">base_x</span><span class="p">,</span> <span class="n">base_y</span><span class="p">,</span> <span class="n">base_z</span><span class="p">,</span> <span class="n">n_grat</span><span class="p">,</span> <span class="n">n_base</span><span class="p">)</span>
+<span class="linenos">149</span><span class="nb">print</span><span class="p">(</span><span class="s2">"Grating geometry saved to file: "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+<span class="linenos">150</span><span class="n">x_shift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.25</span> <span class="o">*</span> <span class="n">period_x</span>  <span class="c1"># Shift the RCWA simulation region by a quarter period to avoid the interface coinciding with the grating tooth edge</span>
+<span class="linenos">151</span><span class="n">build_rcwa</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">depth</span><span class="p">)</span>
+<span class="linenos">152</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA simulation geometry saved to file: "</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p><img alt="1bf7d9c74a0a49cd822040a0997518ec" class="no-scaled-link" src="../../../_images/diffraction_grating_screenshot.png" style="width: 600px;" /></p>
+<p><img alt="3bac470088f547a688f6adf45b3e4e2f" class="no-scaled-link" src="../../../_images/diffraction_grating_screenshot.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-2:-RCWA-Simulation">
 <h2>Part 2: RCWA Simulation<a class="headerlink" href="#Part-2:-RCWA-Simulation" title="Link to this heading">#</a></h2>
+<p>Configure wavelength/angle excitation settings, and run the RCWA simulation. For documentation, see <a class="reference external" href="https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object">here</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">Grating_characterization</span></code> returns the complex S-parameters for each grating order split into S and P polarizations.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">159</span><span class="c1"># Configure wavelength/angle excitation settings, and run the RCWA simulation.</span>
-<span class="linenos">160</span><span class="c1"># The grating_characterization result is returned. For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object</span>
-<span class="linenos">161</span><span class="c1"># Grating_characterization returns the complex S-parameters for each grating order split into S and P polarizations.</span>
-<span class="linenos">162</span>
-<span class="linenos">163</span><span class="c1"># Set the number of wavelengths and angles to simulate</span>
-<span class="linenos">164</span><span class="c1"># Setting to 1 will use the minimum value set above</span>
-<span class="linenos">165</span><span class="n">num_wavelengths</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="linenos">166</span><span class="n">num_theta</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="linenos">167</span><span class="n">num_phi</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="linenos">168</span>
-<span class="linenos">169</span>
-<span class="linenos">170</span><span class="k">def</span><span class="w"> </span><span class="nf">run_rcwa_simulation</span><span class="p">(</span>
-<span class="linenos">171</span>    <span class="n">fdtd</span><span class="p">,</span>
-<span class="linenos">172</span>    <span class="n">filename</span><span class="p">,</span>
-<span class="linenos">173</span>    <span class="n">wl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos">174</span>    <span class="n">wl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="linenos">175</span>    <span class="n">num_wavelengths</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="linenos">176</span>    <span class="n">theta_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="linenos">177</span>    <span class="n">theta_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">,</span>
-<span class="linenos">178</span>    <span class="n">num_theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">179</span>    <span class="n">phi_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-<span class="linenos">180</span>    <span class="n">phi_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">180.0</span><span class="p">,</span>
-<span class="linenos">181</span>    <span class="n">num_phi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">182</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
-<span class="linenos">183</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">184</span><span class="sd">    Run the RCWA simulation and retrieves the grating characterization results.</span>
-<span class="linenos">185</span>
-<span class="linenos">186</span><span class="sd">    Parameters</span>
-<span class="linenos">187</span><span class="sd">    ----------</span>
-<span class="linenos">188</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
-<span class="linenos">189</span><span class="sd">    filename: File name to load</span>
-<span class="linenos">190</span><span class="sd">    wl_min: Minimum wavelength</span>
-<span class="linenos">191</span><span class="sd">    wl_max: Maximum wavelength</span>
-<span class="linenos">192</span><span class="sd">    num_wavelengths: Number of wavelength points</span>
-<span class="linenos">193</span><span class="sd">    theta_min: Minimum incident angle (theta)</span>
-<span class="linenos">194</span><span class="sd">    theta_max: Maximum incident angle (theta)</span>
-<span class="linenos">195</span><span class="sd">    num_theta: Number of theta points</span>
-<span class="linenos">196</span><span class="sd">    phi_min: Minimum azimuthal angle (phi)</span>
-<span class="linenos">197</span><span class="sd">    phi_max: Maximum azimuthal angle (phi)</span>
-<span class="linenos">198</span><span class="sd">    num_phi: Number of phi points</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">153</span><span class="c1"># Set the number of wavelengths and angles to simulate</span>
+<span class="linenos">154</span><span class="c1"># Setting to 1 will use the minimum value set above</span>
+<span class="linenos">155</span><span class="n">num_wavelengths</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="linenos">156</span><span class="n">num_theta</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="linenos">157</span><span class="n">num_phi</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="linenos">158</span>
+<span class="linenos">159</span>
+<span class="linenos">160</span><span class="k">def</span><span class="w"> </span><span class="nf">run_rcwa_simulation</span><span class="p">(</span>
+<span class="linenos">161</span>    <span class="n">fdtd</span><span class="p">,</span>
+<span class="linenos">162</span>    <span class="n">filename</span><span class="p">,</span>
+<span class="linenos">163</span>    <span class="n">wl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos">164</span>    <span class="n">wl_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="linenos">165</span>    <span class="n">num_wavelengths</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="linenos">166</span>    <span class="n">theta_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="linenos">167</span>    <span class="n">theta_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">90.0</span><span class="p">,</span>
+<span class="linenos">168</span>    <span class="n">num_theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">169</span>    <span class="n">phi_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="linenos">170</span>    <span class="n">phi_max</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">180.0</span><span class="p">,</span>
+<span class="linenos">171</span>    <span class="n">num_phi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">172</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Dict</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]:</span>
+<span class="linenos">173</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">174</span><span class="sd">    Run the RCWA simulation and retrieves the grating characterization results.</span>
+<span class="linenos">175</span>
+<span class="linenos">176</span><span class="sd">    Parameters</span>
+<span class="linenos">177</span><span class="sd">    ----------</span>
+<span class="linenos">178</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
+<span class="linenos">179</span><span class="sd">    filename: File name to load</span>
+<span class="linenos">180</span><span class="sd">    wl_min: Minimum wavelength</span>
+<span class="linenos">181</span><span class="sd">    wl_max: Maximum wavelength</span>
+<span class="linenos">182</span><span class="sd">    num_wavelengths: Number of wavelength points</span>
+<span class="linenos">183</span><span class="sd">    theta_min: Minimum incident angle (theta)</span>
+<span class="linenos">184</span><span class="sd">    theta_max: Maximum incident angle (theta)</span>
+<span class="linenos">185</span><span class="sd">    num_theta: Number of theta points</span>
+<span class="linenos">186</span><span class="sd">    phi_min: Minimum azimuthal angle (phi)</span>
+<span class="linenos">187</span><span class="sd">    phi_max: Maximum azimuthal angle (phi)</span>
+<span class="linenos">188</span><span class="sd">    num_phi: Number of phi points</span>
+<span class="linenos">189</span>
+<span class="linenos">190</span><span class="sd">    Returns</span>
+<span class="linenos">191</span><span class="sd">    -------</span>
+<span class="linenos">192</span><span class="sd">    gc: The grating_characterization result, containing the full complex S-parameters (Tss, Tpp, Rss, Rpp)</span>
+<span class="linenos">193</span><span class="sd">        versus wavelength, theta, phi, and diffraction orders n and m</span>
+<span class="linenos">194</span><span class="sd">    total_energy: The total_energy result, containing the total transmission/reflection (Ts, Tp, Rs, Rp)</span>
+<span class="linenos">195</span><span class="sd">        versus wavelength, theta, and phi for each polarization</span>
+<span class="linenos">196</span><span class="sd">    """</span>
+<span class="linenos">197</span>    <span class="c1"># First, return to layout</span>
+<span class="linenos">198</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
 <span class="linenos">199</span>
-<span class="linenos">200</span><span class="sd">    Returns</span>
-<span class="linenos">201</span><span class="sd">    -------</span>
-<span class="linenos">202</span><span class="sd">    gc: The grating_characterization result, containing the full complex S-parameters (Tss, Tpp, Rss, Rpp)</span>
-<span class="linenos">203</span><span class="sd">        versus wavelength, theta, phi, and diffraction orders n and m</span>
-<span class="linenos">204</span><span class="sd">    total_energy: The total_energy result, containing the total transmission/reflection (Ts, Tp, Rs, Rp)</span>
-<span class="linenos">205</span><span class="sd">        versus wavelength, theta, and phi for each polarization</span>
-<span class="linenos">206</span><span class="sd">    """</span>
-<span class="linenos">207</span>    <span class="c1"># First, return to layout</span>
-<span class="linenos">208</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
-<span class="linenos">209</span>
-<span class="linenos">210</span>    <span class="c1"># Set RCWA incident illumination properties</span>
-<span class="linenos">211</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"propagation direction"</span><span class="p">,</span> <span class="s2">"forward"</span><span class="p">)</span>  <span class="c1"># Propagate forward or backward along z axis</span>
-<span class="linenos">212</span>
-<span class="linenos">213</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"use wavelength spacing"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="linenos">214</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum wavelength"</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">)</span>
-<span class="linenos">215</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum wavelength"</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">)</span>
-<span class="linenos">216</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"frequency points"</span><span class="p">,</span> <span class="n">num_wavelengths</span><span class="p">)</span>
-<span class="linenos">217</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"incident angle"</span><span class="p">,</span> <span class="s2">"range"</span><span class="p">)</span>
-<span class="linenos">218</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum theta"</span><span class="p">,</span> <span class="n">theta_min</span><span class="p">)</span>
-<span class="linenos">219</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum theta"</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">)</span>
-<span class="linenos">220</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"theta points"</span><span class="p">,</span> <span class="n">num_theta</span><span class="p">)</span>
-<span class="linenos">221</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum phi"</span><span class="p">,</span> <span class="n">phi_min</span><span class="p">)</span>
-<span class="linenos">222</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum phi"</span><span class="p">,</span> <span class="n">phi_max</span><span class="p">)</span>
-<span class="linenos">223</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"phi points"</span><span class="p">,</span> <span class="n">num_phi</span><span class="p">)</span>
-<span class="linenos">224</span>
-<span class="linenos">225</span>    <span class="c1"># Set result properties</span>
-<span class="linenos">226</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"report grating characterization"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="linenos">227</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"return theta and phi as separate parameters when possible"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="linenos">228</span>
-<span class="linenos">229</span>    <span class="c1"># Save and run</span>
-<span class="linenos">230</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="linenos">231</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># Run the simulation</span>
-<span class="linenos">232</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># Save the file after running to save the results</span>
-<span class="linenos">233</span>
-<span class="linenos">234</span>    <span class="c1"># Retrieve results</span>
-<span class="linenos">235</span>    <span class="n">gc</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"grating_characterization"</span><span class="p">)</span>  <span class="c1"># full complex S-parameters</span>
-<span class="linenos">236</span>    <span class="n">total_energy</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"total_energy"</span><span class="p">)</span>  <span class="c1"># total T/R for each polarization</span>
-<span class="linenos">237</span>
-<span class="linenos">238</span>    <span class="k">return</span> <span class="n">gc</span><span class="p">,</span> <span class="n">total_energy</span>
-<span class="linenos">239</span>
-<span class="linenos">240</span>
-<span class="linenos">241</span><span class="c1"># Now use the function to run the RCWA simulation and retrieve the results</span>
-<span class="linenos">242</span><span class="n">gc</span><span class="p">,</span> <span class="n">total_energy</span> <span class="o">=</span> <span class="n">run_rcwa_simulation</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">,</span> <span class="n">num_wavelengths</span><span class="p">,</span> <span class="n">theta_min</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">,</span> <span class="n">num_theta</span><span class="p">,</span> <span class="n">phi_min</span><span class="p">,</span> <span class="n">phi_max</span><span class="p">,</span> <span class="n">num_phi</span><span class="p">)</span>
-<span class="linenos">243</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA simulation completed and results retrieved."</span><span class="p">)</span>
-<span class="linenos">244</span>
-<span class="linenos">245</span><span class="c1"># Print the sweep parameters</span>
-<span class="linenos">246</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA sweep parameters:"</span><span class="p">)</span>
-<span class="linenos">247</span><span class="nb">print</span><span class="p">(</span><span class="s2">"lambda:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">])</span> <span class="o">*</span> <span class="n">m_to_nm</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">)</span>  <span class="c1"># Convert to nm for display</span>
-<span class="linenos">248</span><span class="nb">print</span><span class="p">(</span><span class="s2">"theta:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]),</span> <span class="s2">"deg"</span><span class="p">)</span>
-<span class="linenos">249</span><span class="nb">print</span><span class="p">(</span><span class="s2">"phi:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]),</span> <span class="s2">"deg"</span><span class="p">)</span>
+<span class="linenos">200</span>    <span class="c1"># Set RCWA incident illumination properties</span>
+<span class="linenos">201</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"propagation direction"</span><span class="p">,</span> <span class="s2">"forward"</span><span class="p">)</span>  <span class="c1"># Propagate forward or backward along z axis</span>
+<span class="linenos">202</span>
+<span class="linenos">203</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"use wavelength spacing"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">204</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum wavelength"</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">)</span>
+<span class="linenos">205</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum wavelength"</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">)</span>
+<span class="linenos">206</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"frequency points"</span><span class="p">,</span> <span class="n">num_wavelengths</span><span class="p">)</span>
+<span class="linenos">207</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"incident angle"</span><span class="p">,</span> <span class="s2">"range"</span><span class="p">)</span>
+<span class="linenos">208</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum theta"</span><span class="p">,</span> <span class="n">theta_min</span><span class="p">)</span>
+<span class="linenos">209</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum theta"</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">)</span>
+<span class="linenos">210</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"theta points"</span><span class="p">,</span> <span class="n">num_theta</span><span class="p">)</span>
+<span class="linenos">211</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"minimum phi"</span><span class="p">,</span> <span class="n">phi_min</span><span class="p">)</span>
+<span class="linenos">212</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"maximum phi"</span><span class="p">,</span> <span class="n">phi_max</span><span class="p">)</span>
+<span class="linenos">213</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"phi points"</span><span class="p">,</span> <span class="n">num_phi</span><span class="p">)</span>
+<span class="linenos">214</span>
+<span class="linenos">215</span>    <span class="c1"># Set result properties</span>
+<span class="linenos">216</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"report grating characterization"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">217</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"return theta and phi as separate parameters when possible"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="linenos">218</span>
+<span class="linenos">219</span>    <span class="c1"># Save and run</span>
+<span class="linenos">220</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">221</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># Run the simulation</span>
+<span class="linenos">222</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># Save the file after running to save the results</span>
+<span class="linenos">223</span>
+<span class="linenos">224</span>    <span class="c1"># Retrieve results</span>
+<span class="linenos">225</span>    <span class="n">gc</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"grating_characterization"</span><span class="p">)</span>  <span class="c1"># full complex S-parameters</span>
+<span class="linenos">226</span>    <span class="n">total_energy</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getresult</span><span class="p">(</span><span class="s2">"RCWA"</span><span class="p">,</span> <span class="s2">"total_energy"</span><span class="p">)</span>  <span class="c1"># total T/R for each polarization</span>
+<span class="linenos">227</span>
+<span class="linenos">228</span>    <span class="k">return</span> <span class="n">gc</span><span class="p">,</span> <span class="n">total_energy</span>
+<span class="linenos">229</span>
+<span class="linenos">230</span>
+<span class="linenos">231</span><span class="c1"># Now use the function to run the RCWA simulation and retrieve the results</span>
+<span class="linenos">232</span><span class="n">gc</span><span class="p">,</span> <span class="n">total_energy</span> <span class="o">=</span> <span class="n">run_rcwa_simulation</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">,</span> <span class="n">num_wavelengths</span><span class="p">,</span> <span class="n">theta_min</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">,</span> <span class="n">num_theta</span><span class="p">,</span> <span class="n">phi_min</span><span class="p">,</span> <span class="n">phi_max</span><span class="p">,</span> <span class="n">num_phi</span><span class="p">)</span>
+<span class="linenos">233</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA simulation completed and results retrieved."</span><span class="p">)</span>
+<span class="linenos">234</span>
+<span class="linenos">235</span><span class="c1"># Print the sweep parameters</span>
+<span class="linenos">236</span><span class="nb">print</span><span class="p">(</span><span class="s2">"RCWA sweep parameters:"</span><span class="p">)</span>
+<span class="linenos">237</span><span class="nb">print</span><span class="p">(</span><span class="s2">"lambda:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">])</span> <span class="o">*</span> <span class="n">m_to_nm</span><span class="p">,</span> <span class="s2">"nm"</span><span class="p">)</span>  <span class="c1"># Convert to nm for display</span>
+<span class="linenos">238</span><span class="nb">print</span><span class="p">(</span><span class="s2">"theta:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]),</span> <span class="s2">"deg"</span><span class="p">)</span>
+<span class="linenos">239</span><span class="nb">print</span><span class="p">(</span><span class="s2">"phi:"</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]),</span> <span class="s2">"deg"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </section>
 <section id="Part-3:-Plot-RCWA-results">
 <h2>Part 3: Plot RCWA results<a class="headerlink" href="#Part-3:-Plot-RCWA-results" title="Link to this heading">#</a></h2>
+<p>Now plot useful results. The following function helps to extract useful results from the grating_characterization object for plotting.</p>
+<p>For normal incidence, the grating equation is: <span class="math notranslate nohighlight">\(\frac{m\lambda}{D}=\sin{\theta}\)</span>, where <span class="math notranslate nohighlight">\(m\)</span> is the diffraction order, <span class="math notranslate nohighlight">\(\lambda\)</span> is the wavelength, and <span class="math notranslate nohighlight">\(D\)</span> is the grating period <code class="docutils literal notranslate"><span class="pre">period_x</span></code>. The <span class="math notranslate nohighlight">\(m\)</span>-th order propagates at an angle <span class="math notranslate nohighlight">\(\theta = \arcsin\left(\frac{m \lambda}{D}\right)\)</span>.</p>
+<p>In this example, the wavelength range is 350–800 nm and the grating period is 600 nm. Thus, only the zeroth order propagates for <span class="math notranslate nohighlight">\(\lambda &gt; 600\)</span> nm. At 600 nm, the <span class="math notranslate nohighlight">\(\pm 1\)</span> orders are at the grazing-angle threshold and can propagate.</p>
+<p>Therefore we can only observe the zero-th order for wavelengths above 600 nm, zero-th and first order for wavelength below 600 nm.</p>
+<p>Similarly, the second order can propagate only below wavelength shorter than 300 nm, which is not available in this case.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">250</span><span class="c1"># Now plot useful results.</span>
-<span class="linenos">251</span><span class="c1"># The following function helps to extract useful results from the grating_characterization object for plotting.</span>
-<span class="linenos">252</span>
-<span class="linenos">253</span>
-<span class="linenos">254</span><span class="k">def</span><span class="w"> </span><span class="nf">extract_values_gc</span><span class="p">(</span>
-<span class="linenos">255</span>    <span class="n">gc</span><span class="p">,</span> <span class="n">order_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">order_m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">angle_theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">angle_phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="linenos">256</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="linenos">257</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">258</span><span class="sd">    Extract T, R results versus wavelength for the specified order and angle for both S and P polarizations.</span>
-<span class="linenos">259</span>
-<span class="linenos">260</span><span class="sd">    Parameters</span>
-<span class="linenos">261</span><span class="sd">    ----------</span>
-<span class="linenos">262</span><span class="sd">    gc: The grating_characterization result dictionary returned by the RCWA simulation, containing the complex</span>
-<span class="linenos">263</span><span class="sd">        S-parameters (Tss, Tpp, Rss, Rpp) versus wavelength, theta, phi, and diffraction orders n and m</span>
-<span class="linenos">264</span><span class="sd">    order_n: Diffraction order index along n to extract</span>
-<span class="linenos">265</span><span class="sd">    order_m: Diffraction order index along m to extract</span>
-<span class="linenos">266</span><span class="sd">    angle_theta: Incident theta angle (deg) to extract</span>
-<span class="linenos">267</span><span class="sd">    angle_phi: Incident phi angle (deg) to extract</span>
-<span class="linenos">268</span>
-<span class="linenos">269</span><span class="sd">    Returns</span>
-<span class="linenos">270</span><span class="sd">    -------</span>
-<span class="linenos">271</span><span class="sd">    plot_Tss, plot_Rss, plot_Tpp, plot_Rpp: Transmission/reflection efficiencies versus wavelength for the</span>
-<span class="linenos">272</span><span class="sd">        specified order and angle, for S and P polarizations respectively</span>
-<span class="linenos">273</span><span class="sd">    wavelengths: Wavelength values corresponding to the results</span>
-<span class="linenos">274</span><span class="sd">    """</span>
-<span class="linenos">275</span>    <span class="n">Tss</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Tss"</span><span class="p">]</span>  <span class="c1"># Result returned vs. wavelength, theta, phi, orders n and m</span>
-<span class="linenos">276</span>    <span class="n">Tpp</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Tpp"</span><span class="p">]</span>
-<span class="linenos">277</span>    <span class="n">Rss</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Rss"</span><span class="p">]</span>
-<span class="linenos">278</span>    <span class="n">Rpp</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Rpp"</span><span class="p">]</span>
-<span class="linenos">279</span>
-<span class="linenos">280</span>    <span class="c1"># Get m and n indices of the specified order</span>
-<span class="linenos">281</span>    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"m"</span><span class="p">]</span> <span class="o">==</span> <span class="n">order_m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">282</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">==</span> <span class="n">order_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">283</span>    <span class="c1"># Get theta and phi indices at normal incidence</span>
-<span class="linenos">284</span>    <span class="n">theta_phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">gc</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_theta</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_phi</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">285</span>    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">]</span>  <span class="c1"># Wavelength values corresponding to the results</span>
-<span class="linenos">286</span>
-<span class="linenos">287</span>    <span class="c1"># Calculate transmission and reflection for both polarizations</span>
-<span class="linenos">288</span>    <span class="n">plot_Tss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tss</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># wavelength, theta, phi, order n, order m</span>
-<span class="linenos">289</span>    <span class="n">plot_Rss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rss</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="linenos">290</span>    <span class="n">plot_Tpp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tpp</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="linenos">291</span>    <span class="n">plot_Rpp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rpp</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-<span class="linenos">292</span>
-<span class="linenos">293</span>    <span class="k">return</span> <span class="n">plot_Tss</span><span class="p">,</span> <span class="n">plot_Rss</span><span class="p">,</span> <span class="n">plot_Tpp</span><span class="p">,</span> <span class="n">plot_Rpp</span><span class="p">,</span> <span class="n">wavelengths</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">240</span><span class="k">def</span><span class="w"> </span><span class="nf">extract_values_gc</span><span class="p">(</span>
+<span class="linenos">241</span>    <span class="n">gc</span><span class="p">,</span> <span class="n">order_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">order_m</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">angle_theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">angle_phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="linenos">242</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="linenos">243</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">244</span><span class="sd">    Extract T, R results versus wavelength for the specified order and angle for both S and P polarizations.</span>
+<span class="linenos">245</span>
+<span class="linenos">246</span><span class="sd">    Parameters</span>
+<span class="linenos">247</span><span class="sd">    ----------</span>
+<span class="linenos">248</span><span class="sd">    gc: The grating_characterization result dictionary returned by the RCWA simulation, containing the complex</span>
+<span class="linenos">249</span><span class="sd">        S-parameters (Tss, Tpp, Rss, Rpp) versus wavelength, theta, phi, and diffraction orders n and m</span>
+<span class="linenos">250</span><span class="sd">    order_n: Diffraction order index along n to extract</span>
+<span class="linenos">251</span><span class="sd">    order_m: Diffraction order index along m to extract</span>
+<span class="linenos">252</span><span class="sd">    angle_theta: Incident theta angle (deg) to extract</span>
+<span class="linenos">253</span><span class="sd">    angle_phi: Incident phi angle (deg) to extract</span>
+<span class="linenos">254</span>
+<span class="linenos">255</span><span class="sd">    Returns</span>
+<span class="linenos">256</span><span class="sd">    -------</span>
+<span class="linenos">257</span><span class="sd">    plot_Tss, plot_Rss, plot_Tpp, plot_Rpp: Transmission/reflection efficiencies versus wavelength for the</span>
+<span class="linenos">258</span><span class="sd">        specified order and angle, for S and P polarizations respectively</span>
+<span class="linenos">259</span><span class="sd">    wavelengths: Wavelength values corresponding to the results</span>
+<span class="linenos">260</span><span class="sd">    """</span>
+<span class="linenos">261</span>    <span class="n">Tss</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Tss"</span><span class="p">]</span>  <span class="c1"># Result returned vs. wavelength, theta, phi, orders n and m</span>
+<span class="linenos">262</span>    <span class="n">Tpp</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Tpp"</span><span class="p">]</span>
+<span class="linenos">263</span>    <span class="n">Rss</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Rss"</span><span class="p">]</span>
+<span class="linenos">264</span>    <span class="n">Rpp</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"Rpp"</span><span class="p">]</span>
+<span class="linenos">265</span>
+<span class="linenos">266</span>    <span class="c1"># Get m and n indices of the specified order</span>
+<span class="linenos">267</span>    <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"m"</span><span class="p">]</span> <span class="o">==</span> <span class="n">order_m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">268</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span> <span class="o">==</span> <span class="n">order_n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">269</span>    <span class="c1"># Get theta and phi indices at normal incidence</span>
+<span class="linenos">270</span>    <span class="n">theta_phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">gc</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_theta</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">gc</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_phi</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">271</span>    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">]</span>  <span class="c1"># Wavelength values corresponding to the results</span>
+<span class="linenos">272</span>
+<span class="linenos">273</span>    <span class="c1"># Calculate transmission and reflection for both polarizations</span>
+<span class="linenos">274</span>    <span class="n">plot_Tss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tss</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># wavelength, theta, phi, order n, order m</span>
+<span class="linenos">275</span>    <span class="n">plot_Rss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rss</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="linenos">276</span>    <span class="n">plot_Tpp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tpp</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="linenos">277</span>    <span class="n">plot_Rpp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rpp</span><span class="p">[:,</span> <span class="n">theta_phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="linenos">278</span>
+<span class="linenos">279</span>    <span class="k">return</span> <span class="n">plot_Tss</span><span class="p">,</span> <span class="n">plot_Rss</span><span class="p">,</span> <span class="n">plot_Tpp</span><span class="p">,</span> <span class="n">plot_Rpp</span><span class="p">,</span> <span class="n">wavelengths</span>
+<span class="linenos">280</span>
+<span class="linenos">281</span>
+<span class="linenos">282</span><span class="k">def</span><span class="w"> </span><span class="nf">extract_values_total_energy</span><span class="p">(</span>
+<span class="linenos">283</span>    <span class="n">total_energy</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">angle_theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">angle_phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="linenos">284</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="linenos">285</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">286</span><span class="sd">    Extract T, R results versus wavelength for the specified angle for both S and P polarizations.</span>
+<span class="linenos">287</span>
+<span class="linenos">288</span><span class="sd">    Parameters</span>
+<span class="linenos">289</span><span class="sd">    ----------</span>
+<span class="linenos">290</span><span class="sd">    total_energy: The total_energy result dictionary returned by the RCWA simulation, containing the total</span>
+<span class="linenos">291</span><span class="sd">        transmission/reflection (Ts, Tp, Rs, Rp) versus wavelength, theta, and phi for each polarization</span>
+<span class="linenos">292</span><span class="sd">    angle_theta: Incident theta angle (deg) to extract</span>
+<span class="linenos">293</span><span class="sd">    angle_phi: Incident phi angle (deg) to extract</span>
 <span class="linenos">294</span>
-<span class="linenos">295</span>
-<span class="linenos">296</span><span class="k">def</span><span class="w"> </span><span class="nf">extract_values_total_energy</span><span class="p">(</span>
-<span class="linenos">297</span>    <span class="n">total_energy</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">angle_theta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">angle_phi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="linenos">298</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-<span class="linenos">299</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">300</span><span class="sd">    Extract T, R results versus wavelength for the specified angle for both S and P polarizations.</span>
-<span class="linenos">301</span>
-<span class="linenos">302</span><span class="sd">    Parameters</span>
-<span class="linenos">303</span><span class="sd">    ----------</span>
-<span class="linenos">304</span><span class="sd">    total_energy: The total_energy result dictionary returned by the RCWA simulation, containing the total</span>
-<span class="linenos">305</span><span class="sd">        transmission/reflection (Ts, Tp, Rs, Rp) versus wavelength, theta, and phi for each polarization</span>
-<span class="linenos">306</span><span class="sd">    angle_theta: Incident theta angle (deg) to extract</span>
-<span class="linenos">307</span><span class="sd">    angle_phi: Incident phi angle (deg) to extract</span>
-<span class="linenos">308</span>
-<span class="linenos">309</span><span class="sd">    Returns</span>
-<span class="linenos">310</span><span class="sd">    -------</span>
-<span class="linenos">311</span><span class="sd">    plot_Ts, plot_Rs, plot_Tp, plot_Rp: Total transmission/reflection efficiencies versus wavelength at the</span>
-<span class="linenos">312</span><span class="sd">        specified angle, for S and P polarizations respectively</span>
-<span class="linenos">313</span><span class="sd">    wavelengths: Wavelength values corresponding to the results</span>
-<span class="linenos">314</span><span class="sd">    """</span>
-<span class="linenos">315</span>    <span class="n">Ts</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Ts"</span><span class="p">]</span>  <span class="c1"># Result returned vs. wavelength, theta, phi</span>
-<span class="linenos">316</span>    <span class="n">Tp</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Tp"</span><span class="p">]</span>
-<span class="linenos">317</span>    <span class="n">Rs</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Rs"</span><span class="p">]</span>
-<span class="linenos">318</span>    <span class="n">Rp</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Rp"</span><span class="p">]</span>
-<span class="linenos">319</span>
-<span class="linenos">320</span>    <span class="c1"># Get theta and phi indices at normal incidence</span>
-<span class="linenos">321</span>    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">total_energy</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">322</span>    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">total_energy</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="linenos">323</span>    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">]</span>  <span class="c1"># Wavelength values corresponding to the results</span>
-<span class="linenos">324</span>
-<span class="linenos">325</span>    <span class="c1"># Calculate transmission and reflection for both polarizations</span>
-<span class="linenos">326</span>    <span class="n">plot_Ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ts</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>  <span class="c1"># wavelength, theta, phi</span>
-<span class="linenos">327</span>    <span class="n">plot_Rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rs</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
-<span class="linenos">328</span>    <span class="n">plot_Tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tp</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
-<span class="linenos">329</span>    <span class="n">plot_Rp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rp</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
-<span class="linenos">330</span>
-<span class="linenos">331</span>    <span class="k">return</span> <span class="n">plot_Ts</span><span class="p">,</span> <span class="n">plot_Rs</span><span class="p">,</span> <span class="n">plot_Tp</span><span class="p">,</span> <span class="n">plot_Rp</span><span class="p">,</span> <span class="n">wavelengths</span>
+<span class="linenos">295</span><span class="sd">    Returns</span>
+<span class="linenos">296</span><span class="sd">    -------</span>
+<span class="linenos">297</span><span class="sd">    plot_Ts, plot_Rs, plot_Tp, plot_Rp: Total transmission/reflection efficiencies versus wavelength at the</span>
+<span class="linenos">298</span><span class="sd">        specified angle, for S and P polarizations respectively</span>
+<span class="linenos">299</span><span class="sd">    wavelengths: Wavelength values corresponding to the results</span>
+<span class="linenos">300</span><span class="sd">    """</span>
+<span class="linenos">301</span>    <span class="n">Ts</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Ts"</span><span class="p">]</span>  <span class="c1"># Result returned vs. wavelength, theta, phi</span>
+<span class="linenos">302</span>    <span class="n">Tp</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Tp"</span><span class="p">]</span>
+<span class="linenos">303</span>    <span class="n">Rs</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Rs"</span><span class="p">]</span>
+<span class="linenos">304</span>    <span class="n">Rp</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"Rp"</span><span class="p">]</span>
+<span class="linenos">305</span>
+<span class="linenos">306</span>    <span class="c1"># Get theta and phi indices at normal incidence</span>
+<span class="linenos">307</span>    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">total_energy</span><span class="p">[</span><span class="s2">"theta"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_theta</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">308</span>    <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">total_energy</span><span class="p">[</span><span class="s2">"phi"</span><span class="p">]</span> <span class="o">==</span> <span class="n">angle_phi</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">309</span>    <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">total_energy</span><span class="p">[</span><span class="s2">"lambda"</span><span class="p">]</span>  <span class="c1"># Wavelength values corresponding to the results</span>
+<span class="linenos">310</span>
+<span class="linenos">311</span>    <span class="c1"># Calculate transmission and reflection for both polarizations</span>
+<span class="linenos">312</span>    <span class="n">plot_Ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Ts</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>  <span class="c1"># wavelength, theta, phi</span>
+<span class="linenos">313</span>    <span class="n">plot_Rs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rs</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
+<span class="linenos">314</span>    <span class="n">plot_Tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Tp</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
+<span class="linenos">315</span>    <span class="n">plot_Rp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Rp</span><span class="p">[:,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">])</span>
+<span class="linenos">316</span>
+<span class="linenos">317</span>    <span class="k">return</span> <span class="n">plot_Ts</span><span class="p">,</span> <span class="n">plot_Rs</span><span class="p">,</span> <span class="n">plot_Tp</span><span class="p">,</span> <span class="n">plot_Rp</span><span class="p">,</span> <span class="n">wavelengths</span>
 </pre></div>
 </div>
 </div>
@@ -1016,163 +1007,133 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">332</span><span class="c1"># Plot RCWA results</span>
-<span class="linenos">333</span>
-<span class="linenos">334</span><span class="c1"># Plot efficiencies for specific orders</span>
-<span class="linenos">335</span><span class="n">order_ns</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Specify the range of diffraction orders to plot, e.g., from -3 to 3</span>
-<span class="linenos">336</span>
-<span class="linenos">337</span><span class="c1"># Set up plotting</span>
-<span class="linenos">338</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">318</span><span class="c1"># Plot RCWA results</span>
+<span class="linenos">319</span>
+<span class="linenos">320</span><span class="c1"># Plot efficiencies for specific orders</span>
+<span class="linenos">321</span><span class="n">order_ns</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Specify the range of diffraction orders to plot, e.g., from -3 to 3</span>
+<span class="linenos">322</span>
+<span class="linenos">323</span><span class="c1"># Set up plotting</span>
+<span class="linenos">324</span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="linenos">325</span>
+<span class="linenos">326</span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">order_ns</span><span class="p">:</span>
+<span class="linenos">327</span>    <span class="n">Tss</span><span class="p">,</span> <span class="n">Rss</span><span class="p">,</span> <span class="n">Tpp</span><span class="p">,</span> <span class="n">Rpp</span><span class="p">,</span> <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">extract_values_gc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">order_n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">328</span>    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">Tss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Tss n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">329</span>    <span class="c1"># axes[0].plot(wavelengths*1e9, Rss, label=f"Rss n = {n}")</span>
+<span class="linenos">330</span>    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">Tpp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Tpp n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="linenos">331</span>    <span class="c1"># axes[1].plot(wavelengths*1e9, Rpp, label=f"Rpp n = {n}")</span>
+<span class="linenos">332</span>
+<span class="linenos">333</span><span class="c1"># Retrieve overall T/R results at normal incidence</span>
+<span class="linenos">334</span><span class="n">total_Ts</span><span class="p">,</span> <span class="n">total_Rs</span><span class="p">,</span> <span class="n">total_Tp</span><span class="p">,</span> <span class="n">total_Rp</span><span class="p">,</span> <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">extract_values_total_energy</span><span class="p">(</span><span class="n">total_energy</span><span class="p">)</span>  <span class="c1"># Total transmission for each polarization</span>
+<span class="linenos">335</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">total_Ts</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Total Ts"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="linenos">336</span><span class="c1"># axes[0].plot(wavelengths*1e9, total_Rs, label="Total Rs", color="black", linestyle="--", linewidth=4)</span>
+<span class="linenos">337</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">total_Tp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Total Tp"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="linenos">338</span><span class="c1"># axes[1].plot(wavelengths*1e9, total_Rp, label="Total Rp", color="black", linestyle="--", linewidth=4)</span>
 <span class="linenos">339</span>
-<span class="linenos">340</span>
-<span class="linenos">341</span><span class="k">def</span><span class="w"> </span><span class="nf">order_style</span><span class="p">(</span><span class="n">order_n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="linenos">342</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">343</span><span class="sd">    Help plot diffraction orders with different colors.</span>
+<span class="linenos">340</span><span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
+<span class="linenos">341</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Wavelength (nm)"</span><span class="p">)</span>
+<span class="linenos">342</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Efficiency"</span><span class="p">)</span>
+<span class="linenos">343</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="linenos">344</span>
-<span class="linenos">345</span><span class="sd">    Parameters</span>
-<span class="linenos">346</span><span class="sd">    ----------</span>
-<span class="linenos">347</span><span class="sd">    order_n: Diffraction order index to get the plotting color/linestyle for. Order 0 is plotted in black;</span>
-<span class="linenos">348</span><span class="sd">        negative orders (-3 to -1) use shades of blue, and positive orders (1 to 3) use shades of red</span>
-<span class="linenos">349</span>
-<span class="linenos">350</span><span class="sd">    Returns</span>
-<span class="linenos">351</span><span class="sd">    -------</span>
-<span class="linenos">352</span><span class="sd">    A tuple of (color, linestyle) to use when plotting the given diffraction order</span>
-<span class="linenos">353</span><span class="sd">    """</span>
-<span class="linenos">354</span>    <span class="k">if</span> <span class="n">order_n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">355</span>        <span class="k">return</span> <span class="s2">"black"</span><span class="p">,</span> <span class="s2">"-"</span>
-<span class="linenos">356</span>    <span class="n">color_map</span> <span class="o">=</span> <span class="p">{</span>
-<span class="linenos">357</span>        <span class="o">-</span><span class="mi">3</span><span class="p">:</span> <span class="s2">"#1f4e8c"</span><span class="p">,</span>
-<span class="linenos">358</span>        <span class="o">-</span><span class="mi">2</span><span class="p">:</span> <span class="s2">"#3d73b9"</span><span class="p">,</span>
-<span class="linenos">359</span>        <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="s2">"#6a9bd5"</span><span class="p">,</span>
-<span class="linenos">360</span>        <span class="mi">1</span><span class="p">:</span> <span class="s2">"#8c1d18"</span><span class="p">,</span>
-<span class="linenos">361</span>        <span class="mi">2</span><span class="p">:</span> <span class="s2">"#bf4a43"</span><span class="p">,</span>
-<span class="linenos">362</span>        <span class="mi">3</span><span class="p">:</span> <span class="s2">"#d97a73"</span><span class="p">,</span>
-<span class="linenos">363</span>    <span class="p">}</span>
-<span class="linenos">364</span>    <span class="k">return</span> <span class="n">color_map</span><span class="p">[</span><span class="n">order_n</span><span class="p">],</span> <span class="s2">"-"</span>
-<span class="linenos">365</span>
-<span class="linenos">366</span>
-<span class="linenos">367</span><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">order_ns</span><span class="p">:</span>
-<span class="linenos">368</span>    <span class="n">Tss</span><span class="p">,</span> <span class="n">Rss</span><span class="p">,</span> <span class="n">Tpp</span><span class="p">,</span> <span class="n">Rpp</span><span class="p">,</span> <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">extract_values_gc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="n">order_n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">369</span>    <span class="n">color</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="n">order_style</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="linenos">370</span>    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">Tss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Tss n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
-<span class="linenos">371</span>    <span class="c1"># axes[0].plot(wavelengths*1e9, Rss, label=f"Rss n = {n}", color=color, linestyle="--")</span>
-<span class="linenos">372</span>    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">Tpp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Tpp n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
-<span class="linenos">373</span>    <span class="c1"># axes[1].plot(wavelengths*1e9, Rpp, label=f"Rpp n = {n}", color=color, linestyle="--")</span>
-<span class="linenos">374</span>
-<span class="linenos">375</span><span class="c1"># Retrieve overall T/R results at normal incidence</span>
-<span class="linenos">376</span><span class="n">total_Ts</span><span class="p">,</span> <span class="n">total_Rs</span><span class="p">,</span> <span class="n">total_Tp</span><span class="p">,</span> <span class="n">total_Rp</span><span class="p">,</span> <span class="n">wavelengths</span> <span class="o">=</span> <span class="n">extract_values_total_energy</span><span class="p">(</span><span class="n">total_energy</span><span class="p">)</span>  <span class="c1"># Total transmission for each polarization</span>
-<span class="linenos">377</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">total_Ts</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Total Ts"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="linenos">378</span><span class="c1"># axes[0].plot(wavelengths*1e9, total_Rs, label="Total Rs", color="black", linestyle="--", linewidth=4)</span>
-<span class="linenos">379</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wavelengths</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span> <span class="n">total_Tp</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Total Tp"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="linenos">380</span><span class="c1"># axes[1].plot(wavelengths*1e9, total_Rp, label="Total Rp", color="black", linestyle="--", linewidth=4)</span>
-<span class="linenos">381</span>
-<span class="linenos">382</span><span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
-<span class="linenos">383</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Wavelength (nm)"</span><span class="p">)</span>
-<span class="linenos">384</span>    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"Efficiency"</span><span class="p">)</span>
-<span class="linenos">385</span>    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="linenos">386</span>
-<span class="linenos">387</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"S Polarization"</span><span class="p">)</span>
-<span class="linenos">388</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"P Polarization"</span><span class="p">)</span>
-<span class="linenos">389</span>
-<span class="linenos">390</span><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="linenos">391</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="linenos">392</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">345</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"S Polarization"</span><span class="p">)</span>
+<span class="linenos">346</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"P Polarization"</span><span class="p">)</span>
+<span class="linenos">347</span>
+<span class="linenos">348</span><span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="linenos">349</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">350</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="3544c1e967bf46b1bde4d96c9126bc0c" class="no-scaled-link" src="../../../_images/diffraction_efficiency.png" style="width: 600px;" /></p>
+<p><img alt="bcce32edbd484e9d83aba12b142db791" class="no-scaled-link" src="../../../_images/diffraction_efficiency.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-4:-Verify-the-results-with-FDTD">
 <h2>Part 4: Verify the results with FDTD<a class="headerlink" href="#Part-4:-Verify-the-results-with-FDTD" title="Link to this heading">#</a></h2>
-<p>The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results. We use periodic boundary conditions along both x and y directions to simulate an infinite grating.</p>
+<p>The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results. The FDTD simulation area is set to be identical to the previous RCWA.</p>
+<p>Please note that here we use Bloch boundary conditions for possibly tilted incident waves, with “set based on source angle” enabled. If the incident wave is normal to the surface, the Bloch boundary conditions reduce to Periodic boundary conditions.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">393</span><span class="c1"># Function to set up FDTD simulation environment: a FDTD mesh with proper boundary conditions, a source, and a monitor</span>
-<span class="linenos">394</span><span class="k">def</span><span class="w"> </span><span class="nf">set_fdtd_simulation</span><span class="p">(</span>
-<span class="linenos">395</span>    <span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">:</span> <span class="nb">float</span>
-<span class="linenos">396</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">397</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">398</span><span class="sd">    Set up the FDTD simulation : FDTD region, a plane wave source, and a 2D DFT monitor.</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">351</span><span class="c1"># Function to set up FDTD simulation environment: a FDTD mesh with proper boundary conditions, a source, and a monitor</span>
+<span class="linenos">352</span><span class="k">def</span><span class="w"> </span><span class="nf">set_fdtd_simulation</span><span class="p">(</span>
+<span class="linenos">353</span>    <span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">x_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">x_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_max</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wl_min</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">wl_max</span><span class="p">:</span> <span class="nb">float</span>
+<span class="linenos">354</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">355</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">356</span><span class="sd">    Set up the FDTD simulation : FDTD region, a plane wave source, and a 2D DFT monitor.</span>
+<span class="linenos">357</span>
+<span class="linenos">358</span><span class="sd">    Parameters</span>
+<span class="linenos">359</span><span class="sd">    ----------</span>
+<span class="linenos">360</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
+<span class="linenos">361</span><span class="sd">    filename: File name to save to</span>
+<span class="linenos">362</span><span class="sd">    x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region</span>
+<span class="linenos">363</span><span class="sd">    wl_min, wl_max: Source wavelength range</span>
+<span class="linenos">364</span><span class="sd">    """</span>
+<span class="linenos">365</span>    <span class="c1"># First, return to layout</span>
+<span class="linenos">366</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
+<span class="linenos">367</span>
+<span class="linenos">368</span>    <span class="c1"># Set up FDTD simulation object</span>
+<span class="linenos">369</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addfdtd</span><span class="p">(</span>
+<span class="linenos">370</span>        <span class="p">{</span>
+<span class="linenos">371</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
+<span class="linenos">372</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
+<span class="linenos">373</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
+<span class="linenos">374</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
+<span class="linenos">375</span>            <span class="s2">"z min"</span><span class="p">:</span> <span class="n">z_min</span><span class="p">,</span>
+<span class="linenos">376</span>            <span class="s2">"z max"</span><span class="p">:</span> <span class="n">z_max</span><span class="p">,</span>
+<span class="linenos">377</span>            <span class="s2">"x min bc"</span><span class="p">:</span> <span class="s2">"Bloch"</span><span class="p">,</span>
+<span class="linenos">378</span>            <span class="s2">"y min bc"</span><span class="p">:</span> <span class="s2">"Bloch"</span><span class="p">,</span>
+<span class="linenos">379</span>            <span class="s2">"z min bc"</span><span class="p">:</span> <span class="s2">"PML"</span><span class="p">,</span>
+<span class="linenos">380</span>            <span class="s2">"z max bc"</span><span class="p">:</span> <span class="s2">"PML"</span><span class="p">,</span>
+<span class="linenos">381</span>            <span class="s2">"set based on source angle"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">382</span>        <span class="p">}</span>
+<span class="linenos">383</span>    <span class="p">)</span>
+<span class="linenos">384</span>
+<span class="linenos">385</span>    <span class="c1"># For FDTD, a dedicated source and monitor is required</span>
+<span class="linenos">386</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addplane</span><span class="p">(</span>
+<span class="linenos">387</span>        <span class="p">{</span>
+<span class="linenos">388</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"source"</span><span class="p">,</span>
+<span class="linenos">389</span>            <span class="s2">"injection axis"</span><span class="p">:</span> <span class="s2">"z-axis"</span><span class="p">,</span>
+<span class="linenos">390</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
+<span class="linenos">391</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
+<span class="linenos">392</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
+<span class="linenos">393</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
+<span class="linenos">394</span>            <span class="s2">"z"</span><span class="p">:</span> <span class="n">z_min</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span>  <span class="c1"># z position: inside the FDTD range, slightly closer to z = 0</span>
+<span class="linenos">395</span>            <span class="s2">"wavelength start"</span><span class="p">:</span> <span class="n">wl_min</span><span class="p">,</span>
+<span class="linenos">396</span>            <span class="s2">"wavelength stop"</span><span class="p">:</span> <span class="n">wl_max</span><span class="p">,</span>
+<span class="linenos">397</span>        <span class="p">}</span>
+<span class="linenos">398</span>    <span class="p">)</span>
 <span class="linenos">399</span>
-<span class="linenos">400</span><span class="sd">    Parameters</span>
-<span class="linenos">401</span><span class="sd">    ----------</span>
-<span class="linenos">402</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
-<span class="linenos">403</span><span class="sd">    filename: File name to save to</span>
-<span class="linenos">404</span><span class="sd">    x_min, x_max, y_min, y_max, z_min, z_max: Boundaries of the simulation region</span>
-<span class="linenos">405</span><span class="sd">    wl_min, wl_max: Source wavelength range</span>
-<span class="linenos">406</span><span class="sd">    """</span>
-<span class="linenos">407</span>    <span class="c1"># First, return to layout</span>
-<span class="linenos">408</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
-<span class="linenos">409</span>
-<span class="linenos">410</span>    <span class="c1"># Set up FDTD simulation object</span>
-<span class="linenos">411</span>    <span class="c1"># The FDTD simulation area is set to be identical to the previous RCWA</span>
-<span class="linenos">412</span>    <span class="c1"># Please note that here we use Bloch boundary conditions for possibly tilted incident waves, with "set based on source angle" enabled.</span>
-<span class="linenos">413</span>    <span class="c1"># If the incident wave is normal to the surface, the Bloch boundary conditions reduce to Periodic boundary conditions.</span>
-<span class="linenos">414</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addfdtd</span><span class="p">(</span>
-<span class="linenos">415</span>        <span class="p">{</span>
-<span class="linenos">416</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
-<span class="linenos">417</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
-<span class="linenos">418</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
-<span class="linenos">419</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
-<span class="linenos">420</span>            <span class="s2">"z min"</span><span class="p">:</span> <span class="n">z_min</span><span class="p">,</span>
-<span class="linenos">421</span>            <span class="s2">"z max"</span><span class="p">:</span> <span class="n">z_max</span><span class="p">,</span>
-<span class="linenos">422</span>            <span class="s2">"x min bc"</span><span class="p">:</span> <span class="s2">"Bloch"</span><span class="p">,</span>
-<span class="linenos">423</span>            <span class="s2">"y min bc"</span><span class="p">:</span> <span class="s2">"Bloch"</span><span class="p">,</span>
-<span class="linenos">424</span>            <span class="s2">"z min bc"</span><span class="p">:</span> <span class="s2">"PML"</span><span class="p">,</span>
-<span class="linenos">425</span>            <span class="s2">"z max bc"</span><span class="p">:</span> <span class="s2">"PML"</span><span class="p">,</span>
-<span class="linenos">426</span>            <span class="s2">"set based on source angle"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">427</span>        <span class="p">}</span>
-<span class="linenos">428</span>    <span class="p">)</span>
-<span class="linenos">429</span>
-<span class="linenos">430</span>    <span class="c1"># For FDTD, a dedicated source and monitor is required</span>
-<span class="linenos">431</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">addplane</span><span class="p">(</span>
-<span class="linenos">432</span>        <span class="p">{</span>
-<span class="linenos">433</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"source"</span><span class="p">,</span>
-<span class="linenos">434</span>            <span class="s2">"injection axis"</span><span class="p">:</span> <span class="s2">"z-axis"</span><span class="p">,</span>
-<span class="linenos">435</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
-<span class="linenos">436</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
-<span class="linenos">437</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
-<span class="linenos">438</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
-<span class="linenos">439</span>            <span class="s2">"z"</span><span class="p">:</span> <span class="n">z_min</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span>  <span class="c1"># z position: inside the FDTD range, slightly closer to z = 0</span>
-<span class="linenos">440</span>            <span class="s2">"wavelength start"</span><span class="p">:</span> <span class="n">wl_min</span><span class="p">,</span>
-<span class="linenos">441</span>            <span class="s2">"wavelength stop"</span><span class="p">:</span> <span class="n">wl_max</span><span class="p">,</span>
-<span class="linenos">442</span>        <span class="p">}</span>
-<span class="linenos">443</span>    <span class="p">)</span>
-<span class="linenos">444</span>
-<span class="linenos">445</span>    <span class="c1"># A plane monitor put at the top</span>
-<span class="linenos">446</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span>
-<span class="linenos">447</span>        <span class="p">{</span>
-<span class="linenos">448</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"monitor"</span><span class="p">,</span>
-<span class="linenos">449</span>            <span class="s2">"monitor type"</span><span class="p">:</span> <span class="s2">"2D Z-normal"</span><span class="p">,</span>
-<span class="linenos">450</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
-<span class="linenos">451</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
-<span class="linenos">452</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
-<span class="linenos">453</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
-<span class="linenos">454</span>            <span class="s2">"z"</span><span class="p">:</span> <span class="n">z_max</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span>  <span class="c1"># z position: inside the FDTD range, slightly closer to z = 0</span>
-<span class="linenos">455</span>            <span class="s2">"output Ex"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">456</span>            <span class="s2">"output Ey"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="linenos">457</span>        <span class="p">}</span>
-<span class="linenos">458</span>    <span class="p">)</span>
-<span class="linenos">459</span>
-<span class="linenos">460</span>    <span class="c1"># Save</span>
-<span class="linenos">461</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="linenos">462</span>
-<span class="linenos">463</span>
-<span class="linenos">464</span><span class="c1"># Now use the function to define a FDTD simulation area, plane wave source, and 2D plane monitor</span>
-<span class="linenos">465</span><span class="n">set_fdtd_simulation</span><span class="p">(</span>
-<span class="linenos">466</span>    <span class="n">fdtd</span><span class="p">,</span>
-<span class="linenos">467</span>    <span class="n">filename</span><span class="p">,</span>
-<span class="linenos">468</span>    <span class="n">x_min</span><span class="o">=-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span>
-<span class="linenos">469</span>    <span class="n">x_max</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span>
-<span class="linenos">470</span>    <span class="n">y_min</span><span class="o">=-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
-<span class="linenos">471</span>    <span class="n">y_max</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
-<span class="linenos">472</span>    <span class="n">z_min</span><span class="o">=-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span>
-<span class="linenos">473</span>    <span class="n">z_max</span><span class="o">=</span><span class="mi">3</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span>
-<span class="linenos">474</span>    <span class="n">wl_min</span><span class="o">=</span><span class="n">wl_min</span><span class="p">,</span>
-<span class="linenos">475</span>    <span class="n">wl_max</span><span class="o">=</span><span class="n">wl_max</span><span class="p">,</span>
-<span class="linenos">476</span><span class="p">)</span>
+<span class="linenos">400</span>    <span class="c1"># A plane monitor put at the top</span>
+<span class="linenos">401</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">adddftmonitor</span><span class="p">(</span>
+<span class="linenos">402</span>        <span class="p">{</span>
+<span class="linenos">403</span>            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"monitor"</span><span class="p">,</span>
+<span class="linenos">404</span>            <span class="s2">"monitor type"</span><span class="p">:</span> <span class="s2">"2D Z-normal"</span><span class="p">,</span>
+<span class="linenos">405</span>            <span class="s2">"x min"</span><span class="p">:</span> <span class="n">x_min</span><span class="p">,</span>
+<span class="linenos">406</span>            <span class="s2">"x max"</span><span class="p">:</span> <span class="n">x_max</span><span class="p">,</span>
+<span class="linenos">407</span>            <span class="s2">"y min"</span><span class="p">:</span> <span class="n">y_min</span><span class="p">,</span>
+<span class="linenos">408</span>            <span class="s2">"y max"</span><span class="p">:</span> <span class="n">y_max</span><span class="p">,</span>
+<span class="linenos">409</span>            <span class="s2">"z"</span><span class="p">:</span> <span class="n">z_max</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span>  <span class="c1"># z position: inside the FDTD range, slightly closer to z = 0</span>
+<span class="linenos">410</span>            <span class="s2">"output Ex"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">411</span>            <span class="s2">"output Ey"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="linenos">412</span>        <span class="p">}</span>
+<span class="linenos">413</span>    <span class="p">)</span>
+<span class="linenos">414</span>
+<span class="linenos">415</span>    <span class="c1"># Save</span>
+<span class="linenos">416</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">417</span>
+<span class="linenos">418</span>
+<span class="linenos">419</span><span class="c1"># Now use the function to define a FDTD simulation area, plane wave source, and 2D plane monitor</span>
+<span class="linenos">420</span><span class="n">set_fdtd_simulation</span><span class="p">(</span>
+<span class="linenos">421</span>    <span class="n">fdtd</span><span class="p">,</span>
+<span class="linenos">422</span>    <span class="n">filename</span><span class="p">,</span>
+<span class="linenos">423</span>    <span class="n">x_min</span><span class="o">=-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span>
+<span class="linenos">424</span>    <span class="n">x_max</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span> <span class="o">+</span> <span class="n">x_shift</span><span class="p">,</span>
+<span class="linenos">425</span>    <span class="n">y_min</span><span class="o">=-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
+<span class="linenos">426</span>    <span class="n">y_max</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">period_x</span><span class="p">,</span>
+<span class="linenos">427</span>    <span class="n">z_min</span><span class="o">=-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span>
+<span class="linenos">428</span>    <span class="n">z_max</span><span class="o">=</span><span class="mi">3</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span>
+<span class="linenos">429</span>    <span class="n">wl_min</span><span class="o">=</span><span class="n">wl_min</span><span class="p">,</span>
+<span class="linenos">430</span>    <span class="n">wl_max</span><span class="o">=</span><span class="n">wl_max</span><span class="p">,</span>
+<span class="linenos">431</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1180,134 +1141,130 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">477</span><span class="k">def</span><span class="w"> </span><span class="nf">set_polarization_angle_and_run_fdtd</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"source"</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="linenos">478</span><span class="w">    </span><span class="sd">"""</span>
-<span class="linenos">479</span><span class="sd">    Set the polarization angle of the FDTD source and run the FDTD simulation.</span>
-<span class="linenos">480</span>
-<span class="linenos">481</span><span class="sd">    Parameters</span>
-<span class="linenos">482</span><span class="sd">    ----------</span>
-<span class="linenos">483</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
-<span class="linenos">484</span><span class="sd">    filename: File name to save to</span>
-<span class="linenos">485</span><span class="sd">    source_name: Name of the source object whose polarization angle is set</span>
-<span class="linenos">486</span><span class="sd">    polarization_angle: Polarization angle (deg) to set on the source. Use 0 for P-polarization,</span>
-<span class="linenos">487</span><span class="sd">        or 90 for S-polarization</span>
-<span class="linenos">488</span><span class="sd">    """</span>
-<span class="linenos">489</span>    <span class="c1"># First, return to layout</span>
-<span class="linenos">490</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
-<span class="linenos">491</span>
-<span class="linenos">492</span>    <span class="c1"># Set polarization angle</span>
-<span class="linenos">493</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="s2">"polarization angle"</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">432</span><span class="k">def</span><span class="w"> </span><span class="nf">set_polarization_angle_and_run_fdtd</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"source"</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="linenos">433</span><span class="w">    </span><span class="sd">"""</span>
+<span class="linenos">434</span><span class="sd">    Set the polarization angle of the FDTD source and run the FDTD simulation.</span>
+<span class="linenos">435</span>
+<span class="linenos">436</span><span class="sd">    Parameters</span>
+<span class="linenos">437</span><span class="sd">    ----------</span>
+<span class="linenos">438</span><span class="sd">    fdtd: The name of a Lumerical session object</span>
+<span class="linenos">439</span><span class="sd">    filename: File name to save to</span>
+<span class="linenos">440</span><span class="sd">    source_name: Name of the source object whose polarization angle is set</span>
+<span class="linenos">441</span><span class="sd">    polarization_angle: Polarization angle (deg) to set on the source. Use 0 for P-polarization,</span>
+<span class="linenos">442</span><span class="sd">        or 90 for S-polarization</span>
+<span class="linenos">443</span><span class="sd">    """</span>
+<span class="linenos">444</span>    <span class="c1"># First, return to layout</span>
+<span class="linenos">445</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">switchtolayout</span><span class="p">()</span>
+<span class="linenos">446</span>
+<span class="linenos">447</span>    <span class="c1"># Set polarization angle</span>
+<span class="linenos">448</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">setnamed</span><span class="p">(</span><span class="n">source_name</span><span class="p">,</span> <span class="s2">"polarization angle"</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="p">)</span>
+<span class="linenos">449</span>
+<span class="linenos">450</span>    <span class="c1"># Save and run</span>
+<span class="linenos">451</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="linenos">452</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"FDTD"</span><span class="p">)</span>  <span class="c1"># Run FDTD only</span>
+<span class="linenos">453</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># Save the file after running to save the results</span>
+<span class="linenos">454</span>
+<span class="linenos">455</span>
+<span class="linenos">456</span><span class="c1"># Here we test P-polarization: polarization_angle = 0, axis = axes[1]</span>
+<span class="linenos">457</span><span class="n">set_polarization_angle_and_run_fdtd</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">458</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos">459</span><span class="c1"># # Otherwise use S-polarization: polarization_angle = 90, axis = axes[0]</span>
+<span class="linenos">460</span><span class="c1"># set_polarization_angle_and_run_FDTD(fdtd, filename, polarization_angle=90)</span>
+<span class="linenos">461</span><span class="c1"># axis = axes[0]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">462</span><span class="c1"># Capture the total transmission and plot</span>
+<span class="linenos">463</span><span class="n">frequencies</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="linenos">464</span><span class="n">wavelength_list</span> <span class="o">=</span> <span class="mf">3e8</span> <span class="o">/</span> <span class="n">frequencies</span>
+<span class="linenos">465</span><span class="n">tot_transmission_list</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="linenos">466</span>
+<span class="linenos">467</span><span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">468</span>    <span class="n">wavelength_list</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span>  <span class="c1"># Transfer to nm</span>
+<span class="linenos">469</span>    <span class="n">tot_transmission_list</span><span class="p">,</span>
+<span class="linenos">470</span>    <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+<span class="linenos">471</span>    <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+<span class="linenos">472</span>    <span class="n">marker</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+<span class="linenos">473</span>    <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">474</span><span class="p">)</span>
+<span class="linenos">475</span>
+<span class="linenos">476</span><span class="n">fig</span>  <span class="c1"># plot the figure in notebook env</span>
+<span class="linenos">477</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<p><img alt="66822de85cb0443c9ffbcc74b0214888" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_total.png" style="width: 600px;" /></p>
+<p>To transfer the simulation results to grating orders, we use <code class="docutils literal notranslate"><span class="pre">grating</span></code> command to extract diffraction efficiencies by order. Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set <code class="docutils literal notranslate"><span class="pre">y_order</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">478</span><span class="k">def</span><span class="w"> </span><span class="nf">available_orders</span><span class="p">(</span><span class="n">wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">grating_period</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="linenos">479</span><span class="w">    </span><span class="sd">"""Use grating equation to determine available diffraction orders for a given wavelength and grating period."""</span>
+<span class="linenos">480</span>    <span class="n">m_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">grating_period</span> <span class="o">/</span> <span class="n">wavelength</span><span class="p">))</span>
+<span class="linenos">481</span>    <span class="k">return</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">m_max</span><span class="p">,</span> <span class="n">m_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">482</span><span class="c1"># Capture the frequency and wavelength data from the FDTD monitor</span>
+<span class="linenos">483</span><span class="n">f_list</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="linenos">484</span><span class="n">lambda_list</span> <span class="o">=</span> <span class="mf">3e8</span> <span class="o">/</span> <span class="n">f_list</span>
+<span class="linenos">485</span>
+<span class="linenos">486</span><span class="n">order_colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="n">line</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">order_ns</span><span class="p">,</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_lines</span><span class="p">())}</span>
+<span class="linenos">487</span><span class="c1"># Different wavelength corresponds to different output shapes, so we extract the output for each frequency</span>
+<span class="linenos">488</span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f_list</span><span class="p">):</span>
+<span class="linenos">489</span>    <span class="c1"># Extract the grating output for the current frequency index</span>
+<span class="linenos">490</span>    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fdtd</span><span class="o">.</span><span class="n">grating</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># In Lumerical, all index start from 1</span>
+<span class="linenos">491</span>    <span class="c1"># Reshape the output to 2D matrix if it's a scalar (0D array)</span>
+<span class="linenos">492</span>    <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">493</span>        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="linenos">494</span>
-<span class="linenos">495</span>    <span class="c1"># Save and run</span>
-<span class="linenos">496</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-<span class="linenos">497</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"FDTD"</span><span class="p">)</span>  <span class="c1"># Run FDTD only</span>
-<span class="linenos">498</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>  <span class="c1"># Save the file after running to save the results</span>
-<span class="linenos">499</span>
+<span class="linenos">495</span>    <span class="c1"># Calculate propagating diffraction orders for the current wavelength</span>
+<span class="linenos">496</span>    <span class="n">available_orders_list</span> <span class="o">=</span> <span class="n">available_orders</span><span class="p">(</span><span class="n">wavelength</span><span class="o">=</span><span class="n">lambda_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">grating_period</span><span class="o">=</span><span class="n">period_x</span><span class="p">)</span>
+<span class="linenos">497</span>
+<span class="linenos">498</span>    <span class="c1"># Calculate order mesh corresponding to `out`</span>
+<span class="linenos">499</span>    <span class="n">order_x</span><span class="p">,</span> <span class="n">order_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">available_orders_list</span><span class="p">,</span> <span class="n">available_orders_list</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">"ij"</span><span class="p">)</span>
 <span class="linenos">500</span>
-<span class="linenos">501</span><span class="c1"># Here we test P-polarization: polarization_angle = 0, axis = axes[1]</span>
-<span class="linenos">502</span><span class="n">set_polarization_angle_and_run_fdtd</span><span class="p">(</span><span class="n">fdtd</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">polarization_angle</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="linenos">503</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="linenos">504</span><span class="c1"># # Otherwise use S-polarization: polarization_angle = 90, axis = axes[0]</span>
-<span class="linenos">505</span><span class="c1"># set_polarization_angle_and_run_FDTD(fdtd, filename, polarization_angle=90)</span>
-<span class="linenos">506</span><span class="c1"># axis = axes[0]</span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">507</span><span class="c1"># Capture the total transmission and plot</span>
-<span class="linenos">508</span><span class="n">frequencies</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-<span class="linenos">509</span><span class="n">wavelength_list</span> <span class="o">=</span> <span class="mf">3e8</span> <span class="o">/</span> <span class="n">frequencies</span>
-<span class="linenos">510</span><span class="n">tot_transmission_list</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">transmission</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-<span class="linenos">511</span>
-<span class="linenos">512</span><span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-<span class="linenos">513</span>    <span class="n">wavelength_list</span> <span class="o">*</span> <span class="mf">1e9</span><span class="p">,</span>  <span class="c1"># Transfer to nm</span>
-<span class="linenos">514</span>    <span class="n">tot_transmission_list</span><span class="p">,</span>
-<span class="linenos">515</span>    <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
-<span class="linenos">516</span>    <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
-<span class="linenos">517</span>    <span class="n">marker</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
-<span class="linenos">518</span>    <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="linenos">519</span><span class="p">)</span>
-<span class="linenos">520</span>
-<span class="linenos">521</span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># plot the figure</span>
-<span class="linenos">522</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="linenos">501</span>    <span class="c1"># Extract the diffraction orders along y = 0 line</span>
+<span class="linenos">502</span>    <span class="n">y0_mask</span> <span class="o">=</span> <span class="n">order_y</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="linenos">503</span>    <span class="n">x_line</span> <span class="o">=</span> <span class="n">order_x</span><span class="p">[</span><span class="n">y0_mask</span><span class="p">]</span>
+<span class="linenos">504</span>    <span class="n">transmission_line</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">y0_mask</span><span class="p">]</span>
+<span class="linenos">505</span>
+<span class="linenos">506</span>    <span class="c1"># Plot the transmission value on existing axis for each order, each wavelength</span>
+<span class="linenos">507</span>    <span class="k">for</span> <span class="n">order</span><span class="p">,</span> <span class="n">transmission</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_line</span><span class="p">,</span> <span class="n">transmission_line</span><span class="p">):</span>
+<span class="linenos">508</span>        <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+<span class="linenos">509</span>            <span class="n">lambda_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">m_to_nm</span><span class="p">,</span>  <span class="c1"># Transfer to nm</span>
+<span class="linenos">510</span>            <span class="n">transmission</span> <span class="o">*</span> <span class="n">tot_transmission_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>  <span class="c1"># Adjusted by total energy transmission</span>
+<span class="linenos">511</span>            <span class="n">color</span><span class="o">=</span><span class="n">order_colors</span><span class="p">[</span><span class="n">order</span><span class="p">],</span>
+<span class="linenos">512</span>            <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+<span class="linenos">513</span>            <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span>
+<span class="linenos">514</span>            <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="linenos">515</span>        <span class="p">)</span>
+<span class="linenos">516</span>
+<span class="linenos">517</span><span class="n">fig</span>  <span class="c1"># plot the figure in notebook env</span>
+<span class="linenos">518</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="8ac1ffc1be1e4245aa1cbd2bdadd38e1" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_total.png" style="width: 600px;" /></p>
-<section id="Use-the-grating-command-to-extract-diffraction-efficiencies-by-order">
-<h3>Use the <code class="docutils literal notranslate"><span class="pre">grating</span></code> command to extract diffraction efficiencies by order<a class="headerlink" href="#Use-the-grating-command-to-extract-diffraction-efficiencies-by-order" title="Link to this heading">#</a></h3>
-<p>For normal incidence, the grating equation is: <span class="math notranslate nohighlight">\(\frac{m\lambda}{D}=\sin{\theta}\)</span>, where <span class="math notranslate nohighlight">\(m\)</span> is the diffraction order, <span class="math notranslate nohighlight">\(\lambda\)</span> is the wavelength, and <span class="math notranslate nohighlight">\(D\)</span> is the grating period <code class="docutils literal notranslate"><span class="pre">period_x</span></code>. The <span class="math notranslate nohighlight">\(m\)</span>-th order propagates at an angle <span class="math notranslate nohighlight">\(\theta = \arcsin\left(\frac{m \lambda}{D}\right)\)</span>.</p>
-<p>In this example, the wavelength range is 350–800 nm and the grating period is 600 nm. Thus, only the zeroth order propagates for <span class="math notranslate nohighlight">\(\lambda &gt; 600\)</span> nm. At 600 nm, the <span class="math notranslate nohighlight">\(\pm 1\)</span> orders are at the grazing-angle threshold; below 600 nm, they can propagate. Similarly, the <span class="math notranslate nohighlight">\(\pm 2\)</span> orders are at the grazing-angle threshold at 300 nm and can propagate below 300 nm.</p>
-<p>Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set <code class="docutils literal notranslate"><span class="pre">y_order</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
+<p><img alt="fc084f93bb734d8a8a6fd03ed29cf6ed" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_order.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">523</span><span class="k">def</span><span class="w"> </span><span class="nf">available_orders</span><span class="p">(</span><span class="n">wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">grating_period</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="linenos">524</span><span class="w">    </span><span class="sd">"""Use grating equation to determine available diffraction orders for a given wavelength and grating period."""</span>
-<span class="linenos">525</span>    <span class="n">m_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">grating_period</span> <span class="o">/</span> <span class="n">wavelength</span><span class="p">))</span>
-<span class="linenos">526</span>    <span class="k">return</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">m_max</span><span class="p">,</span> <span class="n">m_max</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">519</span><span class="c1"># Safely close the Lumerical session</span>
+<span class="linenos">520</span><span class="k">if</span> <span class="ow">not</span> <span class="n">show_GUI</span><span class="p">:</span>
+<span class="linenos">521</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">527</span><span class="c1"># Capture the frequency and wavelength data from the FDTD monitor</span>
-<span class="linenos">528</span><span class="n">f_list</span> <span class="o">=</span> <span class="n">fdtd</span><span class="o">.</span><span class="n">getdata</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="s2">"f"</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-<span class="linenos">529</span><span class="n">lambda_list</span> <span class="o">=</span> <span class="mf">3e8</span> <span class="o">/</span> <span class="n">f_list</span>
-<span class="linenos">530</span>
-<span class="linenos">531</span><span class="c1"># Different wavelength corresponds to different output shapes, so we extract the output for each frequency</span>
-<span class="linenos">532</span><span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f_list</span><span class="p">):</span>
-<span class="linenos">533</span>    <span class="c1"># Extract the grating output for the current frequency index</span>
-<span class="linenos">534</span>    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fdtd</span><span class="o">.</span><span class="n">grating</span><span class="p">(</span><span class="s2">"monitor"</span><span class="p">,</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># In Lumerical, all index start from 1</span>
-<span class="linenos">535</span>    <span class="c1"># Reshape the output to 2D matrix if it's a scalar (0D array)</span>
-<span class="linenos">536</span>    <span class="k">if</span> <span class="n">out</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">537</span>        <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="linenos">538</span>
-<span class="linenos">539</span>    <span class="c1"># Calculate propagating diffraction orders for the current wavelength</span>
-<span class="linenos">540</span>    <span class="n">available_orders_list</span> <span class="o">=</span> <span class="n">available_orders</span><span class="p">(</span><span class="n">wavelength</span><span class="o">=</span><span class="n">lambda_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">grating_period</span><span class="o">=</span><span class="n">period_x</span><span class="p">)</span>
-<span class="linenos">541</span>
-<span class="linenos">542</span>    <span class="c1"># Calculate order mesh corresponding to `out`</span>
-<span class="linenos">543</span>    <span class="n">order_x</span><span class="p">,</span> <span class="n">order_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">available_orders_list</span><span class="p">,</span> <span class="n">available_orders_list</span><span class="p">,</span> <span class="n">indexing</span><span class="o">=</span><span class="s2">"ij"</span><span class="p">)</span>
-<span class="linenos">544</span>
-<span class="linenos">545</span>    <span class="c1"># Extract the diffraction orders along y = 0 line</span>
-<span class="linenos">546</span>    <span class="n">y0_mask</span> <span class="o">=</span> <span class="n">order_y</span> <span class="o">==</span> <span class="mi">0</span>
-<span class="linenos">547</span>    <span class="n">x_line</span> <span class="o">=</span> <span class="n">order_x</span><span class="p">[</span><span class="n">y0_mask</span><span class="p">]</span>
-<span class="linenos">548</span>    <span class="n">transmission_line</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="n">y0_mask</span><span class="p">]</span>
-<span class="linenos">549</span>
-<span class="linenos">550</span>    <span class="c1"># Plot the transmission value on existing axis for each order, each wavelength</span>
-<span class="linenos">551</span>    <span class="k">for</span> <span class="n">order</span><span class="p">,</span> <span class="n">transmission</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_line</span><span class="p">,</span> <span class="n">transmission_line</span><span class="p">):</span>
-<span class="linenos">552</span>        <span class="n">axis</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-<span class="linenos">553</span>            <span class="n">lambda_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">m_to_nm</span><span class="p">,</span>  <span class="c1"># Transfer to nm</span>
-<span class="linenos">554</span>            <span class="n">transmission</span> <span class="o">*</span> <span class="n">tot_transmission_list</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span>  <span class="c1"># Adjusted by total energy transmission</span>
-<span class="linenos">555</span>            <span class="n">color</span><span class="o">=</span><span class="n">order_style</span><span class="p">(</span><span class="n">order</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
-<span class="linenos">556</span>            <span class="n">s</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
-<span class="linenos">557</span>            <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span>
-<span class="linenos">558</span>            <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-<span class="linenos">559</span>        <span class="p">)</span>
-<span class="linenos">560</span>
-<span class="linenos">561</span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># plot the figure</span>
-<span class="linenos">562</span><span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<br/></pre></div>
-</div>
-</div>
-<p><img alt="eea3813360314864b17980a3ae2379e3" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_order.png" style="width: 600px;" /></p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos">563</span><span class="c1"># Safely close the Lumerical session</span>
-<span class="linenos">564</span><span class="k">if</span> <span class="ow">not</span> <span class="n">show_GUI</span><span class="p">:</span>
-<span class="linenos">565</span>    <span class="n">fdtd</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</section>
 </section>
 </section>
 
@@ -1337,10 +1294,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Part-1:-Set-up-structures-and-simulation-objects">Part 1: Set up structures and simulation objects</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Part-2:-RCWA-Simulation">Part 2: RCWA Simulation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Part-3:-Plot-RCWA-results">Part 3: Plot RCWA results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Part-4:-Verify-the-results-with-FDTD">Part 4: Verify the results with FDTD</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#Use-the-grating-command-to-extract-diffraction-efficiencies-by-order">Use the <code class="docutils literal notranslate"><span class="pre">grating</span></code> command to extract diffraction efficiencies by order</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Part-4:-Verify-the-results-with-FDTD">Part 4: Verify the results with FDTD</a></li>
 </ul>
   </nav></div>
 

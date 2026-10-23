@@ -68,13 +68,13 @@ z_buffer = wl_min  # A buffer region above and below the structure to ensure the
 sim_z_max = depth + z_buffer  # Good practice to make sure the simulation region is at least one wavelength larger than the structure
 sim_z_min = -z_buffer
 
-
-# +
-# Initialize session and build simulation objects. Set hide = True to hide the Lumerical GUI.
+# -
+# Initialize session and build simulation objects. RCWA related documentations can be found [here](https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object)
 # This block will build a 1D trapezoidal blazed grating structure on a substrate.
 # The simulation file will be saved to the current working directory with the name specified in the "filename" variable above.
 
 
+# +
 def build_1d_grating(
     fdtd,
     filename,
@@ -161,7 +161,6 @@ def build_rcwa(fdtd, filename, x_min: float, x_max: float, y_min: float, y_max: 
     )
 
     # Set the RCWA interface positions. The interface positions are set from the minimum and maximum z positions of the grating object.
-    # For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object
     fdtd.setnamed("RCWA", "interface position", "reference")
     # Here, set the number of interfaces in each layer; here we set 10 interfaces for the slanted grating
     # Only 1 interface is needed for the base since it is uniform in z
@@ -184,12 +183,11 @@ print("RCWA simulation geometry saved to file: " + filename)
 
 # ## Part 2: RCWA Simulation
 #
+# Configure wavelength/angle excitation settings, and run the RCWA simulation. For documentation, see [here](https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object)
+#
+# `Grating_characterization` returns the complex S-parameters for each grating order split into S and P polarizations.
 
 # +
-# Configure wavelength/angle excitation settings, and run the RCWA simulation.
-# The grating_characterization result is returned. For documentation, see https://optics.ansys.com/hc/en-us/articles/12959229278611-RCWA-Solver-Simulation-Object
-# Grating_characterization returns the complex S-parameters for each grating order split into S and P polarizations.
-
 # Set the number of wavelengths and angles to simulate
 # Setting to 1 will use the minimum value set above
 num_wavelengths = 20
@@ -281,12 +279,23 @@ print("phi:", np.unique(gc["phi"]), "deg")
 
 
 # ## Part 3: Plot RCWA results
-
-# +
 # Now plot useful results.
 # The following function helps to extract useful results from the grating_characterization object for plotting.
+#
+# For normal incidence, the grating equation is: $\frac{m\lambda}{D}=\sin{\theta}$,
+# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period `period_x`.
+# The $m$-th order propagates at an angle $\theta = \arcsin\left(\frac{m \lambda}{D}\right)$.
+#
+# In this example, the wavelength range is 350–800 nm and the grating period is 600 nm. Thus, only the zeroth order
+# propagates for $\lambda > 600$ nm. At 600 nm, the $\pm 1$ orders are at the grazing-angle threshold and can propagate.
+#
+# Therefore we can only observe the zero-th order for wavelengths above 600 nm, zero-th and first order for
+# wavelength below 600 nm.
+#
+# Similarly, the second order can propagate only below wavelength shorter than 300 nm, which is not available in this case.
 
 
+# +
 def extract_values_gc(
     gc, order_n: int = 0, order_m: int = 0, angle_theta: float = 0.0, angle_phi: float = 0.0
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
@@ -376,40 +385,12 @@ order_ns = range(-3, 4)  # Specify the range of diffraction orders to plot, e.g.
 # Set up plotting
 fig, axes = plt.subplots(1, 2, figsize=(14, 5), sharex=True, sharey=True)
 
-
-def order_style(order_n: int):
-    """
-    Help plot diffraction orders with different colors.
-
-    Parameters
-    ----------
-    order_n: Diffraction order index to get the plotting color/linestyle for. Order 0 is plotted in black;
-        negative orders (-3 to -1) use shades of blue, and positive orders (1 to 3) use shades of red
-
-    Returns
-    -------
-    A tuple of (color, linestyle) to use when plotting the given diffraction order
-    """
-    if order_n == 0:
-        return "black", "-"
-    color_map = {
-        -3: "#1f4e8c",
-        -2: "#3d73b9",
-        -1: "#6a9bd5",
-        1: "#8c1d18",
-        2: "#bf4a43",
-        3: "#d97a73",
-    }
-    return color_map[order_n], "-"
-
-
 for n in order_ns:
     Tss, Rss, Tpp, Rpp, wavelengths = extract_values_gc(gc, order_n=n)
-    color, style = order_style(n)
-    axes[0].plot(wavelengths * 1e9, Tss, label=f"Tss n = {n}", color=color, linestyle=style)
-    # axes[0].plot(wavelengths*1e9, Rss, label=f"Rss n = {n}", color=color, linestyle="--")
-    axes[1].plot(wavelengths * 1e9, Tpp, label=f"Tpp n = {n}", color=color, linestyle=style)
-    # axes[1].plot(wavelengths*1e9, Rpp, label=f"Rpp n = {n}", color=color, linestyle="--")
+    axes[0].plot(wavelengths * 1e9, Tss, label=f"Tss n = {n}")
+    # axes[0].plot(wavelengths*1e9, Rss, label=f"Rss n = {n}")
+    axes[1].plot(wavelengths * 1e9, Tpp, label=f"Tpp n = {n}")
+    # axes[1].plot(wavelengths*1e9, Rpp, label=f"Rpp n = {n}")
 
 # Retrieve overall T/R results at normal incidence
 total_Ts, total_Rs, total_Tp, total_Rp, wavelengths = extract_values_total_energy(total_energy)  # Total transmission for each polarization
@@ -435,8 +416,12 @@ plt.pause(10)
 # <img src="images/diffraction_efficiency.png" width="600">
 
 # ## Part 4: Verify the results with FDTD
+#
 # The FDTD simulation requires a source (plane wave) to excite the field and a monitor to record results.
-# We use periodic boundary conditions along both x and y directions to simulate an infinite grating.
+# The FDTD simulation area is set to be identical to the previous RCWA.
+#
+# Please note that here we use Bloch boundary conditions for possibly tilted incident waves, with "set based on source angle" enabled.
+# If the incident wave is normal to the surface, the Bloch boundary conditions reduce to Periodic boundary conditions.
 
 
 # +
@@ -458,9 +443,6 @@ def set_fdtd_simulation(
     fdtd.switchtolayout()
 
     # Set up FDTD simulation object
-    # The FDTD simulation area is set to be identical to the previous RCWA
-    # Please note that here we use Bloch boundary conditions for possibly tilted incident waves, with "set based on source angle" enabled.
-    # If the incident wave is normal to the surface, the Bloch boundary conditions reduce to Periodic boundary conditions.
     fdtd.addfdtd(
         {
             "x min": x_min,
@@ -573,23 +555,13 @@ axis.scatter(
     zorder=10,
 )
 
-fig.show()  # plot the figure
+fig  # plot the figure in notebook env
 plt.pause(10)
 
 # -
 # <img src="images/diffraction_efficiency_FDTD_total.png" width="600">
 #
-# ### Use the `grating` command to extract diffraction efficiencies by order
-#
-# For normal incidence, the grating equation is: $\frac{m\lambda}{D}=\sin{\theta}$,
-# where $m$ is the diffraction order, $\lambda$ is the wavelength, and $D$ is the grating period `period_x`.
-# The $m$-th order propagates at an angle $\theta = \arcsin\left(\frac{m \lambda}{D}\right)$.
-#
-# In this example, the wavelength range is 350–800 nm and the grating period is 600 nm.
-# Thus, only the zeroth order propagates for $\lambda > 600$ nm. At 600 nm, the $\pm 1$ orders are at the
-# grazing-angle threshold; below 600 nm, they can propagate. Similarly, the $\pm 2$ orders are at the
-# grazing-angle threshold at 300 nm and can propagate below 300 nm.
-#
+# To transfer the simulation results to grating orders, we use `grating` command to extract diffraction efficiencies by order.
 # Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set `y_order = 0`.
 
 
@@ -605,6 +577,7 @@ def available_orders(wavelength: float, grating_period: float) -> list:
 f_list = fdtd.getdata("monitor", "f").flatten()
 lambda_list = 3e8 / f_list
 
+order_colors = {n: line.get_color() for n, line in zip(order_ns, axis.get_lines())}
 # Different wavelength corresponds to different output shapes, so we extract the output for each frequency
 for idx, f in enumerate(f_list):
     # Extract the grating output for the current frequency index
@@ -629,13 +602,13 @@ for idx, f in enumerate(f_list):
         axis.scatter(
             lambda_list[idx] * m_to_nm,  # Transfer to nm
             transmission * tot_transmission_list[idx],  # Adjusted by total energy transmission
-            color=order_style(order)[0],
+            color=order_colors[order],
             s=60,
             marker="o",
             zorder=10,
         )
 
-fig.show()  # plot the figure
+fig  # plot the figure in notebook env
 plt.pause(10)
 
 # -

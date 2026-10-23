@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Diffraction Grating (RCWA) &#8212; PyLumerical</title>
+    <title>Diffraction Grating (RCWA / FDTD) &#8212; PyLumerical</title>
   
   
   
@@ -523,7 +523,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Diffraction Grating (RCWA)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Diffraction Grating (RCWA / FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections.html">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
@@ -586,7 +586,7 @@
       <a href="../../../examples.html" class="nav-link">Examples</a>
     </li>
       
-    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Diffraction Grating (RCWA)</span></li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Diffraction Grating (RCWA / FDTD)</span></li>
     
   </ul>
 </nav>
@@ -615,10 +615,10 @@
 </div>
 </div>
 <hr class="docutils" />
-<section id="Diffraction-Grating-(RCWA)">
-<h1>Diffraction Grating (RCWA)<a class="headerlink" href="#Diffraction-Grating-(RCWA)" title="Link to this heading">#</a></h1>
+<section id="Diffraction-Grating-(RCWA-/-FDTD)">
+<h1>Diffraction Grating (RCWA / FDTD)<a class="headerlink" href="#Diffraction-Grating-(RCWA-/-FDTD)" title="Link to this heading">#</a></h1>
 <p>This example simulates a simple diffraction grating using RCWA.</p>
-<p>In Part 1, we set up the structures. We define a 1D trapezoidal blazed grating (commonly used in AR/VR applications). The grating is parameterized by its periodicity, fill factor, top width, and depth. In Part 2, we use RCWA to calculate the complex transmission/reflection of the grating. In Part 3, we plot the results. Diffraction gratings can also be simulated using the FDTD method. In Part 4, we use FDTD to calculate transmission and confirm if both methods agree.</p>
+<p>In Part 1, we set up the structures. We define a 1D trapezoidal blazed grating (commonly used in AR/VR applications). The grating is parameterized by its periodicity, fill factor, top width, and depth. In Part 2, we use RCWA to calculate the complex transmission/reflection of the grating. In Part 3, we plot the results. In Part 4, we use FDTD to calculate transmission and confirm if both methods agree.</p>
 <p>Prerequisites: Valid FDTD license is required.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -810,7 +810,7 @@
 </pre></div>
 </div>
 </div>
-<p><img alt="3bac470088f547a688f6adf45b3e4e2f" class="no-scaled-link" src="../../../_images/diffraction_grating_screenshot.png" style="width: 600px;" /></p>
+<p><img alt="3c5013fcbbc94adea378440946c29363" class="no-scaled-link" src="../../../_images/diffraction_grating_screenshot.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-2:-RCWA-Simulation">
 <h2>Part 2: RCWA Simulation<a class="headerlink" href="#Part-2:-RCWA-Simulation" title="Link to this heading">#</a></h2>
@@ -1043,7 +1043,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="bcce32edbd484e9d83aba12b142db791" class="no-scaled-link" src="../../../_images/diffraction_efficiency.png" style="width: 600px;" /></p>
+<p><img alt="9192a9d354ad4e6f99113fcdf547001d" class="no-scaled-link" src="../../../_images/diffraction_efficiency.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-4:-Verify-the-results-with-FDTD">
 <h2>Part 4: Verify the results with FDTD<a class="headerlink" href="#Part-4:-Verify-the-results-with-FDTD" title="Link to this heading">#</a></h2>
@@ -1197,7 +1197,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="66822de85cb0443c9ffbcc74b0214888" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_total.png" style="width: 600px;" /></p>
+<p><img alt="a78133b56feb4cb0a6df6ca1f71e20da" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_total.png" style="width: 600px;" /></p>
 <p>To transfer the simulation results to grating orders, we use <code class="docutils literal notranslate"><span class="pre">grating</span></code> command to extract diffraction efficiencies by order. Because the grating varies along the x-axis and is uniform along the y-axis, we extract orders along x and set <code class="docutils literal notranslate"><span class="pre">y_order</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
@@ -1254,7 +1254,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="fc084f93bb734d8a8a6fd03ed29cf6ed" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_order.png" style="width: 600px;" /></p>
+<p><img alt="b5389b1c5887496fa14f1203e4334bdb" class="no-scaled-link" src="../../../_images/diffraction_efficiency_FDTD_order.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>

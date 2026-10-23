@@ -78,7 +78,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Photonic Crystal Bandstructure (FDTD)" href="../../Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure.html" />
-    <link rel="prev" title="Diffraction Grating (RCWA)" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html" />
+    <link rel="prev" title="Diffraction Grating (RCWA / FDTD)" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -523,7 +523,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html">Diffraction Grating (RCWA)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html">Diffraction Grating (RCWA / FDTD)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
@@ -624,7 +624,7 @@ Step 3 for full FDTD simulation.</p>
 <section id="Part-0:-Perform-required-imports-and-specify-design-parameters.">
 <h2>Part 0: Perform required imports and specify design parameters.<a class="headerlink" href="#Part-0:-Perform-required-imports-and-specify-design-parameters." title="Link to this heading">#</a></h2>
 <p>Units are meters unless otherwise specified.</p>
-<p><img alt="7b5e05b99e6b418e95f3ba1e9479ae87" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
+<p><img alt="4a3de88641be47fab63c684bc8b6e922" class="no-scaled-link" src="../../../_images/metalens_assembly.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -803,7 +803,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="25b40da9e4cd40719cd90ebf086242d8" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
+<p><img alt="1c2d5577543f45d582685d0042dfe946" class="no-scaled-link" src="../../../_images/target_phase_mask.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-2:-Create-simple-unit-cell-library.">
 <h2>Part 2: Create simple unit cell library.<a class="headerlink" href="#Part-2:-Create-simple-unit-cell-library." title="Link to this heading">#</a></h2>
@@ -914,7 +914,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="b0591fe9a98c4643a508ddbf37084159" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
+<p><img alt="910a809d0b0f4dcc97a387b2a397a733" class="no-scaled-link" src="../../../_images/unit_cell_screenshot.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -964,7 +964,7 @@ Step 3 for full FDTD simulation.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="68654f4988b34a90a8a52d966b9d3b44" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
+<p><img alt="7e84982546304bb7a836d113d4fbb093" class="no-scaled-link" src="../../../_images/unit_cell_phase_amp.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-3:-Obtain-the-radius-vs.-position-to-match-the-target-phase-profile-as-closely-as-possible.">
 <h2>Part 3: Obtain the radius vs. position to match the target phase profile as closely as possible.<a class="headerlink" href="#Part-3:-Obtain-the-radius-vs.-position-to-match-the-target-phase-profile-as-closely-as-possible." title="Link to this heading">#</a></h2>
@@ -1004,7 +1004,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="04e4c993058f487ab832cb0e91a11b54" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
+<p><img alt="227e30aa8416445fb893473eb295d667" class="no-scaled-link" src="../../../_images/radius_map.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-4:-Build-full-metalens-in-FDTD-and-analyze-results.-We-use-the-Assembly-Group-Object-for-efficiency.">
 <h2>Part 4: Build full metalens in FDTD and analyze results. We use the Assembly Group Object for efficiency.<a class="headerlink" href="#Part-4:-Build-full-metalens-in-FDTD-and-analyze-results.-We-use-the-Assembly-Group-Object-for-efficiency." title="Link to this heading">#</a></h2>
@@ -1203,7 +1203,7 @@ Step 3 for full FDTD simulation.</p>
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="555e6560cf5243268a9be2be38c691ff" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
+<p><img alt="81849f12a8e149d5a3ec77a8a9bf3482" class="no-scaled-link" src="../../../_images/metalens_full_run.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1257,7 +1257,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="86225b91056342c7b1738ef780ad813e" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
+<p><img alt="0b39940d82414d3b962078c3a70fa4f4" class="no-scaled-link" src="../../../_images/monitor_output.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1296,7 +1296,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="b0cacab4301c461f8cbcff9383556000" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
+<p><img alt="122aa01074d041adbe0b02643d471eab" class="no-scaled-link" src="../../../_images/projected_field.png" style="width: 600px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -1334,7 +1334,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="3a012b04194d4b8da4018511ef6f5f26" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
+<p><img alt="d3c2d6c8fd7c4ea097b0caf486127b96" class="no-scaled-link" src="../../../_images/projected_field_image.png" style="width: 600px;" /></p>
 </section>
 <section id="Part-5:-Export-to-GDS">
 <h2>Part 5: Export to GDS<a class="headerlink" href="#Part-5:-Export-to-GDS" title="Link to this heading">#</a></h2>
@@ -1426,7 +1426,7 @@ Step 3 for full FDTD simulation.</p>
 </pre></div>
 </div>
 </div>
-<p><img alt="1311b963270e44e6976393ffa6e14454" class="no-scaled-link" src="../../../_images/generated_gds.png" style="width: 600px;" /></p>
+<p><img alt="bf3060e4a2b94c1988a5d9db09c4d5f0" class="no-scaled-link" src="../../../_images/generated_gds.png" style="width: 600px;" /></p>
 </section>
 </section>
 

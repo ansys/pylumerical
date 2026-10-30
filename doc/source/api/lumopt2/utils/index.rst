@@ -103,6 +103,20 @@ These classes provide auxiliary utilities for optimization such as job managemen
 
 .. grid:: 2 2 3 3
 
+    .. grid-item-card:: utils.slurm_config
+        :link: slurm_config
+        :link-type: doc
+
+        Slurm cluster configuration and resource resolution.
+
+    .. grid-item-card:: utils.pure_func_checker
+        :link: pure_func_checker
+        :link-type: doc
+
+        Static analysis helpers for validating pure, picklable functions.
+
+.. grid:: 2 2 3 3
+
     .. grid-item-card:: utils.gds_import
         :link: gds_import
         :link-type: doc
@@ -137,6 +151,9 @@ These classes provide auxiliary utilities for optimization such as job managemen
    runner
    fd_grad
    profiler
+   slurm_config
+   pure_func_checker
+   custom_serializers
    gds_import
    burst_serdes
    resource_estimator

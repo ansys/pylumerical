@@ -44,12 +44,12 @@ tests = [
 ]
 doc = [
     "ansys-sphinx-theme[autoapi]==1.9.0",
-    "numpydoc==1.10.0",
+    "numpydoc==1.11.0",
     "sphinx==8.2.3",
     "sphinx-copybutton==0.5.2",
     "sphinx_design==0.7.0",
     "nbsphinx==0.9.8",
-    "jupytext==1.19.5",
+    "jupytext==1.19.6",
     "ipykernel==7.3.0"
 ]
 

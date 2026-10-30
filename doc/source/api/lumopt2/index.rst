@@ -98,6 +98,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          ~lumopt2.utils.fd_grad.finite_difference_gradient
          ~lumopt2.utils.fd_grad.validate_gradient
          ~lumopt2.utils.fd_grad.fd_sweep_perturbation
+         ~lumopt2.utils.fd_grad.visualize_d_eps
 
    .. tab-item:: Resources
 
@@ -110,6 +111,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.utils.runner.LocalRunner
          ~lumopt2.utils.runner.Job
+         ~lumopt2.utils.slurm_config.SlurmConfig
 
    .. tab-item:: Visualization
 

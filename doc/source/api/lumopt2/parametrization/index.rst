@@ -39,6 +39,14 @@ The parametrization module contains classes and functions that defines how geome
 
 .. grid:: 2 2 3 3
 
+    .. grid-item-card:: parametrization.d_eps_hermetic
+        :link: d_eps_hermetic
+        :link-type: doc
+
+        Hermetic (picklable) dEps/dP calculation and gradient contraction for Slurm jobs.
+
+.. grid:: 2 2 3 3
+
     .. grid-item-card:: parametrization.layout_shape
         :link: layout_shape
         :link-type: doc
@@ -73,6 +81,7 @@ The parametrization module contains classes and functions that defines how geome
    combined_parametrization
    base_parametrization
    d_eps_calculator
+   d_eps_hermetic
    layout_shape
    polygon
    manufacturability

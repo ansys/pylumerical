@@ -14,3 +14,5 @@ Classes
 
    BaseCallback
    CallbackList
+   ManufacturingMetricsLogger
+   ConstraintLogger

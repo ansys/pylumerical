@@ -26,6 +26,12 @@ The figure of merit module defines the objective functions for optimization.
 
         FoM calculator for port results.
 
+    .. grid-item-card:: fom.farfield_fom
+        :link: farfield_fom
+        :link-type: doc
+
+        FoM calculator for far-field results.
+
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: fom.base_fom
@@ -46,5 +52,6 @@ The figure of merit module defines the objective functions for optimization.
    fom
    field_fom
    port_fom
+   farfield_fom
    base_fom
    simulation_results

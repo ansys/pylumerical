@@ -36,6 +36,26 @@ These classes provide utilities via a callback system to log or visualize result
 
         Reusable panel widgets for the visualizer.
 
+    .. grid-item-card:: utils.shape_gradient_plot
+        :link: shape_gradient_plot
+        :link-type: doc
+
+        Plot shape gradients on polygon boundaries.
+
+    .. grid-item-card:: utils.logging_config
+        :link: logging_config
+        :link-type: doc
+
+        Detailed console and file logging configuration.
+
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: utils.emit_logging
+        :link: emit_logging
+        :link-type: doc
+
+        Machine-readable EMIT log level and data URI helpers.
+
 Optimization utilities
 --------------------------
 
@@ -81,6 +101,26 @@ These classes provide auxiliary utilities for optimization such as job managemen
 
         Wall-clock profiling for optimization phases.
 
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: utils.gds_import
+        :link: gds_import
+        :link-type: doc
+
+        Import polygons from GDS files.
+
+    .. grid-item-card:: utils.burst_serdes
+        :link: burst_serdes
+        :link-type: doc
+
+        Serialize an optimization script to run on a burst resource.
+
+    .. grid-item-card:: utils.resource_estimator
+        :link: resource_estimator
+        :link-type: doc
+
+        Estimate thread, memory, and concurrency needs for dEps/dP jobs.
+
 .. toctree::
    :hidden:
 
@@ -88,9 +128,15 @@ These classes provide auxiliary utilities for optimization such as job managemen
    graphical_visualizer
    callbacks
    panels
+   shape_gradient_plot
+   logging_config
+   emit_logging
    common
    config_map
    sparse_helpers
    runner
    fd_grad
    profiler
+   gds_import
+   burst_serdes
+   resource_estimator

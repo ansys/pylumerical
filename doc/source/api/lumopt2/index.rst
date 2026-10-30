@@ -42,6 +42,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.fom.simulation_results.PortResults
          ~lumopt2.fom.simulation_results.FieldResults
+         ~lumopt2.fom.simulation_results.FarfieldResults
 
       .. rubric:: Functions
 
@@ -64,6 +65,8 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          ~lumopt2.parametrization.closed_curve.ClosedCurve
          ~lumopt2.parametrization.closed_curve.ClosedCurveLinearSegment
          ~lumopt2.parametrization.closed_curve.ClosedCurveCubicSegment
+         ~lumopt2.parametrization.layout_shape.LayoutShape
+         ~lumopt2.parametrization.polygon.Polygon
          ~lumopt2.parametrization.combined_parametrization.CombinedParametrization
          ~lumopt2.parametrization.closed_curve.Segment
          ~lumopt2.parametrization.closed_curve.EqualSplit
@@ -81,6 +84,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          :nosignatures:
 
          ~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer
+         ~lumopt2.optimizer.gradient_ascent.GradientAscentOptimizer
          ~lumopt2.optimizer.base_optimizer.ParameterScaler
 
       .. rubric:: Functions
@@ -126,6 +130,47 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          ~lumopt2.utils.panels.GeometryPanel
          ~lumopt2.utils.panels.GradientNormPanel
          ~lumopt2.utils.panels.MonitorPanel
+         ~lumopt2.utils.panels.ConstraintViolationPanel
+         ~lumopt2.utils.panels.ManufacturingMetricsPanel
+         ~lumopt2.utils.panels.ShapeGradientPanel
+         ~lumopt2.utils.callbacks.ManufacturingMetricsLogger
+         ~lumopt2.utils.callbacks.ConstraintLogger
+
+      .. rubric:: Functions
+
+      .. autosummary::
+         :nosignatures:
+
+         ~lumopt2.utils.shape_gradient_plot.plot_shape_gradient
+
+   .. tab-item:: Shape optimization
+
+      Classes and functions for shape optimization of layout polygons with manufacturing constraints.
+
+      .. rubric:: Classes
+
+      .. autosummary::
+         :nosignatures:
+
+         ~lumopt2.shape_optimization.Transmission
+         ~lumopt2.shape_optimization.DesignRules
+         ~lumopt2.shape_optimization.ShapeOptimizationResult
+         ~lumopt2.constraints.base.BaseConstraint
+         ~lumopt2.constraints.aggregator.ConstraintSet
+         ~lumopt2.constraints.manufacturing.MinAreaConstraint
+         ~lumopt2.constraints.manufacturing.MinAngleConstraint
+         ~lumopt2.constraints.manufacturing.MinDistanceConstraint
+         ~lumopt2.constraints.manufacturing.MinEdgeLengthConstraint
+         ~lumopt2.constraints.restoration.RestorationResult
+
+      .. rubric:: Functions
+
+      .. autosummary::
+         :nosignatures:
+
+         ~lumopt2.shape_optimization.optimize_shape
+         ~lumopt2.constraints.restoration.restore_feasibility
+         ~lumopt2.utils.gds_import.import_gds
 
    .. tab-item:: Other
 
@@ -168,6 +213,26 @@ All lumopt2 modules
 
         Modules to parametrize the simulation.
 
+    .. grid-item-card:: lumopt2.constraints
+        :link: constraints/index
+        :link-type: doc
+
+        Modules for soft constraints and feasibility restoration.
+
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: lumopt2.gradient
+        :link: gradient/index
+        :link-type: doc
+
+        Modules to form gradients from simulation fields.
+
+    .. grid-item-card:: lumopt2.shape_optimization
+        :link: shape_optimization
+        :link-type: doc
+
+        High-level workflow for shape optimization.
+
 .. grid:: 2 2 3 3
 
     .. grid-item-card:: lumopt2.optimizer
@@ -189,6 +254,9 @@ All lumopt2 modules
     fom/index
     optimizer/index
     parametrization/index
+    constraints/index
+    gradient/index
+    shape_optimization
     utils/index
 
 ..

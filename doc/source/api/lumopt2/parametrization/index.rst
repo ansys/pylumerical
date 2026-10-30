@@ -37,6 +37,34 @@ The parametrization module contains classes and functions that defines how geome
 
         Sparse dEps/dP Jacobian calculator in FDTD.
 
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: parametrization.layout_shape
+        :link: layout_shape
+        :link-type: doc
+
+        Parametrization based on polygon vertices of a layout shape.
+
+    .. grid-item-card:: parametrization.polygon
+        :link: polygon
+        :link-type: doc
+
+        Polygon geometry class.
+
+    .. grid-item-card:: parametrization.manufacturability
+        :link: manufacturability
+        :link-type: doc
+
+        Manufacturing metrics and design rule check support.
+
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: parametrization.shape_geometry
+        :link: shape_geometry
+        :link-type: doc
+
+        Mirroring and half-space clipping helpers for shape vertices.
+
 .. toctree::
    :hidden:
 
@@ -45,3 +73,7 @@ The parametrization module contains classes and functions that defines how geome
    combined_parametrization
    base_parametrization
    d_eps_calculator
+   layout_shape
+   polygon
+   manufacturability
+   shape_geometry

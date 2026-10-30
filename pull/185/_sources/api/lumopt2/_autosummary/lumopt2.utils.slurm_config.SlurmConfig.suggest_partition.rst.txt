@@ -1,0 +1,6 @@
+suggest\_partition
+==================
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.suggest_partition

@@ -1,0 +1,6 @@
+valid\_gpu\_targets
+===================
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.valid_gpu_targets

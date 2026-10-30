@@ -1,0 +1,6 @@
+﻿SimulationError
+===============
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoexception:: SimulationError

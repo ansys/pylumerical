@@ -1,0 +1,6 @@
+LAYOUT\_MODE
+============
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoattribute:: SimulationStatus.LAYOUT_MODE

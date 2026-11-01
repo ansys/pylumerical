@@ -1,0 +1,6 @@
+disable
+=======
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.disable

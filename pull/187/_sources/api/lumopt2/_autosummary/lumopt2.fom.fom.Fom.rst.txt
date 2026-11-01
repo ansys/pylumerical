@@ -1,0 +1,6 @@
+﻿Fom
+===
+
+.. currentmodule:: lumopt2.fom.fom
+
+.. autofunction:: Fom

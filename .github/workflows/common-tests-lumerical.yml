@@ -24,7 +24,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads
     env:
-      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys-internal/lumerical-unified:v261_4'
+      DOCKER_IMAGE_LUMERICAL_UNIFIED: 'ghcr.io/ansys/lumerical-unified:v261_4'
       DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME: 'lumerical-unified'
     steps:
 
@@ -103,7 +103,7 @@ jobs:
 
       - name: Upload Coverage Results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: coverage-html-ubuntu
           path: .cov/html

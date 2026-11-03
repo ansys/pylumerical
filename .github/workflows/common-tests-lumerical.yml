@@ -67,6 +67,7 @@ jobs:
             --network="host" \
             --name ${DOCKER_CONTAINER_LUMERICAL_UNIFIED_NAME} \
             --add-host "ansys-license-s:${LICENSE_SERVER}" \
+            --env COVERAGE_FILE=/tmp/lumerical-mcp.coverage \
             --env ANSYSLMD_LICENSE_FILE=1055@${LICENSE_SERVER} \
             --mount type=bind,source=${PWD},target=/home/lumerical/pylumerical \
             ${DOCKER_IMAGE_LUMERICAL_UNIFIED}

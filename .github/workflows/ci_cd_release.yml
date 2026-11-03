@@ -38,7 +38,7 @@ jobs:
       id-token: write # Required for trusted publisher
       contents: write # Required for GitHub uploads and reusable workflow
       attestations: write # Required to create attestations
-    uses: ./.github/workflows/common-build-test-package.yml
+    uses: $/.github/workflows/common-build-test-package.yml
     with:
       library-name: 'ansys-lumerical-core'
       documentation-cname: 'lumerical.docs.pyansys.com'

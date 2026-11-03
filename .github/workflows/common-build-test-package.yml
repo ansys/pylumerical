@@ -57,7 +57,7 @@ jobs:
   doc-build:
     permissions:
       contents: read # Required by reusable workflow to checkout repository
-    uses: ./.github/workflows/common-doc-build-lumerical.yml
+    uses: $/.github/workflows/common-doc-build-lumerical.yml
     with:
       documentation-cname: ${{ inputs.documentation-cname }}
       skip-doc-build-if-closed: ${{ inputs.skip-doc-build-if-closed }}
@@ -90,7 +90,7 @@ jobs:
     permissions:
       id-token: write # Required for trusted publisher
       contents: write # Required by reusable workflow for write operations
-    uses: ./.github/workflows/common-tests-lumerical.yml
+    uses: $/.github/workflows/common-tests-lumerical.yml
     secrets:
       PYANSYS_CI_BOT_TOKEN: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
       LICENSE_SERVER: ${{ secrets.LICENSE_SERVER }}

@@ -12,8 +12,10 @@
 
 # Perform required imports
 from typing import Dict, Tuple  # Only required for better type hint
+
 import matplotlib.pyplot as plt  # Only required for plotting
 import numpy as np
+
 import ansys.lumerical.core as lumapi
 
 # ## Part 1: Set up structures and simulation objects

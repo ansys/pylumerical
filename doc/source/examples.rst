@@ -76,6 +76,8 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
       This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.
 
+.. grid:: 2 2 3 3
+
    .. grid-item-card:: Grating Coupler
       :link: examples/Single_Solver_Workflows/grating_coupler/grating_coupler
       :link-type: doc

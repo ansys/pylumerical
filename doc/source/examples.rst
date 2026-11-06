@@ -83,7 +83,7 @@ These examples demonstrates basic simulation automation using PyLumerical for va
       :link-type: doc
 
       This example demonstrates how to simulate a grating coupler connecting a single-mode fiber on the surface of a photonic chip to an integrated waveguide.
-   
+
    .. grid-item-card:: Grating Coupler (2) - Optimization
       :link: examples/Single_Solver_Workflows/grating_coupler_optimization/grating_coupler_optimization
       :link-type: doc

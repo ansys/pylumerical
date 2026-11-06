@@ -3,19 +3,19 @@
 # Given a grating coupler design, this example demonstrates how to optimize the fiber position for improved coupling efficiency.
 #
 # This example is the **second** part of the grating-coupler workflow:
-# - Create a grating coupler: set up the base simulation and run it.
+# - Create a grating coupler: set up the base simulation and run it. 
+# [Link](https://lumerical.docs.pyansys.com/version/stable/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
 # - **Optimize the grating coupler: improve the fiber position for better coupling efficiency.**
 # - Extract S-parameters: export S-parameters to Interconnect.
-# - Lumerical FDTD and Zemax Interconnect: export the field to ZBF for import into Zemax.
+# - ZBF2: Export and import the port's field as ZBF2 file between Lumerical FDTD and Zemax.
 #
 # This example demonstrates how to set up a SciPy optimization with a small number of variables.
 #
-# ## Prerequisites
+# **Prerequisites**
 #
 # A valid FDTD license is required.
 #
 # ### Import required modules
-
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,9 +47,11 @@ lambda_0 = 1.55 * um_to_m
 sio2_tox_offset = 0.65 * um_to_m
 
 # -
-# ### Set up FDTD simulation environment
+# ### Step 1:Set up FDTD simulation environment
 #
-# Load the grating coupler `.fsp` file. It can be obtained by following the previous steps in the grating coupler workflow.
+# Load the grating coupler `.fsp` file. It can be obtained by following the
+# [previous steps](https://lumerical.docs.pyansys.com/version/stable/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
+# in the grating coupler workflow.
 
 # +
 # Load the project file.
@@ -76,7 +78,7 @@ fdtd.setnamed("::model::FDTD::ports::port 1", "theta", fiber_theta)
 fdtd.setnamed("::model::FDTD::ports::port 1", "rotation offset", port_offset)
 
 # -
-# ### Scipy optimization
+# ### Step 2:Scipy optimization
 # For a small number of variables (<=3), we recommend using SciPy as the optimizer. For a large number of variables, we recommend using [lumopt2](https://lumerical.docs.pyansys.com/version/stable/user_guide/photonic_inverse_design_with_lumopt2.html).
 #
 # Here, we use the SciPy [Powell method](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-powell.html).
@@ -136,7 +138,7 @@ best_fiber_x_pos = result.x[0]
 print(f"Optimal fiber x: {best_fiber_x_pos * m_to_um:.3f} um; transmission: {-result.fun:.4f}")
 
 # -
-# ### Apply the optimization result to the simulation layout
+# ### Step 3:Apply the optimization result to the simulation layout
 
 # +
 best_port1_x_pos = best_fiber_x_pos + sio2_tox_offset * np.sin(np.deg2rad(fiber_theta))

@@ -1,0 +1,6 @@
+get\_result
+===========
+
+.. currentmodule:: lumopt2.optimizer.scipy_optimizer
+
+.. automethod:: ScipyOptimizer.get_result

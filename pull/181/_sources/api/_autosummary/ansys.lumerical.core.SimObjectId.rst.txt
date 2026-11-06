@@ -1,0 +1,15 @@
+﻿SimObjectId
+===========
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: SimObjectId
+
+   
+
+   
+   
+
+   
+   
+   

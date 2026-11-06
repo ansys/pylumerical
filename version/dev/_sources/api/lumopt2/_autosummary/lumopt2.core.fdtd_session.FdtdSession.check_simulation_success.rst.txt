@@ -1,0 +1,6 @@
+check\_simulation\_success
+==========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.check_simulation_success

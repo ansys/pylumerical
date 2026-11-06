@@ -1,0 +1,40 @@
+﻿JSONLogger
+==========
+
+.. currentmodule:: lumopt2.utils.file_logger
+
+.. autoclass:: JSONLogger
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      JSONLogger.on_function_eval
+      
+      
+      JSONLogger.on_iteration_end
+      
+      
+      JSONLogger.on_iteration_start
+      
+      
+      JSONLogger.on_optimization_end
+      
+      
+      JSONLogger.on_optimization_start
+      
+      
+      JSONLogger.save_early_exit
+      
+   
+   
+
+   
+   
+   

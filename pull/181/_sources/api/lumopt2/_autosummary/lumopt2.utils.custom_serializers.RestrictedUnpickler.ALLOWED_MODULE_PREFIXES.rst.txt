@@ -1,0 +1,6 @@
+ALLOWED\_MODULE\_PREFIXES
+=========================
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. autoattribute:: RestrictedUnpickler.ALLOWED_MODULE_PREFIXES

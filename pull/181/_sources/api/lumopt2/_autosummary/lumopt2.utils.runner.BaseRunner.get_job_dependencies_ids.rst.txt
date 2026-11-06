@@ -1,0 +1,6 @@
+get\_job\_dependencies\_ids
+===========================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.get_job_dependencies_ids

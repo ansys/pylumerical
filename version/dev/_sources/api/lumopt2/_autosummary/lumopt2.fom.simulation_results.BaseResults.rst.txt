@@ -1,0 +1,31 @@
+﻿BaseResults
+===========
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. autoclass:: BaseResults
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      BaseResults.extract_wavelengths
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      BaseResults.obj_path
+   
+   

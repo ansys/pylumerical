@@ -1,0 +1,6 @@
+﻿PNorm
+=====
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autofunction:: PNorm

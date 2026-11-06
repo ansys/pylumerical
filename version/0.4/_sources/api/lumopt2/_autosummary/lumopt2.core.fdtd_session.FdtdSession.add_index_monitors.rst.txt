@@ -1,0 +1,6 @@
+add\_index\_monitors
+====================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.add_index_monitors

@@ -1,0 +1,6 @@
+set\_project\_name
+==================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.set_project_name

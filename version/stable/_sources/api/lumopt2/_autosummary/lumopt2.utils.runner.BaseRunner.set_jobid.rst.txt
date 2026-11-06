@@ -1,0 +1,6 @@
+set\_jobid
+==========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.set_jobid

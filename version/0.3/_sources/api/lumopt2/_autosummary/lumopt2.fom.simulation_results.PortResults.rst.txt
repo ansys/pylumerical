@@ -1,0 +1,30 @@
+﻿PortResults
+===========
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. autoclass:: PortResults
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      PortResults.extract_wavelengths
+      
+      
+      PortResults.get_results
+      
+      
+      PortResults.get_transmission_results
+      
+   
+   
+
+   
+   
+   

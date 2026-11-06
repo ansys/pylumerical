@@ -1,0 +1,6 @@
+extract\_wavelengths
+====================
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. automethod:: BaseResults.extract_wavelengths

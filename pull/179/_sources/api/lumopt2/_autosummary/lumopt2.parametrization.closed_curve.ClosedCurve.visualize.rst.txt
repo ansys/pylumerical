@@ -1,0 +1,6 @@
+visualize
+=========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.visualize

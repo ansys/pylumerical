@@ -1,0 +1,6 @@
+get\_scaling\_factor
+====================
+
+.. currentmodule:: lumopt2.fom.field_fom
+
+.. automethod:: FieldFom.get_scaling_factor

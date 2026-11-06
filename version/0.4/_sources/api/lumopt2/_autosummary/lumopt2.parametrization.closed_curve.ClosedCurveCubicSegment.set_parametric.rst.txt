@@ -1,0 +1,6 @@
+set\_parametric
+===============
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurveCubicSegment.set_parametric

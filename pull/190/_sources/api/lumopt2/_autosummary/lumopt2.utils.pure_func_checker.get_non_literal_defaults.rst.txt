@@ -1,0 +1,6 @@
+﻿get\_non\_literal\_defaults
+===========================
+
+.. currentmodule:: lumopt2.utils.pure_func_checker
+
+.. autofunction:: get_non_literal_defaults

@@ -1,0 +1,6 @@
+on\_optimization\_start
+=======================
+
+.. currentmodule:: lumopt2.utils.callbacks
+
+.. automethod:: BaseCallback.on_optimization_start

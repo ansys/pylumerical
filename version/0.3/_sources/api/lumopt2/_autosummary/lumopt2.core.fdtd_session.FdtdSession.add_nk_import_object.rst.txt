@@ -1,0 +1,6 @@
+add\_nk\_import\_object
+=======================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.add_nk_import_object

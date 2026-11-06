@@ -1,0 +1,6 @@
+axes\_kwargs
+============
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: MonitorPanel.axes_kwargs

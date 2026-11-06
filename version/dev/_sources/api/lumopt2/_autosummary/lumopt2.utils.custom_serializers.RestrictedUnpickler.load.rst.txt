@@ -1,0 +1,6 @@
+load
+====
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. automethod:: RestrictedUnpickler.load

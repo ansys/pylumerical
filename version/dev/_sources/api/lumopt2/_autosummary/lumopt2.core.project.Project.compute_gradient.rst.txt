@@ -1,0 +1,6 @@
+compute\_gradient
+=================
+
+.. currentmodule:: lumopt2.core.project
+
+.. automethod:: Project.compute_gradient

@@ -1,0 +1,6 @@
+log\_summary
+============
+
+.. currentmodule:: lumopt2.utils.profiler
+
+.. automethod:: Profiler.log_summary

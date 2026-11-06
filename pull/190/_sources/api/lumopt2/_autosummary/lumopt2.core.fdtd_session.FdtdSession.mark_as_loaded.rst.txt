@@ -1,0 +1,6 @@
+mark\_as\_loaded
+================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.mark_as_loaded

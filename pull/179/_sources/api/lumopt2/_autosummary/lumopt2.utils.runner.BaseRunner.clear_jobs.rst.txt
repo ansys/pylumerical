@@ -1,0 +1,6 @@
+clear\_jobs
+===========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.clear_jobs

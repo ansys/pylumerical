@@ -1,0 +1,39 @@
+﻿Lumopt2JsonEncoder
+==================
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. autoclass:: Lumopt2JsonEncoder
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      Lumopt2JsonEncoder.default
+      
+      
+      Lumopt2JsonEncoder.encode
+      
+      
+      Lumopt2JsonEncoder.iterencode
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Lumopt2JsonEncoder.item_separator
+      Lumopt2JsonEncoder.key_separator
+   
+   

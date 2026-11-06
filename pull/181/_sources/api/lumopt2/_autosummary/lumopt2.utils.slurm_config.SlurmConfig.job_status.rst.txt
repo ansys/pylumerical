@@ -1,0 +1,6 @@
+job\_status
+===========
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.job_status

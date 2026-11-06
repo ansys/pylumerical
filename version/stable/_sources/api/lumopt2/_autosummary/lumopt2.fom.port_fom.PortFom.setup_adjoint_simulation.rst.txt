@@ -1,0 +1,6 @@
+setup\_adjoint\_simulation
+==========================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.setup_adjoint_simulation

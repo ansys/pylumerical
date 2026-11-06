@@ -1,0 +1,6 @@
+get\_initial\_params
+====================
+
+.. currentmodule:: lumopt2.parametrization.combined_parametrization
+
+.. automethod:: CombinedParametrization.get_initial_params

@@ -1,0 +1,6 @@
+getParent
+=========
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: SimObject.getParent

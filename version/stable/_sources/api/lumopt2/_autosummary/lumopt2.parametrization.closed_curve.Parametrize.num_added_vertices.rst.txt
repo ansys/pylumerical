@@ -1,0 +1,6 @@
+num\_added\_vertices
+====================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: Parametrize.num_added_vertices

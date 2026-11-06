@@ -3,7 +3,7 @@
 # Given a grating coupler design, this example demonstrates how to optimize the fiber position for improved coupling efficiency.
 #
 # This example is the **second** part of the grating-coupler workflow:
-# - Create a grating coupler: set up the base simulation and run it. 
+# - Create a grating coupler: set up the base simulation and run it.
 # [Link](https://lumerical.docs.pyansys.com/version/stable/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
 # - **Optimize the grating coupler: improve the fiber position for better coupling efficiency.**
 # - Extract S-parameters: export S-parameters to Interconnect.

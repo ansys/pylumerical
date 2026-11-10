@@ -1,0 +1,6 @@
+to\_scaled
+==========
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. automethod:: ParameterScaler.to_scaled

@@ -1,0 +1,25 @@
+﻿ProjectConfig
+=============
+
+.. currentmodule:: lumopt2.core.project_config
+
+.. autoclass:: ProjectConfig
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      ProjectConfig.apply
+      
+   
+   
+
+   
+   
+   

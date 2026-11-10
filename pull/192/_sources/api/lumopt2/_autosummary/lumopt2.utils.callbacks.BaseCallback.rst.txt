@@ -1,0 +1,36 @@
+﻿BaseCallback
+============
+
+.. currentmodule:: lumopt2.utils.callbacks
+
+.. autoclass:: BaseCallback
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      BaseCallback.on_function_eval
+      
+      
+      BaseCallback.on_iteration_end
+      
+      
+      BaseCallback.on_iteration_start
+      
+      
+      BaseCallback.on_optimization_end
+      
+      
+      BaseCallback.on_optimization_start
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,6 @@
+﻿resolve\_project\_folder
+========================
+
+.. currentmodule:: lumopt2.utils.common
+
+.. autofunction:: resolve_project_folder

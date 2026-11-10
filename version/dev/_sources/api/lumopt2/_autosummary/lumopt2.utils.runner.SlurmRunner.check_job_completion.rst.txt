@@ -1,0 +1,6 @@
+check\_job\_completion
+======================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: SlurmRunner.check_job_completion

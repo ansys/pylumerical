@@ -1,0 +1,6 @@
+get\_scaling\_factor
+====================
+
+.. currentmodule:: lumopt2.fom.port_fom
+
+.. automethod:: PortFom.get_scaling_factor

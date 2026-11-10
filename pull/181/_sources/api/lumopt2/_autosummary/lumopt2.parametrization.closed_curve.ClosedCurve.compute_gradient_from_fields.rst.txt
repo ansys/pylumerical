@@ -1,0 +1,6 @@
+compute\_gradient\_from\_fields
+===============================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.compute_gradient_from_fields

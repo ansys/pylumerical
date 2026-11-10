@@ -1,0 +1,49 @@
+﻿CombinedParametrization
+=======================
+
+.. currentmodule:: lumopt2.parametrization.combined_parametrization
+
+.. autoclass:: CombinedParametrization
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      CombinedParametrization.compute_gradient_from_fields
+      
+      
+      CombinedParametrization.compute_opt_params_direct_to_permittivity_jacobian
+      
+      
+      CombinedParametrization.create_optimization_structures
+      
+      
+      CombinedParametrization.get_bounds
+      
+      
+      CombinedParametrization.get_initial_params
+      
+      
+      CombinedParametrization.store_mesh_info
+      
+      
+      CombinedParametrization.update_structure
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      CombinedParametrization.bounds
+   
+   

@@ -1,0 +1,6 @@
+query\_job\_scontrol
+====================
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.query_job_scontrol

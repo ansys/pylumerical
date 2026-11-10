@@ -1,0 +1,6 @@
+history
+=======
+
+.. currentmodule:: lumopt2.core.optimization
+
+.. autoattribute:: OptimizationResult.history

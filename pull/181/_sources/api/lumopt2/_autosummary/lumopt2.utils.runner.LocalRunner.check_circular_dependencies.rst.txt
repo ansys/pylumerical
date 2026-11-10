@@ -1,0 +1,6 @@
+check\_circular\_dependencies
+=============================
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: LocalRunner.check_circular_dependencies

@@ -1,0 +1,6 @@
+run\_solve
+==========
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.run_solve

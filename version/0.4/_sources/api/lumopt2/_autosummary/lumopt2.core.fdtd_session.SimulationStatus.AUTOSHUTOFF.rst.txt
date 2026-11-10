@@ -1,0 +1,6 @@
+AUTOSHUTOFF
+===========
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. autoattribute:: SimulationStatus.AUTOSHUTOFF

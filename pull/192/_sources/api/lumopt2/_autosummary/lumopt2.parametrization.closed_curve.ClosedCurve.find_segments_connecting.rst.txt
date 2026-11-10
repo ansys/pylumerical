@@ -1,0 +1,6 @@
+find\_segments\_connecting
+==========================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.find_segments_connecting

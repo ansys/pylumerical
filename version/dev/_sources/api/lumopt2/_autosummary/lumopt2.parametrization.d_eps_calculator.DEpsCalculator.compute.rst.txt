@@ -1,0 +1,6 @@
+compute
+=======
+
+.. currentmodule:: lumopt2.parametrization.d_eps_calculator
+
+.. automethod:: DEpsCalculator.compute

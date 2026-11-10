@@ -1,0 +1,6 @@
+start
+=====
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: Segment.start

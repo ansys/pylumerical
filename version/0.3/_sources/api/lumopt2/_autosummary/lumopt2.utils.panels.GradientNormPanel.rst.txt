@@ -1,0 +1,43 @@
+﻿GradientNormPanel
+=================
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoclass:: GradientNormPanel
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      GradientNormPanel.on_optimization_end
+      
+      
+      GradientNormPanel.setup
+      
+      
+      GradientNormPanel.update
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      GradientNormPanel.auto_log
+      GradientNormPanel.color
+      GradientNormPanel.linewidth
+      GradientNormPanel.marker
+      GradientNormPanel.markersize
+      GradientNormPanel.requires_forward_results
+      GradientNormPanel.title
+   
+   

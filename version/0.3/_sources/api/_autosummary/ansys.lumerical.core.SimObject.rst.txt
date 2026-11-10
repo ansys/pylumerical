@@ -1,0 +1,27 @@
+﻿SimObject
+=========
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: SimObject
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      SimObject.getChildren
+      
+      
+      SimObject.getParent
+      
+   
+   
+
+   
+   
+   

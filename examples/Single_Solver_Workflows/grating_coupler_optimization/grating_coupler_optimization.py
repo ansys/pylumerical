@@ -4,7 +4,6 @@
 #
 # This example is the **second** part of the grating-coupler workflow:
 # - Create a grating coupler: set up the base simulation and run it.
-# [Link](https://lumerical.docs.pyansys.com/version/stable/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
 # - **Optimize the grating coupler: improve the fiber position for better coupling efficiency.**
 # - Extract S-parameters: export S-parameters to Interconnect.
 # - ZBF2: Export and import the port's field as ZBF2 file between Lumerical FDTD and Zemax.
@@ -50,7 +49,7 @@ sio2_tox_offset = 0.65 * um_to_m
 # ### Step 1:Set up FDTD simulation environment
 #
 # Load the grating coupler `.fsp` file. It can be obtained by following the
-# [previous steps](https://lumerical.docs.pyansys.com/version/stable/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
+# [previous steps](https://lumerical.docs.pyansys.com/version/dev/examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html)
 # in the grating coupler workflow.
 
 # +

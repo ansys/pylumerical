@@ -1,7 +1,7 @@
 lumopt2.constraints
 ===================
 
-The constraints module provides differentiable soft constraints and feasibility restoration for manufacturable designs.
+The constraints module provides constraints to compliance to design rules.
 
 .. automodule:: lumopt2.constraints
    :no-members:

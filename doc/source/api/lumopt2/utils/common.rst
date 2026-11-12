@@ -24,6 +24,7 @@ Functions
    :toctree: ../_autosummary
 
    BoundedMatch
+   add_with_props
    make_params_key
    resolve_project_folder
    format_params_for_logging

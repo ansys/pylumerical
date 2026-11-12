@@ -129,6 +129,12 @@ These classes provide auxiliary utilities for optimization such as job managemen
 
         Serialize an optimization script to run on a burst resource.
 
+    .. grid-item-card:: utils.burst_capture
+        :link: burst_capture
+        :link-type: doc
+
+        Capture an optimization script and its context for burst execution.
+
     .. grid-item-card:: utils.resource_estimator
         :link: resource_estimator
         :link-type: doc
@@ -156,4 +162,5 @@ These classes provide auxiliary utilities for optimization such as job managemen
    custom_serializers
    gds_import
    burst_serdes
+   burst_capture
    resource_estimator

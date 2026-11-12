@@ -24,4 +24,13 @@ Functions
    :toctree: ../_autosummary
 
    lumopt2_json_decode
+   make_lumopt2_json_decoder
+   check_bundle_alias
+   array_to_json
+   array_from_json
+   encode_plain_value
+   decode_plain_value
+   resolve_serialized_class
+   collapse_numeric_arrays
+   dumps_pretty
 

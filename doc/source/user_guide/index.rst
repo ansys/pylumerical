@@ -60,7 +60,7 @@ The article below discusses usage of ``lumopt2`` for inverse design of photonic 
 
       Learn how to install and use the ``lumopt2`` module for photonic inverse design.
 
-.. grid:: 1 2 2 2
+.. grid:: 1 2 3 3
 
    .. grid-item-card:: Getting started: Simple metalens example
       :link: lumopt2/getting_started_simple_metalens
@@ -73,6 +73,12 @@ The article below discusses usage of ``lumopt2`` for inverse design of photonic 
       :link-type: doc
 
       Learn how to optimize components for integrated photonic circuits through a simple L-bend example.
+
+   .. grid-item-card:: Getting started: Layout-driven shape optimization example
+      :link: lumopt2/getting_started_l_bend_shape
+      :link-type: doc
+
+      Learn how to use layout-driven shape optimization through an L-bend example.
 
 Start with the article below to learn the details of ``lumopt2``.
 
@@ -103,4 +109,5 @@ Start with the article below to learn the details of ``lumopt2``.
    photonic_inverse_design_with_lumopt2
    Getting started with lumopt2: simple metalens example <lumopt2/getting_started_simple_metalens>
    Getting started with lumopt2: L-bend example <lumopt2/getting_started_l_bend>
+   Getting started with lumopt2: Layout-driven shape optimization example <lumopt2/getting_started_l_bend_shape>
    Optimization session in lumopt2 <lumopt2/optimization_session>

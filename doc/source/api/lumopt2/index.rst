@@ -43,6 +43,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          ~lumopt2.fom.simulation_results.PortResults
          ~lumopt2.fom.simulation_results.FieldResults
          ~lumopt2.fom.simulation_results.FarfieldResults
+         ~lumopt2.fom.farfield_fom.FarfieldFom
 
       .. rubric:: Functions
 
@@ -51,6 +52,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.fom.fom.Fom
          ~lumopt2.utils.common.PNorm
+         ~lumopt2.utils.common.BoundedMatch
 
    .. tab-item:: Parametrization
 
@@ -110,8 +112,16 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          :nosignatures:
 
          ~lumopt2.utils.runner.LocalRunner
+         ~lumopt2.utils.runner.SlurmRunner
          ~lumopt2.utils.runner.Job
          ~lumopt2.utils.slurm_config.SlurmConfig
+
+      .. rubric:: Functions
+
+      .. autosummary::
+         :nosignatures:
+
+         ~lumopt2.utils.burst_serdes.run_on_burst
 
    .. tab-item:: Visualization
 
@@ -156,14 +166,11 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.shape_optimization.Transmission
          ~lumopt2.shape_optimization.DesignRules
-         ~lumopt2.shape_optimization.ShapeOptimizationResult
          ~lumopt2.constraints.base.BaseConstraint
-         ~lumopt2.constraints.aggregator.ConstraintSet
          ~lumopt2.constraints.manufacturing.MinAreaConstraint
          ~lumopt2.constraints.manufacturing.MinAngleConstraint
          ~lumopt2.constraints.manufacturing.MinDistanceConstraint
          ~lumopt2.constraints.manufacturing.MinEdgeLengthConstraint
-         ~lumopt2.constraints.restoration.RestorationResult
 
       .. rubric:: Functions
 
@@ -171,8 +178,6 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          :nosignatures:
 
          ~lumopt2.shape_optimization.optimize_shape
-         ~lumopt2.constraints.restoration.restore_feasibility
-         ~lumopt2.utils.gds_import.import_gds
 
    .. tab-item:: Other
 
@@ -184,6 +189,7 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
          :nosignatures:
 
          ~lumopt2.utils.profiler.Profiler
+         ~lumopt2.utils.logging_config.DetailedLogging
 
       .. rubric:: Functions
 
@@ -215,11 +221,13 @@ All lumopt2 modules
 
         Modules to parametrize the simulation.
 
+.. grid:: 2 2 3 3
+
     .. grid-item-card:: lumopt2.constraints
         :link: constraints/index
         :link-type: doc
 
-        Modules for soft constraints and feasibility restoration.
+        Modules for design rules.
 
 .. grid:: 2 2 3 3
 

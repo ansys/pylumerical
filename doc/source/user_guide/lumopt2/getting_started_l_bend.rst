@@ -158,7 +158,7 @@ Figure of merit
 ---------------
 
 For this example, the figure of merit is set up using the :py:class:`~lumopt2.fom.simulation_results.PortResults` class, which takes in the name of a port object, metric, and target wavelengths.
-In this example, we aim to maximize the transmission for the full O-band using a second order P-norm using :py:func:`~lumopt2.utils.common.PNorm`, with a target transmission of 1, which calculates the figure of merit based on :math:`1-\sqrt{\text{mean}((|T(\lambda)|-1)^2)}`.
+This example aims to maximize the transmission for the full O-band using a second order P-norm using :py:func:`~lumopt2.utils.common.PNorm`, with a target transmission of 1, which calculates the figure of merit based on :math:`1-\sqrt{\text{mean}((|T(\lambda)|-1)^2)}`.
 
 .. code-block:: python
     :lineno-start: 111

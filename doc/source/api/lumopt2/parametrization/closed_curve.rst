@@ -20,3 +20,13 @@ Classes
    Segment
    EqualSplit
    Parametrize
+
+Functions
+---------
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autosummary::
+   :toctree: ../_autosummary
+
+   anp_norm

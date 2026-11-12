@@ -13,5 +13,6 @@ Classes
    :toctree: ../_autosummary
 
    BaseResults
+   FarfieldResults
    FieldResults
    PortResults

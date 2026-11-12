@@ -16,3 +16,5 @@ Functions
    is_literal_node
    get_non_literal_defaults
    give_func_check_errors
+   check_source_is_safe
+   get_function_name

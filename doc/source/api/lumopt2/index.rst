@@ -155,9 +155,24 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.utils.shape_gradient_plot.plot_shape_gradient
 
-   .. tab-item:: Shape optimization
+   .. tab-item:: Constraints
 
-      Classes and functions for shape optimization of layout polygons with manufacturing constraints.
+      Manufacturing constraints.
+
+      .. rubric:: Classes
+
+      .. autosummary::
+         :nosignatures:
+
+         ~lumopt2.constraints.base.BaseConstraint
+         ~lumopt2.constraints.manufacturing.MinAreaConstraint
+         ~lumopt2.constraints.manufacturing.MinAngleConstraint
+         ~lumopt2.constraints.manufacturing.MinDistanceConstraint
+         ~lumopt2.constraints.manufacturing.MinEdgeLengthConstraint
+
+   .. tab-item:: Simplified setup
+
+      Simplified setup for shape optimization.
 
       .. rubric:: Classes
 
@@ -166,11 +181,6 @@ These classes are commonly used in the lumopt2 workflow, and you can directly in
 
          ~lumopt2.shape_optimization.Transmission
          ~lumopt2.shape_optimization.DesignRules
-         ~lumopt2.constraints.base.BaseConstraint
-         ~lumopt2.constraints.manufacturing.MinAreaConstraint
-         ~lumopt2.constraints.manufacturing.MinAngleConstraint
-         ~lumopt2.constraints.manufacturing.MinDistanceConstraint
-         ~lumopt2.constraints.manufacturing.MinEdgeLengthConstraint
 
       .. rubric:: Functions
 

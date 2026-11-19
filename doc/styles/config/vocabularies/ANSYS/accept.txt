@@ -56,3 +56,5 @@ autograd
 [Ss]lurm
 nanohole[s]
 Spyder
+manufacturab(le|ility)
+[Rr]esampl(ing|e)

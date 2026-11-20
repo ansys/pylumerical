@@ -56,6 +56,12 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
 .. grid:: 2 2 3 3
 
+   .. grid-item-card:: Diffraction Grating (RCWA / FDTD)
+      :link: examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa
+      :link-type: doc
+
+      This example simulates a simple diffraction grating using RCWA, and verifies the results with FDTD simulations.
+
    .. grid-item-card:: Metalens (RCWA / FDTD)
       :link: examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
       :link-type: doc
@@ -75,6 +81,13 @@ These examples demonstrates basic simulation automation using PyLumerical for va
       :link-type: doc
 
       This example demonstrates how to export monitor data to Zemax ZBF2 format in Lumerical FDTD and how to import a ZBF2 file as a source.
+.. grid:: 2 2 3 3
+
+   .. grid-item-card:: Grating Coupler
+      :link: examples/Single_Solver_Workflows/grating_coupler/grating_coupler
+      :link-type: doc
+
+      This example demonstrates how to simulate a grating coupler connecting a single-mode fiber on the surface of a photonic chip to an integrated waveguide.
 
 Photonic inverse design
 ------------------------
@@ -103,12 +116,14 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    examples/Sessions_and_Objects/basic_session_management/basic_session_management
    examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf
    examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic
+   examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa
    examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections
    examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
    examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
    examples/Single_Solver_Workflows/grating_coupler_4_zbf2_export/grating_coupler_4_zbf2_export
+   examples/Single_Solver_Workflows/grating_coupler/grating_coupler
 .. toctree::
    :hidden:
    :caption: Photonic inverse design

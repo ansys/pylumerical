@@ -22,6 +22,8 @@
 # A valid Lumerical FDTD license is required.
 
 # ### Import required modules and assign key parameters
+#
+# The grating coupler setup file can be obtained from following [Grating Coupler example](TODO: link)
 
 # +
 from pathlib import Path
@@ -36,12 +38,10 @@ import ansys.lumerical.core as lumapi
 show_GUI = True
 use_GPU_solver = True
 
-# The FDTD file can be obtained by following [Grating Coupler](TODO:link here).
-load_fdtd_file_path = "C:/Users/yiwenfan/Documents/grating_coupler/zbf2/grating_coupler_setup.fsp"
-save_fdtd_file_path = "C:/Users/yiwenfan/Documents/grating_coupler/zbf2/grating_coupler_setup_zbf2.fsp"
-
-orig_zbf2_save_path = "C:/Users/yiwenfan/Documents/grating_coupler/zbf2/zbf2.zbf2"
-zeropadded_zbf2_save_path = "C:/Users/yiwenfan/Documents/grating_coupler/zbf2/zbf2_2.zbf2"
+# Path to load existing grating coupler setup file
+fdtd_file_path = "your/path/to/grating_coupler_setup.fsp"
+# Path to save the exported ZBF2 file
+zbf2_write_path = "your/path/to/port1.zbf2"
 
 # Unit conversion factors
 um_to_m = 1e-6
@@ -65,7 +65,7 @@ c = 299792458
 
 # +
 fdtd = lumapi.FDTD(hide=not show_GUI)
-fdtd.load(save_fdtd_file_path)
+fdtd.load(fdtd_file_path)
 fdtd.switchtolayout()
 
 # Change global source to single wavelength
@@ -100,12 +100,12 @@ for key, value in port_1_properties.items():
 fdtd.setnamed("FDTD::ports", "source port", "port 2")
 
 # Save and run simulation
-fdtd.save(save_fdtd_file_path)
+fdtd.save(str(Path(fdtd_file_path).with_name("grating_coupler_setup_zbf2.fsp")))
 if use_GPU_solver:
     fdtd.run("FDTD", "GPU")
 else:
     fdtd.run("FDTD", "CPU")
-fdtd.save(save_fdtd_file_path)
+fdtd.save(str(Path(fdtd_file_path).with_name("grating_coupler_setup_zbf2.fsp")))
 
 # -
 # ### Extract result from port 1 and do zero-padding
@@ -142,6 +142,7 @@ def zero_padding_e(e: dict, times: int = 2) -> dict:
 port_name = "::model::FDTD::ports::port 1"
 E_orig = fdtd.getresult(port_name, "E")
 E_padded = zero_padding_e(e=E_orig, times=2)
+zbf2_padded_write_path = zbf2_write_path.replace(".zbf2", "_2.zbf2")
 
 # Print the shapes of the original E field components for verification.
 print(
@@ -229,22 +230,22 @@ orig_zbf2 = {
     "index": get_index(fdtd, "SiO2 TOX"),
     "position": port_position,
 }
-fdtd.zbf2write(orig_zbf2_save_path, orig_zbf2)
+fdtd.zbf2write(zbf2_write_path, orig_zbf2)
 
 zeropadded_zbf2 = {
     "beam": E_padded,
     "index": get_index(fdtd, "SiO2 TOX"),
     "position": port_position,
 }
-fdtd.zbf2write("C:/Users/yiwenfan/Documents/grating_coupler/zbf2/zbf2_2.zbf2", zeropadded_zbf2)
+fdtd.zbf2write(zbf2_padded_write_path, zeropadded_zbf2)
 
 # +
 # Check the rotation angles of the two ZBF2 files
-temp = fdtd.zbf2read(orig_zbf2_save_path, 1, False)
+temp = fdtd.zbf2read(zbf2_write_path, 1, False)
 rotation_angle = np.rad2deg(np.acos(temp["rotation_matrix"][0][0]))
 print(f"Non-padding rotation angle: {rotation_angle:.4f}")
 
-temp = fdtd.zbf2read("C:/Users/yiwenfan/Documents/grating_coupler/zbf2/zbf2_2.zbf2", 1, False)
+temp = fdtd.zbf2read(zbf2_padded_write_path, 1, False)
 rotation_angle = np.rad2deg(np.acos(temp["rotation_matrix"][0][0]))
 print(f"Zero-padded rotation angle: {rotation_angle:.4f}")
 
@@ -296,15 +297,13 @@ fdtd.setnamed("FDTD::ports", "source port", "")  # ports only record data now
 fdtd.addimportedsource(name="zbf2_source")
 
 # Set up each imported source and run simulations, this may take some time.
-file_path = str(Path(orig_zbf2_save_path).with_name("grating_coupler_orig_zbf2.fsp"))
-orig_beam, orig_waveguide_beam = import_zbf2_and_set(
-    fdtd=fdtd, zbf2_file_path=orig_zbf2_save_path, source_name="zbf2_source", save_file_path=file_path
-)
+file_path = str(Path(fdtd_file_path).with_name("grating_coupler_orig_zbf2.fsp"))
+orig_beam, orig_waveguide_beam = import_zbf2_and_set(fdtd=fdtd, zbf2_file_path=zbf2_write_path, source_name="zbf2_source", save_file_path=file_path)
 
 fdtd.switchtolayout()
-file_path = str(Path(zeropadded_zbf2_save_path).with_name("grating_coupler_padded_zbf2.fsp"))
+file_path = str(Path(fdtd_file_path).with_name("grating_coupler_padded_zbf2.fsp"))
 padded_beam, padded_waveguide_beam = import_zbf2_and_set(
-    fdtd=fdtd, zbf2_file_path=zeropadded_zbf2_save_path, source_name="zbf2_source", save_file_path=file_path
+    fdtd=fdtd, zbf2_file_path=zbf2_padded_write_path, source_name="zbf2_source", save_file_path=file_path
 )
 
 # +

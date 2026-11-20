@@ -1,0 +1,37 @@
+﻿ScipyOptimizer
+==============
+
+.. currentmodule:: lumopt2.optimizer.scipy_optimizer
+
+.. autoclass:: ScipyOptimizer
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      ScipyOptimizer.get_history
+      
+      
+      ScipyOptimizer.get_result
+      
+      
+      ScipyOptimizer.optimize
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      ScipyOptimizer.is_gradient_free
+   
+   

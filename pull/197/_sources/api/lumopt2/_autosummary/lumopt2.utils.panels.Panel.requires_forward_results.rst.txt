@@ -1,0 +1,6 @@
+requires\_forward\_results
+==========================
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: Panel.requires_forward_results

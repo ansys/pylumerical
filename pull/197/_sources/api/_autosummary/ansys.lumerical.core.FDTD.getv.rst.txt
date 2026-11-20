@@ -1,0 +1,6 @@
+getv
+====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. automethod:: FDTD.getv

@@ -1,0 +1,6 @@
+discretize\_polygon
+===================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.discretize_polygon

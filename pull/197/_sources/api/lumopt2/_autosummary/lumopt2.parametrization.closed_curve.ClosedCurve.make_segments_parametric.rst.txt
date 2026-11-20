@@ -1,0 +1,6 @@
+make\_segments\_parametric
+==========================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.make_segments_parametric

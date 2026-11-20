@@ -1,0 +1,6 @@
+create\_optimization\_structures
+================================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.create_optimization_structures

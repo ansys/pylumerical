@@ -1,0 +1,6 @@
+iterencode
+==========
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. automethod:: Lumopt2JsonEncoder.iterencode

@@ -1,0 +1,6 @@
+clear
+=====
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: BaseRunner.clear

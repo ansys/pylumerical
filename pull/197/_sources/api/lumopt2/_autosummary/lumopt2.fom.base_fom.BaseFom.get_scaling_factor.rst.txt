@@ -1,0 +1,6 @@
+get\_scaling\_factor
+====================
+
+.. currentmodule:: lumopt2.fom.base_fom
+
+.. automethod:: BaseFom.get_scaling_factor

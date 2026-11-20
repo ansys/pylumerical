@@ -1,0 +1,6 @@
+title
+=====
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: FomPanel.title

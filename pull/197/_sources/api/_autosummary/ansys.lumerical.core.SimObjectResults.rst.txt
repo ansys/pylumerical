@@ -1,0 +1,15 @@
+﻿SimObjectResults
+================
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: SimObjectResults
+
+   
+
+   
+   
+
+   
+   
+   

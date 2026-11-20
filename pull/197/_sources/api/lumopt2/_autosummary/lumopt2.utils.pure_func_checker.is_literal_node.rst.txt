@@ -1,0 +1,6 @@
+﻿is\_literal\_node
+=================
+
+.. currentmodule:: lumopt2.utils.pure_func_checker
+
+.. autofunction:: is_literal_node

@@ -242,6 +242,22 @@ To set up a slurm runner, follow this guide.
             :link: slurm_optimization
             :link-type: doc
 
+
+Running with Ansys Cloud Burst Compute™
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can run ``lumopt2`` optimizations on Ansys Cloud Burst Compute™ to leverage the latest hardware without having to set up your own computational infrastructure.
+
+To run ``lumopt2`` on Ansys Cloud Burst Compute™, follow this guide.
+
+.. grid:: 1 1 4 4
+
+    .. grid-item::
+
+        .. card:: :octicon:`book` User guide - Ansys Cloud Burst Compute™
+            :link: burst_optimization
+            :link-type: doc
+
 .. _optimization-session-optimizers:
 
 Optimizer
@@ -366,6 +382,7 @@ You can export the optimization results in your preferred method, or recreate an
    Callbacks <callbacks>
    Constraints <constraints>
    Running on cluster with Slurm <slurm_optimization>
+   Running on Ansys Cloud Burst Compute™ <burst_optimization>
 
 Diagnostics
 -----------

@@ -14,6 +14,8 @@ Ansys Lumerical MODE™
 Ansys Lumerical Multiphysics™
 Ansys Lumerical INTERCONNECT™
 Ansys Lumerical CML Compiler™
+Ansys Cloud Burst Compute™
+Cloud Burst Compute
 FDTD
 MODE
 RCWA
@@ -56,3 +58,5 @@ autograd
 [Ss]lurm
 nanohole[s]
 Spyder
+manufacturab(le|ility)
+[Rr]esampl(ing|e)

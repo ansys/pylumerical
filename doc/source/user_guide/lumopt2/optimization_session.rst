@@ -32,7 +32,7 @@ The overall workflow for running an inverse design problem is shown in the diagr
          :link: #parametrization
          :link-type: url
 
-         ``lumopt2.Parametrization`` ``lumopt2.ClosedCurve``
+         ``lumopt2.Parametrization`` ``lumopt2.ClosedCurve`` ``lumopt2.LayoutShape``
 
       .. card:: Figure of merit
          :link: #figure-of-merit
@@ -69,13 +69,17 @@ The overall workflow for running an inverse design problem is shown in the diagr
          :link: #optimizer
          :link-type: url
 
-         ``lumopt2.ScipyOptimizer``
+         ``lumopt2.ScipyOptimizer`` ``lumopt2.GradientAscentOptimizer``
 
       .. card:: Callbacks
          :link: #callbacks
          :link-type: url
 
          ``lumopt2.GraphicalVisualizer`` ``lumopt2.FileLogger``
+
+      .. card:: Constraints
+         :link: #constraints
+         :link-type: url
 
       .. card:: Additional configurations
          :link: #additional-configurations
@@ -143,7 +147,7 @@ The parametrization defines how geometric parameters in the simulation maps to o
 The lumopt2 module currently supports two different types of parametrization strategies:
 
 - Parametric optimization (:py:class:`~lumopt2.parametrization.parametrization.Parametrization`): maps arbitrary Lumerical object properties as parameters.
-- Closed curve optimization (:py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`): defines a closed curve formed by linear and cubic segments, typically used for photonic integrated circuit applications..
+- Closed curve optimization (:py:class:`~lumopt2.parametrization.closed_curve.ClosedCurve`): defines a closed curve formed by linear and cubic segments, typically used for photonic integrated circuit applications.
 
 Further information for each parametrization strategy is in the parametrization article.
 
@@ -238,6 +242,22 @@ To set up a slurm runner, follow this guide.
             :link: slurm_optimization
             :link-type: doc
 
+
+Running with Ansys Cloud Burst Compute™
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can run ``lumopt2`` optimizations on Ansys Cloud Burst Compute™ to leverage the latest hardware without having to set up your own computational infrastructure.
+
+To run ``lumopt2`` on Ansys Cloud Burst Compute™, follow this guide.
+
+.. grid:: 1 1 4 4
+
+    .. grid-item::
+
+        .. card:: :octicon:`book` User guide - Ansys Cloud Burst Compute™
+            :link: burst_optimization
+            :link-type: doc
+
 .. _optimization-session-optimizers:
 
 Optimizer
@@ -245,7 +265,10 @@ Optimizer
 
 The optimizer defines the optimization algorithm for solving the inverse design problem.
 
-In lumopt2, you can define an optimizer using the built-in :py:class:`~lumopt2.optimizer.scipy_optimizer` class.
+Scipy optimizer
+~~~~~~~~~~~~~~~
+
+In ``lumopt2``, you can define a scipy optimizer using the built-in :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class.
 
 You can use the following code to set up a basic optimizer with default settings.
 
@@ -259,8 +282,24 @@ In addition to the default option, you can choose any optimization algorithm sup
 
 .. tip::
 
-   Some optimizer parameters, such as ``ftol``, ``gtol``, and ``max_fval``, are exposed directly in the :py:class:`~lumopt2.optimizer.scipy_optimizer` class and passed to the underlying optimizer when supported.
+   Some optimizer parameters, such as ``ftol``, ``gtol``, and ``max_fval``, are exposed directly in the :py:class:`~lumopt2.optimizer.scipy_optimizer.ScipyOptimizer` class and passed to the underlying optimizer when supported.
    The ``options`` dictionary enables you to pass any other parameters to the selected optimizer.
+
+Gradient ascent optimizer
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In addition to scipy optimizers, ``lumopt2`` also provides a gradient ascent optimizer with the :py:class:`~lumopt2.optimizer.gradient_ascent.GradientAscentOptimizer` class.
+
+.. code:: python
+
+   optimizer = lmpt.GradientAscentOptimizer(step_size=min_step_size)
+
+This optimizer uses a simple gradient ascent algorithm, but limits the step size to a hard upper bound, such that the most sensitive parameter never moves by more than the ``step_size`` argument on any iteration.
+This is important for shape optimization problems, where the shape gradient could be very large for some edges, causing the vertex to move excessively in a single iteration when using other gradient-based optimizers that do not limit the maximum step size.
+
+.. note::
+
+   Shape optimization currently only supports the :py:class:`~lumopt2.optimizer.gradient_ascent.GradientAscentOptimizer` class.
 
 Callbacks
 ----------
@@ -279,6 +318,21 @@ For further information on configuring callbacks and on when they are triggered,
 
         .. card:: :octicon:`book` User guide - callbacks
             :link: callbacks
+            :link-type: doc
+
+Constraints
+-----------
+
+Constraints are design rules that enforce specific manufacturing requirements during the optimization process.
+
+Further information is in the constraint article.
+
+.. grid:: 1 1 4 4
+
+   .. grid-item::
+
+        .. card:: :octicon:`book` User guide - constraints
+            :link: constraints
             :link-type: doc
 
 Additional configurations
@@ -326,7 +380,9 @@ You can export the optimization results in your preferred method, or recreate an
    Project: parametrization <parametrization>
    Project: figure of merit <figure_of_merit>
    Callbacks <callbacks>
+   Constraints <constraints>
    Running on cluster with Slurm <slurm_optimization>
+   Running on Ansys Cloud Burst Compute™ <burst_optimization>
 
 Diagnostics
 -----------

@@ -18,3 +18,4 @@
 * [Muhammed Adedigba](https://github.com/moe-ad)
 * [Revathy Venugopal](https://github.com/Revathyvenugopal162)
 * [Roberto Pastor Muela](https://github.com/RobPasMue)
+* [Yiwen Fan](https://github.com/yiwenfan-ansys)

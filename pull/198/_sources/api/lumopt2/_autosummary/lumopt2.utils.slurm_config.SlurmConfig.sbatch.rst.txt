@@ -1,0 +1,6 @@
+sbatch
+======
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.sbatch

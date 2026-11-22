@@ -1,0 +1,6 @@
+run\_queue
+==========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. automethod:: SlurmRunner.run_queue

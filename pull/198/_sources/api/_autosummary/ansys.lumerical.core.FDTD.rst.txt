@@ -1,0 +1,42 @@
+﻿FDTD
+====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: FDTD
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      FDTD.close
+      
+      
+      FDTD.eval
+      
+      
+      FDTD.getAllSelectedObjects
+      
+      
+      FDTD.getObjectById
+      
+      
+      FDTD.getObjectBySelection
+      
+      
+      FDTD.getv
+      
+      
+      FDTD.putv
+      
+   
+   
+
+   
+   
+   

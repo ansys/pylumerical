@@ -1,0 +1,6 @@
+﻿give\_func\_check\_errors
+=========================
+
+.. currentmodule:: lumopt2.utils.pure_func_checker
+
+.. autofunction:: give_func_check_errors

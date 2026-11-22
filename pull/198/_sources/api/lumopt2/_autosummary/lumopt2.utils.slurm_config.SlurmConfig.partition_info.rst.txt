@@ -1,0 +1,6 @@
+partition\_info
+===============
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. automethod:: SlurmConfig.partition_info

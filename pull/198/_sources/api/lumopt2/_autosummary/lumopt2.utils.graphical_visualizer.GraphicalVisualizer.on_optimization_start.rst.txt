@@ -1,0 +1,6 @@
+on\_optimization\_start
+=======================
+
+.. currentmodule:: lumopt2.utils.graphical_visualizer
+
+.. automethod:: GraphicalVisualizer.on_optimization_start

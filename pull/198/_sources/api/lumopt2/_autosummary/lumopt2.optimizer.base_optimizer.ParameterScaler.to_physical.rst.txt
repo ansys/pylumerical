@@ -1,0 +1,6 @@
+to\_physical
+============
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. automethod:: ParameterScaler.to_physical

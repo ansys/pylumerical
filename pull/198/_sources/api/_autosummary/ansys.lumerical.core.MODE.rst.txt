@@ -1,0 +1,42 @@
+﻿MODE
+====
+
+.. currentmodule:: ansys.lumerical.core
+
+.. autoclass:: MODE
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      MODE.close
+      
+      
+      MODE.eval
+      
+      
+      MODE.getAllSelectedObjects
+      
+      
+      MODE.getObjectById
+      
+      
+      MODE.getObjectBySelection
+      
+      
+      MODE.getv
+      
+      
+      MODE.putv
+      
+   
+   
+
+   
+   
+   

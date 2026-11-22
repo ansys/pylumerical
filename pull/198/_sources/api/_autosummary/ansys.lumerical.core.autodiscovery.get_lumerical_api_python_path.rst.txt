@@ -1,0 +1,6 @@
+﻿get\_lumerical\_api\_python\_path
+=================================
+
+.. currentmodule:: ansys.lumerical.core.autodiscovery
+
+.. autofunction:: get_lumerical_api_python_path

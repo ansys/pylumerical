@@ -1,0 +1,6 @@
+item\_separator
+===============
+
+.. currentmodule:: lumopt2.utils.custom_serializers
+
+.. autoattribute:: Lumopt2JsonEncoder.item_separator

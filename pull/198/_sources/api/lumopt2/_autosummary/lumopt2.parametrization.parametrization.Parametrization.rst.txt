@@ -1,0 +1,58 @@
+﻿Parametrization
+===============
+
+.. currentmodule:: lumopt2.parametrization.parametrization
+
+.. autoclass:: Parametrization
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      Parametrization.compute_dPgeom
+      
+      
+      Parametrization.compute_gradient_from_fields
+      
+      
+      Parametrization.compute_lumerical_to_permittivity_jacobian
+      
+      
+      Parametrization.compute_opt_params_direct_to_permittivity_jacobian
+      
+      
+      Parametrization.compute_params_to_lumerical_jacobian
+      
+      
+      Parametrization.create_optimization_structures
+      
+      
+      Parametrization.get_bounds
+      
+      
+      Parametrization.get_initial_params
+      
+      
+      Parametrization.store_mesh_info
+      
+      
+      Parametrization.update_structure
+      
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+      :toctree:
+   
+      Parametrization.bounds
+   
+   

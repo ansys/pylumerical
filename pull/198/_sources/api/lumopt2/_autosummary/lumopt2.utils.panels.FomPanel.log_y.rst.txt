@@ -1,0 +1,6 @@
+log\_y
+======
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. autoattribute:: FomPanel.log_y

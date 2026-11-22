@@ -1,0 +1,6 @@
+get\_initial\_params
+====================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.get_initial_params

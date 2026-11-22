@@ -1,0 +1,6 @@
+get\_bounding\_box
+==================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.get_bounding_box

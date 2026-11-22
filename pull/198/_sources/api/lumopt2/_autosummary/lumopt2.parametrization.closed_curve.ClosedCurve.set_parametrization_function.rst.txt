@@ -1,0 +1,6 @@
+set\_parametrization\_function
+==============================
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.set_parametrization_function

@@ -1,0 +1,48 @@
+﻿SlurmConfig
+===========
+
+.. currentmodule:: lumopt2.utils.slurm_config
+
+.. autoclass:: SlurmConfig
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      SlurmConfig.fdtd_memory_estimate
+      
+      
+      SlurmConfig.job_status
+      
+      
+      SlurmConfig.partition_info
+      
+      
+      SlurmConfig.query_job_scontrol
+      
+      
+      SlurmConfig.run_py_script
+      
+      
+      SlurmConfig.run_solve
+      
+      
+      SlurmConfig.sbatch
+      
+      
+      SlurmConfig.suggest_partition
+      
+      
+      SlurmConfig.valid_gpu_targets
+      
+   
+   
+
+   
+   
+   

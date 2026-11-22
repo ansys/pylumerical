@@ -1,0 +1,6 @@
+check\_object\_for\_source
+==========================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.check_object_for_source

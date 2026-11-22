@@ -1,0 +1,6 @@
+delta\_y
+========
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. autoattribute:: ParamVertex.delta_y

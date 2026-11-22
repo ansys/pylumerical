@@ -1,0 +1,6 @@
+﻿get\_used\_modules
+==================
+
+.. currentmodule:: lumopt2.utils.pure_func_checker
+
+.. autofunction:: get_used_modules

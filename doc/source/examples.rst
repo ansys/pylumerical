@@ -84,6 +84,12 @@ These examples demonstrates basic simulation automation using PyLumerical for va
 
       This example demonstrates how to simulate a grating coupler connecting a single-mode fiber on the surface of a photonic chip to an integrated waveguide.
 
+   .. grid-item-card:: Grating Coupler (3) S-Parameter Extraction (FDTD/INTERCONNECT)
+      :link: examples/Multiple_Solver_Workflows/grating_coupler_s_parameter/grating_coupler_s_parameter
+      :link-type: doc
+
+      This example demonstrates how to set up an S-Parameter Matrix Sweep in FDTD for a grating coupler and how to import the results into INTERCONNECT.
+
 Photonic inverse design
 ------------------------
 
@@ -117,6 +123,7 @@ These examples focuses on the use of the ``lumopt2`` module for photonic inverse
    examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE
    examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect
    examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat
+   examples/Multiple_Solver_Workflows/grating_coupler_s_parameter/grating_coupler_s_parameter
    examples/Single_Solver_Workflows/grating_coupler/grating_coupler
 .. toctree::
    :hidden:

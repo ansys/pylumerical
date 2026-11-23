@@ -37,6 +37,14 @@ The parametrization module contains classes and functions that defines how geome
 
         Sparse dEps/dP Jacobian calculator in FDTD.
 
+.. grid:: 2 2 3 3
+
+    .. grid-item-card:: parametrization.d_eps_hermetic
+        :link: d_eps_hermetic
+        :link-type: doc
+
+        Hermetic (picklable) dEps/dP calculation and gradient contraction for Slurm jobs.
+
 .. toctree::
    :hidden:
 
@@ -45,3 +53,4 @@ The parametrization module contains classes and functions that defines how geome
    combined_parametrization
    base_parametrization
    d_eps_calculator
+   d_eps_hermetic

@@ -23,7 +23,7 @@
 
 # ### Import required modules and assign key parameters
 #
-# The grating coupler setup file can be obtained from following [Grating Coupler example](TODO: link)
+# The grating coupler setup file can be obtained from following Grating Coupler example(TODO: link)
 
 # +
 from pathlib import Path

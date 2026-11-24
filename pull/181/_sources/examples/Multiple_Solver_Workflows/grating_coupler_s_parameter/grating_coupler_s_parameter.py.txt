@@ -20,26 +20,25 @@
 # - How to set up S-Parameter Matrix Sweep in FDTD and export S-parameter results
 # - How to set up INTERCONNECT circuit and import S-parameter results
 #
-# ### Prerequisites
+# **Prerequisites**
 #
 # A valid FDTD and INTERCONNECT license are required.
 #
-# ### Import required modules
-
+# ### Import required modules and define key parameters
+#
+# The grating coupler FDTD files can be obtained by following the previous steps in
+# Grating Coupler (TODO:link) and Grating Coupler (2) Optimization (TODO:link).
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 import ansys.lumerical.core as lumapi
 
-#
-# ### Assign key parameters
-
 # +
 show_GUI = True
 use_GPU_solver = True
 
-# The FDTD file can be obtained by following [Grating Coupler (2) Optimization](link).
+# The grating coupler FDTD file path
 load_fdtd_file_path = "your/path/to/grating_coupler_optimized.fsp"
 S_parameter_export_file_path = "your/path/to/S_parameter_export.dat"
 save_itcn_file_path = "your/path/to/grating_coupler_customized.icp"

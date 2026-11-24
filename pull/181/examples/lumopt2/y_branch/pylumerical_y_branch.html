@@ -78,7 +78,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Inverse design of a color router lens using lumopt2" href="../color_router/color_router_pylumerical.html" />
-    <link rel="prev" title="Grating Coupler: S-parameter Extraction" href="../../Multiple_Solver_Workflows/grating_coupler_s_parameter/grating_coupler_s_parameter.html" />
+    <link rel="prev" title="Grating Coupler" href="../../Single_Solver_Workflows/grating_coupler/grating_coupler.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -91,12 +91,6 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
-  
-  
-  
-  
-  
-  
   <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
@@ -529,12 +523,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html">Diffraction Grating (RCWA / FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections.html">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect.html">Simple Ring Resonator (INTERCONNECT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat.html">Thermal Waveguide Tuner (HEAT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Multiple_Solver_Workflows/grating_coupler_s_parameter/grating_coupler_s_parameter.html">Grating Coupler: S-parameter Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/grating_coupler/grating_coupler.html">Grating Coupler</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
 <ul class="current nav bd-sidenav">
@@ -628,7 +624,7 @@
 <ul class="simple">
 <li><p>Valid Lumerical FDTD license with Lumerical 2026 R1.2 release or newer.</p></li>
 </ul>
-<p><img alt="8a5ffa2183e64b738c8a7c06528481c7" class="no-scaled-link" src="../../../_images/cover_image.png" style="width: 50%;" /></p>
+<p><img alt="75e8c8622e194b4084f0eb577b2f60d8" class="no-scaled-link" src="../../../_images/cover_image.png" style="width: 50%;" /></p>
 <section id="Imports">
 <h2>Imports<a class="headerlink" href="#Imports" title="Link to this heading">#</a></h2>
 <div class="nbinput nblast docutils container">
@@ -1096,9 +1092,9 @@
 </div>
 </div>
 <p>The final visualizer is shown below</p>
-<p><img alt="66acbc5e5a024729878f25df6bdae0c9" class="no-scaled-link" src="../../../_images/final_optimization_iteration.png" style="width: 75%;" /></p>
+<p><img alt="4a6d5814fc0946f48d0f3874d91bcab3" class="no-scaled-link" src="../../../_images/final_optimization_iteration.png" style="width: 75%;" /></p>
 <p>The final electric field is shown below</p>
-<p><img alt="84d9125d5f4f4b49b8f4d61914b96181" class="no-scaled-link" src="../../../_images/final_electric_field.png" style="width: 75%;" /></p>
+<p><img alt="229ba4a977c44df69e5a3f83736ec411" class="no-scaled-link" src="../../../_images/final_electric_field.png" style="width: 75%;" /></p>
 </section>
 </section>
 <section id="Save-project">
@@ -1138,7 +1134,7 @@
 </div>
 </div>
 <p>The exported GDSII file is shown below</p>
-<p><img alt="f809972f2bfd4f5280ace8ac3988aaac" class="no-scaled-link" src="../../../_images/final_gds.png" style="width: 75%;" /></p>
+<p><img alt="f72a7f9a954542d0822fadcf01f79f6d" class="no-scaled-link" src="../../../_images/final_gds.png" style="width: 75%;" /></p>
 </section>
 </section>
 

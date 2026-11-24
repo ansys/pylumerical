@@ -77,7 +77,7 @@
     <script src="../../../_static/notebook_download.js?v=b947e8ca"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Inverse design of a Y-branch using lumopt2" href="../../lumopt2/y_branch/pylumerical_y_branch.html" />
+    <link rel="next" title="Grating Coupler" href="../../Single_Solver_Workflows/grating_coupler/grating_coupler.html" />
     <link rel="prev" title="Thermal Waveguide Tuner (HEAT)" href="../../Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat.html" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -91,12 +91,6 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
-  
-  
-  
-  
-  
-  
   <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
@@ -529,12 +523,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html">Diffraction Grating (RCWA / FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../metalens_FDTD_with_projections/metalens_FDTD_with_projections.html">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect.html">Simple Ring Resonator (INTERCONNECT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat.html">Thermal Waveguide Tuner (HEAT)</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Grating Coupler: S-parameter Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Single_Solver_Workflows/grating_coupler/grating_coupler.html">Grating Coupler</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
 <ul class="nav bd-sidenav">
@@ -636,12 +632,11 @@
 <li><p>How to set up S-Parameter Matrix Sweep in FDTD and export S-parameter results</p></li>
 <li><p>How to set up INTERCONNECT circuit and import S-parameter results</p></li>
 </ul>
-<section id="Prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#Prerequisites" title="Link to this heading">#</a></h2>
+<p><strong>Prerequisites</strong></p>
 <p>A valid FDTD and INTERCONNECT license are required.</p>
-</section>
-<section id="Import-required-modules">
-<h2>Import required modules<a class="headerlink" href="#Import-required-modules" title="Link to this heading">#</a></h2>
+<section id="Import-required-modules-and-define-key-parameters">
+<h2>Import required modules and define key parameters<a class="headerlink" href="#Import-required-modules-and-define-key-parameters" title="Link to this heading">#</a></h2>
+<p>The grating coupler FDTD files can be obtained by following the previous steps in Grating Coupler (TODO:link) and Grating Coupler (2) Optimization (TODO:link).</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -659,9 +654,6 @@
 </pre></div>
 </div>
 </div>
-</section>
-<section id="Assign-key-parameters">
-<h2>Assign key parameters<a class="headerlink" href="#Assign-key-parameters" title="Link to this heading">#</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -669,7 +661,7 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 4</span><span class="n">show_GUI</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="linenos"> 5</span><span class="n">use_GPU_solver</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span><span class="c1"># The FDTD file can be obtained by following [Grating Coupler (2) Optimization](link).</span>
+<span class="linenos"> 7</span><span class="c1"># The grating coupler FDTD file path</span>
 <span class="linenos"> 8</span><span class="n">load_fdtd_file_path</span> <span class="o">=</span> <span class="s2">"your/path/to/grating_coupler_optimized.fsp"</span>
 <span class="linenos"> 9</span><span class="n">S_parameter_export_file_path</span> <span class="o">=</span> <span class="s2">"your/path/to/S_parameter_export.dat"</span>
 <span class="linenos">10</span><span class="n">save_itcn_file_path</span> <span class="o">=</span> <span class="s2">"your/path/to/grating_coupler_customized.icp"</span>
@@ -735,7 +727,7 @@
 </div>
 </div>
 <p>If visually check the S-parameter sweep setup in FDTD GUI, you will be able to see</p>
-<p><img alt="435033ebd1864c3f846b876764d6edd6" class="no-scaled-link" src="../../../_images/s_parameter_gui_1.png" style="width: 400px;" /> <img alt="37aa7dbf287a40599ffcb7f2e9d93c50" class="no-scaled-link" src="../../../_images/s_parameter_gui_2.png" style="width: 400px;" /></p>
+<p><img alt="045c0accd3504f1ea926b917a48a2fbd" class="no-scaled-link" src="../../../_images/s_parameter_gui_1.png" style="width: 400px;" /> <img alt="9b44e46806ab4fb68a2de64e49e6bd5a" class="no-scaled-link" src="../../../_images/s_parameter_gui_2.png" style="width: 400px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -786,7 +778,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="182a6beda41b4593b9ea270a28a7cbb5" class="no-scaled-link" src="../../../_images/fdtd_s_parameter.png" style="width: 500px;" /></p>
+<p><img alt="86a83dd6bf6940ae882b44d518f2fb7c" class="no-scaled-link" src="../../../_images/fdtd_s_parameter.png" style="width: 500px;" /></p>
 </section>
 <section id="Set-up-INTERCONNECT-simulation">
 <h2>Set up INTERCONNECT simulation<a class="headerlink" href="#Set-up-INTERCONNECT-simulation" title="Link to this heading">#</a></h2>
@@ -848,7 +840,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="070b152ca8634eb1a3fec94316a8b634" class="no-scaled-link" src="../../../_images/ports.png" style="width: 200px;" /></p>
+<p><img alt="53effc0c8ec74e2997489042dc6d5cdc" class="no-scaled-link" src="../../../_images/ports.png" style="width: 200px;" /></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -916,7 +908,7 @@
 <br/></pre></div>
 </div>
 </div>
-<p><img alt="cbde6cb5106047579902941179d1480a" class="no-scaled-link" src="../../../_images/itcn_te.png" style="width: 500px;" /></p>
+<p><img alt="bd1e988900914b88ac7f48b150669bcc" class="no-scaled-link" src="../../../_images/itcn_te.png" style="width: 500px;" /></p>
 </section>
 </section>
 
@@ -943,9 +935,7 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Prerequisites">Prerequisites</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Import-required-modules">Import required modules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Assign-key-parameters">Assign key parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Import-required-modules-and-define-key-parameters">Import required modules and define key parameters</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-S-Parameter-Matrix-Sweep-inside-Lumerical-FDTD">Set up S-Parameter Matrix Sweep inside Lumerical FDTD</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Set-up-INTERCONNECT-simulation">Set up INTERCONNECT simulation</a></li>
 </ul>

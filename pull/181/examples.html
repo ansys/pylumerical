@@ -88,12 +88,6 @@
   
   <meta property="og:site_name" content="PyAnsys" />
   <meta name="physics" content="Optics" />
-  
-  
-  
-  
-  
-  
   <meta name="robots" content="noindex, follow" />
   </head>
   <body data-default-mode="">
@@ -526,12 +520,14 @@
 <li class="toctree-l1"><a class="reference internal" href="examples/Sessions_and_Objects/basic_session_management/basic_session_management.html">Basic Session Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Sessions_and_Objects/fdtd_example1_lsf/fdtd_example1_lsf.html">Basic FDTD Simulation - Lumerical style commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Sessions_and_Objects/fdtd_example1_pythonic/fdtd_example1_pythonic.html">Basic FDTD Simulation - Python style commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html">Diffraction Grating (RCWA / FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Multiple_Solver_Workflows/metalens_FDTD_with_projections/metalens_FDTD_with_projections.html">Metalens with Far-Field Projections (FDTD/RCWA)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/photonic_crystal_bandstructure/photonic_crystal_bandstructure.html">Photonic Crystal Bandstructure (FDTD)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/waveguide_FDE/waveguide_FDE.html">Simple Waveguide (MODE FDE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect.html">Simple Ring Resonator (INTERCONNECT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/thermal_tuner_heat/thermal_tuner_heat.html">Thermal Waveguide Tuner (HEAT)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/Multiple_Solver_Workflows/grating_coupler_s_parameter/grating_coupler_s_parameter.html">Grating Coupler: S-parameter Extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html">Grating Coupler</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Photonic inverse design</span></p>
 <ul class="nav bd-sidenav">
@@ -681,6 +677,15 @@ crystals using FDTD. Lumerical’s built-in sweep tool is used to calculate the 
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
 <div class="sd-card-body docutils">
 <div class="sd-card-title sd-font-weight-bold docutils">
+Diffraction Grating (RCWA / FDTD)</div>
+<p class="sd-card-text">This example simulates a simple diffraction grating using RCWA, and verifies the results with FDTD simulations.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="examples/Single_Solver_Workflows/diffraction_grating_rcwa/diffraction_grating_rcwa.html"><span class="doc">Diffraction Grating (RCWA / FDTD)</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
 Metalens (RCWA / FDTD)</div>
 <p class="sd-card-text">This example runs RCWA simulations to create a unit cell library and constructs a full metalens in FDTD.
 The full metalens is simulated using symmetric boundary conditions in FDTD. A top-down monitor collects the
@@ -696,6 +701,19 @@ Basic INTERCONNECT simulation - Ring Resonator</div>
 <p class="sd-card-text">This example demonstrates how to set up a basic INTERCONNECT simulation to calculate the transmission spectrum of a ring resonator.</p>
 </div>
 <a class="sd-stretched-link sd-hide-link-text reference internal" href="examples/Single_Solver_Workflows/ring_resonator_interconnect/ring_resonator_interconnect.html"><span class="doc">Simple Ring Resonator (INTERCONNECT)</span></a></div>
+</div>
+</div>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-3 sd-row-cols-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Grating Coupler</div>
+<p class="sd-card-text">This example demonstrates how to simulate a grating coupler connecting a single-mode fiber on the surface of a photonic chip to an integrated waveguide.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="examples/Single_Solver_Workflows/grating_coupler/grating_coupler.html"><span class="doc">Grating Coupler</span></a></div>
 </div>
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">

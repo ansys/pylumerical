@@ -1,0 +1,63 @@
+﻿BaseRunner
+==========
+
+.. currentmodule:: lumopt2.utils.runner
+
+.. autoclass:: BaseRunner
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      BaseRunner.add_job
+      
+      
+      BaseRunner.check_circular_dependencies
+      
+      
+      BaseRunner.clear
+      
+      
+      BaseRunner.clear_jobs
+      
+      
+      BaseRunner.get_job
+      
+      
+      BaseRunner.get_job_dependencies_ids
+      
+      
+      BaseRunner.get_job_result
+      
+      
+      BaseRunner.get_task_type
+      
+      
+      BaseRunner.print_job_statuses
+      
+      
+      BaseRunner.pyfct_to_script
+      
+      
+      BaseRunner.set_done
+      
+      
+      BaseRunner.set_fdtd_session
+      
+      
+      BaseRunner.set_job_result
+      
+      
+      BaseRunner.set_jobid
+      
+   
+   
+
+   
+   
+   

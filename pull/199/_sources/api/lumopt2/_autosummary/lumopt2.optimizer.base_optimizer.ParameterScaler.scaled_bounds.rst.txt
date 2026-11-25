@@ -1,0 +1,6 @@
+scaled\_bounds
+==============
+
+.. currentmodule:: lumopt2.optimizer.base_optimizer
+
+.. autoproperty:: ParameterScaler.scaled_bounds

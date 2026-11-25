@@ -1,0 +1,6 @@
+on\_iteration\_end
+==================
+
+.. currentmodule:: lumopt2.utils.file_logger
+
+.. automethod:: JSONLogger.on_iteration_end

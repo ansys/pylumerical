@@ -1,0 +1,6 @@
+update
+======
+
+.. currentmodule:: lumopt2.utils.panels
+
+.. automethod:: FomPanel.update

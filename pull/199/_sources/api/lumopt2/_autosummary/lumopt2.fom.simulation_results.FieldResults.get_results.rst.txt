@@ -1,0 +1,6 @@
+get\_results
+============
+
+.. currentmodule:: lumopt2.fom.simulation_results
+
+.. automethod:: FieldResults.get_results

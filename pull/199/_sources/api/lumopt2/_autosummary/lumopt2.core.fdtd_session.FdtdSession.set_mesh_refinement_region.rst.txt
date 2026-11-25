@@ -1,0 +1,6 @@
+set\_mesh\_refinement\_region
+=============================
+
+.. currentmodule:: lumopt2.core.fdtd_session
+
+.. automethod:: FdtdSession.set_mesh_refinement_region

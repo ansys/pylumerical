@@ -1,0 +1,6 @@
+split\_segments
+===============
+
+.. currentmodule:: lumopt2.parametrization.closed_curve
+
+.. automethod:: ClosedCurve.split_segments

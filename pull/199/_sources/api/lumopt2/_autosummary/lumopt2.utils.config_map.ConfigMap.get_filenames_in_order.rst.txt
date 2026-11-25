@@ -1,0 +1,6 @@
+get\_filenames\_in\_order
+=========================
+
+.. currentmodule:: lumopt2.utils.config_map
+
+.. automethod:: ConfigMap.get_filenames_in_order

@@ -8,6 +8,12 @@ You must have an account and access to Ansys Cloud Burst Compute™ for ``lumopt
 
 This guide explains how to set up and run ``lumopt2`` optimization using Ansys Cloud Burst Compute™. For detailed information on the Ansys Cloud Burst Compute™ platform and its latest capabilities, see the `Ansys Engineering Portal guide <https://ansyshelp.ansys.com/public/account/secured?returnURL=%2Fpublic%2FViews%2FSecured%2Fansportal%2Fv000%2Fen%2Fansportal_guide%2Findex.html>`__.
 
+.. warning::
+
+    Running on Ansys Cloud Burst Compute™ supports only the following parametrization types:
+
+    - :py:class:`~lumopt2.parametrization.Parametrization`
+    - :py:class:`~lumopt2.parametrization.ClosedCurve`
 
 Setting up your optimization
 ----------------------------
@@ -77,6 +83,10 @@ When you submit an optimization to Ansys Cloud Burst Compute™, an FDTD GUI ope
     :width: 90%
 
 To select a visualizer to display, set the ``emit_base64`` attribute of the :py:class:`~lumopt2.utils.graphical_visualizer.GraphicalVisualizer` to ``True`` when creating it. Only a single visualizer can be emitted as a ``base64`` string for Burst. Multiple visualizers with ``emit_base64=True`` raise an error.
+
+.. warning::
+
+    Visualizers created from custom callback functions aren't supported.
 
 .. code-block:: python
 

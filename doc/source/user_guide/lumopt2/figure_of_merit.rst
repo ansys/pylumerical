@@ -29,20 +29,35 @@ The lumopt2 module supports the following types of monitors, relating to differe
      - :py:class:`~lumopt2.fom.simulation_results.FieldResults`
      - intensity
      - Sum of :math:`|E|^2` over spatial coordinates.
+   * - `Field region <https://optics.ansys.com/hc/en-us/articles/36967414684947-Field-Region-Simulation-object>`__
+     - :py:class:`~lumopt2.fom.simulation_results.FieldResults`
+     - transmission
+     - Signed net power flowing through a 2D planar field region, normalized to source power. Does not account for mode overlap.
    * - `FDTD port object <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__
      - :py:class:`~lumopt2.fom.simulation_results.PortResults`
      - transmission
      - Transmission accounting for mode overlap, same as the ``T_out`` value in the `FDTD port object <https://optics.ansys.com/hc/en-us/articles/360034382554-Ports-FDTD-Simulation-Object>`__.
+   * - `FDTD farfield monitor object <https://optics.ansys.com/hc/en-us/articles/3600134382574-Far-Field-FDTD-Simulation-Object>`__
+     - :py:class:`~lumopt2.fom.simulation_results.FarFieldResults`
+     - intensity
+     - Sum of :math:`|E|^2` over spatial coordinates.
 
-The :py:class:`~lumopt2.fom.simulation_results.FieldResults` class extracts field intensity from a field region monitor.
+The :py:class:`~lumopt2.fom.simulation_results.FieldResults` class extracts results from a field region monitor. It supports two metrics:
+
+- ``intensity``: The sum of :math:`|E|^2` over all spatial points in the field region. This metric is typically used to focus light into a target region.
+- ``transmission``: The net power flowing through the field region, normalized by the source power. This metric requires a 2D monitor. The sign is with positive for power flowing in towards the monitor normal, and negative for power flowing opposite to the monitor normal.
 
 To define a field result object, you need to specify the name of the field region object, the metric to extract, and the wavelength to evaluate the results at.
 
 .. code:: python
 
-   # Create a field result object for a wavelength of 940 nm
+   # Create a field result object for intensity at a wavelength of 940 nm
 
    intensity = lmpt.FieldResults(monitor_name='field_result', metric='intensity', wavelengths = 940e-9)
+
+   # Create a field result object for transmission through a 2D field region at a wavelength of 1550 nm
+
+   transmission = lmpt.FieldResults(monitor_name='field_result', metric='transmission', wavelengths = 1550e-9)
 
 .. warning::
 
@@ -60,6 +75,26 @@ You can also define a port result object for multiple wavelengths, using a list 
 
    wavelengths = np.linspace(1200e-9, 1400e-9, 21)
    port_results = lmpt.PortResults('port_out', metric='transmission', wavelengths=wavelengths)
+
+.. TO-DO: fix farfield monitor link
+
+The :py:class:`~lumopt2.fom.simulation_results.FarFieldResults` class extracts far-field intensity results from a `FDTD farfield monitor object <https://optics.ansys.com/hc/en-us/articles/3600134382574-Far-Field-FDTD-Simulation-Object>`__.
+This class is used in applications where the far-field intensity pattern is of interest, such as a large scale metalens with a focal point far from the lens.
+
+.. warning::
+
+   To use the far-field result, you must run the simulation on GPU.
+
+To define a far field result object, specify the name of the farfield monitor, the metric to extract, and the wavelength to evaluate the result at.
+The collection and projection target settings are all set within the farfield monitor. You can use a rectilinear or unstructured dataset to define the target area from the farfield monitor.
+
+.. code:: python
+
+   farfield_result = lmpt.FarfieldResults(monitor_name='farfield_monitor', metric='intensity', wavelengths=940e-9)
+
+.. warning::
+
+   The farfield result object only accepts a single wavelength. However, you can create a multi-wavelength figure of merit via multiple simulation configurations.
 
 Defining a figure of merit
 --------------------------

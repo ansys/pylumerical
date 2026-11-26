@@ -14,6 +14,13 @@ This allows you to utilize high-performance computing resources for your optimiz
 
 Prior to creating optimization scripts for running on a cluster, ensure that your cluster is configured for Lumerical. For further information, see `Running lumerical on a local on-presmise cluster <https://optics.ansys.com/hc/en-us/articles/4408499754003-Running-Lumerical-on-a-Local-On-premise-Cluster>`_.
 
+.. warning::
+
+    Running using a Slurm cluster supports only the following parametrization types:
+
+    - :py:class:`~lumopt2.parametrization.Parametrization`
+    - :py:class:`~lumopt2.parametrization.ClosedCurve`
+
 Overview
 --------
 

@@ -20,8 +20,15 @@ The optimizer module provides optimization algorithms that drive the inverse des
 
         Optimizer using Scipy algorithms.
 
+    .. grid-item-card:: optimizer.gradient_ascent
+        :link: gradient_ascent
+        :link-type: doc
+
+        Gradient ascent optimizer.
+
 .. toctree::
    :hidden:
 
    base_optimizer
    scipy_optimizer
+   gradient_ascent

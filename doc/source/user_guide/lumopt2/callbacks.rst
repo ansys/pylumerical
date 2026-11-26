@@ -51,6 +51,8 @@ The following panels are available:
 - :py:class:`~lumopt2.utils.panels.gradient.GradientNormPanel`: plots the gradient norm vs. iteration.
 - :py:class:`~lumopt2.utils.panels.geometry.GeometryPanel`: shows the current geometry, only available for closed curve parametrization.
 - :py:class:`~lumopt2.utils.panels.monitor.MonitorPanel`: plots the result of any monitor object.
+- :py:class:`~lumopt2.utils.panels.ShapeGradientPanel`: plots the shape gradient for a shape optimization problem.
+- :py:class:`~lumopt2.utils.panels.ManufacturingMetricsPanel`: shows the manufacturing constraint values and thresholds.
 
 When you do not specify panels, the visualizer automatically plots adds a :py:class:`~lumopt2.utils.panels.fom.FomPanel`, a :py:class:`~lumopt2.utils.panels.gradient.GradientNormPanel`, and a :py:class:`~lumopt2.utils.panels.geometry.GeometryPanel` for closed curve parametrizations.
 

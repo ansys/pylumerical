@@ -3,10 +3,14 @@ Parametrization
 
 Parametrization is the process of linking properties and geometry of the simulation to the optimization.
 
-The lumopt2 module supports parametric optimization in two ways:
+The lumopt2 module supports several types of parametrization:
 
-- **Parametrization object**: maps optimization parameters to arbitrary Lumerical object properties.
-- **Closed curve object**: maps optimization parameters to a special class that defines a closed polygon.
+- **Parametric optimization**: optimizes the design by directly assigning parameters of a device. There are two approaches within this category:
+
+  - **Parametrization object**: maps optimization parameters to arbitrary Lumerical object properties.
+  - **Closed curve object**: maps optimization parameters to a special class that defines a closed polygon.
+
+- **Shape optimization**: optimizes the design by directly working with the geometry of the device.
 
 Regardless of the parametrization type, you must first define the optimization region. Within this region, the parameters are adjusted.
 
@@ -284,6 +288,92 @@ The diagram below shows how the control points maps to each other in terms of mo
    :align: center
    :width: 40%
    :alt: Visualization of the closed curve defined above, which forms an L-bend, with additional control points added for optimization.
+
+Shape optimization
+------------------
+
+Shape optimization in ``lumopt2`` directly optimizes an input layout geometry, rather than relying on a parametric representation of the device.
+This optimization method directly moves vertices of the layout geometry, adhering to set design rules to ensure manufacturability.
+
+There are two ways of setting up shape optimization, depending on the degree of control you want over optimization settings.
+The full setup method provides all the available settings, and a simplified setup function sets up the optimization with many settings set to default values.
+
+Full setup
+~~~~~~~~~~
+
+The full setup procedure uses the :py:class:`~lumopt2.parametrization.layout_shape.LayoutShape` parametrization class.
+
+.. code-block:: python
+
+   shape = lmpt.LayoutShape(
+      layer_name=LAYER_NAME,
+      optimization_region=optimization_region,
+      bounds=(-300e-9, 300e-9),
+      vertex_freedom="cartesian",
+      resample_edge_length=30e-9,  # coarse: suppress sub-grid notches at split tip
+   )
+
+This class defines the layer to optimize, along with how the vertices move including direction via ``vertex_freedom`` and the bounds for this movement. Design rules are included as constraints to the optimization session.
+
+By default, all vertices strictly within the optimization region is movable.
+However, you can further specify which vertices to move via ``movable_region``, which uses a box to define movable vertices, or ``movable_winding`` which allows you to select holes within a structure.
+
+Since shape optimization directly manipulates the vertices, the sampling of the input geometry affects optimization results. Therefore, an option to explicitly apply a target resampling length is available via ``resample_edge_length``.
+Typically, adjusting this value to around a single FDTD mesh spacing helps to avoid small edge artifacts that are hard to manufacture, while maintaining enough freedom for the device to effectively optimize.
+
+To account for symmetrical structures, the :py:class:`~lumopt2.parametrization.layout_shape.LayoutShape` class by default automatically detects `symmetrical boundary conditions <https://optics.ansys.com/hc/en-us/articles/360034382694-Symmetric-and-anti-symmetric-BCs-in-FDTD-and-MODE>`__ set in FDTD, and ensures that both sides of the symmetry plane are updated consistently.
+In the case where you wish to set your own symmetry that is separate from FDTD boundary conditions, you can do so using the ``mirror_plane`` argument.
+
+In the full setup procedure, the parametrization object here is passed into the project in the same way as parametric optimizations. For further information on how to use constraints, see the :doc:`constraints <constraints>` page.
+The constraints are then defined and applied as a part of the optimization session, and the optimization proceeds in the usual manner.
+
+.. note::
+
+   Shape optimization currently only supports the :py:class:`~lumopt2.optimizer.gradient_ascent.GradientAscentOptimizer` optimizer.
+
+Simplified setup
+~~~~~~~~~~~~~~~~~
+
+To set up shape optimization with a simplified procedure, you can use the :py:func:`~lumopt2.shape_optimization.optimize_shape` wrapper function.
+
+Compared to the full setup procedure, this function supports specialized shorthand objects for defining the constraints and figure of merit, and chooses many simulation defaults which should simplify the overall procedure.
+
+For the figure of merit, you can use the simplified class :py:class:`~lumopt2.shape_optimization.Transmission` when using this wrapper function. This class allows you to create a transmission figure of merit by only specifying the port name.
+
+.. code-block:: python
+
+   fom = lmpt.Transmission("port_out")
+
+.. tip::
+
+   If you wish to customize the figure of merit, :py:func:`~lumopt2.shape_optimization.optimize_shape` also accepts a fully defined figure of merit object from :py:func:`~lumopt2.fom.fom.Fom`.
+
+For constraints, use the simplified class :py:class:`~lumopt2.shape_optimization.DesignRules` to specify a set of rules for the optimization.
+
+.. code-block:: python
+
+   rules = lmpt.DesignRules(min_space=100e-9, min_angle=80, angle_limit=85)
+
+.. warning::
+
+   The simplified setup only supports the use of the simplified design rule class. You cannot use a fully defined design rule object such as :py:class:`~lumopt2.constraints.manufacturing.MinDistanceConstraint`.
+
+Finally, you can also directly define the number of iterations for the optimization and the output GDS file within the simplified setup, using the ``max_iterations`` and ``output_gds`` arguments.
+A set of default visualizers are provided, but you can also specify your own using the ``callbacks`` argument.
+The resampling length is also automatically picked to be half of the smallest FDTD mesh spacing, but you can override this by specifying the ``vertex_spacing`` argument.
+
+.. code-block:: python
+
+   result = lmpt.optimize_shape(
+      gds=gds_path,
+      setup=generate_base_sim,
+      layer=layer_name,
+      region=optimization_region,
+      fom=y_branch_fom,
+      rules=rules,
+      output_gds=output_gds,
+      max_iterations=10,
+   )
 
 Combined parametrization
 -------------------------

@@ -18,3 +18,6 @@ Classes
    GeometryPanel
    GradientNormPanel
    MonitorPanel
+   ConstraintViolationPanel
+   ManufacturingMetricsPanel
+   ShapeGradientPanel
